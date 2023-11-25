@@ -7,7 +7,7 @@
 {{-- <link rel="shortcut icon" href="./images/favicon.png" /> --}}
 <!-- Page Title  -->
 <title>
-    {{ $title ?? '<بدون عنوان>' }}
+    {{ "BabyStyle - $title" ?? '<بدون عنوان>' }}
 </title>
 <!-- StyleSheets  -->
 <link rel="stylesheet" href="{{ asset('assets/admin/css/dashlite.rtl.css') }}" />
