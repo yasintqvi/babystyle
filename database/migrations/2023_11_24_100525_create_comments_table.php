@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('description');
             $table->tinyInteger('is_seen')->default(0);
             $table->tinyInteger('is_approved')->default(0);
-            $table->unsignedDecimal(1,1)->nullable();
+            $table->unsignedTinyInteger("rate")->nullable();
             $table->timestamps();
         });
     }
