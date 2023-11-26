@@ -22,41 +22,6 @@
             <!-- .nk-header-news -->
             <div class="nk-header-tools">
                 <ul class="nk-quick-nav">
-                    <li class="dropdown language-dropdown d-none d-sm-block me-n1">
-                        <a href="#" class="dropdown-toggle nk-quick-nav-icon" data-bs-toggle="dropdown">
-                            <div class="quick-icon border border-light">
-                                <img class="icon" src="./images/flags/iran-sq.png" alt="" />
-                            </div>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-s1">
-                            <ul class="language-list">
-                                <li>
-                                    <a href="#" class="language-item">
-                                        <img src="./images/flags/iran.png" alt="" class="language-flag" />
-                                        <span class="language-name">فارسی</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="language-item">
-                                        <img src="./images/flags/english.png" alt="" class="language-flag" />
-                                        <span class="language-name">انگلیسی</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="language-item">
-                                        <img src="./images/flags/germany.png" alt="" class="language-flag" />
-                                        <span class="language-name">آلمانی</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="language-item">
-                                        <img src="./images/flags/french.png" alt="" class="language-flag" />
-                                        <span class="language-name">فرانسوی</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
                     <!-- .dropdown -->
                     <li class="dropdown chats-dropdown hide-mb-xs">
                         <a href="#" class="dropdown-toggle nk-quick-nav-icon" data-bs-toggle="dropdown">
