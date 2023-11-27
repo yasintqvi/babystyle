@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Market\BrandRequest;
+use App\Http\Services\Image\ImageService;
+use App\Models\Market\Brand;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -13,7 +17,8 @@ class BrandController extends Controller
      */
     public function index(): View
     {
-        return view('admin.market.brand.index');
+        $brands = Brand::latest()->paginate(20);
+        return view('admin.market.brand.index' , compact('brands'));
     }
 
     /**
@@ -21,15 +26,24 @@ class BrandController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.market.brand.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BrandRequest $request ,ImageService $imageService): RedirectResponse
     {
-        //
+        $inputs = $request->all();
+
+         // save image
+         if ($request->hasFile('logo')) {
+            $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . "content" . DIRECTORY_SEPARATOR . "brands");
+            $inputs['logo'] = $imageService->save($inputs['logo']);
+        }
+        $brand = Brand::create($inputs);                                                                                                
+        return redirect()->route('admin.market.brands.index')->with('swal-success', 'برند جدید شما با موفقیت ثبت شد');
+
     }
 
     /**

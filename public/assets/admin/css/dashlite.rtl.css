@@ -51114,4 +51114,8 @@ em.icon.ni.ni-comments {
   flex-direction: row-reverse;
 }
 
+.xl-1 {
+  font-size: 12px !important;
+}
+
 /*! END @iO */
