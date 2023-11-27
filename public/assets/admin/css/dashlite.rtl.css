@@ -51118,4 +51118,10 @@ em.icon.ni.ni-comments {
   font-size: 12px !important;
 }
 
+.btn-transparent {
+  background-color: transparent;
+  border-color: transparent;
+  color: inherit;
+}
+
 /*! END @iO */

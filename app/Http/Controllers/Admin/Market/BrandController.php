@@ -34,6 +34,7 @@ class BrandController extends Controller
      */
     public function store(BrandRequest $request ,ImageService $imageService): RedirectResponse
     {
+
         $inputs = $request->all();
 
          // save image
@@ -66,7 +67,7 @@ class BrandController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Brand $brand, ImageService $imageService)
+    public function update(BrandRequest $request, Brand $brand, ImageService $imageService)
     {
         $inputs = $request->all();
             // save image
@@ -79,7 +80,7 @@ class BrandController extends Controller
             }
 
         $brand->update($inputs);
-        return redirect()->route('admin.market.brands.index')->with('swal-success', 'برند جدید شما با موفقیت ثبت شد');
+        return redirect()->route('admin.market.brands.index')->with('swal-success', 'برند جدید شما با موفقیت ویرایش شد');
 
 
     }
