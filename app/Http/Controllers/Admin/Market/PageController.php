@@ -14,6 +14,8 @@ class PageController extends Controller
      */
     public function index()
     {
+        $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 10; 
+
         $pages = Page::latest()->paginate(20);
         return view('admin.market.pages.index' , compact('pages'));
     }
@@ -33,7 +35,7 @@ class PageController extends Controller
     {
         $inputs = $request->all();
         $pages = Page::create($inputs);
-        return redirect()->route('admin.market.pages.index')->with('swal-success', 'صفحه جدید شما با موفقیت ثبت شد');
+        return to_route('admin.market.pages.index')->with('success', "صفحه مورد نظر با موفقیت ایجاد شد.");
 
     }
 
@@ -60,7 +62,8 @@ class PageController extends Controller
     {
         $inputs = $request->all();
         $page->update($inputs);
-        return redirect()->route('admin.market.pages.index')->with('swal-success', 'صفحه جدید شما با موفقیت ویرایش شد');
+        return to_route('admin.market.pages.index')->with('success', "صفحه مورد نظر با موفقیت بروز رسانی شد.");
+
     }
 
     /**

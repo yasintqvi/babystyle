@@ -34,6 +34,35 @@
                                                     placeholder="جستجو بر اساس نام">
                                             </div>
                                         </li>
+                                        <li>
+                                            <div class="drodown">
+                                                <a href="#"
+                                                    class="dropdown-toggle dropdown-indicator btn btn-outline-light btn-white"
+                                                    data-bs-toggle="dropdown">نمایش</a>
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <ul class="link-list-opt no-bdr">
+                                                        <li>
+                                                            <a class="{{ request('paginate') == 10 ? 'active' : ''}}" href="{{ url()->current() }}?paginate=10"><span>10</span></a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="{{ request('paginate') == 25 ? 'active' : ''}}" href="{{ url()->current() }}?paginate=25"><span>25</span></a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="{{ request('paginate') == 50 ? 'active' : ''}}" href="{{ url()->current() }}?paginate=50"><span>50</span></a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="{{ request('paginate') == 100 ? 'active' : ''}}" href="{{ url()->current() }}?paginate=100"><span>100</span></a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="{{ request('paginate') == 250 ? 'active' : ''}}" href="{{ url()->current() }}?paginate=250"><span>250</span></a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="{{ request('paginate') == 500 ? 'active' : ''}}" href="{{ url()->current() }}?paginate=500"><span>500</span></a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
                                         <li class="nk-block-tools-opt">
                                           
                                             <a href="{{ route('admin.market.pages.create') }}" type=""
@@ -58,7 +87,7 @@
                             </div>
                             <div class="nk-tb-col"><span>عنوان صفحه</span></div>
                             <div class="nk-tb-col"><span>وضعیت</span></div>
-                            <div class="nk-tb-col"><span>تنظیمات</span></div>
+                            <div class="nk-tb-col text-end pl-2"><span>تنظیمات</span></div>
 
 
                         </div>
@@ -78,123 +107,60 @@
                                 <div class="nk-tb-col">
                                     <span class="tb-product">
                                         <span
-                                            class="{{ $page->getRawOriginal('is_active') ? 'bg-success' : 'bg-danger' }} badge-dot has-bg  d-sm-inline-flex">{{ $page->is_active }}</span>
+                                            class="{{ $page->getRawOriginal('is_active') ? 'badge bg-success' : 'badge bg-danger' }} badge-dot has-bg  d-sm-inline-flex">{{ $page->is_active }}</span>
                                     </span>
                                 </div>
-
-                                <div class="nk-tb-col nk-tb-col-tools">
-                                    <ul class=" gx-1 my-n1">
-                                        <li class="me-n1">
-                                            <div class="dropdown">
-                                                <a href="#" class="dropdown-toggle btn btn-icon btn-trigger"
-                                                    data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <ul class="link-list-opt no-bdr">
-                                                        <li>
-                                                            <a href="{{ route('admin.market.pages.edit', $page->id) }}"><em
-                                                                    class="icon ni ni-edit"></em><span>ویرایش
-                                                                    برند</span></a>
-                                                        </li>
-                                                        <form action="{{ route('admin.market.pages.destroy', $page->id) }}"
-                                                            method="post">
+                                            <div class="nk-tb-col nk-tb-col-tools ">
+                                                <ul class="nk-tb-actions gx-1">
+            
+                                                    <li class="nk-tb-action">
+                                                        <a href="#" class="btn btn-trigger btn-icon" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title="نمایش داخل سایت">
+                                                            <em class="icon ni ni-eye-fill"></em>
+                                                        </a>
+                                                    </li>
+                                                    <li class="nk-tb-action">
+                                                        <a href="{{ route('admin.market.pages.edit', $page->id) }}"
+                                                            class="btn btn-trigger btn-icon" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title="ویرایش">
+                                                            <em class="icon ni ni-edit-fill"></em>
+                                                        </a>
+                                                    </li>
+                                                    <li class="nk-tb-action">
+                                                        <form action="{{ route('admin.market.pages.destroy' , $page->id)}}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <li>
-                                                                <a>
-                                                                    <em class="icon ni ni-trash">
-                                                                    </em><button type="submit"
-                                                                        class="border-none btn-transparent bg-transparent text-decoration-none  ml-3">حذف
-                                                                        اسلاید</button>
-                                                                </a>
-                                                            </li>
-                                                        </form>
-                                                    </ul>
-                                                </div>
+                                                        <a  class="btn btn-trigger btn-icon" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title="حذف ">
+                                                            <button class="icon ni ni-cross-fill-c btn-transparent"></button>
+                                                        </a>
+                                                    </form>
+                                                    </li>
+                                                </ul>
                                             </div>
-                                        </li>
-                                    </ul>
-                                </div>
                             </div>
                         @endforeach
 
                         <!-- .nk-tb-item -->
 
                     </div>
-                    <!-- .nk-tb-list -->
+                    @empty($pages)
                     <div class="card">
                         <div class="card-inner">
-                            <div class="nk-block-between-md g-3">
-                                <div class="g">
-                                    <ul class="pagination justify-content-center justify-content-md-start">
-                                        <li class="page-item">
-                                            <a class="page-link" href="#"><em
-                                                    class="icon ni ni-chevrons-left"></em></a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item">
-                                            <span class="page-link"><em class="icon ni ni-more-h"></em></span>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">6</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">7</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#"><em
-                                                    class="icon ni ni-chevrons-right"></em></a>
-                                        </li>
-                                    </ul>
-                                    <!-- .pagination -->
-                                </div>
-                                <div class="g">
-                                    <div
-                                        class="pagination-goto d-flex justify-content-center justify-content-md-start gx-3">
-                                        <div>صفحه</div>
-                                        <div>
-                                            <select class="form-select js-select2 select2-hidden-accessible"
-                                                data-search="on" data-dropdown="xs center" data-select2-id="1"
-                                                tabindex="-1" aria-hidden="true">
-                                                <option value="page-1" data-select2-id="3">1</option>
-                                                <option value="page-2">2</option>
-                                                <option value="page-4">4</option>
-                                                <option value="page-5">5</option>
-                                                <option value="page-6">6</option>
-                                                <option value="page-7">7</option>
-                                                <option value="page-8">8</option>
-                                                <option value="page-9">9</option>
-                                                <option value="page-10">10</option>
-                                                <option value="page-11">11</option>
-                                                <option value="page-12">12</option>
-                                                <option value="page-13">13</option>
-                                                <option value="page-14">14</option>
-                                                <option value="page-15">15</option>
-                                                <option value="page-16">16</option>
-                                                <option value="page-17">17</option>
-                                                <option value="page-18">18</option>
-                                                <option value="page-19">19</option>
-                                                <option value="page-20">20</option>
-                                            </select><span class="select2 select2-container select2-container--default"
-                                                dir="rtl" data-select2-id="2" style="width: 81px;"><span
-                                                    class="selection"><span
-                                                        class="select2-selection select2-selection--single"
-                                                        role="combobox" aria-haspopup="true" aria-expanded="false"
-                                                        tabindex="0" aria-disabled="false"
-                                                        aria-labelledby="select2-cstw-container"><span
-                                                            class="select2-selection__rendered"
-                                                            id="select2-cstw-container" role="textbox"
-                                                            aria-readonly="true" title="1">1</span><span
-                                                            class="select2-selection__arrow" role="presentation"><b
-                                                                role="presentation"></b></span></span></span><span
-                                                    class="dropdown-wrapper" aria-hidden="true"></span></span>
-                                        </div>
-                                        <div>از 102</div>
-                                    </div>
-                                </div>
-                                <!-- .pagination-goto -->
-                            </div>
-                            <!-- .nk-block-between -->
+                            <small>
+                                هیچ دسته ای وجود ندارد.
+                            </small>
                         </div>
                     </div>
+                @endempty
+
+                {{ $pages->appends($_GET)->render() }}
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    @include('admin.alerts.toastr.success')
 @endsection

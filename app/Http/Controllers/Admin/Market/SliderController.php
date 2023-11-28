@@ -15,7 +15,10 @@ class SliderController extends Controller
      */
     public function index()
     {
-        $sliders = Slider::latest()->paginate(20);
+        $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 10;
+
+        $sliders = Slider::latest()->paginate($perPageItems);
+
         return view('admin.market.slider.index' , compact('sliders'));
     }
 
@@ -39,7 +42,7 @@ class SliderController extends Controller
             $inputs['image'] = $imageService->save($inputs['image']);
         }
         $slider = Slider::create($inputs);                                                                                                
-        return redirect()->route('admin.market.sliders.index')->with('alert-section-success', 'اسلایدر جدید شما با موفقیت ثبت شد');
+        return to_route('admin.market.sliders.index')->with('success', "اسلایدر مورد نظر با موفقیت ایجاد شد.");
 
     }   
 
@@ -75,7 +78,7 @@ class SliderController extends Controller
             }
 
         $slider->update($inputs);
-        return redirect()->route('admin.market.sliders.index')->with('swal-success', 'اسلایدر جدید شما با موفقیت ویرایش شد');
+        return to_route('admin.market.sliders.index')->with('success', "اسلایدر مورد نظر با موفقیت بروز رسانی شد.");
 
     }
 
