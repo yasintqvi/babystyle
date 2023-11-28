@@ -34,6 +34,7 @@ class BrandController extends Controller
      */
     public function store(BrandRequest $request ,ImageService $imageService): RedirectResponse
     {
+
         $inputs = $request->all();
 
          // save image
@@ -57,17 +58,31 @@ class BrandController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Brand $brand)
     {
-        //
+        return view('admin.market.brand.edit' , compact('brand'));
+        
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(BrandRequest $request, Brand $brand, ImageService $imageService)
     {
-        //
+        $inputs = $request->all();
+            // save image
+            if ($request->hasFile('logo')) {
+                if (!empty($brand->logo))
+                    $imageService->deleteImage($brand->logo);
+
+                $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . "content" . DIRECTORY_SEPARATOR . "brands");
+                $inputs['logo'] = $imageService->save($inputs['logo']);
+            }
+
+        $brand->update($inputs);
+        return redirect()->route('admin.market.brands.index')->with('swal-success', 'برند جدید شما با موفقیت ویرایش شد');
+
+
     }
 
     /**
