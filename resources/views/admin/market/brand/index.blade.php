@@ -32,11 +32,9 @@
                                             </div>
                                         </li>
                                         <li class="nk-block-tools-opt">
-                                            <a href="#" 
-                                                class="toggle btn btn-icon btn-primary d-md-none"><em
-                                                    class="icon ni ni-plus"></em></a>
+                                            
                                             <a href="{{ route('admin.market.brands.create') }}" type=""
-                                                class="btn btn-primary d-none d-md-inline-flex"><em
+                                                class="btn btn-primary d-md-inline-flex"><em
                                                     class="icon ni ni-plus"></em><span>افزودن برند</span></a>
                                         </li>
                                     </ul>
@@ -58,7 +56,7 @@
                             <div class="nk-tb-col nk-tb-col-check">
                                 
                             </div>
-                            <div class="nk-tb-col tb-col-sm"><span>نام فارسی برند</span></div>
+                            <div class="nk-tb-col "><span>نام فارسی برند</span></div>
                             <div class="nk-tb-col"><span>نام اصلی برند</span></div>
                             <div class="nk-tb-col"><span>تنظیمات</span></div>
 
@@ -72,13 +70,13 @@
                                         {{ $loop->iteration }}
                                     </div>
                                 </div>
-                                <div class="nk-tb-col tb-col-sm">
+                                <div class="nk-tb-col">
                                     <span class="tb-product">
                                         <img src="{{ asset($brand->logo) }}" alt="" class="thumb">
                                         <span class="title">{{ $brand->persian_name }}</span>
                                     </span>
                                 </div>
-                                <div class="nk-tb-col tb-col-sm">
+                                <div class="nk-tb-col">
                                     <span class="tb-product">
                                         <span class="title">{{ $brand->original_name }}</span>
                                     </span>

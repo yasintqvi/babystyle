@@ -14,24 +14,8 @@
                     <h3 class="nk-block-title page-title">ایجاد اسلایدر </h3>
                 </div>
                 <!-- .nk-block-head-content -->
-                <div class="nk-block-head-content">
-                    <div class="toggle-wrap nk-block-tools-toggle">
-                        <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1"
-                            data-target="pageMenu"><em class="icon ni ni-more-v"></em></a>
-                        <div class="toggle-expand-content" data-content="pageMenu">
-                            <ul class="nk-block-tools g-3">
-                                <li class="nk-block-tools-opt">
-                                    <a href="#" 
-                                        class="toggle btn btn-icon btn-primary d-md-none"><em
-                                            class="icon ni ni-plus"></em></a>
-                                    <a href="{{ route('admin.market.sliders.index') }}" type=""
-                                        class="btn btn-success d-none d-md-inline-flex"><em
-                                            ></em><span>بازگشت</span></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <a href="{{ route('admin.market.sliders.index') }}" class="btn btn-success">بازگشت</a>
+
                 <!-- .nk-block-head-content -->
             </div>
 

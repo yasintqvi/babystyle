@@ -1,15 +1,14 @@
-@extends('admin.layouts.app', ['title' => 'اسلایدر'])
+@extends('admin.layouts.app', ['title' => 'صفحه ها'])
 
 @section('content')
-
     <nav>
         <ul class="breadcrumb breadcrumb-arrow">
             <li class="breadcrumb-item"><a href="#">صفحه اصلی</a></li>
-            <li class="breadcrumb-item active ">اسلایدر </li>
+            <li class="breadcrumb-item active ">صفحه </li>
         </ul>
     </nav>
 
-   
+
 
     <div class="container-fluid">
         <div class="nk-content-inner">
@@ -17,7 +16,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title mt-2">اسلایدر</h3>
+                            <h3 class="nk-block-title page-title mt-2">صفحه</h3>
                         </div>
                         <!-- .nk-block-head-content -->
                         <div class="nk-block-head-content">
@@ -36,11 +35,12 @@
                                             </div>
                                         </li>
                                         <li class="nk-block-tools-opt">
-                                    
-                                            <a href="{{ route('admin.market.sliders.create') }}" type=""
+                                          
+                                            <a href="{{ route('admin.market.pages.create') }}" type=""
                                                 class="btn btn-primary d-md-inline-flex"><em
-                                                    class="icon ni ni-plus"></em><span>افزودن اسلایدر</span></a>
+                                                    class="icon ni ni-plus"></em><span>افزودن صفحه</span></a>
                                         </li>
+                                        
                                     </ul>
                                 </div>
                             </div>
@@ -56,14 +56,14 @@
                             <div class="nk-tb-col nk-tb-col-check">
 
                             </div>
-                            <div class="nk-tb-col "><span>alt نصویر</span></div>
+                            <div class="nk-tb-col"><span>عنوان صفحه</span></div>
                             <div class="nk-tb-col"><span>وضعیت</span></div>
                             <div class="nk-tb-col"><span>تنظیمات</span></div>
 
 
                         </div>
                         <!-- .nk-tb-item -->
-                        @foreach ($sliders as $slider)
+                        @foreach ($pages as $page)
                             <div class="nk-tb-item">
                                 <div class="nk-tb-col nk-tb-col-check">
                                     <div class="custom-control custom-control-sm custom-checkbox notext">
@@ -72,13 +72,13 @@
                                 </div>
                                 <div class="nk-tb-col">
                                     <span class="tb-product">
-                                        <img src="{{ asset($slider->image) }}" alt="" class="thumb">
-                                        <span class="title">{{ $slider->alt }}</span>
+                                        <span class="title">{{ $page->title }}</span>
                                     </span>
                                 </div>
                                 <div class="nk-tb-col">
                                     <span class="tb-product">
-                                            <span class="{{ $slider->getRawOriginal('is_active') ? "bg-success" : "bg-danger" }} badge-dot has-bg d-sm-inline-flex">{{ $slider->is_active }}</span>
+                                        <span
+                                            class="{{ $page->getRawOriginal('is_active') ? 'bg-success' : 'bg-danger' }} badge-dot has-bg  d-sm-inline-flex">{{ $page->is_active }}</span>
                                     </span>
                                 </div>
 
@@ -91,18 +91,20 @@
                                                 <div class="dropdown-menu dropdown-menu-end">
                                                     <ul class="link-list-opt no-bdr">
                                                         <li>
-                                                            <a href="{{ route('admin.market.sliders.edit', $slider->id) }}"><em
+                                                            <a href="{{ route('admin.market.pages.edit', $page->id) }}"><em
                                                                     class="icon ni ni-edit"></em><span>ویرایش
-                                                                    اسلاید</span></a>
+                                                                    برند</span></a>
                                                         </li>
-                                                        <form action="{{ route('admin.market.sliders.destroy' , $slider->id)}}" method="post">
+                                                        <form action="{{ route('admin.market.pages.destroy', $page->id) }}"
+                                                            method="post">
                                                             @csrf
                                                             @method('DELETE')
                                                             <li>
                                                                 <a>
-                                                                    <em
-                                                                        class="icon ni ni-trash">
-                                                                    </em><button type="submit" class="border-none btn-transparent bg-transparent text-decoration-none  ml-3">حذف اسلاید</button>
+                                                                    <em class="icon ni ni-trash">
+                                                                    </em><button type="submit"
+                                                                        class="border-none btn-transparent bg-transparent text-decoration-none  ml-3">حذف
+                                                                        اسلاید</button>
                                                                 </a>
                                                             </li>
                                                         </form>
