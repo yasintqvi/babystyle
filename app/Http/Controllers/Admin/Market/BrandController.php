@@ -17,8 +17,11 @@ class BrandController extends Controller
      */
     public function index(): View
     {
-        $brands = Brand::latest()->paginate(20);
-        return view('admin.market.brand.index' , compact('brands'));
+        $perPageItems = (int) request('paginate') !== 0 ? (int) request('paginate') : 10;
+
+        $brands = Brand::latest()->paginate($perPageItems);
+
+        return view('admin.market.brand.index', compact('brands'));
     }
 
     /**
@@ -32,17 +35,17 @@ class BrandController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(BrandRequest $request ,ImageService $imageService): RedirectResponse
+    public function store(BrandRequest $request, ImageService $imageService): RedirectResponse
     {
 
         $inputs = $request->all();
 
-         // save image
-         if ($request->hasFile('logo')) {
+        // save image
+        if ($request->hasFile('logo')) {
             $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . "content" . DIRECTORY_SEPARATOR . "brands");
             $inputs['logo'] = $imageService->save($inputs['logo']);
         }
-        $brand = Brand::create($inputs);                                                                                                
+        $brand = Brand::create($inputs);
         return redirect()->route('admin.market.brands.index')->with('swal-success', 'برند جدید شما با موفقیت ثبت شد');
 
     }
@@ -60,8 +63,8 @@ class BrandController extends Controller
      */
     public function edit(Brand $brand)
     {
-        return view('admin.market.brand.edit' , compact('brand'));
-        
+        return view('admin.market.brand.edit', compact('brand'));
+
     }
 
     /**
@@ -70,14 +73,14 @@ class BrandController extends Controller
     public function update(BrandRequest $request, Brand $brand, ImageService $imageService)
     {
         $inputs = $request->all();
-            // save image
-            if ($request->hasFile('logo')) {
-                if (!empty($brand->logo))
-                    $imageService->deleteImage($brand->logo);
+        // save image
+        if ($request->hasFile('logo')) {
+            if (!empty($brand->logo))
+                $imageService->deleteImage($brand->logo);
 
-                $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . "content" . DIRECTORY_SEPARATOR . "brands");
-                $inputs['logo'] = $imageService->save($inputs['logo']);
-            }
+            $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . "content" . DIRECTORY_SEPARATOR . "brands");
+            $inputs['logo'] = $imageService->save($inputs['logo']);
+        }
 
         $brand->update($inputs);
         return redirect()->route('admin.market.brands.index')->with('swal-success', 'برند جدید شما با موفقیت ویرایش شد');

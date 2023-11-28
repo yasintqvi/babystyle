@@ -32,16 +32,22 @@
                                             <div class="dropdown-menu dropdown-menu-end">
                                                 <ul class="link-list-opt no-bdr">
                                                     <li>
-                                                        <a class="{{ request('paginate') == 50 ? 'active' : ''}}" href="{{ route('admin.market.categories.index') }}?paginate=50"><span>50</span></a>
+                                                        <a class="{{ request('paginate') == 10 ? 'active' : ''}}" href="{{ url()->current() }}?paginate=10"><span>10</span></a>
                                                     </li>
                                                     <li>
-                                                        <a class="{{ request('paginate') == 100 ? 'active' : ''}}" href="{{ route('admin.market.categories.index') }}?paginate=100"><span>100</span></a>
+                                                        <a class="{{ request('paginate') == 25 ? 'active' : ''}}" href="{{ url()->current() }}?paginate=25"><span>25</span></a>
                                                     </li>
                                                     <li>
-                                                        <a class="{{ request('paginate') == 250 ? 'active' : ''}}" href="{{ route('admin.market.categories.index') }}?paginate=250"><span>250</span></a>
+                                                        <a class="{{ request('paginate') == 50 ? 'active' : ''}}" href="{{ url()->current() }}?paginate=50"><span>50</span></a>
                                                     </li>
                                                     <li>
-                                                        <a class="{{ request('paginate') == 500 ? 'active' : ''}}" href="{{ route('admin.market.categories.index') }}?paginate=500"><span>500</span></a>
+                                                        <a class="{{ request('paginate') == 100 ? 'active' : ''}}" href="{{ url()->current() }}?paginate=100"><span>100</span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="{{ request('paginate') == 250 ? 'active' : ''}}" href="{{ url()->current() }}?paginate=250"><span>250</span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="{{ request('paginate') == 500 ? 'active' : ''}}" href="{{ url()->current() }}?paginate=500"><span>500</span></a>
                                                     </li>
                                                 </ul>
                                             </div>

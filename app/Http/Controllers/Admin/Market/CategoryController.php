@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index():View
     {
-        $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 3; 
+        $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 10; 
 
         $categories = Category::latest()->paginate($perPageItems);
         return view('admin.market.category.index', compact('categories'));

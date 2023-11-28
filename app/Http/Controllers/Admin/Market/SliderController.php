@@ -15,7 +15,10 @@ class SliderController extends Controller
      */
     public function index()
     {
-        $sliders = Slider::latest()->paginate(20);
+        $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 10;
+
+        $sliders = Slider::latest()->paginate($perPageItems);
+
         return view('admin.market.slider.index' , compact('sliders'));
     }
 

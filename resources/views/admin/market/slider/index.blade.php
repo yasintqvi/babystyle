@@ -1,7 +1,6 @@
 @extends('admin.layouts.app', ['title' => 'اسلایدر'])
 
 @section('content')
-
     <nav>
         <ul class="breadcrumb breadcrumb-arrow">
             <li class="breadcrumb-item"><a href="#">صفحه اصلی</a></li>
@@ -9,7 +8,7 @@
         </ul>
     </nav>
 
-   
+
 
     <div class="container-fluid">
         <div class="nk-content-inner">
@@ -33,6 +32,41 @@
                                                 </div>
                                                 <input type="text" class="form-control" id="default-04"
                                                     placeholder="جستجو بر اساس نام">
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="drodown">
+                                                <a href="#"
+                                                    class="dropdown-toggle dropdown-indicator btn btn-outline-light btn-white"
+                                                    data-bs-toggle="dropdown">نمایش</a>
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <ul class="link-list-opt no-bdr">
+                                                        <li>
+                                                            <a class="{{ request('paginate') == 10 ? 'active' : '' }}"
+                                                                href="{{ url()->current() }}?paginate=10"><span>10</span></a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="{{ request('paginate') == 25 ? 'active' : '' }}"
+                                                                href="{{ url()->current() }}?paginate=25"><span>25</span></a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="{{ request('paginate') == 50 ? 'active' : '' }}"
+                                                                href="{{ url()->current() }}?paginate=50"><span>50</span></a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="{{ request('paginate') == 100 ? 'active' : '' }}"
+                                                                href="{{ url()->current() }}?paginate=100"><span>100</span></a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="{{ request('paginate') == 250 ? 'active' : '' }}"
+                                                                href="{{ url()->current() }}?paginate=250"><span>250</span></a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="{{ request('paginate') == 500 ? 'active' : '' }}"
+                                                                href="{{ url()->current() }}?paginate=500"><span>500</span></a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </li>
                                         <li class="nk-block-tools-opt">
@@ -79,7 +113,8 @@
                                 </div>
                                 <div class="nk-tb-col tb-col-sm">
                                     <span class="tb-product">
-                                            <span class="{{ $slider->getRawOriginal('is_active') ? "bg-success" : "bg-danger" }} badge-dot has-bg  d-none d-sm-inline-flex">{{ $slider->is_active }}</span>
+                                        <span
+                                            class="{{ $slider->getRawOriginal('is_active') ? 'bg-success' : 'bg-danger' }} badge-dot has-bg  d-none d-sm-inline-flex">{{ $slider->is_active }}</span>
                                         <span class="title"></span>
                                     </span>
                                 </div>
@@ -93,18 +128,22 @@
                                                 <div class="dropdown-menu dropdown-menu-end">
                                                     <ul class="link-list-opt no-bdr">
                                                         <li>
-                                                            <a href="{{ route('admin.market.sliders.edit', $slider->id) }}"><em
+                                                            <a
+                                                                href="{{ route('admin.market.sliders.edit', $slider->id) }}"><em
                                                                     class="icon ni ni-edit"></em><span>ویرایش
                                                                     برند</span></a>
                                                         </li>
-                                                        <form action="{{ route('admin.market.sliders.destroy' , $slider->id)}}" method="post">
+                                                        <form
+                                                            action="{{ route('admin.market.sliders.destroy', $slider->id) }}"
+                                                            method="post">
                                                             @csrf
                                                             @method('DELETE')
                                                             <li>
                                                                 <a>
-                                                                    <em
-                                                                        class="icon ni ni-trash">
-                                                                    </em><button type="submit" class="border-none btn-transparent bg-transparent text-decoration-none  ml-3">حذف اسلاید</button>
+                                                                    <em class="icon ni ni-trash">
+                                                                    </em><button type="submit"
+                                                                        class="border-none btn-transparent bg-transparent text-decoration-none  ml-3">حذف
+                                                                        اسلاید</button>
                                                                 </a>
                                                             </li>
                                                         </form>
@@ -120,79 +159,18 @@
                         <!-- .nk-tb-item -->
 
                     </div>
-                    <!-- .nk-tb-list -->
-                    <div class="card">
-                        <div class="card-inner">
-                            <div class="nk-block-between-md g-3">
-                                <div class="g">
-                                    <ul class="pagination justify-content-center justify-content-md-start">
-                                        <li class="page-item">
-                                            <a class="page-link" href="#"><em
-                                                    class="icon ni ni-chevrons-left"></em></a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item">
-                                            <span class="page-link"><em class="icon ni ni-more-h"></em></span>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">6</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">7</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#"><em
-                                                    class="icon ni ni-chevrons-right"></em></a>
-                                        </li>
-                                    </ul>
-                                    <!-- .pagination -->
-                                </div>
-                                <div class="g">
-                                    <div
-                                        class="pagination-goto d-flex justify-content-center justify-content-md-start gx-3">
-                                        <div>صفحه</div>
-                                        <div>
-                                            <select class="form-select js-select2 select2-hidden-accessible"
-                                                data-search="on" data-dropdown="xs center" data-select2-id="1"
-                                                tabindex="-1" aria-hidden="true">
-                                                <option value="page-1" data-select2-id="3">1</option>
-                                                <option value="page-2">2</option>
-                                                <option value="page-4">4</option>
-                                                <option value="page-5">5</option>
-                                                <option value="page-6">6</option>
-                                                <option value="page-7">7</option>
-                                                <option value="page-8">8</option>
-                                                <option value="page-9">9</option>
-                                                <option value="page-10">10</option>
-                                                <option value="page-11">11</option>
-                                                <option value="page-12">12</option>
-                                                <option value="page-13">13</option>
-                                                <option value="page-14">14</option>
-                                                <option value="page-15">15</option>
-                                                <option value="page-16">16</option>
-                                                <option value="page-17">17</option>
-                                                <option value="page-18">18</option>
-                                                <option value="page-19">19</option>
-                                                <option value="page-20">20</option>
-                                            </select><span class="select2 select2-container select2-container--default"
-                                                dir="rtl" data-select2-id="2" style="width: 81px;"><span
-                                                    class="selection"><span
-                                                        class="select2-selection select2-selection--single"
-                                                        role="combobox" aria-haspopup="true" aria-expanded="false"
-                                                        tabindex="0" aria-disabled="false"
-                                                        aria-labelledby="select2-cstw-container"><span
-                                                            class="select2-selection__rendered"
-                                                            id="select2-cstw-container" role="textbox"
-                                                            aria-readonly="true" title="1">1</span><span
-                                                            class="select2-selection__arrow" role="presentation"><b
-                                                                role="presentation"></b></span></span></span><span
-                                                    class="dropdown-wrapper" aria-hidden="true"></span></span>
-                                        </div>
-                                        <div>از 102</div>
-                                    </div>
-                                </div>
-                                <!-- .pagination-goto -->
+
+                    @empty($sliders)
+                        <div class="card">
+                            <div class="card-inner">
+                                <small>
+                                    هیچ دسته ای وجود ندارد.
+                                </small>
                             </div>
-                            <!-- .nk-block-between -->
                         </div>
-                    </div>
+                    @endempty
+
+                    {{ $sliders->appends($_GET)->render() }}
                 </div>
             </div>
         </div>
