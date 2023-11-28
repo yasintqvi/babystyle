@@ -14,6 +14,11 @@ class PageController extends Controller
      */
     public function index()
     {
+        $pages = Page::query();
+
+        if ($searchString = request('search'))
+        $pages->where('title', "LIKE" , "%{$searchString}%");
+
         $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 10; 
 
         $pages = Page::latest()->paginate(20);
@@ -63,7 +68,6 @@ class PageController extends Controller
         $inputs = $request->all();
         $page->update($inputs);
         return to_route('admin.market.pages.index')->with('success', "صفحه مورد نظر با موفقیت بروز رسانی شد.");
-
     }
 
     /**

@@ -1,10 +1,10 @@
-@extends('admin.layouts.app', ['title' => 'صفحه ها'])
+@extends('admin.layouts.app', ['title' => 'سوالات متداول'])
 
 @section('content')
     <nav>
         <ul class="breadcrumb breadcrumb-arrow">
             <li class="breadcrumb-item"><a href="#">صفحه اصلی</a></li>
-            <li class="breadcrumb-item active ">صفحه </li>
+            <li class="breadcrumb-item active ">سوالات متداول </li>
         </ul>
     </nav>
 
@@ -16,7 +16,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title mt-2">صفحه</h3>
+                            <h3 class="nk-block-title page-title mt-2">سوالات متداول</h3>
                         </div>
                         <!-- .nk-block-head-content -->
                         <div class="nk-block-head-content">
@@ -67,9 +67,9 @@
                                         </li>
                                         <li class="nk-block-tools-opt">
                                           
-                                            <a href="{{ route('admin.market.pages.create') }}" type=""
+                                            <a href="{{ route('admin.market.faqs.create') }}" type=""
                                                 class="btn btn-primary d-md-inline-flex"><em
-                                                    class="icon ni ni-plus"></em><span>افزودن صفحه</span></a>
+                                                    class="icon ni ni-plus"></em><span>افزودن سوالات متداول</span></a>
                                         </li>
                                         
                                     </ul>
@@ -87,14 +87,14 @@
                             <div class="nk-tb-col nk-tb-col-check">
 
                             </div>
-                            <div class="nk-tb-col"><span>عنوان صفحه</span></div>
+                            <div class="nk-tb-col"><span>عنوان سوال</span></div>
                             <div class="nk-tb-col"><span>وضعیت</span></div>
                             <div class="nk-tb-col text-end pl-2"><span>تنظیمات</span></div>
 
 
                         </div>
                         <!-- .nk-tb-item -->
-                        @foreach ($pages as $page)
+                        @foreach ($faqs as $faq)
                             <div class="nk-tb-item">
                                 <div class="nk-tb-col nk-tb-col-check">
                                     <div class="custom-control custom-control-sm custom-checkbox notext">
@@ -103,13 +103,13 @@
                                 </div>
                                 <div class="nk-tb-col">
                                     <span class="tb-product">
-                                        <span class="title">{{ $page->title }}</span>
+                                        <span class="title">{{ $faq->question }}</span>
                                     </span>
                                 </div>
                                 <div class="nk-tb-col">
                                     <span class="tb-product">
                                         <span
-                                            class="{{ $page->getRawOriginal('is_active') ? 'badge bg-success' : 'badge bg-danger' }} badge-dot has-bg  d-sm-inline-flex">{{ $page->is_active }}</span>
+                                            class="{{ $faq->getRawOriginal('is_active') ? 'badge bg-success' : 'badge bg-danger' }} badge-dot has-bg  d-sm-inline-flex">{{ $faq->is_active }}</span>
                                     </span>
                                 </div>
                                             <div class="nk-tb-col nk-tb-col-tools ">
@@ -122,14 +122,14 @@
                                                         </a>
                                                     </li>
                                                     <li class="nk-tb-action">
-                                                        <a href="{{ route('admin.market.pages.edit', $page->id) }}"
+                                                        <a href="{{ route('admin.market.faqs.edit', $faq->id) }}"
                                                             class="btn btn-trigger btn-icon" data-bs-toggle="tooltip"
                                                             data-bs-placement="top" title="ویرایش">
                                                             <em class="icon ni ni-edit-fill"></em>
                                                         </a>
                                                     </li>
                                                     <li class="nk-tb-action">
-                                                        <form action="{{ route('admin.market.pages.destroy' , $page->id)}}" method="POST">
+                                                        <form action="{{ route('admin.market.faqs.destroy' , $faq->id)}}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                         <a  class="btn btn-trigger btn-icon" data-bs-toggle="tooltip"
@@ -146,17 +146,17 @@
                         <!-- .nk-tb-item -->
 
                     </div>
-                    @empty($pages)
+                    @empty($faqs)
                     <div class="card">
                         <div class="card-inner">
                             <small>
-                                هیچ صفحه ای وجود ندارد.
+                                هیچ سوالی وجود ندارد.
                             </small>
                         </div>
                     </div>
                 @endempty
 
-                {{ $pages->appends($_GET)->render() }}
+                {{ $faqs->appends($_GET)->render() }}
                 </div>
             </div>
         </div>
