@@ -61,6 +61,13 @@
                             <span class="nk-menu-text">برندها</span>
                         </a>
                     </li>
+                    <li class="nk-menu-item">
+                        <a href="{{ route('admin.market.categories.index')}}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-list-thumb-alt"></em></span>
+                            
+                            <span class="nk-menu-text">دسته بندی ها</span>
+                        </a>
+                    </li>
                 </ul>
                 <!-- .nk-menu -->
             </div>

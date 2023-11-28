@@ -112,12 +112,18 @@
                             </div>
                             <div class="nk-tb-col tb-col-sm">
                                 <span class="tb-product">
-                                    <img src="./images/product/a.png" alt="{{ $category->image }}" class="thumb" />
-                                    <span class="title">{{ $category->name }}</span>
+                                    <span class="title">{{ $category->title }}</span>
                                 </span>
                             </div>
                             <div class="nk-tb-col nk-tb-col-tools">
                                 <ul class="nk-tb-actions gx-1">
+                                    <li class="nk-tb-action">
+                                        @if ($category->is_active)
+                                        <span class="badge bg-success">فعال</span>
+                                        @else 
+                                        <span class="badge bg-danger">غیر فعال</span>
+                                        @endif
+                                    </li>
                                     <li class="nk-tb-action">
                                         <a href="#" class="btn btn-trigger btn-icon" data-bs-toggle="tooltip"
                                             data-bs-placement="top" title="نمایش داخل سایت">
@@ -125,7 +131,7 @@
                                         </a>
                                     </li>
                                     <li class="nk-tb-action">
-                                        <a href="#" class="btn btn-trigger btn-icon" data-bs-toggle="tooltip"
+                                        <a href="{{ route('admin.market.categories.edit', $category->id) }}" class="btn btn-trigger btn-icon" data-bs-toggle="tooltip"
                                             data-bs-placement="top" title="ویرایش">
                                             <em class="icon ni ni-edit-fill"></em>
                                         </a>
@@ -141,6 +147,7 @@
                         </div>
                     @endforeach
             </div>
+            @empty($categories)
             <div class="card">
                 <div class="card-inner">
                     <small>
@@ -148,6 +155,7 @@
                     </small>    
                 </div>
             </div>
+            @endempty
             <!-- .nk-tb-list -->
             <div class="card">
                 <div class="card-inner">
@@ -210,4 +218,9 @@
         </div>
     </div>
 </div>
+
+@endsection
+
+@section('script')
+    @include('admin.alerts.toastr.success')
 @endsection
