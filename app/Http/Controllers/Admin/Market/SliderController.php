@@ -42,7 +42,7 @@ class SliderController extends Controller
             $inputs['image'] = $imageService->save($inputs['image']);
         }
         $slider = Slider::create($inputs);                                                                                                
-        return redirect()->route('admin.market.sliders.index')->with('alert-section-success', 'اسلایدر جدید شما با موفقیت ثبت شد');
+        return to_route('admin.market.sliders.index')->with('success', "اسلایدر مورد نظر با موفقیت ایجاد شد.");
 
     }   
 
@@ -78,7 +78,7 @@ class SliderController extends Controller
             }
 
         $slider->update($inputs);
-        return redirect()->route('admin.market.sliders.index')->with('swal-success', 'اسلایدر جدید شما با موفقیت ویرایش شد');
+        return to_route('admin.market.sliders.index')->with('success', "اسلایدر مورد نظر با موفقیت بروز رسانی شد.");
 
     }
 

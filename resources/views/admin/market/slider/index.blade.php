@@ -70,10 +70,9 @@
                                             </div>
                                         </li>
                                         <li class="nk-block-tools-opt">
-                                            <a href="#" class="toggle btn btn-icon btn-primary d-md-none"><em
-                                                    class="icon ni ni-plus"></em></a>
+                                    
                                             <a href="{{ route('admin.market.sliders.create') }}" type=""
-                                                class="btn btn-primary d-none d-md-inline-flex"><em
+                                                class="btn btn-primary d-md-inline-flex"><em
                                                     class="icon ni ni-plus"></em><span>افزودن اسلایدر</span></a>
                                         </li>
                                     </ul>
@@ -91,9 +90,9 @@
                             <div class="nk-tb-col nk-tb-col-check">
 
                             </div>
-                            <div class="nk-tb-col tb-col-sm"><span>alt نصویر</span></div>
+                            <div class="nk-tb-col "><span>alt نصویر</span></div>
                             <div class="nk-tb-col"><span>وضعیت</span></div>
-                            <div class="nk-tb-col"><span>تنظیمات</span></div>
+                            <div class="nk-tb-col text-end"><span>تنظیمات</span></div>
 
 
                         </div>
@@ -105,51 +104,46 @@
                                         {{ $loop->iteration }}
                                     </div>
                                 </div>
-                                <div class="nk-tb-col tb-col-sm">
+                                <div class="nk-tb-col">
                                     <span class="tb-product">
                                         <img src="{{ asset($slider->image) }}" alt="" class="thumb">
                                         <span class="title">{{ $slider->alt }}</span>
                                     </span>
                                 </div>
-                                <div class="nk-tb-col tb-col-sm">
+                                <div class="nk-tb-col">
                                     <span class="tb-product">
-                                        <span
-                                            class="{{ $slider->getRawOriginal('is_active') ? 'bg-success' : 'bg-danger' }} badge-dot has-bg  d-none d-sm-inline-flex">{{ $slider->is_active }}</span>
-                                        <span class="title"></span>
+
+                                            <span class="{{ $slider->getRawOriginal('is_active') ? "bg-success" : "bg-danger" }} badge-dot has-bg d-sm-inline-flex">{{ $slider->is_active }}</span>
+
+                                     
                                     </span>
                                 </div>
 
-                                <div class="nk-tb-col nk-tb-col-tools">
-                                    <ul class=" gx-1 my-n1">
-                                        <li class="me-n1">
-                                            <div class="dropdown">
-                                                <a href="#" class="dropdown-toggle btn btn-icon btn-trigger"
-                                                    data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <ul class="link-list-opt no-bdr">
-                                                        <li>
-                                                            <a
-                                                                href="{{ route('admin.market.sliders.edit', $slider->id) }}"><em
-                                                                    class="icon ni ni-edit"></em><span>ویرایش
-                                                                    برند</span></a>
-                                                        </li>
-                                                        <form
-                                                            action="{{ route('admin.market.sliders.destroy', $slider->id) }}"
-                                                            method="post">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <li>
-                                                                <a>
-                                                                    <em class="icon ni ni-trash">
-                                                                    </em><button type="submit"
-                                                                        class="border-none btn-transparent bg-transparent text-decoration-none  ml-3">حذف
-                                                                        اسلاید</button>
-                                                                </a>
-                                                            </li>
-                                                        </form>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                <div class="nk-tb-col nk-tb-col-tools ">
+                                    <ul class="nk-tb-actions gx-1">
+
+                                        <li class="nk-tb-action">
+                                            <a href="#" class="btn btn-trigger btn-icon" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" title="نمایش داخل سایت">
+                                                <em class="icon ni ni-eye-fill"></em>
+                                            </a>
+                                        </li>
+                                        <li class="nk-tb-action">
+                                            <a href="{{ route('admin.market.sliders.edit', $slider->id) }}"
+                                                class="btn btn-trigger btn-icon" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" title="ویرایش">
+                                                <em class="icon ni ni-edit-fill"></em>
+                                            </a>
+                                        </li>
+                                        <li class="nk-tb-action">
+                                            <form action="{{ route('admin.market.sliders.destroy' , $slider->id)}}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                            <a  class="btn btn-trigger btn-icon" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" title="حذف ">
+                                                <button class="icon ni ni-cross-fill-c btn-transparent"></button>
+                                            </a>
+                                        </form>
                                         </li>
                                     </ul>
                                 </div>
@@ -175,4 +169,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    @include('admin.alerts.toastr.success')
 @endsection

@@ -84,6 +84,20 @@
                             <span class="nk-menu-text">اسلایدر</span>
                         </a>
                     </li>
+
+                    <li class="nk-menu-item">
+                        <a href="{{ route('admin.market.pages.index')}}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-cards"></em></span>
+                            <span class="nk-menu-text">صفحه ها</span>
+                        </a>
+                    </li>
+
+                    <li class="nk-menu-item">
+                        <a href="{{ route('admin.market.faqs.index')}}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-question"></em></em></span>
+                            <span class="nk-menu-text">سوالات متداول</span>
+                        </a>
+                    </li>
                 </ul>
                 <!-- .nk-menu -->
             </div>

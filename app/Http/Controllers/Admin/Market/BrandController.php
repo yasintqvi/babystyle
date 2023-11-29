@@ -46,7 +46,7 @@ class BrandController extends Controller
             $inputs['logo'] = $imageService->save($inputs['logo']);
         }
         $brand = Brand::create($inputs);
-        return redirect()->route('admin.market.brands.index')->with('swal-success', 'برند جدید شما با موفقیت ثبت شد');
+        return to_route('admin.market.brands.index')->with('success', "برند مورد نظر با موفقیت ایجاد شد.");
 
     }
 
@@ -83,7 +83,7 @@ class BrandController extends Controller
         }
 
         $brand->update($inputs);
-        return redirect()->route('admin.market.brands.index')->with('swal-success', 'برند جدید شما با موفقیت ویرایش شد');
+        return to_route('admin.market.brands.index')->with('success', "برند مورد نظر با موفقیت بروز رسانی شد.");
 
 
     }

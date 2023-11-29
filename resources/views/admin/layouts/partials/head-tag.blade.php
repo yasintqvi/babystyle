@@ -3,6 +3,7 @@
 <meta name="author" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <link rel="stylesheet" href="{{ asset('assets/admin/select2/css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/admin/css/editors/tinymce.rtl.css')}}" />
 <meta name="description" content="" />
 <!-- Fav Icon  -->
 {{-- <link rel="shortcut icon" href="./images/favicon.png" /> --}}
