@@ -16,6 +16,11 @@ class Category extends Model
         'is_active',
     ];
 
+    // for when the user searches
+    public function scopeSearch($query, $keyword) {
+        return $query->where('title', "LIKE", "%$keyword%");
+    }
+
     public function sluggable(): array
     {
         return [
