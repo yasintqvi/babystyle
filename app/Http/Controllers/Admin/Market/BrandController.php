@@ -17,9 +17,14 @@ class BrandController extends Controller
      */
     public function index(): View
     {
+        $brands = Brand::query();
+
+        if ($searchString = request('search'))
+        $brands->where('persian_name', "LIKE" , "%{$searchString}%");
+
         $perPageItems = (int) request('paginate') !== 0 ? (int) request('paginate') : 10;
 
-        $brands = Brand::latest()->paginate($perPageItems);
+        $brands = $brands->latest()->paginate($perPageItems);
 
         return view('admin.market.brand.index', compact('brands'));
     }

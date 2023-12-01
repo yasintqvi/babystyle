@@ -15,9 +15,14 @@ class SliderController extends Controller
      */
     public function index()
     {
+        $sliders = Slider::query();
+
+        if ($searchString = request('search'))
+        $sliders->where('alt', "LIKE" , "%{$searchString}%");
+
         $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 10;
 
-        $sliders = Slider::latest()->paginate($perPageItems);
+        $sliders = $sliders->latest()->paginate($perPageItems);
 
         return view('admin.market.slider.index' , compact('sliders'));
     }

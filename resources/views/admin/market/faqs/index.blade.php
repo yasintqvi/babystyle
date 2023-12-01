@@ -109,7 +109,7 @@
                                 <div class="nk-tb-col">
                                     <span class="tb-product">
                                         <span
-                                            class="{{ $faq->getRawOriginal('is_active') ? 'badge bg-success' : 'badge bg-danger' }} badge-dot has-bg  d-sm-inline-flex">{{ $faq->is_active }}</span>
+                                            class="{{ $faq->getRawOriginal('is_active') ? 'badge bg-success' : 'badge bg-danger' }}">{{ $faq->is_active }}</span>
                                     </span>
                                 </div>
                                             <div class="nk-tb-col nk-tb-col-tools ">

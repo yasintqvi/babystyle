@@ -21,7 +21,7 @@ class PageController extends Controller
 
         $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 10; 
 
-        $pages = Page::latest()->paginate(20);
+        $pages = $pages->latest()->paginate(20);
         return view('admin.market.pages.index' , compact('pages'));
     }
 

@@ -14,9 +14,14 @@ class FaqController extends Controller
      */
     public function index()
     {
+        $faqs = Faq::query();
+
+        if ($searchString = request('search'))
+        $faqs->where('question', "LIKE" , "%{$searchString}%");
+
         $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 10; 
 
-        $faqs = Faq::latest()->paginate(20);
+        $faqs = $faqs->latest()->paginate(20);
         return view('admin.market.faqs.index' , compact('faqs'));
     }
 
@@ -61,6 +66,11 @@ class FaqController extends Controller
      */
     public function update(FaqRequest $request, Faq $faq)
     {
+        $pages = Faq::query();
+
+        if ($searchString = request('search'))
+        $pages->where('title', "LIKE" , "%{$searchString}%");
+
         $inputs = $request->all();
         $faq->update($inputs);
         return to_route('admin.market.faqs.index')->with('success', "سوالات متداول مورد نظر با موفقیت بروز رسانی شد.");
