@@ -17,7 +17,7 @@ class BrandController extends Controller
      */
     public function index(): View
     {
-        $perPageItems = (int) request('paginate') !== 0 ? (int) request('paginate') : 10;
+        $perPageItems = (int) request('paginate') !== 0 ? (int) request('paginate') : 1;
 
         $brands = Brand::latest()->paginate($perPageItems);
 

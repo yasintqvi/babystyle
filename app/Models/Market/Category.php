@@ -5,6 +5,7 @@ namespace App\Models\Market;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use URL;
 
 class Category extends Model
 {
@@ -17,8 +18,19 @@ class Category extends Model
     ];
 
     // for when the user searches
-    public function scopeSearch($query, $keyword) {
+    public function scopeSearch($query, $keyword)
+    {
         return $query->where('title', "LIKE", "%$keyword%");
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', 1);
+    }
+
+    public function scopeNotActive($query)
+    {
+        return $query->where('is_active', 0);
     }
 
     public function sluggable(): array
@@ -29,4 +41,5 @@ class Category extends Model
             ]
         ];
     }
+
 }

@@ -16,16 +16,29 @@ class CategoryController extends Controller
      */
     public function index():View
     {
+        return view('admin.market.category.index');
+    }
+
+    /**
+     * Fetch Data.
+     */
+    public function fetch()
+    {
         $categories = Category::query()->latest();
 
         if ($keyword = request('search')) {
             $categories->search($keyword);
         }
+
+        if ($status = request('status')) {
+            $status === 'active' ? $categories->active() : $categories->notActive();
+        }
         
-        $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 10; 
+        $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 15; 
         
         $categories = $categories->paginate($perPageItems);
-        return view('admin.market.category.index', compact('categories'));
+
+        return response()->json($categories);
     }
 
     /**

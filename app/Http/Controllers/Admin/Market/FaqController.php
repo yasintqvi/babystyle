@@ -16,7 +16,7 @@ class FaqController extends Controller
     {
         $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 10; 
 
-        $faqs = Faq::latest()->paginate(20);
+        $faqs = Faq::latest()->paginate($perPageItems);
         return view('admin.market.faqs.index' , compact('faqs'));
     }
 

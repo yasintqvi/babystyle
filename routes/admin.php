@@ -14,6 +14,7 @@ Route::prefix('admin')->as('admin.')->group(function() {
 
     Route::prefix('market')->as('market.')->group(function () {
         Route::resource('brands', BrandController::class);
+        Route::get('/categories/fetch', [CategoryController::class, "fetch"])->name('categories.fetch');
         Route::resource('categories', CategoryController::class);
         Route::resource('sliders', SliderController::class);
         Route::resource('pages', PageController::class);
