@@ -16,10 +16,29 @@ class CategoryController extends Controller
      */
     public function index():View
     {
-        $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 10; 
+        return view('admin.market.category.index');
+    }
 
-        $categories = Category::latest()->paginate($perPageItems);
-        return view('admin.market.category.index', compact('categories'));
+    /**
+     * Fetch Data.
+     */
+    public function fetch()
+    {
+        $categories = Category::query()->latest();
+
+        if ($keyword = request('search')) {
+            $categories->search($keyword);
+        }
+
+        if ($status = request('status')) {
+            $status === 'active' ? $categories->active() : $categories->notActive();
+        }
+        
+        $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 15; 
+        
+        $categories = $categories->paginate($perPageItems);
+
+        return response()->json($categories);
     }
 
     /**
@@ -70,8 +89,12 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Category $category)
     {
-        //
+        // TODO check category relations
+        $category->delete();
+
+        return back()->with('success', "دسته بندی با موفقیت حذف شد.");
+
     }
 }
