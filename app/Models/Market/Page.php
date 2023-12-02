@@ -2,15 +2,15 @@
 
 namespace App\Models\Market;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Page extends Model
 {
-    use HasFactory;
+    use HasFactory , Sluggable;
 
-    const SEARCH_KEY = 'title';
-
+    
     protected $fillable = ['title','content', 'tags', 'is_active'];
 
     // for when the user searches
@@ -27,6 +27,20 @@ class Page extends Model
     public function scopeNotActive($query)
     {
         return $query->where('is_active', 0);
+    }
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
     }
 
 }

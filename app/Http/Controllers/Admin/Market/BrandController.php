@@ -78,7 +78,6 @@ class BrandController extends Controller
     public function edit(Brand $brand)
     {
         return view('admin.market.brand.edit', compact('brand'));
-
     }
 
     /**
@@ -107,7 +106,7 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        // TODO check category relations
+        // TODO check brand relations
         $brand->delete();
 
         return back()->with('success', "دسته بندی با موفقیت حذف شد.");
@@ -118,7 +117,7 @@ class BrandController extends Controller
             'ids.*' => 'required|exists:brands,id',
         ]);
 
-        // TODO check category relations
+        // TODO check brand relations
 
         Brand::whereIn('id', $request->get('ids'))->delete();
 

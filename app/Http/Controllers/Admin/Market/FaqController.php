@@ -18,7 +18,7 @@ class FaqController extends Controller
     }
 
 
-        /**
+    /**
      * Fetch Data.
      */
     public function fetch()
@@ -32,9 +32,9 @@ class FaqController extends Controller
         if ($status = request('status')) {
             $status === 'active' ? $faqs->active() : $faqs->notActive();
         }
-        
-        $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 15; 
-        
+
+        $perPageItems = (int) request('paginate') !== 0 ? (int) request('paginate') : 15;
+
         $faqs = $faqs->paginate($perPageItems);
 
         return response()->json($faqs);
@@ -46,7 +46,7 @@ class FaqController extends Controller
     public function create()
     {
         return view('admin.market.faqs.create');
-        
+
     }
 
     /**
@@ -73,7 +73,7 @@ class FaqController extends Controller
      */
     public function edit(Faq $faq)
     {
-        return view('admin.market.faqs.edit' , compact('faq'));
+        return view('admin.market.faqs.edit', compact('faq'));
     }
 
     /**
@@ -81,6 +81,11 @@ class FaqController extends Controller
      */
     public function update(FaqRequest $request, Faq $faq)
     {
+        $pages = Faq::query();
+
+        if ($searchString = request('search'))
+            $pages->where('title', "LIKE", "%{$searchString}%");
+
         $inputs = $request->all();
         $faq->update($inputs);
         return to_route('admin.market.faqs.index')->with('success', "سوالات متداول مورد نظر با موفقیت بروز رسانی شد.");
@@ -94,7 +99,8 @@ class FaqController extends Controller
         return back()->with('cute-success', 'سوالات متداول حذف گردید.');
     }
 
-    public function batchDelete(Request $request) {        
+    public function batchDelete(Request $request)
+    {
         $request->validate([
             'ids.*' => 'required|exists:faqs,id',
         ]);

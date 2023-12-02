@@ -55,8 +55,11 @@
                             </li>
                             <li class="nk-menu-item">
                                 <a href="html/user-card.html" class="nk-menu-link"><span class="nk-menu-text">تماس با
-                                        کاربر - کارت</span></a>
+                                        کاربر - کارت</span>
+                                    </a>
+                        
                             </li>
+                           
                         </ul>
                         <!-- .nk-menu-sub -->
                     </li>
@@ -96,6 +99,14 @@
                         <a href="{{ route('admin.market.faqs.index')}}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-question"></em></em></span>
                             <span class="nk-menu-text">سوالات متداول</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nk-menu-item">
+                        <a href="{{ route('admin.market.comments.index')}}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-comments"></em></span>
+                            <span class="nk-menu-text">کامنت ها</span>
+                            <span class="badge rounded-pill bg-primary" style="margin-left: 10px">{{ $comments->count() == 1 ? $comments->count() : null }}</span> 
                         </a>
                     </li>
                 </ul>

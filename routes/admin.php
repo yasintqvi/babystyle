@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Market\BrandController;
 use App\Http\Controllers\Admin\Market\PageController;
 use App\Http\Controllers\Admin\Market\CategoryController;
+use App\Http\Controllers\Admin\Market\CommentController;
 use App\Http\Controllers\Admin\Market\FaqController;
 use App\Http\Controllers\Admin\Market\SliderController;
 use App\Http\Requests\Market\FaqRequest;
@@ -32,6 +33,11 @@ Route::prefix('admin')->as('admin.')->group(function () {
         Route::post('faqs/batch-delete', [FaqController::class, "batchDelete"])->name('faqs.batch-delete');
         Route::get('faqs/fetch', [FaqController::class, "fetch"])->name('faqs.fetch');
         Route::resource('faqs', FaqController::class);
+        Route::resource('comments', CommentController::class);
+
+
+        //تغیر تایید و عدم تایید کامنت
+        Route::get('/comments/{comment}/chang-approved' , [CommentController::class , 'changeApproved'])->name('comments.change-approved');
     });
 
 });
