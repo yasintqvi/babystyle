@@ -1,9 +1,5 @@
 @extends('admin.layouts.app', ['title' => 'دسته بندی های محصولات'])
 
-@section('head-tag')
-    <script src="https://cdn.jsdelivr.net/npm/handlebars@4.7.8/dist/cjs/handlebars.min.js"></script>
-@endsection
-
 @section('content')
     <div class="nk-content-inner">
         <div class="nk-content-body">
@@ -102,13 +98,14 @@
         </div>
     </div>
 
-    <div class="nk-tb-list is-separate mb-3" id="table-container">
+    <form action="{{ route('admin.market.categories.batch-delete') }}" method="post" class="nk-tb-list is-separate mb-3"
+        id="table-container">
         <div class="d-flex justify-content-center align-items-center" style="height: 20rem">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="visually-hidden">در حال بارگذاری...</span>
             </div>
         </div>
-    </div>
+    </form>
 
     <div id="pagination-container"></div>
 
@@ -117,8 +114,8 @@
         <div class="nk-tb-item nk-tb-head">
             <div class="nk-tb-col nk-tb-col-check">
                 <div class="custom-control custom-control-sm custom-checkbox notext">
-                    <input type="checkbox" class="custom-control-input" id="pid" />
-                    <label class="custom-control-label" for="pid"></label>
+                    <input type="checkbox" class="custom-control-input" id="selectAll" />
+                    <label class="custom-control-label" for="selectAll"></label>
                 </div>
             </div>
             <div class="nk-tb-col"><span>عنوان</span></div>
@@ -126,25 +123,19 @@
                 <ul class="nk-tb-actions gx-1 my-n1">
                     <li class="me-n1">
                         <div class="dropdown">
-                            <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em
-                                    class="icon ni ni-more-h"></em></a>
+                            <a href="#" class="dropdown-toggle btn btn-icon px-2 d-none" id="btn-batch-operation" data-bs-toggle="dropdown">
+                                عملیات گروهی
+                                <em class="icon ni ni-more-h"></em>
+                            </a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <ul class="link-list-opt no-bdr">
                                     <li>
-                                        <a href="#"><em class="icon ni ni-edit"></em><span>ویرایش انتخاب
+                                        <a href="" onclick="batchEdit(event)"><em class="icon ni ni-edit"></em><span>ویرایش انتخاب
                                                 شده</span></a>
                                     </li>
                                     <li>
-                                        <a href="#"><em class="icon ni ni-trash"></em><span>حذف انتخاب
+                                        <a href="" onclick="batchDelete(event)"><em class="icon ni ni-trash"></em><span>حذف انتخاب
                                                 شده</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><em class="icon ni ni-bar-c"></em><span>به روز رسانی
-                                                موجودی</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><em class="icon ni ni-invest"></em><span>به روز رسانی
-                                                قیمت</span></a>
                                     </li>
                                 </ul>
                             </div>
@@ -153,20 +144,19 @@
                 </ul>
             </div>
         </div>
-
-
+        @csrf
         @verbatim
         {{#each data}}
             <div class="nk-tb-item">
                 <div class="nk-tb-col nk-tb-col-check">
                     <div class="custom-control custom-control-sm custom-checkbox notext">
-                        <input type="checkbox" class="custom-control-input" id="pid1" />
-                        <label class="custom-control-label" for="pid1"></label>
+                        <input type="checkbox" name="ids[]" data-edit="/admin/market/categories/{{ id }}/edit" value="{{ id }}" class="custom-control-input batch-inputs" id="id-{{ id }}" />
+                        <label class="custom-control-label" for="id-{{ id }}"></label>
                     </div>
                 </div>
                 <div class="nk-tb-col">
                     <span class="tb-product">
-                        <span class="title">{{title}}</span>
+                        <label for="id-{{ id }}" class="title">{{title}}</label>
                     </span>
                 </div>
                 <div class="nk-tb-col nk-tb-col-tools">
@@ -185,7 +175,7 @@
                             </a>
                         </li>
                         <li class="nk-tb-action">
-                            <a href="{{ edit_route }}"
+                            <a href="/admin/market/categories/{{ id }}/edit"
                                 class="btn btn-trigger btn-icon" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="ویرایش">
                                 <em class="icon ni ni-edit-fill"></em>
@@ -198,15 +188,15 @@
         @endverbatim
     </script>
 
-    @include('admin.pagination')    
+    @include('admin.pagination')
 @endsection
 
 @section('script')
+    {{-- include alerts --}}
     @include('admin.alerts.toastr.success')
     @include('admin.alerts.sweet-alert.confirm')
-    <script src="{{ asset('assets/admin/js/handlebars.min.js') }}"
-        integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="{{ asset('assets/admin/js/handlebars.min.js') }}"></script>
     <script src="{{ asset('assets/admin/js/handle-data.js') }}"></script>
     <script>
         'use strict'

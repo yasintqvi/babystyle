@@ -13,8 +13,20 @@ class Page extends Model
 
     protected $fillable = ['title','content', 'tags', 'is_active'];
 
-    public function getISActiveAttribute($is_active){
-        return $is_active ? "فعال" : "غیرفعال";
+    // for when the user searches
+    public function scopeSearch($query, $keyword)
+    {
+        return $query->where('title', "LIKE", "%$keyword%");
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', 1);
+    }
+
+    public function scopeNotActive($query)
+    {
+        return $query->where('is_active', 0);
     }
 
 }

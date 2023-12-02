@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="{{ asset('assets/admin/select2/css/select2.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/admin/css/editors/tinymce.rtl.css')}}" />
 <meta name="description" content="" />
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- Fav Icon  -->
 {{-- <link rel="shortcut icon" href="./images/favicon.png" /> --}}
 <!-- Page Title  -->

@@ -13,8 +13,20 @@ class Slider extends Model
     protected $fillable = ['alt','url','image', 'is_active'];
     protected $casts = ['image' => 'array'];
 
-    public function getISActiveAttribute($is_active){
-        return $is_active ? "فعال" : "غیرفعال";
+    // scopes
+    public function scopeSearch($query, $keyword)
+    {
+        return $query->where('alt', "LIKE", "%$keyword%");
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', 1);
+    }
+
+    public function scopeNotActive($query)
+    {
+        return $query->where('is_active', 0);
     }
 
     // accessor

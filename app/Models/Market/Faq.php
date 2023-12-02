@@ -11,8 +11,20 @@ class Faq extends Model
 
     protected $fillable = ['question','answer', 'tags', 'is_active'];
 
-    public function getISActiveAttribute($is_active){
-        return $is_active ? "فعال" : "غیرفعال";
+    // for when the user searches
+    public function scopeSearch($query, $keyword)
+    {
+        return $query->where('question', "LIKE", "%$keyword%");
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', 1);
+    }
+
+    public function scopeNotActive($query)
+    {
+        return $query->where('is_active', 0);
     }
 
 }

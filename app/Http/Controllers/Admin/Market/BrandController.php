@@ -17,11 +17,25 @@ class BrandController extends Controller
      */
     public function index(): View
     {
-        $perPageItems = (int) request('paginate') !== 0 ? (int) request('paginate') : 1;
+        return view('admin.market.brand.index');
+    }
 
-        $brands = Brand::latest()->paginate($perPageItems);
+        /**
+     * Fetch Data.
+     */
+    public function fetch()
+    {
+        $brands = Brand::query()->latest();
 
-        return view('admin.market.brand.index', compact('brands'));
+        if ($keyword = request('search')) {
+            $brands->search($keyword);
+        }
+        
+        $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 15; 
+        
+        $brands = $brands->paginate($perPageItems);
+
+        return response()->json($brands);
     }
 
     /**
@@ -91,8 +105,23 @@ class BrandController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Brand $brand)
     {
-        //
+        // TODO check category relations
+        $brand->delete();
+
+        return back()->with('success', "دسته بندی با موفقیت حذف شد.");
+    }
+
+    public function batchDelete(Request $request) {        
+        $request->validate([
+            'ids.*' => 'required|exists:brands,id',
+        ]);
+
+        // TODO check category relations
+
+        Brand::whereIn('id', $request->get('ids'))->delete();
+
+        return back()->with('success', "حذف برند ها با موفقیت انجام شد.");
     }
 }

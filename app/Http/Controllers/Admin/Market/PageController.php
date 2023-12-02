@@ -14,15 +14,29 @@ class PageController extends Controller
      */
     public function index()
     {
-        $pages = Page::query();
+        return view('admin.market.pages.index');
+    }
 
-        if ($searchString = request('search'))
-        $pages->where('title', "LIKE" , "%{$searchString}%");
+    /**
+     * Fetch Data.
+     */
+    public function fetch()
+    {
+        $pages = Page::query()->latest();
 
-        $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 10; 
+        if ($keyword = request('search')) {
+            $pages->search($keyword);
+        }
 
-        $pages = Page::latest()->paginate(20);
-        return view('admin.market.pages.index' , compact('pages'));
+        if ($status = request('status')) {
+            $status === 'active' ? $pages->active() : $pages->notActive();
+        }
+
+        $perPageItems = (int) request('paginate') !== 0 ? (int) request('paginate') : 15;
+
+        $pages = $pages->paginate($perPageItems);
+
+        return response()->json($pages);
     }
 
     /**
@@ -57,7 +71,7 @@ class PageController extends Controller
      */
     public function edit(Page $page)
     {
-        return view('admin.market.pages.edit' , compact('page'));
+        return view('admin.market.pages.edit', compact('page'));
     }
 
     /**
@@ -77,5 +91,18 @@ class PageController extends Controller
     {
         $page->delete();
         return back()->with('cute-success', 'صفحه حذف گردید.');
+    }
+
+    public function batchDelete(Request $request)
+    {
+        $request->validate([
+            'ids.*' => 'required|exists:pages,id',
+        ]);
+
+        // TODO check pages relations
+
+        Page::whereIn('id', $request->get('ids'))->delete();
+
+        return back()->with('success', "حذف صفحات با موفقیت انجام شد.");
     }
 }

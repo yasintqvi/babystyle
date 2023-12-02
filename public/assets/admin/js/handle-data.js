@@ -30,21 +30,16 @@ async function fetchData(reqUrl = "") {
 async function handleData(url = "") {
     const reqUrl = await handleUrl(url);
     let data = await fetchData(url);
-    console.log(data);
     var templateSource = document.getElementById("table-template").innerHTML;
     var template = Handlebars.compile(templateSource);
 
-    data.data.forEach(item => {
-        item['edit_route'] = `/admin/market/categories/${item.id}/edit`;
-    });
-
-    // اعمال داده‌های متغیر به قالب
     var html = template(data);
 
-    // نمایش قالب در المان مورد نظر
     document.getElementById("table-container").innerHTML = html;
 
     handlePaginate(data);
+
+    handleBatchOperation();
 }
 
 function handleUrl(newUrl) {
@@ -74,6 +69,36 @@ function handlePaginate(data) {
     document.getElementById("pagination-container").innerHTML = html;
 }
 
+function handleBatchOperation() {
+    const batchInputs = document.querySelectorAll('.batch-inputs');
+    const selectAllInput = document.getElementById('selectAll');
+    const btnBatchOperation = document.getElementById('btn-batch-operation');
+
+    selectAllInput.addEventListener('change', function() {
+        if (this.checked) {
+            batchInputs.forEach(function(checkbox) {
+                checkbox.checked = true;
+            });
+            btnBatchOperation.classList.remove('d-none');
+        } else {
+            batchInputs.forEach(function(checkbox) {
+                checkbox.checked = false;
+            });
+            btnBatchOperation.classList.add('d-none');
+        }
+    });
+
+    batchInputs.forEach(function(input) {
+        input.addEventListener('change', function() {
+            if (document.querySelectorAll('.batch-inputs:checked').length > 0) {
+                btnBatchOperation.classList.remove('d-none');
+            } else {
+                btnBatchOperation.classList.add('d-none');
+            }
+        });
+    });
+}
+
 function filterRequest(event, reqUrl) {
     event.preventDefault();
     handleData(reqUrl);
@@ -82,4 +107,35 @@ function filterRequest(event, reqUrl) {
 function searchRequest(element) {
     const url = `${defaultUrl}?search=${element.value}`;
     handleData(url)
+}
+
+function batchDelete(e) {
+    e.preventDefault();
+    const batchDeleteForm = document.querySelector('#table-container');
+
+    Swal.fire({
+        title: 'مطمئن هستید؟',
+        text: "در صورت حذف امکان بازیابی مجدد وجود ندارد",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'بله حذف شود!'
+    }).then(function(result) {
+        if (result.value) {
+            batchDeleteForm.submit();
+        }
+    });
+    e.preventDefault();
+}
+
+
+function batchEdit(e) {
+    e.preventDefault();
+    const batchInputs = document.querySelectorAll('.batch-inputs');
+
+    batchInputs.forEach(function(checkbox) {
+        if(checkbox.checked) {
+            window.open(checkbox.dataset.edit , '_blank');
+        }
+    });
+
 }

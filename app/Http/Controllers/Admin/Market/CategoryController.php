@@ -97,4 +97,16 @@ class CategoryController extends Controller
         return back()->with('success', "دسته بندی با موفقیت حذف شد.");
 
     }
+
+    public function batchDelete(Request $request) {        
+        $request->validate([
+            'ids.*' => 'required|exists:categories,id',
+        ]);
+
+        // TODO check category relations
+
+        Category::whereIn('id', $request->get('ids'))->delete();
+
+        return back()->with('success', "حذف دسته بندی با موفقیت انجام شد.");
+    }
 }

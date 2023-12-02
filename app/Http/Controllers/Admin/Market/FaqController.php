@@ -14,10 +14,30 @@ class FaqController extends Controller
      */
     public function index()
     {
-        $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 10; 
+        return view('admin.market.faqs.index');
+    }
 
-        $faqs = Faq::latest()->paginate($perPageItems);
-        return view('admin.market.faqs.index' , compact('faqs'));
+
+        /**
+     * Fetch Data.
+     */
+    public function fetch()
+    {
+        $faqs = Faq::query()->latest();
+
+        if ($keyword = request('search')) {
+            $faqs->search($keyword);
+        }
+
+        if ($status = request('status')) {
+            $status === 'active' ? $faqs->active() : $faqs->notActive();
+        }
+        
+        $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 15; 
+        
+        $faqs = $faqs->paginate($perPageItems);
+
+        return response()->json($faqs);
     }
 
     /**
@@ -72,5 +92,17 @@ class FaqController extends Controller
     {
         $faq->delete();
         return back()->with('cute-success', 'سوالات متداول حذف گردید.');
+    }
+
+    public function batchDelete(Request $request) {        
+        $request->validate([
+            'ids.*' => 'required|exists:faqs,id',
+        ]);
+
+        // TODO check faq relations
+
+        Faq::whereIn('id', $request->get('ids'))->delete();
+
+        return back()->with('success', "حذف پرسش ها با موفقیت انجام شد.");
     }
 }

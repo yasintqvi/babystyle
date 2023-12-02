@@ -15,11 +15,29 @@ class SliderController extends Controller
      */
     public function index()
     {
-        $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 10;
+        return view('admin.market.slider.index');
+    }
 
-        $sliders = Slider::latest()->paginate($perPageItems);
+    /**
+     * Fetch Data.
+     */
+    public function fetch()
+    {
+        $sliders = Slider::query()->latest();
 
-        return view('admin.market.slider.index' , compact('sliders'));
+        if ($keyword = request('search')) {
+            $sliders->search($keyword);
+        }
+
+        if ($status = request('status')) {
+            $status === 'active' ? $sliders->active() : $sliders->notActive();
+        }
+
+        $perPageItems = (int) request('paginate') !== 0 ? (int) request('paginate') : 15;
+
+        $sliders = $sliders->paginate($perPageItems);
+
+        return response()->json($sliders);
     }
 
     /**
@@ -33,18 +51,18 @@ class SliderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(SliderRequest $request , ImageService $imageService)
+    public function store(SliderRequest $request, ImageService $imageService)
     {
         $inputs = $request->all();
-         // save image
-         if ($request->hasFile('image')) {
+        // save image
+        if ($request->hasFile('image')) {
             $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . "content" . DIRECTORY_SEPARATOR . "sliders");
             $inputs['image'] = $imageService->save($inputs['image']);
         }
-        $slider = Slider::create($inputs);                                                                                                
+        $slider = Slider::create($inputs);
         return to_route('admin.market.sliders.index')->with('success', "اسلایدر مورد نظر با موفقیت ایجاد شد.");
 
-    }   
+    }
 
     /**
      * Display the specified resource.
@@ -59,23 +77,23 @@ class SliderController extends Controller
      */
     public function edit(Slider $slider)
     {
-        return view('admin.market.slider.edit' , compact('slider'));
+        return view('admin.market.slider.edit', compact('slider'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Slider $slider , ImageService $imageService)
+    public function update(Request $request, Slider $slider, ImageService $imageService)
     {
         $inputs = $request->all();
-            // save image
-            if ($request->hasFile('image')) {
-                if (!empty($slider->logo))
-                    $imageService->deleteImage($slider->logo);
+        // save image
+        if ($request->hasFile('image')) {
+            if (!empty($slider->logo))
+                $imageService->deleteImage($slider->logo);
 
-                $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . "content" . DIRECTORY_SEPARATOR . "sliders");
-                $inputs['image'] = $imageService->save($inputs['image']);
-            }
+            $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . "content" . DIRECTORY_SEPARATOR . "sliders");
+            $inputs['image'] = $imageService->save($inputs['image']);
+        }
 
         $slider->update($inputs);
         return to_route('admin.market.sliders.index')->with('success', "اسلایدر مورد نظر با موفقیت بروز رسانی شد.");
@@ -90,4 +108,17 @@ class SliderController extends Controller
         $slider->delete();
         return back()->with('cute-success', 'اسلایدر حذف گردید.');
     }
+
+    public function batchDelete(Request $request) {        
+        $request->validate([
+            'ids.*' => 'required|exists:sliders,id',
+        ]);
+
+        // TODO check category relations
+
+        Slider::whereIn('id', $request->get('ids'))->delete();
+
+        return back()->with('success', "حذف اسلایدر با موفقیت انجام شد.");
+    }
 }
+
