@@ -205,5 +205,7 @@ return [
         'address_id' => 'آدرس',
         'copan' => 'کد تخفیف',
         'is_active' => 'وضعیت',
+        'primary_image' => 'تصویر شاخص',
+        'secondary_image' => 'تصویر ثانویه',
     ],
 ];

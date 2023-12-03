@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('pages', function (Blueprint $table) {
-            $table->string('slug')->after('tags');
+        Schema::table('products', function (Blueprint $table) {
+            $table->unsignedBigInteger('quantity')->default(0)->after('is_active')->comment('quantity in stock without order');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('pages', function (Blueprint $table) {
-            $table->removeColumn('slug');
+        Schema::table('products', function (Blueprint $table) {
+            $table->removeColumn('quantity');
         });
     }
 };

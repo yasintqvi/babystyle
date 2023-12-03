@@ -19,13 +19,13 @@ return new class extends Migration {
             $table->string('secondary_image')->nullable();
             $table->foreignId('category_id')->constrained('categories');
             $table->foreignId('brand_id')->constrained('brands');
-            $table->decimal("weight", 10, 2);
+            $table->decimal("weight", 10, 2)->nullable();
             $table->decimal("width", 10, 2)->nullable();
             $table->decimal("height", 10, 2)->nullable();
             $table->decimal("length", 10, 2)->nullable();
             $table->timestamp('published_at');
             $table->tinyInteger('is_active')->default(0)->comment('1 => is active');
-            $table->unsignedInteger('sold_number')->comment('sold quantity of this product');
+            $table->unsignedInteger('sold_number')->default(0)->comment('sold quantity of this product');
             $table->timestamps();
             $table->softDeletes();
         });

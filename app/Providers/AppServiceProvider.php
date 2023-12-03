@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrapFive();
+        
         view()->composer('admin.layouts.partials.sidebar', function ($view){
             $view->with('comments', Comment::where('is_seen', 0)->get());
         });

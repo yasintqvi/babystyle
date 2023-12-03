@@ -1,0 +1,5 @@
+div.dz-image>img {
+    height: -webkit-fill-available;
+    object-fit: cover;
+    width: -webkit-fill-available;
+}

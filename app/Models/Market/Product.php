@@ -2,29 +2,79 @@
 
 namespace App\Models\Market;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, Sluggable;
 
     protected $table = "products";
-    protected $guarded = [];
 
-    // protected $fillable = [
-    // 'title',
-    // 'description',
-    // 'slug',
-    // 'primary_image',
-    // 'secondary_image',
-    // 'category_id',
-    // 'brand_id',
-    // 'weight',
-    // 'width',
-    // 'height',
-    // 'length',
-    // 'published_at',
-    // 'is_active',
-    // 'sold_number'];
+    protected $fillable = [
+        'title',
+        'description',
+        'slug',
+        'primary_image',
+        'secondary_image',
+        'category_id',
+        'brand_id',
+        'weight',
+        'width',
+        'height',
+        'length',
+        'published_at',
+        'is_active',
+        'sold_number',
+        'quantity'
+    ];
+
+    // scopes
+    public function scopeSearch($query, $keyword)
+    {
+        return $query->where('title', "LIKE", "%$keyword%");
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', 1);
+    }
+
+    public function scopeNotActive($query)
+    {
+        return $query->where('is_active', 0);
+    }
+
+    // relations
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
+    public function attributes()
+    {
+        return $this->hasMany(ProductAttribute::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
+
+    
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
+
 }

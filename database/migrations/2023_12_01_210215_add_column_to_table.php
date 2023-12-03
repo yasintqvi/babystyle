@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('comments', function (Blueprint $table) {
             $table->tinyInteger('is_bought')->default(0)->after('is_seen');
-            
+            $table->foreignId('product_id')->after('user_id')->constrained('products');
         });
     }
 
@@ -23,7 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('comments', function (Blueprint $table) {
-            //
+            $table->removeColumn('is_bought');
+            $table->removeColumn('product_id');
         });
     }
 };

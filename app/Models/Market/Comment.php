@@ -12,18 +12,34 @@ class Comment extends Model
     use HasFactory;
     protected $table = "comments";
 
-    protected $guarded = [];
+    protected $fillable = [
+        'user_id',
+        'product_item_id',
+        'parent_id',
+        'description',
+        'is_seen',
+        'is_approved',
+        'rate',
+    ];
 
-    // protected $fillable = [
-    //     'user_id',
-    //     'product_item_id',
-    //     'parent_id',
-    //     'description',
-    //     'is_seen',
-    //     'is_approved',
-    //     'rate',
-    // ];
+    public function scopeSearch($query, $keyword)
+    {
+        return $query->whereHas('user', fn($user) => 
+            $user->where('first_name',"LIKE" , "%$keyword%")->whereOr('last_name', "LIKE", "%$keyword%")
+        );
+    }
 
+    public function scopeApproved($query)
+    {
+        return $query->where('is_approved', 1);
+    }
+
+    public function scopeNotApproved($query)
+    {
+        return $query->where('is_approved', 0);
+    }
+
+    // relations
     public function user(){
         return $this->belongsTo(User::class);
     }

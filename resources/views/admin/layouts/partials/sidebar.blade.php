@@ -67,6 +67,13 @@
                     <li class="nk-menu-heading">
                         <h6 class="overline-title text-primary-alt">فروشگاه</h6>
                     </li>
+                    <li class="nk-menu-item">
+                        <a href="{{ route('admin.market.products.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-cart-fill"></em></span>
+
+                            <span class="nk-menu-text">محصولات</span>
+                        </a>
+                    </li>
                     <!-- .nk-menu-item -->
                     <li class="nk-menu-item">
                         <a href="{{ route('admin.market.brands.index') }}" class="nk-menu-link">

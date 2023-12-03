@@ -31,6 +31,28 @@ class CommentController extends Controller
         return view('admin.market.comments.index' , compact('comments'));
     }
 
+        /**
+     * Fetch Data.
+     */
+    public function fetch()
+    {
+        $comments = Comment::query()->with(['user', 'product'])->latest();
+
+        if ($keyword = request('search')) {
+            $comments->search($keyword);
+        }
+
+        if ($status = request('status')) {
+            $status === 'approved' ?  $comments->approved() : $comments->notApproved();
+        }
+        
+        $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 15; 
+        
+        $comments = $comments->paginate($perPageItems);
+
+        return response()->json($comments);
+    }
+
 
 
     /**
@@ -64,5 +86,17 @@ class CommentController extends Controller
 
         return to_route('admin.market.comments.index')->with('success', "وضعیت کامنت با موفقیت تغیر کرد");
 
+    }
+
+    public function batchDelete(Request $request) {        
+        $request->validate([
+            'ids.*' => 'required|exists:comments,id',
+        ]);
+
+        // TODO check comment relations
+
+        Comment::whereIn('id', $request->get('ids'))->delete();
+
+        return back()->with('success', "حذف کامنت ها موفقیت انجام شد.");
     }
 }
