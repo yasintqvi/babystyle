@@ -72,13 +72,20 @@ class ProductController extends Controller
 
             $imageService->setExclusiveDirectory(self::STORAGE_PATH);
 
+            // save main product image
             $inputs['primary_image'] = $imageService->save($request->file('primary_image'));
             
             if ($request->hasFile('secondary_image')) {
                 $inputs['secondary_image'] = $imageService->save($request->file('secondary_image'));
-            }
-
+            }            
+            
             $product = Product::create($inputs);
+            
+            // save product images
+            if ($request->has('images')) {
+                $productImages = explode(',', $request->get('images'));
+                collect($productImages)->map(fn($image) => $product->images()->create(['image' => $image]));
+            }
 
             return $product;
         }); 

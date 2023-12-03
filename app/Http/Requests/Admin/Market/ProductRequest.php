@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin\Market;
 
+use App\Rules\ImageExist;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProductRequest extends FormRequest
@@ -29,7 +30,7 @@ class ProductRequest extends FormRequest
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'nullable|exists:brands,id',
             'is_active' => 'nullable|in:0,1',
-            'images' => 'required'
+            'images' => ['nullable', new ImageExist]
         ];
     }
 }

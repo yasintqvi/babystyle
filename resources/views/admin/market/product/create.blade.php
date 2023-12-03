@@ -175,7 +175,7 @@
                                         <span class="text-danger">*</span>
                                     </label>
 
-                                    <textarea name="description" class="tinymce-toolbar form-control"></textarea>
+                                    <textarea name="description" class="tinymce-toolbar form-control">{{ old('description') }}</textarea>
                                 </div>
                                 @error('description')
                                     <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
@@ -200,6 +200,13 @@
                                 </div>
                             </div>
                         </div>
+                        @error('images')
+                            <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
+                                <strong>
+                                    {{ $message }}
+                                </strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="tab-pane" id="store">
 
@@ -224,7 +231,6 @@
 
 @section('script')
     <script>
-
         const imageInput = document.querySelector('input[name="images"]');
 
         const oldImages = @json($images);
