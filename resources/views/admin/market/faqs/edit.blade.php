@@ -26,7 +26,7 @@
                 id="form" class="form-validate" novalidate="novalidate">
                 @csrf
                 @method('PUT')
-                <div class="row g-gs">
+                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label" for="fv-full-name">عنوان سوال</label>
@@ -82,7 +82,7 @@
                         @enderror
                     </div>
                     
-                    <div class="col-md-12">
+                    <div class="col-md-12 mt-3">
                         <div class="form-group">
                             <button type="submit" class="btn btn-lg btn-primary">ذخیره اطلاعات</button>
                         </div>

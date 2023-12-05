@@ -25,7 +25,7 @@
             <form action="{{ route('admin.market.faqs.store') }}" method="post" enctype="multipart/form-data"
                 id="form" class="form-validate" novalidate="novalidate">
                 @csrf
-                <div class="row g-gs">
+                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label" for="fv-full-name">عنوان سوال</label>

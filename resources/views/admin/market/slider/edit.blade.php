@@ -80,7 +80,7 @@
                         </select>
                     </div>
                 </div>                             
-                <div class="col-md-12">
+                <div class="col-md-12 mt-3">
                     <div class="form-group">
                         <button type="submit" class="btn btn-lg btn-primary">ذخیره اطلاعات</button>
                     </div>

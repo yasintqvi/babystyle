@@ -27,41 +27,11 @@
                         </h6>
                     </li>
                     <!-- .nk-menu-item -->
-                    <li class="nk-menu-item has-sub">
-                        <a href="#" class="nk-menu-link nk-menu-toggle">
-                            <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
+                    <li class="nk-menu-item">
+                        <a href="{{ route('admin.user.users.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-block-over"></em></span>
                             <span class="nk-menu-text">مدیریت کاربران</span>
                         </a>
-                        <ul class="nk-menu-sub">
-                            <li class="nk-menu-item">
-                                <a href="html/user-list-default.html" class="nk-menu-link"><span
-                                        class="nk-menu-text">لیست کاربران - پیش فرض</span></a>
-                            </li>
-                            <li class="nk-menu-item">
-                                <a href="html/user-list-regular.html" class="nk-menu-link"><span
-                                        class="nk-menu-text">لیست کاربران - عادی</span></a>
-                            </li>
-                            <li class="nk-menu-item">
-                                <a href="html/user-list-compact.html" class="nk-menu-link"><span
-                                        class="nk-menu-text">لیست کاربران - فشرده</span></a>
-                            </li>
-                            <li class="nk-menu-item">
-                                <a href="html/user-details-regular.html" class="nk-menu-link"><span
-                                        class="nk-menu-text">مشخصات کاربر - عادی</span></a>
-                            </li>
-                            <li class="nk-menu-item">
-                                <a href="html/user-profile-regular.html" class="nk-menu-link"><span
-                                        class="nk-menu-text">پروفایل کاربر - عادی</span></a>
-                            </li>
-                            <li class="nk-menu-item">
-                                <a href="html/user-card.html" class="nk-menu-link"><span class="nk-menu-text">تماس با
-                                        کاربر - کارت</span>
-                                    </a>
-                        
-                            </li>
-                           
-                        </ul>
-                        <!-- .nk-menu-sub -->
                     </li>
                     <!-- .nk-menu-item -->
                     <li class="nk-menu-heading">

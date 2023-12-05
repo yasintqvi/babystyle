@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\Market\CommentController;
 use App\Http\Controllers\Admin\Market\FaqController;
 use App\Http\Controllers\Admin\Market\ProductController;
 use App\Http\Controllers\Admin\Market\SliderController;
+use App\Http\Controllers\Admin\User\ChangePasswordController;
+use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Requests\Market\FaqRequest;
 use Illuminate\Support\Facades\Route;
 
@@ -14,7 +16,15 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->as('admin.')->group(function () {
     Route::get('/', fn() => view('admin.dashboard'))->name('index');
 
+    Route::prefix('user')->as('user.')->group(function () {
+        Route::get('users/fetch', [UserController::class, "fetch"])->name('users.fetch');
+        Route::post('change-password/{user}', ChangePasswordController::class)->name('change-password');
+        Route::resource("users", UserController::class);
+    });
+
     Route::prefix('market')->as('market.')->group(function () {
+
+       
 
         Route::get('products/fetch', [ProductController::class, "fetch"])->name('products.fetch');
         Route::post('products/batch-delete', [ProductController::class, "batchDelete"])->name('products.batch-delete');
