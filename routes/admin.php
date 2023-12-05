@@ -28,8 +28,9 @@ Route::prefix('admin')->as('admin.')->group(function () {
 
         Route::get('products/fetch', [ProductController::class, "fetch"])->name('products.fetch');
         Route::post('products/batch-delete', [ProductController::class, "batchDelete"])->name('products.batch-delete');
-        Route::post('products/upload-image', [ProductController::class, "uploadImage"])->name('products.upload-image');
         Route::resource("products", ProductController::class);
+        Route::post('products/images/upload', [ProductController::class, "uploadImage"])->name('products.images.upload');
+        Route::post('products/images/destory', [ProductController::class, "destroyImage"])->name('products.images.destory');
 
         Route::get('brands/fetch', [BrandController::class, "fetch"])->name('brands.fetch');
         Route::post('brands/batch-delete', [BrandController::class, "batchDelete"])->name('brands.batch-delete');

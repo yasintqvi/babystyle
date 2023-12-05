@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('primary_image');
             $table->string('secondary_image')->nullable();
             $table->foreignId('category_id')->constrained('categories');
-            $table->foreignId('brand_id')->constrained('brands');
+            $table->foreignId('brand_id')->nullable()->constrained('brands');
             $table->decimal("weight", 10, 2)->nullable();
             $table->decimal("width", 10, 2)->nullable();
             $table->decimal("height", 10, 2)->nullable();
