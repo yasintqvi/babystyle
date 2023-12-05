@@ -38,6 +38,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#attributes">
+                            <em class="icon ni ni-table-view-fill"></em>
+                            <span>مشخصات محصول</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="tab" href="#seo">
                             <em class="icon ni ni-trend-up"></em>
                             <span>آدرس و سئو</span>
@@ -90,7 +96,7 @@
                                         <label class="form-label" for="category">انتخاب دسته بندی <span
                                                 class="text-danger">*</span></label>
                                         <select name="category_id" class="form-select js-select2" data-search="on">
-                                            <option>یک دسته را انتخاب کنید</option>
+                                            <option value="">یک دسته را انتخاب کنید</option>
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}" @selected($category->id == old('category_id'))>
                                                     {{ $category->title }}</option>
@@ -111,7 +117,7 @@
                                     <div class="form-control-wrap">
                                         <label class="form-label" for="category">انتخاب برند</label>
                                         <select name="brand_id" class="form-select js-select2" data-search="on">
-                                            <option>یک برند را انتخاب کنید</option>
+                                            <option value="">یک برند را انتخاب کنید</option>
                                             @foreach ($brands as $brand)
                                                 <option value="{{ $brand->id }}" @selected($brand->id == old('brand_id'))>
                                                     {{ $brand->persian_name }}</option>
@@ -191,7 +197,7 @@
                         <div class="col-12">
                             <input type="hidden" name="images" value="{{ old('images') }}">
                             <label class="form-label">محدودیت حجم فایل ناحیه رها کردن (4 مگابایت)</label>
-                            <div class="upload-zone">
+                            <div class="upload-zone dropzone-rtl" id="upload-zone">
                                 <div class="dz-message" data-dz-message data-max-file-size="4"
                                     data-accepted-files="jpg,png,jpeg,webp,gif">
                                     <span class="dz-message-text">فایل را بکشید و رها کنید</span>
@@ -209,7 +215,61 @@
                         @enderror
                     </div>
                     <div class="tab-pane" id="store">
+                    </div>
+                    <div class="tab-pane" id="attributes">
+                        <span class="preview-title-lg overline-title">مشخصه های محصول را اضافه و enter کنید</span>
+                        <div class="row gy-4">
+                            <div class="col-sm-5">
+                                <div class="form-group">
+                                    <input type="text" onkeydown="handleNewAttribute(event)" class="form-control" id="attribute_name"
+                                        placeholder="نام مشخصه (مثال: ابعاد)">
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="form-group">
+                                    <input type="text" onkeydown="handleNewAttribute(event)" class="form-control" id="attribute_value"
+                                        placeholder="مقدار مشخصه">
+                                </div>
+                            </div>
 
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-lim btn-success" onclick="addNewAttribute()"
+                                        id="add-attribute-btn">اضافه
+                                        کردن</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <table class="table table-tranx my-4" id="register-attributes">
+                            <thead>
+                                <tr>
+                                    <th class="small text-mute">نام مشخصه</th>
+                                    <th class="small text-mute">مقدار مشخصه</th>
+                                    <th class="small text-mute">عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (old('attributes', []) as $key => $attribute)
+                                    <tr>
+                                        <input type='hidden' name="attributes[{{ $key }}][key]"
+                                            value="{{ $attribute['key'] }}">
+                                        <input type='hidden' name="attributes[{{ $key }}][value]"
+                                            value="{{ $attribute['value'] }}">
+                                        <td class="tb-tnx-info title">
+                                            {{ $attribute['key'] }}
+                                        </td>
+                                        <td class="tb-tnx-info">
+                                            {{ $attribute['value'] }}
+                                        </td>
+                                        <td>
+                                            <button type='button' class='btn text-danger'><em
+                                                    class="icon ni ni-trash"></em></button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                     <div class="tab-pane" id="seo">
                         <p>بزار ببینیم چیکار میتونیم بکنیم</p>
@@ -223,46 +283,90 @@
             </div>
         </div>
     </form>
-    @php
-        $images = explode(',', old('images'));
-        // dd($images);
-    @endphp
 @endsection
+
 
 @section('script')
     <script>
+        // script for product gallery
         const imageInput = document.querySelector('input[name="images"]');
+        const csrfToken = "{{ csrf_token() }}";
 
-        const oldImages = @json($images);
+        NioApp.Dropzone.init = function() {
 
-        const csrfToken = "{{ csrf_token() }}"
-        NioApp.Dropzone('.upload-zone', {
-            url: "{{ route('admin.market.products.upload-image') }}",
-            headers: {
-                'X-CSRF-TOKEN': csrfToken
-            },
-            parallelUploads: 1, // تنها یک فایل به صورت همزمان آپلود شود
+            const myDropzone = new Dropzone('.upload-zone', {
+                url: "{{ route('admin.market.products.images.upload') }}",
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                parallelUploads: 1,
+                addRemoveLinks: true,
 
-            success: function(file, response) {
-                imageInput.value = imageInput.value === '' ? response.path : imageInput.value +=
-                    `,${response.path}`;
-            },
+                success: function(file, response) {
+                    imageInput.value = imageInput.value === '' ? response.path : imageInput.value +=
+                        `,${response.path}`;
+                },
+            });
+        };
+    </script>
 
-            init: function() {
-                if (oldImages[0] !== "") {
-                    for (const image in oldImages) {
-                        const finalImage = oldImages[image];
-                        console.log(finalImage);
-                        const mockFile = {
-                            name: finalImage,
-                            size: "آپلود شده"
-                        };
-                        this.emit("addedfile", mockFile);
-                        this.emit("thumbnail", mockFile, `/${finalImage}`);
-                        this.emit("complete", mockFile);
-                    }
-                }
+    <script>
+        // script for product attributes
+        const registerAttributes = document.querySelector('#register-attributes tbody');
+        // attribute inputs
+        const attributeNameInput = document.querySelector('#attribute_name');
+        const attributeValueInput = document.querySelector('#attribute_value');
+
+        const addNewAttribute = () => {
+            const dataIndex = registerAttributes.children.length;
+
+            // check user input validation 
+            if (attributeNameInput.value.trim() !== '' && attributeValueInput.value.trim() !== '') {
+                const makeInputs = `
+                    <input type='hidden' name="attributes[${dataIndex}][key]" value="${attributeNameInput.value}">
+                    <input type='hidden' name="attributes[${dataIndex}][value]" value="${attributeValueInput.value}">
+                    <td class="tb-tnx-info title">
+                        ${attributeNameInput.value}
+                    </td>
+                    <td class="tb-tnx-info">
+                        ${attributeValueInput.value}
+                    </td>
+                    <td>
+                        <button type='button' class='btn text-danger delete-btn' ><em class="icon ni ni-trash"></em></button>
+                    </td>
+                `;
+
+                const attributeParentElement = document.createElement('tr');
+                attributeParentElement.innerHTML = makeInputs;
+
+                attributeParentElement.querySelector('.delete-btn').addEventListener('click', removeAttribute);
+                
+                registerAttributes.appendChild(attributeParentElement);
+
+                clearInputs();
+
+            } else {
+                NioApp.Toast('شما نمی توانید مشخصه ای با مقدار خالی اضافه نمایید.', 'error');
             }
-        });
+
+        }
+
+        const clearInputs = () => {
+            attributeNameInput.value = "";
+            attributeValueInput.value = "";
+            attributeNameInput.focus();
+        }
+
+        const removeAttribute = (event) => {
+            const attributeElement = event.srcElement.closest("tr");
+            attributeElement.remove();
+        }
+
+        const handleNewAttribute = (event) => {
+            if (event.key == "Enter") {
+                event.preventDefault();
+                addNewAttribute();
+            }
+        }
     </script>
 @endsection

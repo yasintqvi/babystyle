@@ -27759,12 +27759,12 @@ ol.linenums li {
   }
 }
 
-.dropzone,
-.dropzone * {
+.dropzone-rtl,
+.dropzone-rtl * {
   box-sizing: border-box;
 }
 
-.dropzone {
+.dropzone-rtl {
   min-height: 150px;
   border: 1px dashed #e5e9f2;
   border-radius: 4px;
@@ -27772,61 +27772,61 @@ ol.linenums li {
   padding: 20px 20px;
 }
 
-.dropzone.small {
+.dropzone-rtl.small {
   min-height: 86px;
 }
 
-.dropzone.dz-clickable {
+.dropzone-rtl.dz-clickable {
   cursor: pointer;
 }
 
-.dropzone.dz-clickable * {
+.dropzone-rtl.dz-clickable * {
   cursor: default;
 }
 
-.dropzone.dz-clickable .dz-message,
-.dropzone.dz-clickable .dz-message * {
+.dropzone-rtl.dz-clickable .dz-message,
+.dropzone-rtl.dz-clickable .dz-message * {
   cursor: pointer;
 }
 
-.dropzone.dz-started .dz-message {
+.dropzone-rtl.dz-started .dz-message {
   display: none;
 }
 
-.dropzone.dz-drag-hover {
+.dropzone-rtl.dz-drag-hover {
   border-style: solid;
 }
 
-.dropzone.dz-drag-hover .dz-message {
+.dropzone-rtl.dz-drag-hover .dz-message {
   opacity: 0.5;
 }
 
-.dropzone .dz-message {
+.dropzone-rtl .dz-message {
   text-align: center;
   margin: 1em 0;
 }
 
-.dropzone .dz-message span {
+.dropzone-rtl .dz-message span {
   display: block;
   color: rgba(82, 100, 132, 0.6);
 }
 
-.dropzone .dz-message-text {
+.dropzone-rtl .dz-message-text {
   font-size: 13px;
 }
 
-.dropzone .dz-message-text span {
+.dropzone-rtl .dz-message-text span {
   display: inline-block;
   color: #854fff;
 }
 
-.dropzone .dz-message-or {
+.dropzone-rtl .dz-message-or {
   font-size: 16px;
   margin-bottom: 4px;
   text-transform: uppercase;
 }
 
-.dropzone .dz-preview {
+.dropzone-rtl .dz-preview {
   position: relative;
   display: inline-block;
   vertical-align: top;
@@ -27834,29 +27834,29 @@ ol.linenums li {
   min-height: 100px;
 }
 
-.dropzone .dz-preview:hover {
+.dropzone-rtl .dz-preview:hover {
   z-index: 1000;
 }
 
-.dropzone .dz-preview:hover .dz-details {
+.dropzone-rtl .dz-preview:hover .dz-details {
   opacity: 1;
 }
 
-.dropzone .dz-preview.dz-file-preview .dz-image {
+.dropzone-rtl .dz-preview.dz-file-preview .dz-image {
   border-radius: 20px;
   background: #999;
   background: linear-gradient(to bottom, #eee, #ddd);
 }
 
-.dropzone .dz-preview.dz-file-preview .dz-details {
+.dropzone-rtl .dz-preview.dz-file-preview .dz-details {
   opacity: 1;
 }
 
-.dropzone .dz-preview.dz-image-preview {
+.dropzone-rtl .dz-preview.dz-image-preview {
   background: white;
 }
 
-.dropzone .dz-preview.dz-image-preview .dz-details {
+.dropzone-rtl .dz-preview.dz-image-preview .dz-details {
   -webkit-transition: opacity 0.2s linear;
   -moz-transition: opacity 0.2s linear;
   -ms-transition: opacity 0.2s linear;
@@ -27864,7 +27864,7 @@ ol.linenums li {
   transition: opacity 0.2s linear;
 }
 
-.dropzone .dz-preview .dz-remove {
+.dropzone-rtl .dz-preview .dz-remove {
   font-size: 14px;
   text-align: center;
   display: block;
@@ -27872,15 +27872,15 @@ ol.linenums li {
   border: none;
 }
 
-.dropzone .dz-preview .dz-remove:hover {
+.dropzone-rtl .dz-preview .dz-remove:hover {
   text-decoration: underline;
 }
 
-.dropzone .dz-preview:hover .dz-details {
+.dropzone-rtl .dz-preview:hover .dz-details {
   opacity: 1;
 }
 
-.dropzone .dz-preview .dz-details {
+.dropzone-rtl .dz-preview .dz-details {
   z-index: 20;
   position: absolute;
   top: 0;
@@ -27895,37 +27895,37 @@ ol.linenums li {
   line-height: 150%;
 }
 
-.dropzone .dz-preview .dz-details .dz-size {
+.dropzone-rtl .dz-preview .dz-details .dz-size {
   margin-bottom: 1em;
   font-size: 16px;
 }
 
-.dropzone .dz-preview .dz-details .dz-filename {
+.dropzone-rtl .dz-preview .dz-details .dz-filename {
   white-space: nowrap;
 }
 
-.dropzone .dz-preview .dz-details .dz-filename:hover span {
+.dropzone-rtl .dz-preview .dz-details .dz-filename:hover span {
   border: 1px solid rgba(200, 200, 200, 0.8);
   background-color: rgba(255, 255, 255, 0.8);
 }
 
-.dropzone .dz-preview .dz-details .dz-filename:not(:hover) {
+.dropzone-rtl .dz-preview .dz-details .dz-filename:not(:hover) {
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.dropzone .dz-preview .dz-details .dz-filename:not(:hover) span {
+.dropzone-rtl .dz-preview .dz-details .dz-filename:not(:hover) span {
   border: 1px solid transparent;
 }
 
-.dropzone .dz-preview .dz-details .dz-filename span,
-.dropzone .dz-preview .dz-details .dz-size span {
+.dropzone-rtl .dz-preview .dz-details .dz-filename span,
+.dropzone-rtl .dz-preview .dz-details .dz-size span {
   background-color: rgba(255, 255, 255, 0.4);
   padding: 0 0.4em;
   border-radius: 3px;
 }
 
-.dropzone .dz-preview:hover .dz-image img {
+.dropzone-rtl .dz-preview:hover .dz-image img {
   -webkit-transform: scale(1.05, 1.05);
   -moz-transform: scale(1.05, 1.05);
   -ms-transform: scale(1.05, 1.05);
@@ -27935,7 +27935,7 @@ ol.linenums li {
   filter: blur(8px);
 }
 
-.dropzone .dz-preview .dz-image {
+.dropzone-rtl .dz-preview .dz-image {
   border-radius: 20px;
   overflow: hidden;
   width: 120px;
@@ -27945,11 +27945,11 @@ ol.linenums li {
   z-index: 10;
 }
 
-.dropzone .dz-preview .dz-image img {
+.dropzone-rtl .dz-preview .dz-image img {
   display: block;
 }
 
-.dropzone .dz-preview.dz-success .dz-success-mark {
+.dropzone-rtl .dz-preview.dz-success .dz-success-mark {
   -webkit-animation: passing-through 3s cubic-bezier(0.77, 0, 0.175, 1);
   -moz-animation: passing-through 3s cubic-bezier(0.77, 0, 0.175, 1);
   -ms-animation: passing-through 3s cubic-bezier(0.77, 0, 0.175, 1);
@@ -27957,7 +27957,7 @@ ol.linenums li {
   animation: passing-through 3s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
-.dropzone .dz-preview.dz-error .dz-error-mark {
+.dropzone-rtl .dz-preview.dz-error .dz-error-mark {
   opacity: 1;
   -webkit-animation: slide-in 3s cubic-bezier(0.77, 0, 0.175, 1);
   -moz-animation: slide-in 3s cubic-bezier(0.77, 0, 0.175, 1);
@@ -27966,8 +27966,8 @@ ol.linenums li {
   animation: slide-in 3s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
-.dropzone .dz-preview .dz-success-mark,
-.dropzone .dz-preview .dz-error-mark {
+.dropzone-rtl .dz-preview .dz-success-mark,
+.dropzone-rtl .dz-preview .dz-error-mark {
   pointer-events: none;
   opacity: 0;
   z-index: 500;
@@ -27979,14 +27979,14 @@ ol.linenums li {
   margin-top: -27px;
 }
 
-.dropzone .dz-preview .dz-success-mark svg,
-.dropzone .dz-preview .dz-error-mark svg {
+.dropzone-rtl .dz-preview .dz-success-mark svg,
+.dropzone-rtl .dz-preview .dz-error-mark svg {
   display: block;
   width: 54px;
   height: 54px;
 }
 
-.dropzone .dz-preview.dz-processing .dz-progress {
+.dropzone-rtl .dz-preview.dz-processing .dz-progress {
   opacity: 1;
   -webkit-transition: all 0.2s linear;
   -moz-transition: all 0.2s linear;
@@ -27995,7 +27995,7 @@ ol.linenums li {
   transition: all 0.2s linear;
 }
 
-.dropzone .dz-preview.dz-complete .dz-progress {
+.dropzone-rtl .dz-preview.dz-complete .dz-progress {
   opacity: 0;
   -webkit-transition: opacity 0.4s ease-in;
   -moz-transition: opacity 0.4s ease-in;
@@ -28004,7 +28004,7 @@ ol.linenums li {
   transition: opacity 0.4s ease-in;
 }
 
-.dropzone .dz-preview:not(.dz-processing) .dz-progress {
+.dropzone-rtl .dz-preview:not(.dz-processing) .dz-progress {
   -webkit-animation: pulse 6s ease infinite;
   -moz-animation: pulse 6s ease infinite;
   -ms-animation: pulse 6s ease infinite;
@@ -28012,7 +28012,7 @@ ol.linenums li {
   animation: pulse 6s ease infinite;
 }
 
-.dropzone .dz-preview .dz-progress {
+.dropzone-rtl .dz-preview .dz-progress {
   opacity: 1;
   z-index: 1000;
   pointer-events: none;
@@ -28029,7 +28029,7 @@ ol.linenums li {
   overflow: hidden;
 }
 
-.dropzone .dz-preview .dz-progress .dz-upload {
+.dropzone-rtl .dz-preview .dz-progress .dz-upload {
   background: #333;
   background: linear-gradient(to bottom, #666, #444);
   position: absolute;
@@ -28044,16 +28044,16 @@ ol.linenums li {
   transition: width 300ms ease-in-out;
 }
 
-.dropzone .dz-preview.dz-error .dz-error-message {
+.dropzone-rtl .dz-preview.dz-error .dz-error-message {
   display: block;
 }
 
-.dropzone .dz-preview.dz-error:hover .dz-error-message {
+.dropzone-rtl .dz-preview.dz-error:hover .dz-error-message {
   opacity: 1;
   pointer-events: auto;
 }
 
-.dropzone .dz-preview .dz-error-message {
+.dropzone-rtl .dz-preview .dz-error-message {
   pointer-events: none;
   z-index: 1000;
   position: absolute;
@@ -28076,7 +28076,7 @@ ol.linenums li {
   color: white;
 }
 
-.dropzone .dz-preview .dz-error-message:after {
+.dropzone-rtl .dz-preview .dz-error-message:after {
   content: "";
   position: absolute;
   top: -6px;
@@ -49855,7 +49855,7 @@ div.dataTables_wrapper div.dataTables_filter .dark-mode input,
 .dark-mode .tox .tox-statusbar__wordcount,
 .dark-mode .tox-collection__item-label>*,
 .dark-mode .nk-quick-nav-icon,
-.dark-mode .dropzone .dz-message span,
+.dark-mode .dropzone-rtl .dz-message span,
 .dark-mode .datepicker table tr td.today,
 .dark-mode .datepicker table tr td.today:hover,
 .dark-mode .datepicker table tr td.today.disabled,
@@ -50272,7 +50272,7 @@ div.dataTables_wrapper div.dataTables_filter .dark-mode input,
 }
 
 .dark-mode .nk-upload-item,
-.dark-mode .dropzone {
+.dark-mode .dropzone-rtl {
   border-color: #354358 !important;
 }
 
@@ -50938,7 +50938,7 @@ div.dataTables_wrapper div.dataTables_filter .dark-mode .nk-header-search input,
   border-color: #1d2d40;
 }
 
-.dark-mode .dropzone {
+.dark-mode .dropzone-rtl {
   background: #101924;
 }
 

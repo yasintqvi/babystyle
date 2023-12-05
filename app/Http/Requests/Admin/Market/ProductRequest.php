@@ -30,7 +30,9 @@ class ProductRequest extends FormRequest
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'nullable|exists:brands,id',
             'is_active' => 'nullable|in:0,1',
-            'images' => ['nullable', new ImageExist]
+            'images' => ['nullable', new ImageExist],
+            'attributes.*.key' => 'nullable|max:255',
+            'attributes.*.value' => 'nullable|max:255',
         ];
     }
 }
