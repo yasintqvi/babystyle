@@ -42,4 +42,9 @@ class Category extends Model
         ];
     }
 
+    public function variations()
+    {
+        return $this->hasMany(Variation::class);
+    }
+
 }

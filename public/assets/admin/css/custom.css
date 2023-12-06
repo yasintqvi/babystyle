@@ -4,14 +4,24 @@ div.dz-image>img {
     width: -webkit-fill-available;
 }
 
+.transparent-input {
+    background: transparent;
+    border: none;
+    outline: none;
+}
 
-.profile-size{
+.transparent-input::placeholder {
+    color: #ddd;
+    font-weight: 300;
+}
+
+.profile-size {
     border-radius: 50%;
     width: 100px;
     height: 100px;
 }
 
 
-  #file-input {
+#file-input {
     display: none;
-  }
+}

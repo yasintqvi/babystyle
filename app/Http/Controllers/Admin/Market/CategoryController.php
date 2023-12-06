@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Market\Category;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -41,6 +42,10 @@ class CategoryController extends Controller
         return response()->json($categories);
     }
 
+    public function find(Category $category) {
+        dd($category);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -54,7 +59,16 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request): RedirectResponse
     {
-        $category = Category::create($request->all());
+        $category = DB::transaction(function() use($request) {
+            $category = Category::create($request->all());
+
+            if ($request->has('variations')) {
+                $variations = collect($request->get('variations'));
+                $variations->map(fn($variation) => $category->variations()->create(['name' => $variation]));
+            }
+
+            return $category;
+        });
 
         return to_route('admin.market.categories.index')->with('success', "دسته بندی $category->title با موفقیت اضافه شد.");
     }
@@ -79,9 +93,18 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category)
     {
-        $request->mergeIfMissing(['is_active' => 0]);
-
-        $category->update($request->all());
+        DB::transaction(function() use($request, $category) {
+            $request->mergeIfMissing(['is_active' => 0]);
+    
+            $category->update($request->all());
+            
+            if ($request->has('variations')) {
+                $variations = collect($request->get('variations'));
+                $category->variations()->delete();
+                $variations->map(fn($variation) => $category->variations()->create(['name' => $variation]));
+            }
+            
+        });
 
         return to_route('admin.market.categories.index')->with('success', "دسته مورد نظر با موفقیت بروز رسانی شد.");
     }
