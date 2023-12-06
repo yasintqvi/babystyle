@@ -59,7 +59,7 @@ Route::prefix('admin')->as('admin.')->group(function () {
         Route::resource('comments', CommentController::class);
 
           
-        Route::post('comments/batch-delete', [ShippingMethodController::class, "batchDelete"])->name('shipping-methods.batch-delete');
+        Route::post('shipping-methods/batch-delete', [ShippingMethodController::class, "batchDelete"])->name('shipping-methods.batch-delete');
         Route::get('shipping-methods/fetch', [ShippingMethodController::class, "fetch"])->name('shipping-methods.fetch');
         Route::resource('shipping-methods', ShippingMethodController::class);
 
