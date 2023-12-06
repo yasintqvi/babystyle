@@ -1,6 +1,49 @@
 @extends('admin.layouts.app', ['title' => 'ویرایش دسته '])
 
 @section('content')
+    {{-- help modal --}}
+    <div class="modal fade zoom" tabindex="-1" id="modalZoom">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">راهنما</h5>
+                    <a href="#" class="close" data-bs-dismiss="modal" aria-label="بستن">
+                        <em class="icon ni ni-cross"></em>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        ویژگی هایی که منجر به تنوع یا اختلاف این دسته از محصولات می شوند را انتخاب کنید برای مثال ویژگی رنگ
+                        میتواند روی قیمت و موجودی یک محصول تاثیر بگذارد.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- new attribute modal --}}
+    <div class="modal fade zoom" tabindex="-1" id="newAttribute">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">ویژگی جدید</h5>
+                    <a href="#" class="close" data-bs-dismiss="modal" aria-label="بستن">
+                        <em class="icon ni ni-cross"></em>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="form-control-wrap">
+                            <input type="text" placeholder="نام ویژگی" class="form-control" id="attribute-name" required>
+                        </div>
+                        <div class="form-group mt-2">
+                            <button type="submit" class="btn btn-primary" onclick="addAttribute()">افزودن</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="d-flex justify-content-between align-items-center">
 
         <div class="nk-block-head col-md-6">
@@ -76,6 +119,33 @@
                                     @enderror
                                 </div>
                             </div>
+
+                            <div class="form-group ">
+                                <label class="form-label" for="fv-full-name">انتخاب ویژگی ها</label>
+                                <a href="javascript:void(0)" class="d-block" data-bs-toggle="modal"
+                                    data-bs-target="#modalZoom">
+                                    <small><em class="icon ni ni-question"></em>
+                                        راهنما</small>
+                                </a>
+                                <div>
+                                    <button type="button" class="btn btn-sm btn-success my-2" data-bs-toggle="modal"
+                                        data-bs-target="#newAttribute">
+                                        ویژگی جدید
+                                    </button>
+                                </div>
+                                <ul class="custom-control-group mt-2" id="attribute-list">
+                                    @foreach (old('variations', $category->variations->pluck('name')) as $key => $variation)
+                                        <div class="custom-control custom-checkbox custom-control-pro no-control">
+                                            <input type="checkbox" checked value="{{ $variation }}"
+                                                class="custom-control-input" name="variations[]"
+                                                id="{{ $key }}">
+                                            <label class="custom-control-label"
+                                                for="{{ $key }}">{{ $variation }}</label>
+                                        </div>
+                                    @endforeach
+                                </ul>
+                            </div>
+
                         </div>
                     </div>
                     <div class="tab-pane" id="seo">
@@ -90,4 +160,33 @@
             </form>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        const addAttribute = () => {
+            const attributeInput = document.querySelector("#attribute-name");
+
+            if (attributeInput.value.trim() !== "") {
+                const attributeListElement = document.querySelector('#attribute-list');
+                const inputId = Math.floor(Math.random() * 10000);
+                const newAttrElement = `
+            <div class="custom-control custom-checkbox custom-control-pro no-control">
+                <input type="checkbox" checked value="${attributeInput.value}" class="custom-control-input"
+                    name="variations[]" id="${ inputId }">
+                <label class="custom-control-label" for="${inputId}">${attributeInput.value}</label>
+            </div>`;
+
+                const parentAttributeElement = document.createElement('div');
+                parentAttributeElement.innerHTML = newAttrElement;
+
+                attributeListElement.appendChild(parentAttributeElement);
+
+                attributeInput.value = "";
+                attributeInput.focus();
+            } else {
+                NioApp.Toast('شما نمی توانید یک ویژگی با مقدار خالی اضافه نمایید.', 'error');
+            }
+        }
+    </script>
 @endsection

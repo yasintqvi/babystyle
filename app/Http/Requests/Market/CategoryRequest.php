@@ -24,7 +24,9 @@ class CategoryRequest extends FormRequest
 
         return [
             'title' => 'required|max:120',
-            'is_active' => 'in:0,1'
+            'is_active' => 'in:0,1',
+            'variations' => 'nullable|array',
+            'variations.*' => 'required|max:255',
         ];
 
     }

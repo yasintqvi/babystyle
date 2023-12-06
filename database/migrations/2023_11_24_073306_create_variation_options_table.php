@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('variation_id')->constrained('variations');
             $table->string('value');
+            $table->string('second_value')->nullable();
             $table->timestamps();
         });
     }

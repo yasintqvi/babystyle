@@ -3,3 +3,14 @@ div.dz-image>img {
     object-fit: cover;
     width: -webkit-fill-available;
 }
+
+.transparent-input {
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.transparent-input::placeholder {
+    color: #ddd;
+    font-weight: 300;
+}
