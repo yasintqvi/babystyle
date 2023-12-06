@@ -42,6 +42,10 @@ class CategoryController extends Controller
         return response()->json($categories);
     }
 
+    public function find(Category $category) {
+        dd($category);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

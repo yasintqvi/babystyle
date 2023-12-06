@@ -28,6 +28,7 @@ Route::prefix('admin')->as('admin.')->group(function () {
 
         Route::post('categories/batch-delete', [CategoryController::class, "batchDelete"])->name('categories.batch-delete');
         Route::get('categories/fetch', [CategoryController::class, "fetch"])->name('categories.fetch');
+        Route::get('/categories/{category}/find', [CategoryController::class, 'find'])->name('categories.find');
         Route::resource('categories', CategoryController::class);
 
         Route::post('sliders/batch-delete', [SliderController::class, "batchDelete"])->name('sliders.batch-delete');

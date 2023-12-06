@@ -26,12 +26,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#gallery">
-                            <em class="icon ni ni-img-fill"></em>
-                            <span> گالری محصول</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="tab" href="#store">
                             <em class="icon ni ni-package"></em>
                             <span>موجودی در انبار</span>
@@ -52,7 +46,7 @@
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane" id="general">
+                    <div class="tab-pane active" id="general">
                         <div class="row g-gs">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -95,7 +89,8 @@
                                     <div class="form-control-wrap">
                                         <label class="form-label" for="category">انتخاب دسته بندی <span
                                                 class="text-danger">*</span></label>
-                                        <select name="category_id" class="form-select js-select2" data-search="on">
+                                        <select name="category_id" onchange="getCategoryVariation(event, this)"
+                                            class="form-select js-select2" data-search="on">
                                             <option value="">یک دسته را انتخاب کنید</option>
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}" @selected($category->id == old('category_id'))>
@@ -191,30 +186,28 @@
                                     </span>
                                 @enderror
                             </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="gallery">
-                        <div class="col-12">
-                            <input type="hidden" name="images" value="{{ old('images') }}">
-                            <label class="form-label">محدودیت حجم فایل ناحیه رها کردن (4 مگابایت)</label>
-                            <div class="upload-zone dropzone-rtl" id="upload-zone">
-                                <div class="dz-message" data-dz-message data-max-file-size="4"
-                                    data-accepted-files="jpg,png,jpeg,webp,gif">
-                                    <span class="dz-message-text">فایل را بکشید و رها کنید</span>
-                                    <span class="dz-message-or">یا</span>
-                                    <button type="button" class="btn btn-primary">انتخاب</button>
+                            <div class="col-12">
+                                <input type="hidden" name="images" value="{{ old('images') }}">
+                                <label class="form-label">آپلود تصاویر محصول</label>
+                                <div class="upload-zone dropzone-rtl" id="upload-zone">
+                                    <div class="dz-message" data-dz-message data-max-file-size="4"
+                                        data-accepted-files="jpg,png,jpeg,webp,gif">
+                                        <span class="dz-message-text">فایل را بکشید و رها کنید</span>
+                                        <span class="dz-message-or">یا</span>
+                                        <button type="button" class="btn btn-primary">انتخاب</button>
+                                    </div>
                                 </div>
                             </div>
+                            @error('images')
+                                <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
+                                    <strong>
+                                        {{ $message }}
+                                    </strong>
+                                </span>
+                            @enderror
                         </div>
-                        @error('images')
-                            <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
-                                <strong>
-                                    {{ $message }}
-                                </strong>
-                            </span>
-                        @enderror
                     </div>
-                    <div class="tab-pane active" onclick="" id="store">
+                    <div class="tab-pane" onclick="" id="store">
                         <table class="table table-store">
                             <thead class="tb-odr-head">
                                 <tr class="tb-odr-item">
@@ -222,14 +215,17 @@
                                         <span class="tb-odr-id">SKU</span>
                                         <span class="tb-odr-ptitle d-md-inline-block">عنوان</span>
                                     </th>
+                                    <th class="tb-odr-img">آپلود تصویر (اختیاری)</th>
                                     <th class="tb-odr-amount ml-auto">
-                                        <span class="tb-odr-total">مبلغ</span>
+                                        <span class="tb-odr-total">مبلغ (تومان)</span>
                                         <span class="tb-odr-quantity">موجودی</span>
                                     </th>
                                     <th class="p-1">
                                         <div class="tb-odr-btns">
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-success d-none d-md-inline">ویژگی جدید</a>
-                                            <a href="javascript:void(0)" class="btn btn-sm btn-success d-inline d-md-none">
+                                            <a href="javascript:void(0)"
+                                                class="btn btn-sm btn-success d-none d-md-inline">ویژگی جدید</a>
+                                            <a href="javascript:void(0)"
+                                                class="btn btn-sm btn-success d-inline d-md-none">
                                                 <em class="icon ni ni-plus"></em>
                                             </a>
                                         </div>
@@ -242,12 +238,17 @@
                                         <span class="tb-odr-id"><a href="javasctipt:void(0)">-</a></span>
                                         <span class="tb-odr-ptitle">محصول شماره یک</span>
                                     </td>
+                                    <td class="tb-odr-img">
+                                        
+                                    </td>
                                     <td class="tb-odr-amount">
                                         <span class="tb-odr-total">
-                                            <input type="text" name="pitems[0][price]" class="transparent-input" placeholder="قیمت">
+                                            <input type="text" required name="pitems[0][price]" class="transparent-input"
+                                                placeholder="قیمت">
                                         </span>
                                         <span class="tb-odr-quantity">
-                                            <input type="text" name="pitems[0][quantity]" class="transparent-input" placeholder="موجودی">
+                                            <input type="text" name="pitems[0][quantity]" class="transparent-input"
+                                                placeholder="موجودی">
                                         </span>
                                     </td>
                                 </tr>
@@ -325,7 +326,6 @@
 
 
 @section('script')
-
     {{-- script for gallery --}}
     <script>
         // script for product gallery
@@ -348,13 +348,18 @@
                 },
             });
 
-            
+
         };
     </script>
 
     {{-- script for store --}}
     <script>
-
+        const getCategoryVariation = (event, element) => {
+            const id = element.value;
+            if (id.trim() != '') {
+                 
+            }
+        }
     </script>
 
     {{-- script for product attributes --}}
