@@ -1,6 +1,7 @@
 <base href="../" />
 <meta charset="utf-8" />
 <meta name="author" content="" />
+<script src="https://cdn.jsdelivr.net/npm/@persian-tools/persian-tools/build/persian-tools.umd.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <link rel="stylesheet" href="{{ asset('assets/admin/css/editors/tinymce.rtl.css')}}" />
 <meta name="description" content="" />

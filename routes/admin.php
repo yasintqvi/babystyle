@@ -6,10 +6,12 @@ use App\Http\Controllers\Admin\Market\CategoryController;
 use App\Http\Controllers\Admin\Market\CommentController;
 use App\Http\Controllers\Admin\Market\FaqController;
 use App\Http\Controllers\Admin\Market\ProductController;
+use App\Http\Controllers\Admin\Market\ShippingMethodController;
 use App\Http\Controllers\Admin\Market\SliderController;
 use App\Http\Controllers\Admin\User\ChangePasswordController;
 use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Requests\Market\FaqRequest;
+use App\Models\Market\shippingMethod;
 use Illuminate\Support\Facades\Route;
 
 
@@ -55,6 +57,11 @@ Route::prefix('admin')->as('admin.')->group(function () {
         Route::post('comments/batch-delete', [CommentController::class, "batchDelete"])->name('comments.batch-delete');
         Route::get('comments/fetch', [CommentController::class, "fetch"])->name('comments.fetch');
         Route::resource('comments', CommentController::class);
+
+          
+        Route::post('comments/batch-delete', [ShippingMethodController::class, "batchDelete"])->name('shipping-methods.batch-delete');
+        Route::get('shipping-methods/fetch', [ShippingMethodController::class, "fetch"])->name('shipping-methods.fetch');
+        Route::resource('shipping-methods', ShippingMethodController::class);
 
 
         //تغیر تایید و عدم تایید کامنت

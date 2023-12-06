@@ -29,7 +29,7 @@
                     <!-- .nk-menu-item -->
                     <li class="nk-menu-item">
                         <a href="{{ route('admin.user.users.index') }}" class="nk-menu-link">
-                            <span class="nk-menu-icon"><em class="icon ni ni-block-over"></em></span>
+                            <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
                             <span class="nk-menu-text">مدیریت کاربران</span>
                         </a>
                     </li>
@@ -83,6 +83,14 @@
                         <a href="{{ route('admin.market.comments.index')}}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-comments"></em></span>
                             <span class="nk-menu-text">کامنت ها</span>
+                            <span class="badge rounded-pill bg-primary" style="margin-left: 10px">{{ $comments->count() == 1 ? $comments->count() : null }}</span> 
+                        </a>
+                    </li>
+
+                    <li class="nk-menu-item">
+                        <a href="{{ route('admin.market.shipping-methods.index')}}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-swap"></em></span>
+                            <span class="nk-menu-text">روش های ارسال</span>
                             <span class="badge rounded-pill bg-primary" style="margin-left: 10px">{{ $comments->count() == 1 ? $comments->count() : null }}</span> 
                         </a>
                     </li>
