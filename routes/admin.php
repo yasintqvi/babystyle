@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Market\BrandController;
 use App\Http\Controllers\Admin\Market\PageController;
 use App\Http\Controllers\Admin\Market\CategoryController;
 use App\Http\Controllers\Admin\Market\CommentController;
+use App\Http\Controllers\Admin\Market\DiscountCodeController;
 use App\Http\Controllers\Admin\Market\FaqController;
 use App\Http\Controllers\Admin\Market\ProductController;
 use App\Http\Controllers\Admin\Market\ShippingMethodController;
@@ -62,8 +63,12 @@ Route::prefix('admin')->as('admin.')->group(function () {
         Route::get('shipping-methods/fetch', [ShippingMethodController::class, "fetch"])->name('shipping-methods.fetch');
         Route::resource('shipping-methods', ShippingMethodController::class);
 
+        Route::post('discount-codes/batch-delete', [DiscountCodeController::class, "batchDelete"])->name('discount-codes.batch-delete');
+        Route::get('discount-codes/fetch', [DiscountCodeController::class, "fetch"])->name('discount-codes.fetch');
+        Route::resource('discount-codes', DiscountCodeController::class);
 
-        //تغیر تایید و عدم تایید کامنت
+
+        // تایید و عدم تایید کامنت
         Route::get('/comments/{comment}/chang-approved' , [CommentController::class , 'changeApproved'])->name('comments.change-approved');
     });
 
