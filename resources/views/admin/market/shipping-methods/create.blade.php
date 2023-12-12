@@ -50,7 +50,7 @@
                                 <input type="number" id="priceInput" oninput="convertToToman()"
                                     oninput="convertToPersianCurrency()" class="form-control" id="price" name="price"
                                     value="{{ old('title') }}">
-                                <p id="convertedPrice" class="breadcrumb-item mt-1" ></p>
+                                <p id="convertedPrice" class="breadcrumb-item mt-1"></p>
                             </div>
                             @error('price')
                                 <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
@@ -91,16 +91,17 @@
 @endsection
 
 @section('script')
+    <script src="{{ asset('assets/admin/js/persian-tools.min.js') }}"></script>
     <script>
         const {
             numberToWords
         } = PersianTools;
 
-    function convertToToman() {
-        var price = document.getElementById("priceInput").value;
-        var number = price;
-        var words = numberToWords(number);
-        document.getElementById("convertedPrice").innerText = words + " تومان";
-    }
-</script>
+        function convertToToman() {
+            var price = document.getElementById("priceInput").value;
+            var number = price;
+            var words = numberToWords(number);
+            document.getElementById("convertedPrice").innerText = words + " تومان";
+        }
+    </script>
 @endsection

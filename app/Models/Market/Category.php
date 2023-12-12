@@ -17,6 +17,8 @@ class Category extends Model
         'is_active',
     ];
 
+    // protected $with = ['variations'];
+
     // for when the user searches
     public function scopeSearch($query, $keyword)
     {

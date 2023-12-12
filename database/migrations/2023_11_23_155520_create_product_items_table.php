@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedInteger('quantity')->comment('quantity in stock without order');
             $table->string('product_image')->nullable();
             $table->unsignedBigInteger('price');
-            $table->integer('frozen_number')->comment('some that have arrived at the order stage');
-            $table->integer('sold_number')->comment('sold quantity of this product');
+            $table->integer('frozen_number')->default(0)->comment('some that have arrived at the order stage');
+            $table->integer('sold_number')->default(0)->comment('sold quantity of this product');
             $table->timestamps();
         }); 
     }

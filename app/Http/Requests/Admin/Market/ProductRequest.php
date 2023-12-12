@@ -22,17 +22,28 @@ class ProductRequest extends FormRequest
      */
     public function rules(): array
     {
+        if ($this->isMethod('post')) {
+            return [
+                'title' => 'required|max:255',
+                'description' => 'required',
+                'primary_image' => 'required|image|max:4096',
+                'secondary_image' => 'nullable|image|max:4096',
+                'category_id' => 'required|exists:categories,id',
+                'brand_id' => 'nullable|exists:brands,id',
+                'is_active' => 'nullable|in:0,1',
+                'images' => ['nullable', new ImageExist],
+            ];
+        }
+
         return [
             'title' => 'required|max:255',
             'description' => 'required|max:300',
-            'primary_image' => 'required|image|max:4096',
+            'primary_image' => 'nullable|image|max:4096',
             'secondary_image' => 'nullable|image|max:4096',
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'nullable|exists:brands,id',
             'is_active' => 'nullable|in:0,1',
             'images' => ['nullable', new ImageExist],
-            'attributes.*.key' => 'nullable|max:255',
-            'attributes.*.value' => 'nullable|max:255',
         ];
     }
 }

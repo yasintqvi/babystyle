@@ -89,16 +89,18 @@
 @endsection
 
 @section('script')
+    <script src="{{ asset('assets/admin/js/persian-tools.min.js') }}"></script>
     <script>
         const {
-            numberToWords
+            numberToWords,
+            addCommas
         } = PersianTools;
-
         function convertToToman() {
             var price = document.getElementById("priceInput").value;
             var number = price;
             var words = numberToWords(number);
             document.getElementById("convertedPrice").innerText = words + " تومان";
         }
+        convertToToman();
     </script>
 @endsection

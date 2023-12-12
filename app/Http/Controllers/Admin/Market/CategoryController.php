@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Market\CategoryRequest;
+use App\Models\Market\Variation;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -42,8 +43,16 @@ class CategoryController extends Controller
         return response()->json($categories);
     }
 
-    public function find(Category $category) {
-        dd($category);
+    /** 
+     * get all variations of category
+     * */ 
+
+    public function fetchVariations(Category $category) {
+        if (!$category->variations) {
+            return response()->noContent();
+        }
+        
+        return response()->json($category->variations, 200);
     }
 
     /**
@@ -63,21 +72,14 @@ class CategoryController extends Controller
             $category = Category::create($request->all());
 
             if ($request->has('variations')) {
-                $variations = collect($request->get('variations'));
-                $variations->map(fn($variation) => $category->variations()->create(['name' => $variation]));
+                $variations = $request->get('variations');
+                $category->variations()->createMany($variations);
             }
 
             return $category;
         });
 
         return to_route('admin.market.categories.index')->with('success', "دسته بندی $category->title با موفقیت اضافه شد.");
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Category $category)
-    {
     }
 
     /**
@@ -93,15 +95,24 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category)
     {
+
         DB::transaction(function() use($request, $category) {
             $request->mergeIfMissing(['is_active' => 0]);
     
             $category->update($request->all());
             
             if ($request->has('variations')) {
-                $variations = collect($request->get('variations'));
+                $variations = $request->get('variations');
+
+                $newVariationIds = array_column($variations, 'variation_id');
+                $category->variations()->whereNotIn('id', $newVariationIds)->delete();
+
+                foreach ($variations as $variation) {
+                    $category->variations()->updateOrCreate(['id' => $variation['variation_id'] ?? null], $variation);
+                }
+            }
+            else {
                 $category->variations()->delete();
-                $variations->map(fn($variation) => $category->variations()->create(['name' => $variation]));
             }
             
         });

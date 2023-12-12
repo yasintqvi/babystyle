@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('value');
             $table->string('second_value')->nullable();
             $table->timestamps();
+            $table->primary(['variation_id', 'value']);
         });
     }
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Market;
+namespace App\Http\Requests\Admin\Market;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class ProductItemRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,13 +21,13 @@ class CategoryRequest extends FormRequest
      */
     public function rules(): array
     {
-
         return [
-            'title' =>  $this->isMethod('post') ? 'required|max:120|unique:categories,title' : 'required|max:120|unique:categories,title,' . ($this->category->id ? $this->category->id : 'NULL') . ',id',
-            'is_active' => 'in:0,1',
-            'variations' => 'nullable|array',
-            'variations.*' => 'required|max:255',
+            'price' => "required|integer|min:0|max:100000000",
+            'quantity' => 'required|integer|min:0|max:10000',
+            'options.*.variation_id' => "nullable|exists:variations,id",
+            'options.*.value' => 'nullable|max:255',
+            'options.*.second_value' => 'nullable|max:255',
+            'product_image' => 'nullable|image|max:4096',
         ];
-
     }
 }

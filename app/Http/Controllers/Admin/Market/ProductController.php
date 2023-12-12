@@ -9,6 +9,7 @@ use App\Models\Market\Brand;
 use App\Models\Market\Category;
 use App\Models\Market\Product;
 use App\Models\Market\ProductImage;
+use App\Models\Market\ProductItem;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
@@ -77,6 +78,7 @@ class ProductController extends Controller
             $inputs['primary_image'] = $imageService->save($request->file('primary_image'));
 
             if ($request->hasFile('secondary_image')) {
+                $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . "product-items");
                 $inputs['secondary_image'] = $imageService->save($request->file('secondary_image'));
             }
 
@@ -88,39 +90,36 @@ class ProductController extends Controller
                 collect($productImages)->map(fn($image) => $product->images()->create(['image' => $image]));
             }
 
-            // save product attributes
-            if ($request->has('attributes')) {
-                $product->attributes()->createMany($request->get('attributes'));
-            }
-
             return $product;
         });
 
-        return to_route('admin.market.products.index')->with('success', "محصول $product->title با موفقیت اضافه شد.");
+
+
+        return to_route('admin.market.products.edit', $product->id)->with('success', "اطلاعات محصول با موفقیت ثبت شد.");
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
-        //
+        $categories = Category::select('id', 'title')->get();
+        $brands = Brand::select('id', 'persian_name')->get();
+
+        $product->load('category.variations');
+
+        return view('admin.market.product.edit', compact('product', 'categories', 'brands'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        $product->update($request->all());
+
+        return back()->with('success', 'اطلاعات با موفقیت بروز رسانی شد');
     }
 
     /**

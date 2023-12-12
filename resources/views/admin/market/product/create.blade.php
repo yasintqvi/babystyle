@@ -20,25 +20,26 @@
                 @csrf
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" data-bs-toggle="tab" href="#general">
+                        <a class="nav-link active" id="general-link" data-bs-toggle="tab" href="#general">
                             <em class="icon ni ni-property"></em>
-                            <span>موارد عمومی</span>
+                            <span>اطلاعات محصول</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#store">
-                            <em class="icon ni ni-package"></em>
-                            <span>موجودی در انبار</span>
+                        <a class="nav-link disabled" aria-disabled="true" id="store-link" data-bs-toggle="tab"
+                            href="#store">
+                            <em class="icon ni ni-color-palette-fill"></em>
+                            <span>تنوع محصول</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#attributes">
+                        <a class="nav-link disabled" aria-disabled="true" data-bs-toggle="tab" href="#attributes">
                             <em class="icon ni ni-table-view-fill"></em>
                             <span>مشخصات محصول</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#seo">
+                        <a class="nav-link disabled" aria-disabled="true" data-bs-toggle="tab" href="#seo">
                             <em class="icon ni ni-trend-up"></em>
                             <span>آدرس و سئو</span>
                         </a>
@@ -89,7 +90,7 @@
                                     <div class="form-control-wrap">
                                         <label class="form-label" for="category">انتخاب دسته بندی <span
                                                 class="text-danger">*</span></label>
-                                        <select name="category_id" onchange="getCategoryVariation(event, this)"
+                                        <select name="category_id" onchange="checkSelectCategory(this)"
                                             class="form-select js-select2" data-search="on">
                                             <option value="">یک دسته را انتخاب کنید</option>
                                             @foreach ($categories as $category)
@@ -129,6 +130,7 @@
                                 </div>
                             </div>
 
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label" for="customFileLabel">تصویر شاخص
@@ -138,7 +140,7 @@
                                         <div class="form-file">
                                             <input type="file" name="primary_image" class="form-file-input"
                                                 id="customFile">
-                                            <label class="form-file-label" for="customFile">انتخاب فایل</label>
+                                            <label class="form-file-label" for="customFile">انتخاب تصویر</label>
                                         </div>
                                     </div>
                                     @error('primary_image')
@@ -157,7 +159,7 @@
                                         <div class="form-file">
                                             <input type="file" name="secondary_image" class="form-file-input"
                                                 id="customFile">
-                                            <label class="form-file-label" for="customFile">انتخاب فایل</label>
+                                            <label class="form-file-label" for="customFile">انتخاب تصویر</label>
                                         </div>
                                     </div>
                                     @error('secondary_image')
@@ -169,6 +171,7 @@
                                     @enderror
                                 </div>
                             </div>
+
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="form-label" for="customFileLabel">
@@ -207,53 +210,19 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="tab-pane" onclick="" id="store">
-                        <table class="table table-store">
-                            <thead class="tb-odr-head">
-                                <tr class="tb-odr-item">
-                                    <th class="tb-odr-info">
-                                        <span class="tb-odr-id">SKU</span>
-                                        <span class="tb-odr-ptitle d-md-inline-block">عنوان</span>
-                                    </th>
-                                    <th class="tb-odr-img">آپلود تصویر (اختیاری)</th>
-                                    <th class="tb-odr-amount ml-auto">
-                                        <span class="tb-odr-total">مبلغ (تومان)</span>
-                                        <span class="tb-odr-quantity">موجودی</span>
-                                    </th>
-                                    <th class="p-1">
-                                        <div class="tb-odr-btns">
-                                            <a href="javascript:void(0)"
-                                                class="btn btn-sm btn-success d-none d-md-inline">ویژگی جدید</a>
-                                            <a href="javascript:void(0)"
-                                                class="btn btn-sm btn-success d-inline d-md-none">
-                                                <em class="icon ni ni-plus"></em>
-                                            </a>
-                                        </div>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody class="tb-odr-body">
-                                <tr class="tb-odr-item">
-                                    <td class="tb-odr-info">
-                                        <span class="tb-odr-id"><a href="javasctipt:void(0)">-</a></span>
-                                        <span class="tb-odr-ptitle">محصول شماره یک</span>
-                                    </td>
-                                    <td class="tb-odr-img">
-                                        
-                                    </td>
-                                    <td class="tb-odr-amount">
-                                        <span class="tb-odr-total">
-                                            <input type="text" required name="pitems[0][price]" class="transparent-input"
-                                                placeholder="قیمت">
-                                        </span>
-                                        <span class="tb-odr-quantity">
-                                            <input type="text" name="pitems[0][quantity]" class="transparent-input"
-                                                placeholder="موجودی">
-                                        </span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="tab-pane" id="store">
+                        {{-- start product variations --}}
+
+                        <div id="pitems-container">
+
+                        </div>
+
+                        <div class="d-flex justify-content-center" data-bs-target="#addItemModal" data-bs-toggle="modal">
+                            <button type="button" class="btn btn-outline-primary">افزودن تنوع جدید</button>
+                        </div>
+
+
+                        {{-- end product variations --}}
                     </div>
                     <div class="tab-pane" id="attributes">
                         <span class="preview-title-lg overline-title">مشخصه های محصول را اضافه و enter کنید</span>
@@ -350,76 +319,5 @@
 
 
         };
-    </script>
-
-    {{-- script for store --}}
-    <script>
-        const getCategoryVariation = (event, element) => {
-            const id = element.value;
-            if (id.trim() != '') {
-                 
-            }
-        }
-    </script>
-
-    {{-- script for product attributes --}}
-    <script>
-        // script for product attributes
-        const registerAttributes = document.querySelector('#register-attributes tbody');
-        // attribute inputs
-        const attributeNameInput = document.querySelector('#attribute_name');
-        const attributeValueInput = document.querySelector('#attribute_value');
-
-        const addNewAttribute = () => {
-            const dataIndex = registerAttributes.children.length;
-
-            // check user input validation 
-            if (attributeNameInput.value.trim() !== '' && attributeValueInput.value.trim() !== '') {
-                const makeInputs = `
-                    <input type='hidden' name="attributes[${dataIndex}][key]" value="${attributeNameInput.value}">
-                    <input type='hidden' name="attributes[${dataIndex}][value]" value="${attributeValueInput.value}">
-                    <td class="tb-tnx-info title">
-                        ${attributeNameInput.value}
-                    </td>
-                    <td class="tb-tnx-info">
-                        ${attributeValueInput.value}
-                    </td>
-                    <td>
-                        <button type='button' class='btn text-danger delete-btn' ><em class="icon ni ni-trash"></em></button>
-                    </td>
-                `;
-
-                const attributeParentElement = document.createElement('tr');
-                attributeParentElement.innerHTML = makeInputs;
-
-                attributeParentElement.querySelector('.delete-btn').addEventListener('click', removeAttribute);
-
-                registerAttributes.appendChild(attributeParentElement);
-
-                clearInputs();
-
-            } else {
-                NioApp.Toast('شما نمی توانید مشخصه ای با مقدار خالی اضافه نمایید.', 'error');
-            }
-
-        }
-
-        const clearInputs = () => {
-            attributeNameInput.value = "";
-            attributeValueInput.value = "";
-            attributeNameInput.focus();
-        }
-
-        const removeAttribute = (event) => {
-            const attributeElement = event.srcElement.closest("tr");
-            attributeElement.remove();
-        }
-
-        const handleNewAttribute = (event) => {
-            if (event.key == "Enter") {
-                event.preventDefault();
-                addNewAttribute();
-            }
-        }
     </script>
 @endsection

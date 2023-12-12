@@ -11,11 +11,18 @@ class Variation extends Model
 
     protected $fillable = [
         'name',
-        'category_id'
+        'category_id',
+        'is_color'
     ];
 
     // relations
-    public function category() {
+    public function category()
+    {
         return $this->belongsTo(Category::class);
+    }
+
+    public function options()
+    {
+        return $this->belongsTo(VariationOption::class);
     }
 }

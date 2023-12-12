@@ -21,47 +21,11 @@
         </div>
     </div>
 
-    {{-- new attribute modal --}}
-    <div class="modal fade zoom" tabindex="-1" id="newAttribute">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">ویژگی جدید</h5>
-                    <a href="#" class="close" data-bs-dismiss="modal" aria-label="بستن">
-                        <em class="icon ni ni-cross"></em>
-                    </a>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <div class="form-control-wrap">
-                            <input type="text" placeholder="نام ویژگی" class="form-control" id="attribute-name" required>
-                        </div>
-                        <div class="form-group mt-2">
-                            <button type="submit" class="btn btn-primary" onclick="addAttribute()">افزودن</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="d-flex justify-content-between align-items-center">
-
-        <div class="nk-block-head col-md-6">
-            <div class="nk-block-head-content">
-                <h4 class="title nk-block-title">ویرایش دسته {{ $category->title }}</h4>
-            </div>
-        </div>
-        <div class="nk-block-head-sub mt-1">
-            <a class="back-to" href="{{ route('admin.market.categories.index') }}"><em
-                    class="icon ni ni-arrow-left"></em><span>بازگشت</span></a>
-        </div>
-    </div>
-
     <div class="card">
         <div class="card-inner">
 
             <form action="{{ route('admin.market.categories.update', $category->id) }}" method="post"
-                enctype="multipart/form-data" id="form" class="form-validate" novalidate="novalidate">
+                enctype="multipart/form-data" class="form-validate" id="category-form" novalidate="novalidate">
                 @csrf
                 @method('PUT')
                 <ul class="nav nav-tabs">
@@ -128,22 +92,38 @@
                                         راهنما</small>
                                 </a>
                                 <div>
-                                    <button type="button" class="btn btn-sm btn-success my-2" data-bs-toggle="modal"
-                                        data-bs-target="#newAttribute">
+                                    <button type="button" class="btn btn-sm btn-success my-2" onclick="addAttributeInput()" >
                                         ویژگی جدید
                                     </button>
                                 </div>
-                                <ul class="custom-control-group mt-2" id="attribute-list">
-                                    @foreach (old('variations', $category->variations->pluck('name')) as $key => $variation)
-                                        <div class="custom-control custom-checkbox custom-control-pro no-control">
-                                            <input type="checkbox" checked value="{{ $variation }}"
-                                                class="custom-control-input" name="variations[]"
-                                                id="{{ $key }}">
-                                            <label class="custom-control-label"
-                                                for="{{ $key }}">{{ $variation }}</label>
+                                <div class="row g-4 mt-2" id="attribute-list">
+                                    @php
+                                        $variations = $category->variations->map(function ($item) {
+                                            return ['id' => $item['id'] ,'name' => $item['name'], 'is_color' => $item['is_color']];
+                                        });
+                                    @endphp
+                                    @foreach (old('variations', $variations) as $key => $variation)
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="input-{{ $key }}">نام ویژگی</label>
+                                                <div class="form-control-wrap">
+                                                    <input type="text" class="form-control variation-input"
+                                                        name="variations[{{ $key }}][name]"
+                                                        value="{{ $variation['name'] }}" id="input-{{ $key }}">
+                                                    <input type="checkbox" name="variations[{{ $key }}][is_color]"
+                                                        value="1" @checked($variation['is_color'] ?? false) class="form-check-input"
+                                                        id="check-{{ $key }}">
+                                                    <label class="form-label small text-mute"
+                                                        for="check-{{ $key }}">همراه
+                                                        با ورودی رنگ</label>
+                                                    @if (isset($variation['id']))
+                                                    <input type="hidden" name="variations[{{ $key }}][variation_id]" value="{{ $variation['id'] }}">
+                                                    @endempty
+                                                </div>
+                                            </div>
                                         </div>
                                     @endforeach
-                                </ul>
+                                </div>
                             </div>
 
                         </div>
@@ -164,29 +144,41 @@
 
 @section('script')
     <script>
-        const addAttribute = () => {
-            const attributeInput = document.querySelector("#attribute-name");
+        const addAttributeInput = () => {
+            const attributeListElement = document.querySelector('#attribute-list');
+            const inputId = attributeListElement.children.length;
+            const newAttrElement = `
+        <div class="form-group">
+            <label class="form-label" for="input-${inputId}">نام ویژگی</label>
+            <div class="form-control-wrap">
+                <input type="text" name="variations[${inputId}][name]" class="form-control variation-input" id="input-${inputId}">
+                <input type="checkbox" name="variations[${inputId}][is_color]" value="1" class="form-check-input" id="check-${inputId}">
+                <label class="form-label small text-mute" for="check-${inputId}">همراه با ورودی رنگ</label>
+            </div>
+        </div>
+        `;
 
-            if (attributeInput.value.trim() !== "") {
-                const attributeListElement = document.querySelector('#attribute-list');
-                const inputId = Math.floor(Math.random() * 10000);
-                const newAttrElement = `
-            <div class="custom-control custom-checkbox custom-control-pro no-control">
-                <input type="checkbox" checked value="${attributeInput.value}" class="custom-control-input"
-                    name="variations[]" id="${ inputId }">
-                <label class="custom-control-label" for="${inputId}">${attributeInput.value}</label>
-            </div>`;
+            const parentAttributeElement = document.createElement('div');
+            parentAttributeElement.classList.add('col-md-3')
+            parentAttributeElement.innerHTML = newAttrElement;
 
-                const parentAttributeElement = document.createElement('div');
-                parentAttributeElement.innerHTML = newAttrElement;
+            attributeListElement.appendChild(parentAttributeElement);
 
-                attributeListElement.appendChild(parentAttributeElement);
-
-                attributeInput.value = "";
-                attributeInput.focus();
-            } else {
-                NioApp.Toast('شما نمی توانید یک ویژگی با مقدار خالی اضافه نمایید.', 'error');
-            }
+            document.querySelector(`#input-${inputId}`).focus();
         }
+
+        const categroyForm = document.querySelector('#category-form');
+
+        categroyForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const attributes = document.querySelectorAll('.variation-input');
+            attributes.forEach(attribute => {
+                if (attribute.value.trim() == "") {
+                    const inputContainer = attribute.closest('.form-group').remove();
+                }
+            });
+
+            categroyForm.submit();
+        });
     </script>
 @endsection
