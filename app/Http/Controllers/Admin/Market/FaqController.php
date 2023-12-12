@@ -112,3 +112,4 @@ class FaqController extends Controller
         return back()->with('success', "حذف پرسش ها با موفقیت انجام شد.");
     }
 }
+                                                                              

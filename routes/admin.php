@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Market\BrandController;
 use App\Http\Controllers\Admin\Market\PageController;
 use App\Http\Controllers\Admin\Market\CategoryController;
 use App\Http\Controllers\Admin\Market\CommentController;
+use App\Http\Controllers\Admin\Market\DiscountCodeController;
 use App\Http\Controllers\Admin\Market\FaqController;
 use App\Http\Controllers\Admin\Market\ProductAttributeController;
 use App\Http\Controllers\Admin\Market\ProductController;
@@ -64,12 +65,16 @@ Route::prefix('admin')->as('admin.')->group(function () {
         Route::resource('comments', CommentController::class)->except('show');
 
           
-        Route::post('comments/batch-delete', [ShippingMethodController::class, "batchDelete"])->name('shipping-methods.batch-delete');
+        Route::post('shipping-methods/batch-delete', [ShippingMethodController::class, "batchDelete"])->name('shipping-methods.batch-delete');
         Route::get('shipping-methods/fetch', [ShippingMethodController::class, "fetch"])->name('shipping-methods.fetch');
         Route::resource('shipping-methods', ShippingMethodController::class)->except('show');
 
+        Route::post('discount-codes/batch-delete', [DiscountCodeController::class, "batchDelete"])->name('discount-codes.batch-delete');
+        Route::get('discount-codes/fetch', [DiscountCodeController::class, "fetch"])->name('discount-codes.fetch');
+        Route::resource('discount-codes', DiscountCodeController::class);
 
-        //تغیر تایید و عدم تایید کامنت
+
+        // تایید و عدم تایید کامنت
         Route::get('/comments/{comment}/chang-approved' , [CommentController::class , 'changeApproved'])->name('comments.change-approved');
     });
 

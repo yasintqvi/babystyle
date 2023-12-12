@@ -97,6 +97,6 @@ class CommentController extends Controller
 
         Comment::whereIn('id', $request->get('ids'))->delete();
 
-        return back()->with('success', "حذف کامنت ها موفقیت انجام شد.");
+        return back()->with('success', "حذف کامنت با موفقیت انجام شد.");
     }
 }
