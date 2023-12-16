@@ -37,6 +37,8 @@ Route::prefix('admin')->as('admin.')->group(function () {
 
         Route::resource('{product}/attributes', ProductAttributeController::class)->only('index' ,'destroy', 'store');
         Route::get('{product}/items/fetch', [ProductItemController::class, "fetch"])->name('items.fetch');
+        Route::post('{productItem}/discount', [ProductItemController::class, 'storeDiscount'])->name('items.discount');
+        Route::post('discounts/{productItemDiscount}/expiration', [ProductItemController::class, 'expiration'])->name('items.discount.expiration');
         Route::resource('{product}/items', ProductItemController::class)->except('show');
 
         Route::get('brands/fetch', [BrandController::class, "fetch"])->name('brands.fetch');

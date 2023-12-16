@@ -21,14 +21,62 @@ class ProductItem extends Model
     ];
 
 
+    protected $appends = ['price_with_discount'];
+
+
+    // mutators 
+    public function setQuantityAttribute($value)
+    {
+        $product = request()->product;
+
+        if (isset($this->id)) {
+            // updated
+            $updateProductQty = (int) $value + ($product->quantity - $this->quantity);
+
+            $product->update([
+                'quantity' => $updateProductQty
+            ]);
+        } else {
+            $product->update([
+                'quantity' => $product->quantity += (int) $value
+            ]);
+        }
+
+        $this->attributes['quantity'] = $value;
+
+    }
+
+
     // relations 
     public function variationOptions()
     {
         return $this->belongsToMany(VariationOption::class, 'product_variation_options');
     }
 
-    public function getImageAttribute() {
+    public function discounts()
+    {
+        return $this->hasMany(ProductItemDiscount::class);
+    }
+
+    public function getImageAttribute()
+    {
         return $this->product_image ?? "defaults/no-image.jpg";
+    }
+
+    public function hasDiscount()
+    {
+        return $this->discounts()->active()->exists();
+    }
+
+    public function getPriceWithDiscountAttribute()
+    {
+        if ($this->hasDiscount()) {
+            $discountRate = $this->discounts()->active()->first()->discount_rate;
+            $discountAmount = $this->price * ($discountRate / 100);
+            return $this->price - $discountAmount;
+        }
+
+        return $this->price;
     }
 
     // set sku

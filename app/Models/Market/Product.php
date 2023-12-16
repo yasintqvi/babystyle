@@ -27,7 +27,8 @@ class Product extends Model
         'published_at',
         'is_active',
         'sold_number',
-        'quantity'
+        'quantity',
+        'price'
     ];
 
     // scopes

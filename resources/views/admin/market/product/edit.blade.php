@@ -476,11 +476,13 @@
                 for (option in data.items[item].variation_options) {
                     attributeTdContent.push(data.items[item].variation_options[option]['value']);
                 }
+
+                const price = getPrice(data.items[item]['price'] , data.items[item]['price_with_discount']);
                 tr.innerHTML = `
                     <td>${ attributeTdContent.join(' - ') }</td>
                     <td><img style="width:4rem; height:4rem" src="/${data.items[item]['product_image'] || 'defaults/no-image.jpg'}"</td>
                     <td>${data.items[item]['quantity']}</td>
-                    <td>${addCommas(data.items[item]['price'])} تومان</td>
+                    <td>${price} تومان</td>
                     <td><a href="/admin/market/{{ $product->id }}/items/${data.items[item]['id']}/edit" target="_blank" class="btn btn-trigger btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="ویرایش"><em class="icon ni ni-edit-fill"></em></a></td>
                 `;
 
@@ -489,6 +491,16 @@
 
             document.querySelectorAll('.delete-attribute').forEach(delElement => delElement.addEventListener('click',
                 removeAttribute));
+        }
+
+        const getPrice = (price, discountPrice) => {
+            if (price == discountPrice) {
+                return addCommas(price);
+            }
+
+            return `
+                <s class='text-danger'>${addCommas(price)}</s> <span> ${addCommas(discountPrice)} </span>
+            `
         }
 
         getProductItems();

@@ -207,5 +207,6 @@ return [
         'is_active' => 'وضعیت',
         'primary_image' => 'تصویر شاخص',
         'secondary_image' => 'تصویر ثانویه',
+        'discount_rate' => "درصد تخفیف",
     ],
 ];

@@ -7,10 +7,12 @@ use App\Http\Requests\Admin\Market\ProductItemRequest;
 use App\Http\Services\Image\ImageService;
 use App\Models\Market\Product;
 use App\Models\Market\ProductItem;
+use App\Models\Market\ProductItemDiscount;
 use App\Models\Market\VariationOption;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class ProductItemController extends Controller
@@ -53,6 +55,7 @@ class ProductItemController extends Controller
         $validData = $request->all();
 
         if ($request->hasFile('product_image')) {
+            $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . "product_items");
             $validData['product_image'] = $imageService->save($request->file('product_image'));
         }
 
@@ -98,7 +101,7 @@ class ProductItemController extends Controller
     {
         $item->load('variationOptions');
 
-        return view('admin.market.product.productItem.edit', compact('product', 'item'));
+        return view('admin.market.product.product-item.edit', compact('product', 'item'));
     }
 
     /**
@@ -109,6 +112,7 @@ class ProductItemController extends Controller
         $validData = $request->all();
         
         if ($request->hasFile('product_image')) {
+            $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . "product_items");
             $validData['product_image'] = $imageService->save($request->file('product_image'));
 
             if (!empty($item->product_image)) {
@@ -155,5 +159,45 @@ class ProductItemController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function storeDiscount(Request $request, ProductItem $productItem) 
+    {
+        $validData = $request->validate([
+            'discount_rate' => 'required|numeric|min:1|max:100',
+            'start_date' => 'required|numeric',
+            'end_date' => 'required|numeric',
+        ]);
+        
+        $startDate = dateFormating($request->start_date);
+        $endDate = dateFormating($request->end_date);
+
+        $existing_discount = $productItem->discounts()->where(function ($query) use ($startDate, $endDate) {
+            $query->where('start_date', '<=', $startDate)
+                  ->where('end_date', '>=', $startDate)
+                  ->orWhere('start_date', '<=', $endDate)
+                  ->where('end_date', '>=', $endDate);
+        })->first();
+
+        if ($existing_discount) {
+            return back()->with(['tab' => 'discount', 'error' => 'تخفیفی در این بازه ی زمانی فعال است.']);
+        }
+        
+        [$validData['start_date'], $validData['end_date']] = [$startDate, $endDate];
+
+        $productItem->discounts()->create($validData);
+
+        return back()->with(['tab' => 'discount', 'success' => 'تخفیف روی محصول اعمال شد']);
+    }
+
+    public function expiration(ProductItemDiscount $productItemDiscount) 
+    {
+        $expiredDate = Carbon::now()->startOfMinute()->subMinute()->getTimestamp();
+
+        $productItemDiscount->update([
+            'end_date' => $expiredDate
+        ]);
+
+        return back()->with(['tab' => 'discount' ,'success' => 'تخفیف مورد نظر منفضی شد.']);
     }
 }

@@ -1,5 +1,9 @@
 @extends('admin.layouts.app', ['title' => 'ایجاد کد تخفیف'])
 
+@section('head-tag')
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/persian-datepicker.css') }}" />
+@endsection
+
 @section('content')
     <ul class="breadcrumb breadcrumb-arrow">
         <li class="breadcrumb-item"><a href="#">صفحه اصلی</a></li>
@@ -63,7 +67,8 @@
                     <div class="form-group col-md-4">
                         <label class="form-label" for="type">نوع</label>
                         <div class="form-control-wrap">
-                            <select onchange="selectDiscountType(this.value)" id="selectOptions" class="form-select" id="type" name="type">
+                            <select onchange="selectDiscountType(this.value)" id="selectOptions" class="form-select"
+                                id="type" name="type">
                                 <option class="option" title="مبلغی" value="1"
                                     @if (old('type') == 1) selected @endif>مبلغی</option>
                                 <option class="option" title="درصدی" value="0"
@@ -201,6 +206,8 @@
 @endsection
 
 @section('script')
+    <script src="{{ asset('assets/admin/js/persian-date.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/persian-datepicker.js') }}"></script>
     <script>
         var selectOptions = document.getElementById("selectOptions");
         var amountInput = document.querySelector("#amount_all");
@@ -210,7 +217,7 @@
         let rate = selectOptions.value
         selectDiscountType(rate);
 
-        function selectDiscountType(rate = 0){
+        function selectDiscountType(rate = 0) {
             if (selectOptions.value === "0") {
                 amountInput.classList.add("d-none")
                 discountRateInput.classList.remove("d-none")
@@ -222,9 +229,6 @@
                 discountCeilingInput.classList.add("d-none")
             }
         }
-
-
-
     </script>
 
 
@@ -260,7 +264,5 @@
             var words = numberToWords(number);
             event.target.nextElementSibling.innerText = words + " تومان";
         }
-        
     </script>
-
 @endsection
