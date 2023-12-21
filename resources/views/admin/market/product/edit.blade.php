@@ -191,7 +191,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-12">
+                            <div class="col-12 mb-5">
                                 <input type="hidden" name="images"
                                     value="{{ old('images', $product->images->pluck('image')->implode(',')) }}">
                                 <label class="form-label">آپلود تصاویر محصول</label>
@@ -297,6 +297,29 @@
                                     </div>
                                 </div>
                             @endforeach
+                            @if ($product->items()->count() > 0) 
+                            <div class="col-md-6">
+                                <div class="form-group ">
+                                    <label class="form-label" for="fv-full-name">انتخاب به عنوان محصول پیشفرض</label>
+                                    <div class="form-control-wrap">
+                                        <div class="custom-control custom-control-lg custom-switch">
+                                            <input type="checkbox" name="is_default" value="1"
+                                                class="custom-control-input" @checked(old('is_default')) id="is_default">
+                                            <label class="custom-control-label" for="is_default">فعال</label>
+                                        </div>
+                                    </div>
+                                    @error('is_default')
+                                        <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
+                                            <strong>
+                                                {{ $message }}
+                                            </strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            @else 
+                                <input type="hidden" name="is_default" value="1">
+                            @endif
                         </div>
                         <div class="col-md-12 mt-4">
                             <div class="form-group">
@@ -312,6 +335,7 @@
                                 <th class="small text-mute">تصویر</th>
                                 <th class="small text-mute">موجودی</th>
                                 <th class="small text-mute">قیمت</th>
+                                <th class="small text-mute">محصول پیشفرض</th>
                                 <th class="small text-mute">اقدامات</th>
                             </tr>
                         </thead>
@@ -483,6 +507,7 @@
                     <td><img style="width:4rem; height:4rem" src="/${data.items[item]['product_image'] || 'defaults/no-image.jpg'}"</td>
                     <td>${data.items[item]['quantity']}</td>
                     <td>${price} تومان</td>
+                    <td>${data.items[item].is_default == 1 ? '<h4><em class="icon ni ni-check-circle-fill text-success"></em></h4>' : ''}</td>
                     <td><a href="/admin/market/{{ $product->id }}/items/${data.items[item]['id']}/edit" target="_blank" class="btn btn-trigger btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="ویرایش"><em class="icon ni ni-edit-fill"></em></a></td>
                 `;
 

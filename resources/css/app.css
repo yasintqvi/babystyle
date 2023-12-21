@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  direction: rtl;
+}
+
+.dir-ltr {
+  direction: ltr;
+}
+
+button:disabled {
+  @apply bg-gray-300 hover:bg-opacity-100 hover:bg-gray-300;
+}
+/* start NavBar */
+
+.gradiant-primary {
+  @apply bg-gradient-to-r from-cyan-400 to-yellow-400 text-white;
+}
+
+#topBar .menu > li {
+  @apply relative flex justify-center items-center hover:bg-yellow-100 p-2 rounded-lg text-gray-500;
+}
+
+.sub-menu {
+  @apply flex flex-col font-normal absolute top-full group-hover:h-max h-0 bg-slate-50 w-max min-w-[10rem] overflow-hidden group-hover:overflow-visible transition-all rounded  text-right group-hover:border-t-4 border-yellow-200 divide-y;
+}
+.sub-menu li {
+  @apply transition-all duration-300 p-5 py-2 hover:bg-yellow-100;
+}
+#sideBar .menu a:hover {
+  @apply border-b border-yellow-400 text-yellow-400;
+}
+
+.side-bar {
+  @apply w-full h-full;
+}
+
+.sub-menu-bar {
+  @apply flex flex-col font-normal relative top-full h-max bg-slate-50 w-full overflow-hidden transition-all rounded text-sm divide-y;
+}
+
+#sideBar .menu li {
+  @apply py-3;
+}
+
+.group-hover\/sub\:block {
+  @apply hidden z-50 absolute right-full top-1/3 bg-white w-36 divide-y shadow rounded border-t-4 border-yellow-200;
+}
+
+/* end NavBar */
+
+.title {
+  @apply inline-block font-bold text-2xl  border-y border-primary py-4 my-7 mt-12 w-20;
+}
+/* Product page */
+.swiper-slide-thumb-active {
+  @apply !grayscale-0;
+}

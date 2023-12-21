@@ -1,0 +1,46 @@
+@import url("./swiper/autoplay.min.css");
+@import url("./swiper/swiper-bundle.min.css");
+@import url("./output.css");
+@font-face {
+  font-family: Nastaliq;
+  src: url("./../fonts/nastaliq/nastaliq.woff") format("woff");
+}
+
+/* custom swiper */
+.swiper-button-next,
+.swiper-button-prev {
+  position: static;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  display: none;
+}
+
+.swiper-button-prev svg {
+  width: 5rem !important;
+}
+
+.font-nastaliq {
+  font-family: Nastaliq;
+}
+
+.swiper-button-next,
+.swiper-rtl .swiper-button-prev {
+  position: static;
+  width: 2rem;
+  height: 2rem;
+  margin: 0 0.4rem;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\User\OtpCode;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -77,5 +78,38 @@ class User extends Authenticatable
     public function setPhoneVerifiedAtAttribute($verified_at)
     {
         $this->attributes['phone_verified_at'] = date("Y-m-d H:i:s", time());
+    }
+
+    public function generateOtpCode()
+    {
+        $currentOtpCode = $this->otpCodes()->hasExpired()->first();
+
+        if (empty($currentOtpCode)) {
+            $this->otpCodes()->delete();
+            do {
+                $newCode = mt_rand(100000, 999999);
+            } while ($this->checkUniqueCode($newCode));
+    
+            $newOtpCode = $this->otpCodes()->create([
+                'code'          =>  $newCode,
+                'expired_at'    =>  now()->addMinute(3),
+            ]);
+
+            return $newOtpCode;
+        }
+
+        return $currentOtpCode;
+    }
+
+    private function checkUniqueCode(int $code)
+    {
+        return !!$this->otpCodes()->whereCode($code)->first();
+    }
+
+
+    // relations
+    public function otpCodes() 
+    {
+        return $this->hasMany(OtpCode::class);
     }
 }

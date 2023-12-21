@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="nk-block-head-sub mt-1">
-            <a class="back-to" href="{{ route('admin.market.products.index') }}"><em
+            <a class="back-to" href="{{ route('admin.market.products.edit', $product->id) }}"><em
                     class="icon ni ni-arrow-left"></em><span>بازگشت</span></a>
         </div>
     </div>
@@ -127,6 +127,25 @@
                                         </div>
                                     </div>
                                 @endforeach
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        <label class="form-label" for="fv-full-name">انتخاب به عنوان محصول پیشفرض</label>
+                                        <div class="form-control-wrap">
+                                            <div class="custom-control custom-control-lg custom-switch">
+                                                <input type="checkbox" name="is_default" value="1"
+                                                    class="custom-control-input" @checked(old('is_default', $item->is_default)) id="is_default">
+                                                <label class="custom-control-label" for="is_default">فعال</label>
+                                            </div>
+                                        </div>
+                                        @error('is_default')
+                                            <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
+                                                <strong>
+                                                    {{ $message }}
+                                                </strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-12 mt-4">

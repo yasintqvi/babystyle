@@ -18,6 +18,7 @@ class ProductItem extends Model
         'price',
         'frozen_number',
         'sold_number',
+        'is_default'
     ];
 
 

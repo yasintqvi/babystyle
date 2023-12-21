@@ -59,10 +59,16 @@ class ProductItemController extends Controller
             $validData['product_image'] = $imageService->save($request->file('product_image'));
         }
 
-        return DB::transaction(function () use ($validData, $product) {
+        return DB::transaction(function () use ($validData, $product, $request) {
 
             $validData['sku'] = ProductItem::generateSKU();
+
+            if ($request->has('is_default')) {
+                $product->items()->update(['is_default' => 0]);    
+            }
+
             $productItem = $product->items()->create($validData);
+
 
             $productItemOptions = collect([]);
 
@@ -120,7 +126,11 @@ class ProductItemController extends Controller
             }
         }
 
-        return DB::transaction(function () use ($validData, $item) {
+        return DB::transaction(function () use ($validData, $item, $request, $product) {
+
+            if ($request->has('is_default')) {
+                $product->items()->update(['is_default' => 0]);    
+            }
 
             $item->update($validData);
 
