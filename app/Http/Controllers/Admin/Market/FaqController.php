@@ -81,6 +81,8 @@ class FaqController extends Controller
      */
     public function update(FaqRequest $request, Faq $faq)
     {
+        $request->mergeIfMissing(['is_active' => 0]);
+
         $pages = Faq::query();
 
         if ($searchString = request('search'))

@@ -7,10 +7,8 @@
                 <h4 class="title nk-block-title">محصول {{ $product->title }}</h4>
             </div>
         </div>
-        <div class="nk-block-head-sub mt-1">
-            <a class="back-to" href="{{ route('admin.market.products.index') }}"><em
-                    class="icon ni ni-arrow-left"></em><span>بازگشت</span></a>
-        </div>
+        <a href="{{ route('admin.market.faqs.index') }}" class="btn btn-success">بازگشت</a>
+
     </div>
 
     <div class="card">

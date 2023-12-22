@@ -12,10 +12,8 @@
                     {{ $item->variationOptions->pluck('value')->implode('-') }} - کد محصول {{ $item->sku }}</h5>
             </div>
         </div>
-        <div class="nk-block-head-sub mt-1">
-            <a class="back-to" href="{{ route('admin.market.products.edit', $product->id) }}"><em
-                    class="icon ni ni-arrow-left"></em><span>بازگشت</span></a>
-        </div>
+        <a href="{{ route('admin.market.faqs.index') }}" class="btn btn-success">بازگشت</a>
+
     </div>
 
     <div class="card">

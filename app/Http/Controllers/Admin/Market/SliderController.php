@@ -53,7 +53,11 @@ class SliderController extends Controller
      */
     public function store(SliderRequest $request, ImageService $imageService)
     {
+
+        $request->mergeIfMissing(['is_active' => 0]);
+
         $inputs = $request->all();
+
         // save image
         if ($request->hasFile('image')) {
             $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . "content" . DIRECTORY_SEPARATOR . "sliders");
@@ -85,6 +89,9 @@ class SliderController extends Controller
      */
     public function update(Request $request, Slider $slider, ImageService $imageService)
     {
+
+        $request->mergeIfMissing(['is_active' => 0]);
+
         $inputs = $request->all();
         // save image
         if ($request->hasFile('image')) {

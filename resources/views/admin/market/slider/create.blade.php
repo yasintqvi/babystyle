@@ -29,6 +29,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-label" for="fv-full-name">alt تصویر</label>
+                        <span class="text-danger">*</span>                                                                                                               
                         <div class="form-control-wrap">
                             <input type="text" class="form-control" id="fv-full-name" name="alt" value="{{ old('alt') }}">
                         </div>
@@ -41,18 +42,32 @@
                     @enderror
                     </div>
                 </div>
-                
+
                 <div class="col-md-6">
                     <div class="form-group ">
-                        <label class="form-label" for="fv-full-name">آدرس اسلایدر</label>
+                        <label class="form-label" for="fv-full-name">وضعیت</label>
                         <div class="form-control-wrap">
-                            <input type="text" value="{{ old('url', request('url') ?? URL::to('/')) }}" class="form-control" id="fv-full-name" name="url" >
+                            <div class="custom-control custom-control-lg custom-switch">
+                                <input type="checkbox" name="is_active" value="1"
+                                    class="custom-control-input" @checked(old('is_active')) id="is_active">
+                                <label class="custom-control-label" for="is_active">فعال</label>
+                            </div>
                         </div>
+                        @error('is_active')
+                            <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
+                                <strong>
+                                    {{ $message }}
+                                </strong>
+                            </span>
+                        @enderror
                     </div>
                 </div>
+                
+               
 
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-6 mt-2">
                     <label class="form-label" for="customFileLabel">تصویر اسلایدر</label>
+                    <span class="text-danger">*</span>
                     <div class="form-control-wrap">
                         <div class="form-file">
                             <input type="file" name="image" class="form-file-input" id="customFile">
@@ -68,21 +83,17 @@
                     </div>
                 </div>
 
-                <div class="form-group col-md-6">
-                    <label class="form-label" for="is_active">وضعیت</label>
-                    <div class="form-control-wrap" >
-                        <select class="form-select js-select2 select2-hidden-accessible" id="is_active"  name="is_active">
-                            <option value="1" @if(old('is_active') == 1) selected @endif>فعال</option>
-                            <option value="0" @if(old('is_active') == 0) selected @endif>غیر فعال</option>
-                        </select>
+                <div class="col-md-6 mt-2">
+                    <div class="form-group ">
+                        <label class="form-label" for="fv-full-name">آدرس اسلایدر</label>
+                        <div class="form-control-wrap">
+                            <input type="text" value="{{ old('url', request('url') ?? URL::to('/')) }}" class="form-control" id="fv-full-name" name="url" >
+                        </div>
                     </div>
                 </div>
-
-             
-
+                                                           
                                                                 
-                                                                
-                <div class="col-md-12">
+                <div class="col-md-12 mt-2">
                     <div class="form-group">
                         <button type="submit" class="btn btn-lg btn-primary">ذخیره اطلاعات</button>
                     </div>

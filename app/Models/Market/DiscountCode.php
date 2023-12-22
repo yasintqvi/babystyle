@@ -25,7 +25,7 @@ class DiscountCode extends Model
 
     public function getStartDateStatusAttribute()
     {
-        return $this->end_date >= now() ? 'منقضی' : 'منتشر شده'  ;
+        return $this->end_date <= now() ? 'منقضی' : 'منتشر شده'  ;
     }
 
     public function scopeSearch($query, $keyword)
