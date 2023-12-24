@@ -30,7 +30,7 @@
                     <div class="w-4/5 sm:w-1/2 h-full bg-white overflow-scroll px-4">
                         <!-- logo -->
                         <a href="#" class="w-full my-5 flex justify-center !z-50">
-                            <img class="w-24" src="{{ asset('assets/app/images/Logo.jpeg') }}" alt="لوگوی بیبی استایل" />
+                            <img class="w-24" src="{{ asset('assets/app/images/logo-home.png') }}" alt="لوگوی بیبی استایل" />
                         </a>
                         <div class="flex items-center text-base justify-center">
                             <button class="px-3 text-end h-10">عضویت</button>
@@ -86,7 +86,7 @@
             </div>
             <!-- logo -->
             <a href="#" class="w-10 lg:w-20 m-3">
-                <img src="{{ asset('assets/app/images/Logo.jpeg') }}" alt="" />
+                <img src="{{ asset('assets/app/images/logo-home.png') }}" alt="" />
             </a>
 
             <div class="lg:w-full flex w-full justify-between">

@@ -5,14 +5,14 @@
 @endsection
 
 @section('content')
-    <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex justify-content-between align-items-center mb-2">
         <div class="nk-block-head col-md-6">
             <div class="nk-block-head-content">
                 <h5 class="title nk-block-title h6">محصول {{ $product->title }} -
                     {{ $item->variationOptions->pluck('value')->implode('-') }} - کد محصول {{ $item->sku }}</h5>
             </div>
         </div>
-        <a href="{{ route('admin.market.faqs.index') }}" class="btn btn-success">بازگشت</a>
+        <a href="{{ route('admin.market.products.index') }}" class="btn btn-success">بازگشت</a>
 
     </div>
 

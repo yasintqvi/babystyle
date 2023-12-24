@@ -2,6 +2,7 @@
 
 namespace App\Models\Market;
 
+use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +12,8 @@ class Product extends Model
     use HasFactory, Sluggable;
 
     protected $table = "products";
+
+
 
     protected $fillable = [
         'title',
@@ -30,6 +33,8 @@ class Product extends Model
         'quantity',
         'price'
     ];
+
+
 
     // scopes
     public function scopeSearch($query, $keyword)
@@ -71,6 +76,18 @@ class Product extends Model
     public function items()
     {
         return $this->hasMany(ProductItem::class);
+    }
+
+    // public function finalDiscounts()
+    // {
+    //     return $this->items();
+    // }
+
+    
+
+    public function getQuantityCheckAttribute()
+    {
+        return $this->items()->where('quantity' , '>' , '0')->first() ?? 0;
     }
 
     

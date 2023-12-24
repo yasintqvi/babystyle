@@ -7,7 +7,7 @@
                 <h4 class="title nk-block-title">محصول {{ $product->title }}</h4>
             </div>
         </div>
-        <a href="{{ route('admin.market.faqs.index') }}" class="btn btn-success">بازگشت</a>
+        <a href="{{ route('admin.market.products.index') }}" class="btn btn-success">بازگشت</a>
 
     </div>
 

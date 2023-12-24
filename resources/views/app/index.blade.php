@@ -26,7 +26,7 @@
                     <a href="#">
                         <div
                             class="md:h-full aspect-[16/8.5] md:min-h-[20rem] bg-no-repeat bg-center bg-cover rounded-lg flex items-end">
-                            <img src="{{ $slider->image }}" alt="{{ $slider->aalt }}">
+                            <img src="{{ $slider->image }}" alt="{{ $slider->alt }}">
                         </div>
                     </a>
                 </section>
@@ -75,20 +75,29 @@
                     </button>
                 </div>
                 <section class="swiper-wrapper">
+                    @foreach ($products as $product)
                     <section class="swiper-slide lg:w-1/4 xs:w-1/3 w-1/2 px-2">
                         <a href="#">
                             <div
                                 class="relative group aspect-[6/8] rounded-lg overflow-hidden bg-white border shadow text-sm md:text-base">
                                 <img class="aspect-square object-cover w-full group-hover:hidden"
-                                    src="../dist/images/top-product1.jpeg" alt="" />
+                                    src="{{ $product->primary_image }}" alt="" />
                                 <img class="aspect-square object-cover w-full group-hover:block hidden"
-                                    src="../dist/images/top-product2.jpeg" alt="" />
+                                    src="{{ $product->secondary_image }}" alt="" />
                                 <div class="bg-white">
                                     <div
                                         class="flex flex-col justify-center items-center absolute bottom-0 gap-3 py-2 text-gray-600 w-full transition-all duration-300 md:group-hover:-translate-y-2/3 bg-white px-2">
-                                        <span class="line-clamp-1 text-center">ست آستین خرسی کد 002
+                                        <span class="line-clamp-1 text-center">{{ $product->title }}
                                         </span>
-                                        <span class="block font-medium">695,000 تومان</span>
+                                        @if ($product->quantity_check)
+                                        <div class="flex">
+                                            <span class="block font-medium pl-2">{{ number_format($product->quantity_check->price) }}</span>
+                                            <span class="block text-sm font-medium text-gray-300" style="text-decoration: line-through;">dd</span>
+                                        </div>
+                                        
+                                        @else
+                                            <span class="block font-medium">ناموجود</span>
+                                        @endif                               
                                     </div>
                                     <div
                                         class="flex justify-evenly items-center absolute top-full text-gray-600 px-2 gap-2 w-full transition-all duration-300 md:group-hover:-translate-y-[125%]">
@@ -99,200 +108,23 @@
                                                     d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                                             </svg>
                                         </button>
+                                        @if ($product->quantity_check)
                                         <button class="w-2/3 bg-primary text-white text-center rounded p-2">
                                             مشاهده و خرید
                                         </button>
+                                        @else
+                                        <button class="w-2/3 bg-slate-400 disabled: text-white text-center rounded p-2">
+                                            ناموجود
+                                        </button>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </section>
-                    <section class="swiper-slide lg:w-1/4 xs:w-1/3 w-1/2 px-2">
-                        <a href="#">
-                            <div
-                                class="relative group aspect-[6/8] rounded-lg overflow-hidden bg-white border shadow text-sm md:text-base">
-                                <img class="aspect-square object-cover w-full group-hover:hidden"
-                                    src="../dist/images/top-product1.jpeg" alt="" />
-                                <img class="aspect-square object-cover w-full group-hover:block hidden"
-                                    src="../dist/images/top-product2.jpeg" alt="" />
-                                <div class="bg-white">
-                                    <div
-                                        class="flex flex-col justify-center items-center absolute bottom-0 gap-3 py-2 text-gray-600 w-full transition-all duration-300 md:group-hover:-translate-y-2/3 bg-white">
-                                        <span class="line-clamp-1 text-center">ست آستین خرسی کد 002</span>
-                                        <span class="block font-medium">695,000 تومان</span>
-                                    </div>
-                                    <div
-                                        class="flex justify-evenly items-center absolute top-full text-gray-600 px-2 gap-2 w-full transition-all duration-300 md:group-hover:-translate-y-[125%]">
-                                        <button class="flex w-1/3 bg-green-500 text-white justify-center rounded p-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                                            </svg>
-                                        </button>
-                                        <button class="w-2/3 bg-primary text-white text-center rounded p-2">
-                                            مشاهده و خرید
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </section>
-                    <section class="swiper-slide lg:w-1/4 xs:w-1/3 w-1/2 px-2">
-                        <a href="#">
-                            <div
-                                class="relative group aspect-[6/8] rounded-lg overflow-hidden bg-white border shadow text-sm md:text-base">
-                                <img class="aspect-square object-cover w-full group-hover:hidden"
-                                    src="../dist/images/top-product1.jpeg" alt="" />
-                                <img class="aspect-square object-cover w-full group-hover:block hidden"
-                                    src="../dist/images/top-product2.jpeg" alt="" />
-                                <div class="bg-white">
-                                    <div
-                                        class="flex flex-col justify-center items-center absolute bottom-0 gap-3 py-2 text-gray-600 w-full transition-all duration-300 md:group-hover:-translate-y-2/3 bg-white">
-                                        <span class="line-clamp-1 text-center">ست آستین خرسی کد 002</span>
-                                        <span class="block font-medium">695,000 تومان</span>
-                                    </div>
-                                    <div
-                                        class="flex justify-evenly items-center absolute top-full text-gray-600 px-2 gap-2 w-full transition-all duration-300 md:group-hover:-translate-y-[125%]">
-                                        <button class="flex w-1/3 bg-green-500 text-white justify-center rounded p-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                                            </svg>
-                                        </button>
-                                        <button class="w-2/3 bg-primary text-white text-center rounded p-2">
-                                            مشاهده و خرید
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </section>
-                    <section class="swiper-slide lg:w-1/4 xs:w-1/3 w-1/2 px-2">
-                        <a href="#">
-                            <div
-                                class="relative group aspect-[6/8] rounded-lg overflow-hidden bg-white border shadow text-sm md:text-base">
-                                <img class="aspect-square object-cover w-full group-hover:hidden"
-                                    src="../dist/images/top-product1.jpeg" alt="" />
-                                <img class="aspect-square object-cover w-full group-hover:block hidden"
-                                    src="../dist/images/top-product2.jpeg" alt="" />
-                                <div class="bg-white">
-                                    <div
-                                        class="flex flex-col justify-center items-center absolute bottom-0 gap-3 py-2 text-gray-600 w-full transition-all duration-300 md:group-hover:-translate-y-2/3 bg-white">
-                                        <span class="line-clamp-1 text-center">ست آستین خرسی کد 002</span>
-                                        <span class="block font-medium">695,000 تومان</span>
-                                    </div>
-                                    <div
-                                        class="flex justify-evenly items-center absolute top-full text-gray-600 px-2 gap-2 w-full transition-all duration-300 md:group-hover:-translate-y-[125%]">
-                                        <button class="flex w-1/3 bg-green-500 text-white justify-center rounded p-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                                            </svg>
-                                        </button>
-                                        <button class="w-2/3 bg-primary text-white text-center rounded p-2">
-                                            مشاهده و خرید
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </section>
-                    <section class="swiper-slide lg:w-1/4 xs:w-1/3 w-1/2 px-2">
-                        <a href="#">
-                            <div
-                                class="relative group aspect-[6/8] rounded-lg overflow-hidden bg-white border shadow text-sm md:text-base">
-                                <img class="aspect-square object-cover w-full group-hover:hidden"
-                                    src="../dist/images/top-product1.jpeg" alt="" />
-                                <img class="aspect-square object-cover w-full group-hover:block hidden"
-                                    src="../dist/images/top-product2.jpeg" alt="" />
-                                <div class="bg-white">
-                                    <div
-                                        class="flex flex-col justify-center items-center absolute bottom-0 gap-3 py-2 text-gray-600 w-full transition-all duration-300 md:group-hover:-translate-y-2/3 bg-white">
-                                        <span class="line-clamp-1 text-center">ست آستین خرسی کد 002</span>
-                                        <span class="block font-medium">695,000 تومان</span>
-                                    </div>
-                                    <div
-                                        class="flex justify-evenly items-center absolute top-full text-gray-600 px-2 gap-2 w-full transition-all duration-300 md:group-hover:-translate-y-[125%]">
-                                        <button class="flex w-1/3 bg-green-500 text-white justify-center rounded p-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                                            </svg>
-                                        </button>
-                                        <button class="w-2/3 bg-primary text-white text-center rounded p-2">
-                                            مشاهده و خرید
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </section>
-                    <section class="swiper-slide lg:w-1/4 xs:w-1/3 w-1/2 px-2">
-                        <a href="#">
-                            <div
-                                class="relative group aspect-[6/8] rounded-lg overflow-hidden bg-white border shadow text-sm md:text-base">
-                                <img class="aspect-square object-cover w-full group-hover:hidden"
-                                    src="../dist/images/top-product1.jpeg" alt="" />
-                                <img class="aspect-square object-cover w-full group-hover:block hidden"
-                                    src="../dist/images/top-product2.jpeg" alt="" />
-                                <div class="bg-white">
-                                    <div
-                                        class="flex flex-col justify-center items-center absolute bottom-0 gap-3 py-2 text-gray-600 w-full transition-all duration-300 md:group-hover:-translate-y-2/3 bg-white">
-                                        <span class="line-clamp-1 text-center">ست آستین خرسی کد 002</span>
-                                        <span class="block font-medium">695,000 تومان</span>
-                                    </div>
-                                    <div
-                                        class="flex justify-evenly items-center absolute top-full text-gray-600 px-2 gap-2 w-full transition-all duration-300 md:group-hover:-translate-y-[125%]">
-                                        <button class="flex w-1/3 bg-green-500 text-white justify-center rounded p-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                                            </svg>
-                                        </button>
-                                        <button class="w-2/3 bg-primary text-white text-center rounded p-2">
-                                            مشاهده و خرید
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </section>
-                    <section class="swiper-slide lg:w-1/4 xs:w-1/3 w-1/2 px-2">
-                        <a href="#">
-                            <div
-                                class="relative group aspect-[6/8] rounded-lg overflow-hidden bg-white border shadow text-sm md:text-base">
-                                <img class="aspect-square object-cover w-full group-hover:hidden"
-                                    src="../dist/images/top-product1.jpeg" alt="" />
-                                <img class="aspect-square object-cover w-full group-hover:block hidden"
-                                    src="../dist/images/top-product2.jpeg" alt="" />
-                                <div class="bg-white">
-                                    <div
-                                        class="flex flex-col justify-center items-center absolute bottom-0 gap-3 py-2 text-gray-600 w-full transition-all duration-300 md:group-hover:-translate-y-2/3 bg-white">
-                                        <span class="line-clamp-1 text-center">ست آستین خرسی کد 002</span>
-                                        <span class="block font-medium">695,000 تومان</span>
-                                    </div>
-                                    <div
-                                        class="flex justify-evenly items-center absolute top-full text-gray-600 px-2 gap-2 w-full transition-all duration-300 md:group-hover:-translate-y-[125%]">
-                                        <button class="flex w-1/3 bg-green-500 text-white justify-center rounded p-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                                            </svg>
-                                        </button>
-                                        <button class="w-2/3 bg-primary text-white text-center rounded p-2">
-                                            مشاهده و خرید
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </section>
+                    @endforeach
+                    
+                  
                 </section>
             </div>
         </div>

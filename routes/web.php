@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\Content\HomeController;
 use App\Http\Controllers\Content\SliderController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,5 +49,5 @@ Route::post('otp/resend', [LoginRegisterController::class, 'resend'])->name("aut
 //         ->name('logout');
 // });
 
-Route::get('/' , [SliderController::class , 'index']);
+Route::get('/' , [HomeController::class , 'index']);
 

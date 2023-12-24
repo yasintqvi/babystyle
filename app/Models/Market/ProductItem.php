@@ -76,7 +76,6 @@ class ProductItem extends Model
             $discountAmount = $this->price * ($discountRate / 100);
             return $this->price - $discountAmount;
         }
-
         return $this->price;
     }
 
