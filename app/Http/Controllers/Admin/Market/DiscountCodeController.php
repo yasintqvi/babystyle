@@ -108,8 +108,9 @@ class DiscountCodeController extends Controller
     public function batchDelete(Request $request)
     {
         $request->validate([
-            'ids.*' => 'required|exists:faqs,id',
+            'ids.*' => 'required|exists:discount_codes,id',
         ]);
+
 
         // TODO check faq relations
 

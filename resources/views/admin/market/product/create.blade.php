@@ -1,16 +1,14 @@
 @extends('admin.layouts.app', ['title' => 'افزودن محصول جدید'])
 
 @section('content')
-    <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex justify-content-between align-items-center mb-2">
         <div class="nk-block-head col-md-6">
             <div class="nk-block-head-content">
-                <h4 class="title nk-block-title">افزودن محصول جدید</h4>
+                <h4 class="title nk-block-title mt-2">افزودن محصول جدید</h4>
             </div>
         </div>
-        <div class="nk-block-head-sub mt-1">
-            <a class="back-to" href="{{ route('admin.market.products.index') }}"><em
-                    class="icon ni ni-arrow-left"></em><span>بازگشت</span></a>
-        </div>
+        <a href="{{ route('admin.market.faqs.index') }}" class="btn btn-success">بازگشت</a>
+
     </div>
 
     <form action="{{ route('admin.market.products.store') }}" method="post" enctype="multipart/form-data" id="form"

@@ -33,8 +33,9 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label" for="name">نام</label>
+                            <span class="text-danger">*</span>
                             <div class="form-control-wrap">
-                                <input type="text" class="form-control" id="name" name="name"
+                                <input type="text" class="form-control" id="name" name="name" placeholder="مثال : بلک فرایدی"
                                     value="{{ old('name') }}">
                             </div>
                             @error('name')
@@ -50,8 +51,9 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label" for="code">کد</label>
+                            <span class="text-danger">*</span>
                             <div class="form-control-wrap">
-                                <input type="text" class="form-control" id="code" name="code"
+                                <input type="text" class="form-control" id="code" name="code" placeholder="مثال : BBY-54879"
                                     value="{{ old('code') }}">
                             </div>
                             @error('code')
@@ -80,6 +82,7 @@
                     <div class="col-md-4 mt-2" id="amount_all">
                         <div class="form-group">
                             <label class="form-label" for="amount">قیمت</label>
+                            <span class="text-danger">*</span>
                             <div class="form-control-wrap">
                                 <input type="number" id="priceInput" oninput="convertToToman(event)" class="form-control"
                                     id="amount" name="amount" value="{{ old('amount') }}">
@@ -98,12 +101,10 @@
                     <div class="col-md-6" id="discount_rate">
                         <div class="form-group">
                             <label class="form-label" for="discount_rate">درصد</label>
+                            <span class="text-danger">*</span>
                             <div class="form-control-wrap">
-                                <input type="text" class="form-control" id="discount_rate" name="discount_rate"
+                                <input type="text" class="form-control" id="discount_rate" name="discount_rate" placeholder="مثال : 12"
                                     value="{{ old('discount_rate') }}">
-
-
-
                             </div>
                             @error('discount_rate')
                                 <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
@@ -118,13 +119,11 @@
                     <div class="col-md-6" id="discount_ceiling">
                         <div class="form-group">
                             <label class="form-label" for="discount_ceiling">حداکثر مبلغ برای نوع درصدی</label>
+                            <span class="text-danger">*</span>
                             <div class="form-control-wrap">
-
-
-                                <input type="number" id="priceInput1" oninput="convertToToman(event)" class="form-control"
+                                <input type="number" id="priceInput1" oninput="convertToToman(event)" class="form-control" 
                                     name="discount_ceiling" value="{{ old('discount_ceiling') }}">
-                                <p id="convertedPrice1" class="breadcrumb-item mt-1"></p>
-
+                                <p id="convertedPrice" class="breadcrumb-item mt-1"></p>
                             </div>
                             @error('discount_ceiling')
                                 <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
@@ -139,6 +138,7 @@
                     <div class="col-md-4 mt-2">
                         <div class="form-group">
                             <label class="form-label">تاریخ انتشار</label>
+                            <span class="text-danger">*</span>
                             <div class="form-control-wrap">
                                 <div class="form-icon form-icon-left">
                                     <em class="icon ni ni-calendar"></em>
@@ -161,6 +161,7 @@
                     <div class="col-md-4 mt-2">
                         <div class="form-group">
                             <label class="form-label">تاریخ انقضاء</label>
+                            <span class="text-danger">*</span>
                             <div class="form-control-wrap">
                                 <div class="form-icon form-icon-left">
                                     <em class="icon ni ni-calendar"></em>
@@ -182,7 +183,8 @@
 
                     <div class="px-3 mt-3">
                         <label class="form-label" for="customFileLabel">توضیحات کد تخفیف</label>
-                        <textarea name="description" class="tinymce-menubar form-control">{{ old('description') }}</textarea>
+                        <span class="text-danger">*</span>
+                        <textarea name="description" class="tinymce-toolbar form-control">{{ old('description') }}</textarea>
                         @error('description')
                             <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
                                 <strong>

@@ -21,27 +21,17 @@
                 </button>
             </div>
             <section class="swiper-wrapper">
+                @foreach ($sliders as $slider)
                 <section class="swiper-slide">
                     <a href="#">
                         <div
-                            class="bg-[url('../images/intro2.jpg')] md:h-full aspect-[16/8.5] md:min-h-[20rem] bg-no-repeat bg-center bg-cover rounded-lg flex items-end">
+                            class="md:h-full aspect-[16/8.5] md:min-h-[20rem] bg-no-repeat bg-center bg-cover rounded-lg flex items-end">
+                            <img src="{{ $slider->image }}" alt="{{ $slider->aalt }}">
                         </div>
                     </a>
                 </section>
-                <section class="swiper-slide">
-                    <a href="#">
-                        <div
-                            class="bg-[url('../images/intro1.jpg')] md:h-full aspect-[16/8.5] md:min-h-[20rem] bg-no-repeat bg-center bg-cover rounded-lg flex items-end">
-                        </div>
-                    </a>
-                </section>
-                <section class="swiper-slide">
-                    <a href="#">
-                        <div
-                            class="bg-[url('../images/intro3.jpg')] md:h-full aspect-[16/8.5] md:min-h-[20rem] bg-no-repeat bg-center bg-cover rounded-lg flex items-end">
-                        </div>
-                    </a>
-                </section>
+                @endforeach
+                
             </section>
         </div>
     </section>

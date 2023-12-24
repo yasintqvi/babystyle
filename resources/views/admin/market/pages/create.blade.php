@@ -25,12 +25,13 @@
             <form action="{{ route('admin.market.pages.store') }}" method="post" enctype="multipart/form-data"
                 id="form" class="form-validate" novalidate="novalidate">
                 @csrf
-                <div class="row g-gs">
+                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label" for="fv-full-name">عنوان صفحه</label>
+                            <span class="text-danger">*</span>
                             <div class="form-control-wrap">
-                                <input type="text" class="form-control" id="fv-full-name" name="title"
+                                <input type="text" class="form-control" id="fv-full-name" placeholder="مثال : صفحه درباره ما" name="title"
                                     value="{{ old('title') }}">
                             </div>
                             @error('title')
@@ -43,18 +44,28 @@
                         </div>
                     </div>
 
-                    <div class="form-group col-md-6">
-                        <label class="form-label" for="is_active">وضعیت</label>
-                        <div class="form-control-wrap" >
-                            <select class="form-select js-select2 select2-hidden-accessible" id="is_active"  name="is_active">
-                                <option value="1" @if(old('is_active') == 1) selected @endif>فعال</option>
-                                <option value="0" @if(old('is_active') == 0) selected @endif>غیر فعال</option>
-                            </select>
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label class="form-label" for="fv-full-name">وضعیت</label>
+                            <div class="form-control-wrap">
+                                <div class="custom-control custom-control-lg custom-switch">
+                                    <input type="checkbox" name="is_active" value="1"
+                                        class="custom-control-input" @checked(old('is_active')) id="is_active">
+                                    <label class="custom-control-label" for="is_active">فعال</label>
+                                </div>
+                            </div>
+                            @error('is_active')
+                                <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
+                                    <strong>
+                                        {{ $message }}
+                                    </strong>
+                                </span>
+                            @enderror
                         </div>
-                    </div>
-
-                    <div class="form-group col-md-12">
+                    </div> 
+                    <div class="form-group col-md-12 mt-2">
                         <label class="form-label" for="customFileLabel">تگ ها</label>
+                        <span class="text-danger">*</span>
                         <input type="hidden" class="form-control form-control-sm" name="tags" id="tags"
                             value="{{ old('tags') }}">
                         <select class="select2 form-control form-control-sm" id="select_tags" multiple>
@@ -71,7 +82,8 @@
 
                     <div class="px-3">
                         <label class="form-label" for="customFileLabel">محتوای صفحه</label>
-                        <textarea name="content" class="tinymce-menubar form-control" >{{ old('content') }}</textarea>
+                        <span class="text-danger">*</span>
+                        <textarea name="content" class="tinymce-toolbar form-control">{{ old('content') }}</textarea>
                         @error('content')
                             <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
                                 <strong>
@@ -81,7 +93,7 @@
                         @enderror
                     </div>
                     
-                    <div class="col-md-12">
+                    <div class="col-md-12 mt-2">
                         <div class="form-group">
                             <button type="submit" class="btn btn-lg btn-primary">ذخیره اطلاعات</button>
                         </div>

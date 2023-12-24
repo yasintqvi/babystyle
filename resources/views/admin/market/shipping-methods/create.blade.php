@@ -29,8 +29,9 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label" for="name">نام روش ارسال</label>
+                            <span class="text-danger">*</span>
                             <div class="form-control-wrap">
-                                <input type="text" class="form-control" id="name" name="name"
+                                <input type="text" class="form-control" id="name" name="name" placeholder="مثال : پست پیشتاز"
                                     value="{{ old('name') }}">
                             </div>
                             @error('name')
@@ -46,6 +47,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label" for="price">هزینه ارسال</label>
+                            <span class="text-danger">*</span>
                             <div class="form-control-wrap">
                                 <input type="number" id="priceInput" oninput="convertToToman()"
                                     oninput="convertToPersianCurrency()" class="form-control" id="price" name="price"
@@ -63,10 +65,11 @@
                     </div>
 
                     <div class="col-md-6">
-                        <div class="form-group">
+                        <div class="form-group mt-2">
                             <label class="form-label" for="delivery_time">مدت زمان ارسال</label>
+                            <span class="text-danger">*</span>
                             <div class="form-control-wrap">
-                                <input type="text" class="form-control" id="delivery_time" name="delivery_time"
+                                <input type="text" class="form-control" id="delivery_time" placeholder="مثال : 2 روز کاری" name="delivery_time"
                                     value="{{ old('title') }}">
                             </div>
                             @error('delivery_time')

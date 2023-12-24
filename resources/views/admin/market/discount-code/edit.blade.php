@@ -34,6 +34,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label" for="name">نام</label>
+                            <span class="text-danger">*</span>
                             <div class="form-control-wrap">
                                 <input type="text" class="form-control" id="name" name="name"
                                     value="{{ old('name', $discountCode->name) }}">
@@ -51,6 +52,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label" for="code">کد</label>
+                            <span class="text-danger">*</span>
                             <div class="form-control-wrap">
                                 <input type="text" class="form-control" id="code" name="code"
                                     value="{{ old('code', $discountCode->code) }}">
@@ -81,6 +83,7 @@
                     <div class="col-md-4 mt-2" id="amount_all">
                         <div class="form-group">
                             <label class="form-label" for="amount">قیمت</label>
+                            <span class="text-danger">*</span>
                             <div class="form-control-wrap">
                                 <input type="number" id="priceInput" oninput="convertToToman(event)" class="form-control"
                                     id="amount" name="amount" value="{{ old('amount', $discountCode->amount) }}">
@@ -99,6 +102,7 @@
                     <div class="col-md-6" id="discount_rate">
                         <div class="form-group">
                             <label class="form-label" for="discount_rate">درصد</label>
+                            <span class="text-danger">*</span>
                             <div class="form-control-wrap">
                                 <input type="text" class="form-control" id="discount_rate" name="discount_rate"
                                     value="{{ old('discount_rate', $discountCode->discount_rate) }}">
@@ -116,6 +120,7 @@
                     <div class="col-md-6" id="discount_ceiling">
                         <div class="form-group">
                             <label class="form-label" for="discount_ceiling">حداکثر مبلغ برای نوع درصدی</label>
+                            <span class="text-danger">*</span>
                             <div class="form-control-wrap">
                                 <input type="number" id="priceInput1" oninput="convertToToman(event)" class="form-control"
                                     name="discount_ceiling"
@@ -136,6 +141,7 @@
                     <div class="col-md-4 mt-2">
                         <div class="form-group">
                             <label class="form-label">تاریخ انتشار</label>
+                            <span class="text-danger">*</span>
                             <div class="form-control-wrap">
                                 <div class="form-icon form-icon-left">
                                     <em class="icon ni ni-calendar"></em>
@@ -159,6 +165,7 @@
                     <div class="col-md-4 mt-2">
                         <div class="form-group">
                             <label class="form-label">تاریخ انقضاء</label>
+                            <span class="text-danger">*</span>
                             <div class="form-control-wrap">
                                 <div class="form-icon form-icon-left">
                                     <em class="icon ni ni-calendar"></em>
@@ -181,7 +188,8 @@
 
                     <div class="px-3 mt-3">
                         <label class="form-label" for="customFileLabel">توضیحات کد تخفیف</label>
-                        <textarea name="description" class="tinymce-menubar form-control">{{ old('description', $discountCode->description) }}</textarea>
+                        <span class="text-danger">*</span>
+                        <textarea name="description" class="tinymce-toolbar form-control">{{ old('description' , $discountCode->description) }}</textarea>
                         @error('description')
                             <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
                                 <strong>
@@ -190,9 +198,6 @@
                             </span>
                         @enderror
                     </div>
-
-
-
                     <div class="col-md-12 mt-3">
                         <div class="form-group">
                             <button type="submit" class="btn btn-lg btn-primary">ذخیره اطلاعات</button>

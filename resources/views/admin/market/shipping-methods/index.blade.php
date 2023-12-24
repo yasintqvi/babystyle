@@ -98,7 +98,7 @@
         </div>
     </div>
 
-    <form action="" method="post" class="nk-tb-list is-separate mb-3"
+    <form action="{{ route('admin.market.shipping-methods.batch-delete')}}" method="post" class="nk-tb-list is-separate mb-3"
         id="table-container">
         <div class="d-flex justify-content-center align-items-center" style="height: 20rem">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">

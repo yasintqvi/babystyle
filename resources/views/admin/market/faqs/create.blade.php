@@ -29,8 +29,9 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label" for="fv-full-name">عنوان سوال</label>
+                            <span class="text-danger">*</span>
                             <div class="form-control-wrap">
-                                <input type="text" class="form-control" id="fv-full-name" name="question"
+                                <input type="text" class="form-control" placeholder="مثال : چطور می‌توانم سفارشم را پیگیری کنم؟" id="fv-full-name" name="question"
                                     value="{{ old('question') }}">
                             </div>
                             @error('question')
@@ -43,17 +44,27 @@
                         </div>
                     </div>
 
-                    <div class="form-group col-md-6">
-                        <label class="form-label" for="is_active">وضعیت</label>
-                        <div class="form-control-wrap" >
-                            <select class="form-select js-select2 select2-hidden-accessible" id="is_active"  name="is_active">
-                                <option value="1" @if(old('is_active') == 1) selected @endif>فعال</option>
-                                <option value="0" @if(old('is_active') == 0) selected @endif>غیر فعال</option>
-                            </select>
-                        </div>
-                    </div>
+                     <div class="col-md-6">
+                                <div class="form-group ">
+                                    <label class="form-label" for="fv-full-name">وضعیت</label>
+                                    <div class="form-control-wrap">
+                                        <div class="custom-control custom-control-lg custom-switch">
+                                            <input type="checkbox" name="is_active" value="1"
+                                                class="custom-control-input" @checked(old('is_active')) id="is_active">
+                                            <label class="custom-control-label" for="is_active">فعال</label>
+                                        </div>
+                                    </div>
+                                    @error('is_active')
+                                        <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
+                                            <strong>
+                                                {{ $message }}
+                                            </strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
 
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-12 mt-2">
                         <label class="form-label" for="customFileLabel">تگ ها</label>
                         <input type="hidden" class="form-control form-control-sm" name="tags" id="tags"
                             value="{{ old('tags') }}">
@@ -71,6 +82,7 @@
 
                     <div class="px-3">
                         <label class="form-label" for="customFileLabel">جواب سوال</label>
+                        <span class="text-danger">*</span>
                         <textarea name="answer" class="tinymce-menubar form-control" >{{ old('answer') }}</textarea>
                         @error('answer')
                             <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
@@ -81,7 +93,7 @@
                         @enderror
                     </div>
                     
-                    <div class="col-md-12">
+                    <div class="col-md-12 mt-2">
                         <div class="form-group">
                             <button type="submit" class="btn btn-lg btn-primary">ذخیره اطلاعات</button>
                         </div>

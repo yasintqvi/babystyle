@@ -2,11 +2,11 @@
     <div class="nk-sidebar-element nk-sidebar-head">
         <div class="nk-sidebar-brand">
             <a href="html/index.html" class="logo-link nk-sidebar-logo">
-                <img class="logo-light logo-img" src="./images/logo.png" srcset="./images/logo2x.png 2x" alt="لوگو" />
-                <img class="logo-dark logo-img" src="./images/logo-dark.png" srcset="./images/logo-dark2x.png 2x"
+                <img class="logo-light logo-img" src="{{ asset('assets/app/images/Logo.jpg') }}" srcset="{{ asset('assets/app/images/Logo.jpg') }} alt="لوگو" />
+                <img class="logo-dark logo-img" src="{{ asset('assets/app/images/Logo.jpg') }}" srcset="{{ asset('assets/app/images/Logo.jpg') }}"
                     alt="لوگوی تاریک" />
-                <img class="logo-small logo-img logo-img-small" src="./images/logo-small.png"
-                    srcset="./images/logo-small2x.png 2x" alt="لوگوی کوچک" />
+                <img class="logo-small logo-img logo-img-small" src="{{ asset('assets/app/images/Logo.jpg') }}"
+                    srcset="{{ asset('assets/app/images/Logo.jpg') }}" alt="لوگوی کوچک" />
             </a>
         </div>
         <div class="nk-menu-trigger me-n2">
