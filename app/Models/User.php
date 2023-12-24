@@ -87,12 +87,12 @@ class User extends Authenticatable
         if (empty($currentOtpCode)) {
             $this->otpCodes()->delete();
             do {
-                $newCode = mt_rand(100000, 999999);
+                $newCode = mt_rand(10000, 99999);
             } while ($this->checkUniqueCode($newCode));
     
             $newOtpCode = $this->otpCodes()->create([
                 'code'          =>  $newCode,
-                'expired_at'    =>  now()->addMinute(3),
+                'expired_at'    =>  now()->addSeconds(config('auth.resend_otp_time')),
             ]);
 
             return $newOtpCode;
@@ -106,10 +106,32 @@ class User extends Authenticatable
         return !!$this->otpCodes()->whereCode($code)->first();
     }
 
+    public function hasActiveOtpCode()
+    {
+        return $this->otpCodes()->where('expired_at', ">", now())->exists();
+    }
+
+    public function getActiveOtpCode()
+    {
+        return $this->otpCodes()->where('expired_at', ">", now())->first();
+    }
+
+
+    public function userCanLoginOtp() 
+    { 
+        if ($this->is_admin || $this->is_staff) {
+            if (!config('auth.admin_can_login_otp')) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     // relations
     public function otpCodes() 
     {
         return $this->hasMany(OtpCode::class);
     }
+
 }

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="flex flex-col items-center">
-        <form action="{{ route('login.otp') }}" method="post"
+        <form action="{{ route('login.otp') }}" onsubmit="checkVerify(event)" method="post"
             class="md:w-1/2 xl:w-1/3 w-full flex flex-col items-start rounded-xl border border-gray-300 shadow-xl p-5 py-8">
             @csrf
             <a href="#" class="w-full flex justify-center">
@@ -12,10 +12,12 @@
 
                 <span class="flex items-center border-r-2 border-black h-5 pr-2">ثبت نام</span>
             </span>
-            <div class="flex flex-col text-xs text-gray-500 font-medium py-1">
+            <div class="flex justify-between  text-xs text-gray-500 font-medium py-1">
                 <span class="mb-4">
-                    کد تایید برای شماره {{ $verify['phone_number'] }} پیامک شد
+                    کد تایید برای شماره {{ $verify['phone_number'] }} ( <a href="{{ route('login.form') }}"
+                        class="mx-1 text-blue-600">تغییر شماره</a> ) پیامک شد
                 </span>
+
             </div>
 
             <div class="mb-6 w-full">
@@ -28,7 +30,7 @@
                 ورود
             </button>
         </form>
-        <form id="resendForm" action="{{ route('login.otp.resend') }}" method="post">
+        <form id="resendForm" class="hidden" action="{{ route('login.otp.resend') }}" method="post">
             @csrf
             <div class="mt-4">
                 <a href="" class="text-gray-700 text-sm" onclick="resendOtpCode(event)">ارسال مجدد کد</a>
@@ -38,36 +40,27 @@
 @endsection
 
 @section('script')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            let seconds = "{{ $verify['code_expire'] }}";
+    @include('app.alerts.toast.error')
 
-            seconds = parseInt(seconds);
-
-            function updateCountdown() {
-                var countdownElement = document.getElementById('countdown');
-                countdownElement.innerHTML = seconds + ' تا دریافت مجدد کد ';
-
-                seconds--;
-
-                if (seconds < 0) {
-                    clearInterval(countdownInterval);
-
-                    countdownElement.style.display = 'none';
-                }
-            }
-
-            var countdownInterval = setInterval(updateCountdown, 1000);
-        });
-    </script>
+    <script src="{{ asset('assets/app/js/custom.js') }}"></script>
+    <script src="{{ asset('assets/app/js/countdown.js') }}"></script>
 
     <script>
+
+        if (localStorage.getItem('remainingTime') === 'resend') {
+            resendForm.classList.remove('hidden');
+        }   
+        else {
+            countdown.style.display = "block";
+            const seconds = "{{ config('auth.resend_otp_time') }}";
+            countdownTimer(parseInt(seconds));
+        }
+
         async function resendOtpCode(event) {
             event.preventDefault();
 
             const form = event.target.closest('form');
 
-            const requestData = { verify: {!! json_encode($verify) !!} };
 
             await fetch(form.action, {
                     method: "POST",
@@ -75,13 +68,31 @@
                         "X-CSRF-TOKEN": "{{ csrf_token() }}",
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(requestData)
                 })
                 .then(response => response.json())
                 .then(data => {
-                    
+                    if (data.status == 'success') {
+                        successToast(data.message);
+                        form.classList.add('hidden');
+                        countdown.style.display = "block";
+                        const seconds = "{{ config('auth.resend_otp_time') }}";
+                        countdownTimer(parseInt(seconds));
+                    } else if (data.status == 'warning') {
+                        warningToast(data.message);
+                    }
                 })
 
+        }
+
+        function checkVerify(event) {
+            const codeInput = document.querySelector('input[name=code]');
+            event.preventDefault();
+            if (codeInput.value.trim() !== "") {
+                event.target.submit();
+                return true;
+            }
+            errorToast('کد تایید نمی تواند خالی باشد');
+            return false;
         }
     </script>
 @endsection

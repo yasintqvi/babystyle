@@ -119,16 +119,8 @@ return [
         |--------------------------------------------------------------------------
     */
 
-    'auth_method' => [
-        'user' => [
-            'otp' => true,
-            'password' => true,
-        ],
+    'resend_otp_time' => 180, // seconds
 
-        'admin' => [
-            'otp' => false,
-            'password' => true
-        ]
-    ]
+    'admin_can_login_otp' => false
 
 ];

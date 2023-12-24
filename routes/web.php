@@ -34,20 +34,23 @@ Route::middleware('guest')->group(function () {
 
 });
 
-Route::post('otp/resend', [LoginRegisterController::class, 'resend'])->name("auth.resend-code");
 
-// Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () {
 
-//     Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
-//         ->name('password.confirm');
+    // Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
+    //     ->name('password.confirm');
 
-//     Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
+    // Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
 
-//     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
+    // Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 
-//     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
-//         ->name('logout');
-// });
+    Route::get('logout', [LoginRegisterController::class, 'logout'])
+        ->name('logout');
+});
 
 Route::get('/' , [HomeController::class , 'index']);
 
+
+Route::get('/', function () {
+    return view('app.index');
+})->name('home');

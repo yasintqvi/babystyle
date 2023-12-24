@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Auth;
 
 class LoginRegisterController extends Controller
 {
@@ -17,7 +17,6 @@ class LoginRegisterController extends Controller
 
     public function check(Request $request)
     {
-
         if (!preg_match('/^(\+98|98|0)9\d{9}$/', $request->get('phone_number'))) {
             return back()->with(['phone_number_error' => 'شماره تلفن نامعتبر می باشد.']);
         }
@@ -32,22 +31,23 @@ class LoginRegisterController extends Controller
             ]);
         }
 
+        $request->session()->flash('verify', ['allowed_otp_method' => $user->userCanLoginOtp(), 'user_id' => $user->id, 'phone_number' => $user->phone_number]);
         
-        if (isset($user->phone_verified_at) && isset($user->password)) {
-
-            $request->session()->flash('verify', collect($user)->toArray());
-            
+        if ($user->is_admin || $user->is_staff) {
             return to_route("login.password.show");
         }
 
-        $otpCode = $user->generateOtpCode();
-
-        $expire = dateSubtration($otpCode->expired_at, now());
-
-        $request->session()->flash('verify', ['code_expire' => $expire, ...collect($user)->toArray()]);
+        $user->generateOtpCode();
 
         return to_route("login.otp.show");
 
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        
+        return back()->with('success', 'شما از حساب کاربری خارج شدید.');
     }
 
 }
