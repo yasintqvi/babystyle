@@ -48,6 +48,8 @@
         const loginButton = document.querySelector('button[type=submit]');
         const phoneInput = document.querySelector('input[name=phone_number]');
         
+        localStorage.removeItem('remainingTime');
+
         function validatePhoneNumber(event) {
 
             const number = event.target.value;

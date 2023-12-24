@@ -29,3 +29,7 @@
         </form>
     </div>
 @endsection
+
+@section('script')
+    @include('app.alerts.toast.error')
+@endsection

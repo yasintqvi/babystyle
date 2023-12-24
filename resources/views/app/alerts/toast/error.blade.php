@@ -1,12 +1,12 @@
-@if (session()->has('warning'))
+@if (session()->has('error'))
     <script>
         document.addEventListener('DOMContentLoaded', function(event) {
             Toastify({
-                text: "{{ session()->get('warning') }}",
+                text: "{{ session()->get('error') }}",
                 close: true,
                 stopOnFocus: true,
                 style: {
-                    'background': '#e6c212',
+                    'background': '#eb1c1c',
                     'display': 'flex',
                 },
                 position: 'center',
@@ -19,6 +19,6 @@
     </script>
 
     @php
-        session()->remove('warning');
+        session()->remove('error');
     @endphp
 @endif
