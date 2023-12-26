@@ -1,7 +1,7 @@
 <div class="nk-sidebar nk-sidebar-fixed is-light" data-content="sidebarMenu">
     <div class="nk-sidebar-element nk-sidebar-head">
         <div class="nk-sidebar-brand">
-            <a href="html/index.html" class="logo-link nk-sidebar-logo">
+            <a href="{{route('home')}}" target="blank" class="logo-link nk-sidebar-logo">
                 <img class="logo-light logo-img" src="{{ asset('assets/app/images/Logo.jpg') }}" srcset="{{ asset('assets/app/images/Logo.jpg') }} alt="لوگو" />
                 <img class="logo-dark logo-img" src="{{ asset('assets/app/images/Logo.jpg') }}" srcset="{{ asset('assets/app/images/Logo.jpg') }}"
                     alt="لوگوی تاریک" />

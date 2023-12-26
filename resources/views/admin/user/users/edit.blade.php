@@ -17,6 +17,14 @@
         <!-- .nk-block-head-content -->
     </div>
 
+    @if ($errors->has('password'))
+        <div class="alert alert-danger d-flex flex-column" role="alert">
+            @foreach ($errors->all() as $error)
+                <div class="mt-2">{{ $error }}</div>
+            @endforeach
+        </div>
+    @endif
+
 
 
     <div class="nk-block">
@@ -83,20 +91,22 @@
                                     </li>
                                     <li>
                                         <div class="custom-control custom-checkbox custom-control-pro no-control">
-                                            <input type="checkbox" class="custom-control-input" name="btnIconRadio"
-                                                id="btnIconRadio4" value="1" @checked(old('is_banned', $user->is_banned))>
-                                            <label class="custom-control-label" for="btnIconRadio4"><em
-                                                    class="icon ni ni-account-setting-fill"></em><span>به این کاربر مجوز
-                                                    داده شود</span></label>
+                                            <input type="checkbox" class="custom-control-input myButton" name="is_staff"
+                                                id="btnIconRadio4" value="1" @checked(old('is_staff', $user->is_staff))>
+                                            <label class="custom-control-label" for="btnIconRadio4">
+                                                <em class="icon ni ni-account-setting-fill"></em><span>به این کاربر مجوز
+                                                    داده شود</span>
+                                            </label>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
-                            
+
                         </div>
                         <div class="card-inner">
-                            <button type="button" class="btn btn-outline-info justify-content-center" data-bs-toggle="modal"
-                            data-bs-target="#modalDefault"><em class="icon ni ni-lock-alt ml-5"></em> تغییر کلمه عبور</button>
+                            <button type="button" class="btn btn-outline-info justify-content-center"
+                                data-bs-toggle="modal" data-bs-target="#modalDefault"><em
+                                    class="icon ni ni-lock-alt ml-5"></em> تغییر کلمه عبور</button>
                         </div>
                     </div>
                 </div>
@@ -163,7 +173,7 @@
                                     <label class="form-label" for="fv-phone">شماره تلفن : </label>
                                     <div class="form-control-wrap">
                                         <input type="number" class="form-control" id="fv-phone" name="phone_number"
-                                            value="{{ old('phone_number', $user->phone_number) }}">
+                                            value="{{ old('phone_number', 0 . $user->phone_number) }}">
                                     </div>
                                     @error('phone_number')
                                         <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
@@ -205,77 +215,75 @@
 
                         </div>
 
-
-
-
-
-
-
                     </div>
                     <!-- .card-inner -->
                 </div>
                 <!-- .card -->
+                <div class="card hide-on-unchecked">
+                    <div class="card-inner">
+                        یشس
+                    </div>
+                </div>
             </div>
             <!-- .col -->
         </form>
-        <!-- کد راه انداز مودال -->
-                    <!-- کد محتوای مودال -->
-                    <form action="" method="POST">
-                        <div class="modal fade zoom" tabindex="-1" id="modalDefault">
-                            <div class="modal-dialog " role="document">
+        <!-- کد محتوای مودال -->
+        <form action="{{ route('admin.user.change-password', $user->id) }}" method="POST">
+            @csrf
+            <div class="modal fade zoom" tabindex="-1" id="modalDefault">
+                <div class="modal-dialog " role="document">
 
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">تغیر رمز عبور</h5>
-                                        <a href="#" class="close" data-bs-dismiss="modal" aria-label="بستن">
-                                            <em class="icon ni ni-cross"></em>
-                                        </a>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">تغیر رمز عبور</h5>
+                            <a href="#" class="close" data-bs-dismiss="modal" aria-label="بستن">
+                                <em class="icon ni ni-cross"></em>
+                            </a>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-md-12 p-2">
+                                <div class="form-group">
+                                    <label class="form-label" for="fv-password">کلمه عبور فعلی: </label>
+                                    <div class="form-control-wrap">
+                                        <input type="password" class="form-control" id="fv-password" name="password"
+                                            value="{{ old('password') }}">
                                     </div>
-                                    <div class="modal-body">
-                                        <div class="col-md-12 p-2">
-                                            <div class="form-group">
-                                                <label class="form-label" for="fv-password">کلمه عبور : </label>
-                                                <div class="form-control-wrap">
-                                                    <input type="password" class="form-control" id="fv-password"
-                                                        name="password" value="{{ old('password') }}">
-                                                </div>
-                                                @error('password')
-                                                    <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
-                                                        <strong>
-                                                            {{ $message }}
-                                                        </strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
+                                    @error('password')
+                                        <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
+                                            <strong>
+                                                {{ $message }}
+                                            </strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
 
-                                        <div class="col-md-12 p-2">
-                                            <div class="form-group">
-                                                <label class="form-label" for="password_confirmation">تکرار کلمه عبور :
-                                                </label>
-                                                <div class="form-control-wrap">
-                                                    <input type="password" class="form-control"
-                                                        id="password_confirmation" name="password_confirmation"
-                                                        value="{{ old('password_confirmation') }}">
-                                                </div>
-                                                @error('password_confirmation')
-                                                    <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
-                                                        <strong>
-                                                            {{ $message }}
-                                                        </strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
+                            <div class="col-md-12 p-2">
+                                <div class="form-group">
+                                    <label class="form-label" for="password_confirmation">تکرار کلمه عبور :
+                                    </label>
+                                    <div class="form-control-wrap">
+                                        <input type="password" class="form-control" id="password_confirmation"
+                                            name="password_confirmation" value="{{ old('password_confirmation') }}">
                                     </div>
-                                    <div class="modal-footer bg-light">
-                                        <button class="btn btn-success">بازگشت</button>
-                                    </div>
+                                    @error('password_confirmation')
+                                        <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
+                                            <strong>
+                                                {{ $message }}
+                                            </strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
-                    </form>
-             
+                        <div class="modal-footer bg-light">
+                            <button class="btn btn-primary">تایید</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
 
 
 
@@ -298,6 +306,25 @@
 
                 reader.readAsDataURL(input.files[0]);
             }
+        }
+    </script>
+
+    <script>
+        var checkbox = document.getElementById("btnIconRadio4");
+        var div = document.querySelector(".hide-on-unchecked");
+
+        checkbox.addEventListener("change", function() {
+            if (this.checked) {
+                div.style.display = "block";
+            } else {
+                div.style.display = "none";
+            }
+        });
+        
+        if (checkbox.checked) {
+            div.style.display = "block";
+        } else {
+            div.style.display = "none";
         }
     </script>
 @endsection

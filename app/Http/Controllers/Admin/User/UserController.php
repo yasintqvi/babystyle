@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
+
 class UserController extends Controller
 {
     /**
@@ -62,6 +63,9 @@ class UserController extends Controller
                 $inputs['image'] = $image;
             }
             $inputs['password'] = Hash::make($request->password);
+            $inputs['phone_number'] = formatPhoneNumber($request->phone_number);
+
+            // dd($inputs);
             $user = User::create($inputs);
             
         });
@@ -89,7 +93,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user, ImageService $imageService)
+    public function update(UserRequest $request, User $user, ImageService $imageService)
     {
         
         DB::transaction(function () use ($request, $user , $imageService) {
@@ -105,6 +109,7 @@ class UserController extends Controller
                 $inputs['image'] = $imageService->save($inputs['image']);
             }
             $inputs['password'] = Hash::make($request->password);
+            $inputs['phone_number'] = formatPhoneNumber($request->phone_number);
             $user->update($inputs);
             
                 

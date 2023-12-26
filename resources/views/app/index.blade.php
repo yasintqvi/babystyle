@@ -92,7 +92,7 @@
                                         @if ($product->quantity_check)
                                         <div class="flex">
                                             <span class="block font-medium pl-2">{{ number_format($product->quantity_check->price) }}</span>
-                                            <span class="block text-sm font-medium text-gray-300" style="text-decoration: line-through;">dd</span>
+                                            <span class="block text-sm font-medium text-gray-300" style="text-decoration: line-through;">{{ $product->price_with_discount }}</span>
                                         </div>
                                         
                                         @else

@@ -27,6 +27,11 @@ class ProductItemDiscount extends Model
     public function scopeActive($query) {
         return $query->where('start_date', '<=', now())->where('end_date', '>=', now());
     }
+    
+    public function product()
+    {
+        return $this->belongsTo(Product::class , 'product_id');
+    }
 
 
 }

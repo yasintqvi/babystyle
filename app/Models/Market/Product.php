@@ -78,6 +78,11 @@ class Product extends Model
         return $this->hasMany(ProductItem::class);
     }
 
+    public function discounts()
+    {
+        return $this->hasMany(ProductItemDiscount::class);
+    }
+
     // public function finalDiscounts()
     // {
     //     return $this->items();

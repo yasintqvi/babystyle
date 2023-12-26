@@ -48,9 +48,4 @@ Route::middleware('auth')->group(function () {
         ->name('logout');
 });
 
-Route::get('/' , [HomeController::class , 'index']);
-
-
-Route::get('/', function () {
-    return view('app.index');
-})->name('home');
+Route::get('/' , [HomeController::class , 'index'])->name('home');

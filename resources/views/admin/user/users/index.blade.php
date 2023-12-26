@@ -137,10 +137,6 @@
                                     <a href="" onclick="batchEdit(event)"><em class="icon ni ni-edit"></em><span>ویرایش انتخاب
                                             شده</span></a>
                                 </li>
-                                <li>
-                                    <a href="" onclick="batchDelete(event)"><em class="icon ni ni-trash"></em><span>حذف انتخاب
-                                            شده</span></a>
-                                </li>
                             </ul>
                         </div>
                     </div>
@@ -160,7 +156,7 @@
             </div>
             <div class="nk-tb-col">
                 <span class="tb-product">
-                    <label for="id-{{ id }}" class="title">{{first_name}} {{last_name}}</label>
+                    <label for="id-{{ id }}" class="title">{{#if first_name}} {{first_name}} {{last_name}} {{else}} 0{{phone_number}} {{/if}}  </label>
                 </span>
             </div>
             <div class="nk-tb-col nk-tb-col-tools">

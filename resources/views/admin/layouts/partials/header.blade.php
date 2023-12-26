@@ -273,15 +273,19 @@
                     <li class="dropdown user-dropdown">
                         <a href="#" class="dropdown-toggle me-n1" data-bs-toggle="dropdown">
                             <div class="user-toggle">
-                                <div class="user-avatar sm">
-                                    <em class="icon ni ni-user-alt"></em>
+                                <div class="p-1 sm">
+                                    @if (auth()->user()->image)
+                                        <img src="{{ asset(auth()->user()->image) }}" alt=""
+                                            class="user-avatar" style="width: 40px; height: 40px; ">
+                                    @else
+                                    <div class="user-avatar">
+                                        <em class="icon ni ni-user-alt"></em>
+                                    </div>
+                                    @endif
                                 </div>
                                 <div class="user-info d-none d-xl-block">
-                                    <div class="user-status user-status-unverified">
-                                        تایید نشده
-                                    </div>
                                     <div class="user-name dropdown-indicator">
-                                        فرشید ترنیان
+                                        {{ auth()->user()->fullName }}
                                     </div>
                                 </div>
                             </div>
@@ -289,12 +293,19 @@
                         <div class="dropdown-menu dropdown-menu-md dropdown-menu-end">
                             <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
                                 <div class="user-card">
-                                    <div class="user-avatar">
-                                        <span>ف‌ت</span>
+                                    <div class="p-1">
+                                        @if (auth()->user()->image)
+                                            <img src="{{ asset(auth()->user()->image) }}" alt=""
+                                                class="user-avatar" style="width: 50px; height: 50px; object-fit: cover ">
+                                        @else
+                                        <div class="user-avatar">
+                                            <em class="icon ni ni-user-alt"></em>
+                                        </div>
+                                        @endif
                                     </div>
                                     <div class="user-info">
-                                        <span class="lead-text">فرشید ترنیان</span>
-                                        <span class="sub-text">your@email.com</span>
+                                        <span class="lead-text">{{ auth()->user()->fullName }}</span>
+                                        <span class="sub-text">{{ auth()->user()->email ?? 'ایمیلی ندارید' }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -304,14 +315,7 @@
                                         <a href="html/user-profile-regular.html"><em
                                                 class="icon ni ni-user-alt"></em><span>مشاهده پروفایل</span></a>
                                     </li>
-                                    <li>
-                                        <a href="html/user-profile-setting.html"><em
-                                                class="icon ni ni-setting-alt"></em><span>تنظیمات حساب</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="html/user-profile-activity.html"><em
-                                                class="icon ni ni-activity-alt"></em><span>فعالیت ورود</span></a>
-                                    </li>
+
                                     <li>
                                         <a class="dark-switch" href="#"><em
                                                 class="icon ni ni-moon"></em><span>حالت تاریک</span></a>

@@ -27,7 +27,7 @@ class UserRequest extends FormRequest
             return [
                 'first_name' => 'required|string|min:3|max:255',
                 'last_name' => 'required|string|min:3|max:255',
-                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                'password' => ['required', 'confirmed', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%])/', Rules\Password::defaults()],
                 'email' => 'nullable|unique:users,email|email',
                 'phone_number' => ['required', 'numeric', 'regex:/09(1[0-9]|9[1-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}/i', 'digits:11', 'unique:users,phone_number'],
                 'image' => 'nullable|image|max:2048|min:1',
@@ -42,14 +42,33 @@ class UserRequest extends FormRequest
         return [
             'first_name' => 'required|string|min:3|max:255',
             'last_name' => 'required|string|min:3|max:255',
-            'username' => ['required', Rule::unique('users' , 'username')->ignore($this->user->id),'string','max:64','min:4'],
             'email' => ['nullable', Rule::unique('users' , 'email')->ignore($this->user->id),'email'],
-            'mobile' => ['required', 'numeric' , Rule::unique('users' , 'mobile')->ignore($this->user->id), 'regex:/09(1[0-9]|9[1-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}/i', 'digits:11'],
+            'phone_number' => ['required', 'numeric' , Rule::unique('users' , 'phone_number')->ignore($this->user->id), 'regex:/09(1[0-9]|9[1-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}/i', 'digits:11'],
             'phone_verified_at' => 'nullable|in:0,1|numeric',
             'email_verified_at' => 'nullable|in:0,1|numeric',
             'is_staff' => 'nullable|in:0,1|numeric',
             'is_active' => 'nullable|in:0,1|numeric',
             'is_banned' => 'nullable|in:0,1|numeric',
+        ];  
+
+       
+    }
+
+    public function attributes()
+    {
+        return [
+            'password' => 'رمز عبور ترکیبی از حروف بزرگ و کوچک، اعداد و نمادها و ',
+            'phone_number' => 'شماره تماس',
         ];
+    }
+
+    
+    public function withErrors($errors)
+    {
+        if ($errors->has('phone_number')) {
+            $errors->set('phone_number', 'شماره تماس قبلا وجود داشته است');
+        }
+
+        return $errors;
     }
 }
