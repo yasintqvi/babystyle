@@ -46,11 +46,16 @@ Route::middleware('auth')->group(function () {
 
     Route::get('logout', [LoginRegisterController::class, 'logout'])
         ->name('logout');
+
 });
 
-Route::get('/' , [HomeController::class , 'index']);
+Route::prefix('profile')->middleware('auth')->as('profile')->group(function() {
+    // Route::get('/', )
+});
+
+Route::get('/' , [HomeController::class , 'index'])->name('home');
 
 
-Route::get('/', function () {
-    return view('app.index');
-})->name('home');
+// Route::get('/', function () {
+//     return view('app.index');
+// })->name('home');

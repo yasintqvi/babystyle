@@ -21,20 +21,19 @@ class SliderRequest extends FormRequest
      */
     public function rules(): array
     {
-            if($this->isMethod('post')){
-                return [
-                    'alt' => 'required|max:120|min:2',
-                    'url' => 'nullable|max:500|',
-                    'image'  => 'required|image|mimes:png,jpg,jpeg,gif|max:3072|min:1',
-    
-                ];
-                }
-                else{
-                    return [
-                        'alt' => 'required|max:120|min:2',
-                        'url' => 'max:500',
-                        'image' => 'image|mimes:png,jpg,jpeg,gif|max:3072|min:1',
-                    ];
-                }
+        if ($this->isMethod('post')) {
+            return [
+                'alt' => 'required|max:120|min:2',
+                'url' => 'nullable|max:500|',
+                'image' => 'required|image|mimes:png,jpg,jpeg,gif|max:3072|min:1',
+
+            ];
+        } else {
+            return [
+                'alt' => 'required|max:120|min:2',
+                'url' => 'max:500',
+                'image' => 'image|mimes:png,jpg,jpeg,gif|max:3072|min:1',
+            ];
+        }
     }
 }

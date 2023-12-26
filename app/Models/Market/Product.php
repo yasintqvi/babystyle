@@ -77,17 +77,16 @@ class Product extends Model
     {
         return $this->hasMany(ProductItem::class);
     }
-
-    // public function finalDiscounts()
-    // {
-    //     return $this->items();
-    // }
-
     
 
     public function getQuantityCheckAttribute()
     {
         return $this->items()->where('quantity' , '>' , '0')->first() ?? 0;
+    }
+
+    public function hasVariaty()
+    {
+        return $this->category->variations->isNotEmpty(); 
     }
 
     

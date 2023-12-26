@@ -277,9 +277,12 @@
                                                 name="options[{{ $variation->id }}][value]"
                                                 id="variation-{{ $variation->id }}">
                                             @if ($variation->is_color)
-                                                <div class="input-group-append" >
-                                                    <span class="input-group-text" style="background: transparent !important; border:none;">
-                                                        <input type="color"  id="variation-{{ $variation->id }}-second" name="options[{{ $variation->id }}][second_value]" class="custom-color-input border-0">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text"
+                                                        style="background: transparent !important; border:none;">
+                                                        <input type="color" id="variation-{{ $variation->id }}-second"
+                                                            name="options[{{ $variation->id }}][second_value]"
+                                                            class="custom-color-input border-0">
                                                         <input type="hidden" name="is_color" value="1">
                                                     </span>
                                                 </div>
@@ -295,27 +298,28 @@
                                     </div>
                                 </div>
                             @endforeach
-                            @if ($product->items()->count() > 0) 
-                            <div class="col-md-6">
-                                <div class="form-group ">
-                                    <label class="form-label" for="fv-full-name">انتخاب به عنوان محصول پیشفرض</label>
-                                    <div class="form-control-wrap">
-                                        <div class="custom-control custom-control-lg custom-switch">
-                                            <input type="checkbox" name="is_default" value="1"
-                                                class="custom-control-input" @checked(old('is_default')) id="is_default">
-                                            <label class="custom-control-label" for="is_default">فعال</label>
+                            @if ($product->items()->count() > 0)
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        <label class="form-label" for="fv-full-name">انتخاب به عنوان محصول پیشفرض</label>
+                                        <div class="form-control-wrap">
+                                            <div class="custom-control custom-control-lg custom-switch">
+                                                <input type="checkbox" name="is_default" value="1"
+                                                    class="custom-control-input" @checked(old('is_default'))
+                                                    id="is_default">
+                                                <label class="custom-control-label" for="is_default">فعال</label>
+                                            </div>
                                         </div>
+                                        @error('is_default')
+                                            <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
+                                                <strong>
+                                                    {{ $message }}
+                                                </strong>
+                                            </span>
+                                        @enderror
                                     </div>
-                                    @error('is_default')
-                                        <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
-                                            <strong>
-                                                {{ $message }}
-                                            </strong>
-                                        </span>
-                                    @enderror
                                 </div>
-                            </div>
-                            @else 
+                            @else
                                 <input type="hidden" name="is_default" value="1">
                             @endif
                         </div>
@@ -499,7 +503,7 @@
                     attributeTdContent.push(data.items[item].variation_options[option]['value']);
                 }
 
-                const price = getPrice(data.items[item]['price'] , data.items[item]['price_with_discount']);
+                const price = getPrice(data.items[item]['price'], data.items[item]['price_with_discount']);
                 tr.innerHTML = `
                     <td>${ attributeTdContent.join(' - ') }</td>
                     <td><img style="width:4rem; height:4rem" src="/${data.items[item]['product_image'] || 'defaults/no-image.jpg'}"</td>
