@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\Market\SliderController;
 use App\Http\Controllers\Admin\User\ChangePasswordController;
 use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Admin\Market\ProductItemController;
+use App\Http\Controllers\Admin\User\RoleController;
 use App\Http\Requests\Market\FaqRequest;
 use App\Models\Market\shippingMethod;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,10 @@ Route::prefix('admin')->as('admin.')->group(function () {
         Route::get('users/fetch', [UserController::class, "fetch"])->name('users.fetch');
         Route::post('change-password/{user}', ChangePasswordController::class)->name('change-password');
         Route::resource("users", UserController::class);
+
+        Route::get('roles/fetch', [RoleController::class, "fetch"])->name('roles.fetch');
+        Route::post('roles/batch-delete', [RoleController::class, "batchDelete"])->name('roles.batch-delete');
+        Route::resource("roles", RoleController::class);
     });
 
     Route::prefix('market')->as('market.')->group(function () {
@@ -74,6 +79,8 @@ Route::prefix('admin')->as('admin.')->group(function () {
         Route::post('discount-codes/batch-delete', [DiscountCodeController::class, "batchDelete"])->name('discount-codes.batch-delete');
         Route::get('discount-codes/fetch', [DiscountCodeController::class, "fetch"])->name('discount-codes.fetch');
         Route::resource('discount-codes', DiscountCodeController::class);
+
+
 
 
         // تایید و عدم تایید کامنت

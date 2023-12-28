@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Notifications\OTPSms;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -90,7 +91,9 @@ class OtpController extends Controller
             return response()->json(['status' => 'warning', 'message' => "صبر کن ! ممکنه کد یکم دیر به دستت برسه :)"], 200);
         }
 
-        $user->generateOtpCode();
+        $user->generateOtpCode(
+            $user->notify(new OTPSms($user->generateOtpCode()->code)
+        ));
 
         return response()->json(['status' => 'success', 'message' => "کد تایید مجددا ارسال گردید."], 200);
 

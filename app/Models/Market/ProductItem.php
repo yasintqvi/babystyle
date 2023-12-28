@@ -53,15 +53,15 @@ class ProductItem extends Model
     {
         return $this->belongsToMany(VariationOption::class, 'product_variation_options');
     }
+    
+    public function getImageAttribute()
+    {
+        return $this->product_image ?? "defaults/no-image.jpg";
+    }
 
     public function discounts()
     {
         return $this->hasMany(ProductItemDiscount::class);
-    }
-
-    public function getImageAttribute()
-    {
-        return $this->product_image ?? "defaults/no-image.jpg";
     }
 
     public function hasDiscount()

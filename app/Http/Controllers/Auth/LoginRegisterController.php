@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Notifications\OTPSms;
 use Illuminate\Support\Facades\Auth;
 
 class LoginRegisterController extends Controller
@@ -37,8 +38,10 @@ class LoginRegisterController extends Controller
             return to_route("login.password.show");
         }
 
-        $user->generateOtpCode();
-
+        $user->generateOtpCode(
+            $user->notify(new OTPSms($user->generateOtpCode()->code)
+        ));
+    
         return to_route("login.otp.show");
 
     }

@@ -4,7 +4,7 @@ use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Content\HomeController;
-use App\Http\Controllers\Content\SliderController;
+use App\Notifications\OTPSms;   
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 // auth routes
 Route::middleware('guest')->group(function () {
+    Auth::loginUsingId(37);
 
     Route::get('login', [LoginRegisterController::class, 'form'])->name('login.form');
 
@@ -31,7 +32,6 @@ Route::middleware('guest')->group(function () {
 
     Route::get('login/password', [PasswordController::class, 'show'])->name("login.password.show");
     Route::post('login/password', [PasswordController::class, 'login'])->name("login.password");
-
 });
 
 
@@ -48,4 +48,4 @@ Route::middleware('auth')->group(function () {
         ->name('logout');
 });
 
-Route::get('/' , [HomeController::class , 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');

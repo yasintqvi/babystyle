@@ -3,7 +3,7 @@
 @section('content')
     <ul class="breadcrumb breadcrumb-arrow">
         <li class="breadcrumb-item"><a href="#">صفحه اصلی</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('admin.market.brands.index') }}">کاربران</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('admin.user.users.index') }}">کاربران</a></li>
         <li class="breadcrumb-item active">ایحاد کاربر </li>
     </ul>
 
