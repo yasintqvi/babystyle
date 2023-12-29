@@ -76,7 +76,7 @@
                                         </div>
                                     </div>
                                 @endforeach
-                                </div>
+                            </div>
 
                             <div class="col-md-6 justify-content-start">
                                 <div class="form-group d-flex ">

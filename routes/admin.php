@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\Market\BrandController;
 use App\Http\Controllers\Admin\Market\PageController;
 use App\Http\Controllers\Admin\Market\CategoryController;
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->as('admin.')->group(function () {
     Route::get('/', fn() => view('admin.dashboard'))->name('index');
+    Route::get('/', AdminDashboardController::class)->name('index');
 
     Route::prefix('user')->as('user.')->group(function () {
         Route::get('users/fetch', [UserController::class, "fetch"])->name('users.fetch');
@@ -69,7 +71,8 @@ Route::prefix('admin')->as('admin.')->group(function () {
         
         Route::post('comments/batch-delete', [CommentController::class, "batchDelete"])->name('comments.batch-delete');
         Route::get('comments/fetch', [CommentController::class, "fetch"])->name('comments.fetch');
-        Route::resource('comments', CommentController::class)->except('show');
+        Route::get('comments/show', [CommentController::class, "show"])->name('comments.show');
+        Route::resource('comments', CommentController::class);
 
           
         Route::post('shipping-methods/batch-delete', [ShippingMethodController::class, "batchDelete"])->name('shipping-methods.batch-delete');

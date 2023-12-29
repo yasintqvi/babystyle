@@ -36,6 +36,8 @@ class UserRequest extends FormRequest
                 'is_staff' => 'nullable|in:0,1|numeric',
                 'is_active' => 'nullable|in:0,1|numeric',
                 'is_banned' => 'nullable|in:0,1|numeric',
+                'roles' => 'nullable |exists:roles,id|array',
+                'permissions' => 'nullable|exists:permissions,id|array',
             ];
         }
 
@@ -49,6 +51,8 @@ class UserRequest extends FormRequest
             'is_staff' => 'nullable|in:0,1|numeric',
             'is_active' => 'nullable|in:0,1|numeric',
             'is_banned' => 'nullable|in:0,1|numeric',
+            'roles' => 'nullable|exists:roles,id|array',
+            'permissions' => 'nullable|exists:permissions,id|array',
         ];  
 
        

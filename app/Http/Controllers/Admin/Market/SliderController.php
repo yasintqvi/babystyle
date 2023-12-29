@@ -13,6 +13,14 @@ class SliderController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('can:manage_sldier')->only('index');
+        $this->middleware('can:create_sldier')->only('edit', 'update');
+        $this->middleware('can:edit_sldier')->only('store', 'create');
+        $this->middleware('can:delete_sldier')->only('destroy');
+    }
+
     public function index()
     {
         return view('admin.market.slider.index');

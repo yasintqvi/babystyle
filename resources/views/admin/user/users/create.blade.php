@@ -235,11 +235,34 @@
                     </div>
                     <!-- .card-inner -->
 
+              
                 </div>
                 <!-- .card -->
-                <div style="display: none;" id="myDiv" class="card">
+                <div  id="myDiv" class="card hide-on-unchecked">
                     <div class="card-inner">
-                        یشس
+                        <label class="form-label" for="fv-full-name">انتخاب نقش کاربر : </label>
+                        <div class="align-center flex-wrap mb-4">
+                            @foreach($roles as  $role)
+                                <div class="g col-md-3 mt-2 ">
+                                    <div class="custom-control custom-control-sm custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" @checked(in_array($role->id , old('roles') ?? [])) value="{{ $role->id}}" name="roles[]" id="{{ $role->id }}">
+                                        <label class="custom-control-label" for="{{ $role->id }}">{{ $role->name }}</label>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <hr>
+                        <label class="form-label" for="fv-full-name">انتخاب دسترسی کاربر : </label>
+                        <div class="align-center flex-wrap mb-4">
+                            @foreach($permissions as  $permission)
+                                <div class="g col-md-3 mt-2 ">
+                                    <div class="custom-control custom-control-sm custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" @checked(in_array($permission->id , old('permissions') ?? [])) value="{{ $permission->id}}" name="permissions[]" id="{{ $permission->key }}">
+                                        <label class="custom-control-label" for="{{ $permission->key  }}">{{ $permission->key }}</label>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
 
@@ -269,18 +292,26 @@
         }
     </script>
 
-<script>
-    var button = document.querySelector(".myButton");
-    var div = document.getElementById("myDiv");
 
-    button.addEventListener("click", function() {
-      if (div.style.display === "none") {
-        div.style.display = "block";
-      } else {
-        div.style.display = "none";
-      }
+
+<script>
+    var checkbox = document.getElementById("btnIconRadio4");
+    var div = document.querySelector(".hide-on-unchecked");
+
+    checkbox.addEventListener("change", function() {
+        if (this.checked) {
+            div.style.display = "block";
+        } else {
+            div.style.display = "none";
+        }
     });
-  </script>
+    
+    if (checkbox.checked) {
+        div.style.display = "block";
+    } else {
+        div.style.display = "none";
+    }
+</script>
 
 
 @endsection

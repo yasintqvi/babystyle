@@ -13,6 +13,14 @@ class DiscountCodeController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('can:manage_copan')->only('index');
+        $this->middleware('can:copan_edit')->only('edit', 'update');
+        $this->middleware('can:copan_create')->only('store', 'create');
+        $this->middleware('can:copan_delete')->only('destroy');
+    }
+
     public function index()
     {
         return view('admin.market.discount-code.index');

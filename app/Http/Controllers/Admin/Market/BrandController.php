@@ -15,6 +15,15 @@ class BrandController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function __construct()
+     {
+         $this->middleware('can:manage_brand')->only('index');
+         $this->middleware('can:create_brand')->only('edit', 'update');
+         $this->middleware('can:edit_brand')->only('store', 'create');
+         $this->middleware('can:delete_brand')->only('destroy');
+     }
+
     public function index(): View
     {
         return view('admin.market.brand.index');

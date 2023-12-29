@@ -16,6 +16,15 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function __construct()
+     {
+         $this->middleware('can:manage_category')->only('index');
+         $this->middleware('can:create_category')->only('edit', 'update');
+         $this->middleware('can:edit_category')->only('store', 'create');
+         $this->middleware('can:delete_category')->only('destroy');
+     }
+
     public function index():View
     {
         return view('admin.market.category.index');

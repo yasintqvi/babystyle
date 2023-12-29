@@ -24,6 +24,16 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function __construct()
+     {
+         $this->middleware('can:manage_product')->only('index');
+         $this->middleware('can:create_product')->only('edit', 'update');
+         $this->middleware('can:edit_product')->only('store', 'create');
+         $this->middleware('can:delete_product')->only('destroy');
+     }
+
+
     public function index(): View
     {
         return view('admin.market.product.index');

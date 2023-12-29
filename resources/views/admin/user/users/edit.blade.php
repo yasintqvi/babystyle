@@ -219,9 +219,40 @@
                     <!-- .card-inner -->
                 </div>
                 <!-- .card -->
+                @php
+                    $rolesAraay = $user->roles->pluck('id')->toArray();
+                @endphp
                 <div class="card hide-on-unchecked">
                     <div class="card-inner">
-                        یشس
+                        <div class="align-center flex-wrap mb-4">
+                            @foreach ($roles as $role)
+                                <div class="g col-md-3 mt-2 ">
+                                    <div class="custom-control custom-control-sm custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" @checked(in_array($role->id, old('roles', $rolesAraay) ?? []))
+                                            value="{{ $role->id }}" name="roles[]" id="{{ $role->id }}">
+                                        <label class="custom-control-label"
+                                            for="{{ $role->id }}">{{ $role->name }}</label>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <hr>
+                        @php
+                            $permissionsAraay = $user->permissions->pluck('id')->toArray();
+                        @endphp
+                        <label class="form-label" for="fv-full-name">انتخاب دسترسی کاربر : </label>
+                        <div class="align-center flex-wrap mb-4">
+                            @foreach ($permissions as $permission)
+                                <div class="g col-md-3 mt-2 ">
+                                    <div class="custom-control custom-control-sm custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" @checked(in_array($permission->id, old('permissions', $permissionsAraay) ?? []))
+                                            value="{{ $permission->id }}" name="permissions[]" id="{{ $permission->key }}">
+                                        <label class="custom-control-label"
+                                            for="{{ $permission->key }}">{{ $permission->label }}</label>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
@@ -243,7 +274,7 @@
                         <div class="modal-body">
                             <div class="col-md-12 p-2">
                                 <div class="form-group">
-                                    <label class="form-label" for="fv-password">کلمه عبور فعلی: </label>
+                                    <label class="form-label" for="fv-password">کلمه عبور : </label>
                                     <div class="form-control-wrap">
                                         <input type="password" class="form-control" id="fv-password" name="password"
                                             value="{{ old('password') }}">
@@ -274,6 +305,7 @@
                                         </span>
                                     @enderror
                                 </div>
+
                             </div>
                         </div>
                         <div class="modal-footer bg-light">
@@ -320,7 +352,7 @@
                 div.style.display = "none";
             }
         });
-        
+
         if (checkbox.checked) {
             div.style.display = "block";
         } else {

@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Route;
 
 // auth routes
 Route::middleware('guest')->group(function () {
-    Auth::loginUsingId(37);
 
     Route::get('login', [LoginRegisterController::class, 'form'])->name('login.form');
 

@@ -70,7 +70,7 @@
                                 <div class="g col-md-2 mt-2 ">
                                     <div class="custom-control custom-control-sm custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" value="{{ $permission->id}}" name="permissions[]" id="{{ $permission->id }}">
-                                        <label class="custom-control-label" for="{{ $permission->id }}">{{ $permission->key }}</label>
+                                        <label class="custom-control-label" for="{{ $permission->id }}">{{ $permission->label }}</label>
                                     </div>
                                 </div>
                             @endforeach
