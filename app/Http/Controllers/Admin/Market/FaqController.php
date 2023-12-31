@@ -12,6 +12,15 @@ class FaqController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function __construct()
+     {
+         $this->middleware('can:manage_faq')->only('index');
+         $this->middleware('can:create_faq')->only('edit', 'update');
+         $this->middleware('can:edit_faq')->only('store', 'create');
+         $this->middleware('can:delete_faq')->only('destroy');
+     }
+     
     public function index()
     {
         return view('admin.market.faqs.index');
@@ -57,7 +66,6 @@ class FaqController extends Controller
         $inputs = $request->all();
         $faqs = Faq::create($inputs);
         return to_route('admin.market.faqs.index')->with('success', "سوال مورد نظر با موفقیت ایجاد شد.");
-
     }
 
     /**

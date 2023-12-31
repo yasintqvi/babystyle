@@ -36,3 +36,8 @@ div.dz-image>img {
 #file-input {
     display: none;
 }
+
+.hide-on-unchecked {
+    display: none;
+  }
+

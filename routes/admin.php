@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\Market\BrandController;
 use App\Http\Controllers\Admin\Market\MenuController;
 use App\Http\Controllers\Admin\Market\PageController;
@@ -14,16 +15,22 @@ use App\Http\Controllers\Admin\Market\SliderController;
 use App\Http\Controllers\Admin\User\ChangePasswordController;
 use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Admin\Market\ProductItemController;
+use App\Http\Controllers\Admin\User\RoleController;
 use Illuminate\Support\Facades\Route;
 
 
 Route::prefix('admin')->as('admin.')->group(function () {
     Route::get('/', fn() => view('admin.dashboard'))->name('index');
+    Route::get('/', AdminDashboardController::class)->name('index');
 
     Route::prefix('user')->as('user.')->group(function () {
         Route::get('users/fetch', [UserController::class, "fetch"])->name('users.fetch');
         Route::post('change-password/{user}', ChangePasswordController::class)->name('change-password');
         Route::resource("users", UserController::class);
+
+        Route::get('roles/fetch', [RoleController::class, "fetch"])->name('roles.fetch');
+        Route::post('roles/batch-delete', [RoleController::class, "batchDelete"])->name('roles.batch-delete');
+        Route::resource("roles", RoleController::class);
     });
 
     Route::prefix('market')->as('market.')->group(function () {
@@ -67,7 +74,8 @@ Route::prefix('admin')->as('admin.')->group(function () {
         
         Route::post('comments/batch-delete', [CommentController::class, "batchDelete"])->name('comments.batch-delete');
         Route::get('comments/fetch', [CommentController::class, "fetch"])->name('comments.fetch');
-        Route::resource('comments', CommentController::class)->except('show');
+        Route::get('comments/show', [CommentController::class, "show"])->name('comments.show');
+        Route::resource('comments', CommentController::class);
 
           
         Route::post('shipping-methods/batch-delete', [ShippingMethodController::class, "batchDelete"])->name('shipping-methods.batch-delete');
@@ -77,6 +85,8 @@ Route::prefix('admin')->as('admin.')->group(function () {
         Route::post('discount-codes/batch-delete', [DiscountCodeController::class, "batchDelete"])->name('discount-codes.batch-delete');
         Route::get('discount-codes/fetch', [DiscountCodeController::class, "fetch"])->name('discount-codes.fetch');
         Route::resource('discount-codes', DiscountCodeController::class);
+
+
 
 
         // تایید و عدم تایید کامنت

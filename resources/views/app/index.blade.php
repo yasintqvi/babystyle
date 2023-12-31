@@ -91,10 +91,13 @@
                                         </span>
                                         @if ($product->quantity_check)
                                         <div class="flex">
-                                            <span class="block font-medium pl-2">{{ number_format($product->quantity_check->price) }}</span>
-                                            <span class="block text-sm font-medium text-gray-300" style="text-decoration: line-through;">dd</span>
+                                            @if ($product->items->first()->hasDiscount())
+                                                <span class="block font-medium pl-2">{{  $product->items->first()->price_with_discount }}</span>
+                                                <span class="block text-sm font-medium text-gray-300" style="text-decoration: line-through;">{{ number_format($product->quantity_check->price)  }}</span>
+                                            @else
+                                                <span class="block font-medium pl-2" >{{ number_format($product->quantity_check->price)  }}</span>
+                                            @endif
                                         </div>
-                                        
                                         @else
                                             <span class="block font-medium">ناموجود</span>
                                         @endif                               

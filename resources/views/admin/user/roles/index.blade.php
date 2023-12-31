@@ -1,4 +1,4 @@
-@extends('admin.layouts.app', ['title' => 'ادمین'])
+@extends('admin.layouts.app', ['title' => 'نقش ها'])
 
 @section('head-tag')
     <script src="https://cdn.jsdelivr.net/npm/handlebars@4.7.8/dist/cjs/handlebars.min.js"></script>
@@ -10,7 +10,7 @@
             <div class="nk-block-head nk-block-head-sm">
                 <div class="nk-block-between">
                     <div class="nk-block-head-content">
-                        <h3 class="nk-block-title page-title">ادمین</h3>
+                        <h3 class="nk-block-title page-title">نقش ها</h3>
                     </div>
                     <!-- .nk-block-head-content -->
                     <div class="nk-block-head-content">
@@ -34,27 +34,27 @@
                                             <div class="dropdown-menu dropdown-menu-end">
                                                 <ul class="link-list-opt no-bdr">
                                                     <li>
-                                                        <a href="{{ route('admin.user.users.fetch') }}?paginate=10"
+                                                        <a href="{{ route('admin.user.roles.fetch') }}?paginate=10"
                                                             onclick="filterRequest(event, this)"><span>15</span></a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{ route('admin.user.users.fetch') }}?paginate=25"
+                                                        <a href="{{ route('admin.user.roles.fetch') }}?paginate=25"
                                                             onclick="filterRequest(event, this)"><span>25</span></a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{ route('admin.user.users.fetch') }}?paginate=50"
+                                                        <a href="{{ route('admin.user.roles.fetch') }}?paginate=50"
                                                             onclick="filterRequest(event, this)"><span>50</span></a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{ route('admin.user.users.fetch') }}?paginate=100"
+                                                        <a href="{{ route('admin.user.roles.fetch') }}?paginate=100"
                                                             onclick="filterRequest(event, this)"><span>100</span></a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{ route('admin.user.users.fetch') }}?paginate=250"
+                                                        <a href="{{ route('admin.user.roles.fetch') }}?paginate=250"
                                                             onclick="filterRequest(event, this)"><span>250</span></a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{ route('admin.user.users.fetch') }}?paginate=500"
+                                                        <a href="{{ route('admin.user.roles.fetch') }}?paginate=500"
                                                             onclick="filterRequest(event, this)"><span>500</span></a>
                                                     </li>
                                                 </ul>
@@ -62,34 +62,14 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <div class="drodown">
-                                            <a href="#"
-                                                class="dropdown-toggle dropdown-indicator btn btn-outline-light btn-white"
-                                                data-bs-toggle="dropdown">وضعیت</a>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <ul class="link-list-opt no-bdr">
-                                                    <li>
-                                                        <a href="{{ route('admin.user.users.fetch') }}"
-                                                            onclick="filterRequest(event, this)"><span>همه</span></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="{{ route('admin.user.users.fetch') }}?status=active"
-                                                            onclick="filterRequest(event, this)"><span>فعال</span></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="{{ route('admin.user.users.fetch') }}?status=not-active"
-                                                            onclick="filterRequest(event, this)"><span>غیرفعال</span></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                       
                                     </li>
                                     <li class="nk-block-tools-opt">
-                                        <a href="{{ route('admin.user.users.create') }}"
+                                        <a href="{{ route('admin.user.roles.create') }}"
                                             class="btn btn-icon btn-primary d-md-none"><em class="icon ni ni-plus"></em></a>
-                                        <a href="{{ route('admin.user.users.create') }}"
+                                        <a href="{{ route('admin.user.roles.create') }}"
                                             class="btn btn-primary d-none d-md-inline-flex"><em
-                                                class="icon ni ni-plus"></em><span>افزودن کاربر </span></a>
+                                                class="icon ni ni-plus"></em><span>افزودن نقش </span></a>
                                     </li>
                                 </ul>
                             </div>
@@ -102,14 +82,15 @@
         </div>
     </div>
 
-    <form action="" method="post" class="nk-tb-list is-separate mb-3"
-    id="table-container">
-    <div class="d-flex justify-content-center align-items-center" style="height: 20rem">
-        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="visually-hidden">در حال بارگذاری...</span>
+    <form action="{{ route('admin.user.roles.batch-delete') }}" method="post" class="nk-tb-list is-separate mb-3"
+        id="table-container">
+        <div class="d-flex justify-content-center align-items-center" style="height: 20rem">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="visually-hidden">در حال بارگذاری...</span>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+
 
 <div id="pagination-container"></div>
 
@@ -123,6 +104,7 @@
             </div>
         </div>
         <div class="nk-tb-col"><span>عنوان</span></div>
+        <div class="nk-tb-col"><span>سطوح دسترسی</span></div>
         <div class="nk-tb-col nk-tb-col-tools">
             <ul class="nk-tb-actions gx-1 my-n1">
                 <li class="me-n1">
@@ -137,6 +119,10 @@
                                     <a href="" onclick="batchEdit(event)"><em class="icon ni ni-edit"></em><span>ویرایش انتخاب
                                             شده</span></a>
                                 </li>
+                                <li>
+                                        <a href="" onclick="batchDelete(event)"><em class="icon ni ni-trash"></em><span>حذف انتخاب
+                                                شده</span></a>
+                                    </li>
                             </ul>
                         </div>
                     </div>
@@ -150,27 +136,26 @@
         <div class="nk-tb-item">
             <div class="nk-tb-col nk-tb-col-check">
                 <div class="custom-control custom-control-sm custom-checkbox notext">
-                    <input type="checkbox" name="ids[]" data-edit="/admin/user/users/{{ id }}/edit" value="{{ id }}" class="custom-control-input batch-inputs" id="id-{{ id }}" />
+                    <input type="checkbox" name="ids[]" data-edit="/admin/user/roles/{{ id }}/edit" value="{{ id }}" class="custom-control-input batch-inputs" id="id-{{ id }}" />
                     <label class="custom-control-label" for="id-{{ id }}"></label>
                 </div>
             </div>
             <div class="nk-tb-col">
                 <span class="tb-product">
-                    <label for="id-{{ id }}" class="title">{{#if first_name}} {{first_name}} {{last_name}} {{else}} 0{{phone_number}} {{/if}}  </label>
+                    <label for="id-{{ id }}" class="title">{{name}}  </label>
                 </span>
             </div>
+
+            <div class="nk-tb-col">
+                <span class="tb-product">
+                    <label for="id-{{ id }}" class="title">دسترسی </label>
+                </span>
+            </div>
+
             <div class="nk-tb-col nk-tb-col-tools">
                 <ul class="nk-tb-actions gx-1">
                     <li class="nk-tb-action">
-                        {{#if is_active}}
-                            <span  class="badge bg-success">فعال</span>
-                        {{else}}
-                            <span class="badge bg-danger">غیر فعال</span>
-                        {{/if}}
-                    </li>
-                  
-                    <li class="nk-tb-action">
-                        <a href="/admin/user/users/{{ id }}/edit"
+                        <a href="/admin/user/roles/{{ id }}/edit"
                             class="btn btn-trigger btn-icon" data-bs-toggle="tooltip"
                             data-bs-placement="top" title="ویرایش">
                             <em class="icon ni ni-edit-fill"></em>
@@ -195,7 +180,7 @@
     <script src="{{ asset('assets/admin/js/handle-data.js') }}"></script>
     <script>
         'use strict'
-        const defaultUrl = "{{ route('admin.user.users.fetch') }}";
+        const defaultUrl = "{{ route('admin.user.roles.fetch') }}";
         handleData(defaultUrl);
     </script>
 @endsection

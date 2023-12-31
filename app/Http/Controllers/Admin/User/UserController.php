@@ -6,15 +6,29 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UserRequest;
 use App\Http\Services\Image\ImageService;
 use App\Models\User;
+use App\Models\User\Permission;
+use App\Models\User\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
+
 class UserController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      */
+
+        public function __construct()
+     {
+         $this->middleware('can:manage_user')->only('index');
+         $this->middleware('can:create_user')->only('edit', 'update');
+         $this->middleware('can:edit_user')->only('store', 'create');
+         $this->middleware('can:delete_user')->only('destroy');
+     }
+    
+    
     public function index()
     {
         return view('admin.user.users.index');
@@ -31,9 +45,9 @@ class UserController extends Controller
         if ($status = request('status')) {
             $status === 'active' ? $users->active() : $users->notActive();
         }
-        
-        $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 15; 
-        
+
+        $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 15;
+
         $users = $users->paginate($perPageItems);
 
         return response()->json($users);
@@ -44,15 +58,19 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.users.create');
+        $roles = Role::all();
+        $permissions = Permission::all();
+        return view('admin.user.users.create', compact('roles', 'permissions'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UserRequest $request ,  ImageService $imageService , )
+    public function store(UserRequest $request,  ImageService $imageService)
     {
         DB::transaction(function () use ($request, $imageService) {
+
+
             $inputs = $request->all();
 
             // save profile photo
@@ -62,12 +80,20 @@ class UserController extends Controller
                 $inputs['image'] = $image;
             }
             $inputs['password'] = Hash::make($request->password);
+            $inputs['phone_number'] = formatPhoneNumber($request->phone_number);
+
             $user = User::create($inputs);
-            
+
+            if ($user->is_staff) {
+                if ($request->has('roles'))
+                    $user->roles()->sync($inputs['roles']);
+            }
+
+
+            if ($request->has('permissions'))
+                $user->permissions()->sync($inputs['permissions']);
         });
         return to_route('admin.user.users.index')->with('success', "کاربر  با موفقیت اضافه شد.");
-
-
     }
 
     /**
@@ -83,16 +109,18 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('admin.user.users.edit' , compact('user'));
+        $roles = Role::all();
+        $permissions = Permission::all();
+        return view('admin.user.users.edit', compact('user', 'roles', 'permissions'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user, ImageService $imageService)
+    public function update(UserRequest $request, User $user, ImageService $imageService)
     {
-        
-        DB::transaction(function () use ($request, $user , $imageService) {
+
+        DB::transaction(function () use ($request, $user, $imageService) {
             $inputs = $request->all();
 
             [$inputs['is_staff'], $inputs['is_block']] = [$inputs['is_staff'] ?? 0, $inputs['is_block'] ?? 0];
@@ -100,17 +128,26 @@ class UserController extends Controller
             if ($request->hasFile('image')) {
                 if (!empty($user->image))
                     $imageService->deleteImage($user->image);
-    
+
                 $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . "content" . DIRECTORY_SEPARATOR . "avatars");
                 $inputs['image'] = $imageService->save($inputs['image']);
             }
             $inputs['password'] = Hash::make($request->password);
+            $inputs['phone_number'] = formatPhoneNumber($request->phone_number);
             $user->update($inputs);
-            
+
+            if ($user->is_staff) {
+                $request->has('roles') ?
+                    $user->roles()->sync($inputs['roles']) :
+                    $user->roles()->sync([]);
+            }
+
+            $request->has('permissions') ?
+                $user->permissions()->sync($inputs['permissions']) :
+                $user->permissions()->sync([]);
                 
         });
         return to_route('admin.user.users.index')->with('success', "کاربر  با موفقیت ویرایش شد.");
-
     }
 
     /**
@@ -120,6 +157,4 @@ class UserController extends Controller
     {
         //
     }
-
-    
 }

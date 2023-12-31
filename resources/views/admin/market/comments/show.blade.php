@@ -41,7 +41,7 @@
                             <label class="form-label" for="fv-full-name">نام محصول</label>
                             <div class="form-control-wrap">
                                 <input type="text" disabled class="form-control" id="fv-full-name" name="question"
-                                    value="{{ $comment->product->title }}">
+                                    value="">
                             </div>
                 
                         </div>

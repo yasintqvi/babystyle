@@ -11,6 +11,12 @@ class CommentController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function __construct()
+     {
+         $this->middleware('can:manage_comment')->only('index');
+         $this->middleware('can:show_comment')->only('show');
+     }
     public function index()
     {
         $unSeenComments = Comment::where('is_seen' , 0)->get();

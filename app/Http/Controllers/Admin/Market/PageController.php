@@ -12,6 +12,15 @@ class PageController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function __construct()
+     {
+         $this->middleware('can:manage_page')->only('index');
+         $this->middleware('can:create_page')->only('edit', 'update');
+         $this->middleware('can:edit_page')->only('store', 'create');
+         $this->middleware('can:delete_page')->only('destroy');
+     }
+
     public function index()
     {
         return view('admin.market.pages.index');
