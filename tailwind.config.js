@@ -3,6 +3,7 @@ module.exports = {
   content: [
     "./resources/views/app/**/*.blade.php",
     "./resources/views/auth/**/*.blade.php",
+    "./resources/views/vendor/**/*.blade.php",
   ],
   theme: {
     container: {

@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Market\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Market\ProductController as AppProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,6 +61,7 @@ Route::prefix('profile')->middleware('auth')->as('profile.')->group(function () 
     Route::put('/update', [ProfileController::class, 'update'])->name('update');
 });
 
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('products/{category:slug?}', [ProductController::class, 'index'])->name('products.index');
+Route::get('products/{category:slug?}', [AppProductController::class, 'index'])->name('products.index');

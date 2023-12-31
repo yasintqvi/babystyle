@@ -74,7 +74,7 @@ class OtpController extends Controller
 
         Auth::loginUsingId($user->id);
 
-        return redirect(request()->query('backUrl'))->with('success', 'شما وارد حساب کاربری شدید.');
+        return redirect(request()->query('backUrl') ?? '/')->with('success', 'شما وارد حساب کاربری شدید.');
 
     }
 

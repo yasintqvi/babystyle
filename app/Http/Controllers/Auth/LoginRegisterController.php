@@ -40,7 +40,7 @@ class LoginRegisterController extends Controller
 
         $user->generateOtpCode();
     
-        return to_route("login.otp.show");
+        return to_route("login.otp.show", ['backUrl' => $request->query('backUrl')]);
 
     }
 

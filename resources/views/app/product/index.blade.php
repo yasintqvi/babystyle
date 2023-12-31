@@ -1,7 +1,7 @@
 @extends('app.layouts.app', ['title' => 'محصولات'])
 
 @section('content')
-    <div class="container flex flex-wrap py-5">
+    <div class="container flex flex-wrap py-5 min-h-screen">
         <div class="md:w-1/4 w-full md:pl-2 mb-4">
             <div id="filterContainer"
                 class="border rounded-lg md:sticky fixed top-0 left-0 w-full h-full md:h-max md:translate-y-0 z-40 translate-y-full transition-all duration-1000 bg-white p-5">
@@ -25,10 +25,16 @@
 
                     <div class="">
                         <!--
-                            children[1] is giving h-0
-                         -->
+                                children[1] is giving h-0
+                             -->
                         <div class="flex relative w-full items-center justify-between py-3 gap-2 text-gray-600">
-                            <span class="font-medium"> برند </span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" />
+                            </svg>
+
+                            <span class="font-medium"> دسته بندی ها </span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-4">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
@@ -36,95 +42,29 @@
 
                             <button id="brandBTN" class="absolute w-full h-full top-0"></button>
                         </div>
-                        <div class="divide-y overflow-hidden h-0">
-                            <div class="flex gap-2 items-center py-4">
-                                <div class="flex items-center">
-                                    <input type="checkbox" name="brand" value="Samsung" />
+                        <div class="divide-y overflow-hidden">
+                            @foreach ($categories as $category)
+                                <div class="flex gap-2 items-center py-4">
+                                    <div class="flex items-center">
+                                        <input id="category-{{ $category->id }}" type="checkbox" class="" />
+                                    </div>
+                                    <label for="category-{{ $category->id }}"
+                                        class="flex w-full justify-between items-center text-gray-600 text-sm">
+                                        <span> {{ $category->title }}</span>
+                                    </label>
                                 </div>
-                                <div class="flex w-full justify-between items-center font-medium">
-                                    <span> سامسونگ</span>
-                                    <span class="text-xs text-gray-400">Samsung</span>
-                                </div>
-                            </div>
-                            <div class="flex gap-2 items-center py-4">
-                                <div class="flex items-center">
-                                    <input type="checkbox" name="brand" value="Samsung" />
-                                </div>
-                                <div class="flex w-full justify-between items-center font-medium">
-                                    <span> سامسونگ</span>
-                                    <span class="text-xs text-gray-400">Samsung</span>
-                                </div>
-                            </div>
-                            <div class="flex gap-2 items-center py-4">
-                                <div class="flex items-center">
-                                    <input type="checkbox" name="brand" value="Samsung" />
-                                </div>
-                                <div class="flex w-full justify-between items-center font-medium">
-                                    <span> سامسونگ</span>
-                                    <span class="text-xs text-gray-400">Samsung</span>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
 
                     <div class="">
                         <!--
-                            children[1] is giving h-0
-                         -->
+                                children[1] is giving h-0
+                             -->
                         <div class="flex relative w-full items-center justify-between py-3 gap-2 text-gray-600">
-                            <span class="font-medium"> رنگ </span>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-4">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                            </svg>
-
-                            <button id="colorBTN" class="absolute w-full h-full top-0"></button>
-                        </div>
-                        <div class="divide-y overflow-hidden h-0">
-                            <div class="flex gap-2 items-center py-4">
-                                <div class="flex items-center">
-                                    <input type="checkbox" name="color" value="Samsung" />
-                                </div>
-                                <div class="flex w-full justify-between items-center font-medium">
-                                    <span> مشکی</span>
-                                    <span class="text-xs bg-black w-4 aspect-square rounded-full"></span>
-                                </div>
-                            </div>
-                            <div class="flex gap-2 items-center py-4">
-                                <div class="flex items-center">
-                                    <input type="checkbox" name="color" value="Samsung" />
-                                </div>
-                                <div class="flex w-full justify-between items-center font-medium">
-                                    <span> آبی</span>
-                                    <span class="text-xs bg-blue-400 w-4 aspect-square rounded-full"></span>
-                                </div>
-                            </div>
-                            <div class="flex gap-2 items-center py-4">
-                                <div class="flex items-center">
-                                    <input type="checkbox" name="color" value="Samsung" />
-                                </div>
-                                <div class="flex w-full justify-between items-center font-medium">
-                                    <span> سبز</span>
-                                    <span class="text-xs bg-green-400 w-4 aspect-square rounded-full"></span>
-                                </div>
-                            </div>
-                            <div class="flex gap-2 items-center py-4">
-                                <div class="flex items-center">
-                                    <input type="checkbox" name="color" value="Samsung" />
-                                </div>
-                                <div class="flex w-full justify-between items-center font-medium">
-                                    <span> طوسی</span>
-                                    <span class="text-xs bg-gray-400 w-4 aspect-square rounded-full"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="">
-                        <!--
-                            children[1] is giving h-0
-                         -->
-                        <div class="flex relative w-full items-center justify-between py-3 gap-2 text-gray-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" />
+                            </svg>                              
                             <span class="font-medium"> محدوده قیمت </span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-4">
@@ -199,6 +139,9 @@
                         مرتب سازی بر اساس
                     </li>
                     <li class="w-full">
+                        <a class="block w-max py-4 md:py-0 {{ request('filter') ?? 'font-bold text-primary' }}" href="#">جدیدترین</a>
+                    </li>
+                    <li class="w-full">
                         <a class="block w-max py-4 md:py-0" href="#">پرفروش‌ ترین‌</a>
                     </li>
                     <li class="w-full">
@@ -206,9 +149,6 @@
                     </li>
                     <li class="w-full">
                         <a class="block w-max py-4 md:py-0" href="#">پربازدیدترین</a>
-                    </li>
-                    <li class="w-full">
-                        <a class="block w-max py-4 md:py-0" href="#">جدیدترین</a>
                     </li>
                     <li class="w-full">
                         <a class="block w-max py-4 md:py-0" href="#">ارزان‌ترین</a>
@@ -243,7 +183,8 @@
                                                 <span
                                                     class="py-0.5 px-1.5 rounded-full text-xs font-bold bg-red-500 text-gray-50">{{ $discount->discount_rate }}%</span>
                                                 <div class="flex items-center font-medium">
-                                                    <span class="mx-1 text-black">{{ calcDiscount($productItem->price, $discount->discount_rate) }}</span>
+                                                    <span
+                                                        class="mx-1 text-black">{{ calcDiscount($productItem->price, $discount->discount_rate) }}</span>
                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                         xmlns:xlink="http://www.w3.org/1999/xlink" width="25"
                                                         height="25" viewBox="0 0 152 143">
@@ -254,7 +195,8 @@
                                                 </div>
                                             </div>
                                             <div class="mr-auto">
-                                                <span class="text-gray-600 line-through text-sm">{{ $productItem->price }}</span>
+                                                <span
+                                                    class="text-gray-600 line-through text-sm">{{ $productItem->price }}</span>
                                             </div>
                                         @else
                                             <div class="flex items-end justify-end font-medium mt-2">
@@ -276,10 +218,11 @@
                                 </div>
                                 <div
                                     class="flex py-2 justify-center items-center absolute top-full text-gray-600 px-2 gap-2 w-full transition-all duration-300 md:group-hover:-translate-y-[125%]">
-                                    
-                                    @foreach($product->items as $item)
-                                        @foreach($item->variationOptions()->where('is_color', 1)->get() as $option)
-                                        <div class="w-3 h-3 rounded-full" style="background: {{ $option->second_value }}"></div>
+
+                                    @foreach ($product->items as $item)
+                                        @foreach ($item->variationOptions()->where('is_color', 1)->get() as $option)
+                                            <div class="w-3 h-3 rounded-full"
+                                                style="background: {{ $option->second_value }}"></div>
                                         @endforeach
                                     @endforeach
                                 </div>
@@ -287,6 +230,9 @@
                         </div>
                     </a>
                 @endforeach
+            </div>
+            <div class="my-4">
+                {{ $products->render('pagination::tailwind') }}
             </div>
         </div>
     </div>

@@ -21,9 +21,22 @@ class ProductController extends Controller
             $products->where('category_id', $category->id);
         }
 
-        $products = $products->latest()->paginate(12);
+        $products->orderByRaw('quantity = 0');
 
-        return view('app.product.index', compact('products'));
+        // filter 
+        if ($filter = request('filter')) {
+
+        }
+        else {
+            $products->latest();
+        }
+
+        $categories = Category::active()->get();
+
+
+        $products = $products->paginate(16);
+
+        return view('app.product.index', compact('products', 'categories'));
 
     }
 

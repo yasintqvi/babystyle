@@ -215,6 +215,7 @@ let inputRadioHndler = (inputClass) => {
     });
   });
 };
+
 // end product input radio handler
 
 inputRadioHndler(".selectSizeInput"); // select size
@@ -222,13 +223,113 @@ inputRadioHndler(".selectSizeInput"); // select size
 inputRadioHndler(".selectColorInput"); // select color
 
 let raitingStarsContainer = document.querySelector("#raitingStars");
+if (raitingStarsContainer) {
+  [...raitingStarsContainer.children]?.forEach((star, index) => {
+    console.log("feb");
 
-[...raitingStarsContainer?.children].forEach((star, index) => {
-  index + 1 >= raitingStarsContainer.dataset.rate
-    ? Math.floor(raitingStarsContainer.dataset.rate) === index
-      ? (star.firstElementChild.style.clipPath = `inset(0px 0px 0px ${
-          (index - raitingStarsContainer.dataset.rate + 1) * 100
-        }% )`)
-      : (star.style.clipPath = "inset(0px 0px 0px 100%)")
-    : (star.style.clipPath = "inset(0px 0px 0px 0%)");
+    index + 1 >= raitingStarsContainer.dataset.rate
+      ? Math.floor(raitingStarsContainer.dataset.rate) === index
+        ? (star.firstElementChild.style.clipPath = `inset(0px 0px 0px ${
+            (index - raitingStarsContainer.dataset.rate + 1) * 100
+          }% )`)
+        : (star.style.clipPath = "inset(0px 0px 0px 100%)")
+      : (star.style.clipPath = "inset(0px 0px 0px 0%)");
+  });
+}
+
+// start customerList pannel
+
+console.log(document.querySelector("#customerList"));
+const customerList = new Swiper("#customerList", {
+  // Optional parameters
+  direction: "horizontal",
+  slidesPerView: "auto",
+  // autoplay: true,
+
+  // If we need pagination
+  pagination: {
+    el: ".swiper-pagination",
+  },
+
+  // Navigation arrows
+  navigation: {
+    nextEl: ".customerList-button-next",
+    prevEl: ".customerList-button-prev",
+  },
+
+  // And if we need scrollbar
+  scrollbar: {
+    el: ".swiper-scrollbar",
+  },
+});
+
+// end customerList pannel
+// start repeatedly pannel
+
+console.log(document.querySelector("#repeatedly"));
+const repeatedly = new Swiper("#repeatedly", {
+  // Optional parameters
+  direction: "horizontal",
+  slidesPerView: "auto",
+  // autoplay: true,
+
+  // If we need pagination
+  pagination: {
+    el: ".swiper-pagination",
+  },
+
+  // Navigation arrows
+  navigation: {
+    nextEl: ".repeatedly-button-next",
+    prevEl: ".repeatedly-button-prev",
+  },
+
+  // And if we need scrollbar
+  scrollbar: {
+    el: ".swiper-scrollbar",
+  },
+});
+
+// end repeatedly pannel
+
+// start filter
+let filterHandler = (id) => {
+  let itemBTN = document.querySelector(id);
+
+  itemBTN?.addEventListener("click", (e) => {
+    e.target.parentElement.parentElement.children[1].classList.toggle("h-0");
+  });
+};
+
+filterHandler("#brandBTN");
+filterHandler("#colorBTN");
+filterHandler("#priceRangeBTN");
+
+let showfilter = (btnId, containerId) => {
+  let openBTN = document.querySelector("#" + btnId);
+
+  openBTN?.addEventListener("click", (e) => {
+    let container = document.querySelector("#" + containerId);
+    container.classList.toggle("translate-y-full");
+  });
+};
+
+showfilter("openFilterBTN", "filterContainer");
+
+showfilter("openSortBTN", "sortContainer");
+
+showfilter("closeFilterBTN", "filterContainer");
+
+showfilter("closeSortBTN", "sortContainer");
+
+// end filter
+
+let allAddressUDBTN = document.querySelectorAll(".addressUDBTN");
+allAddressUDBTN.forEach((addressUDBTN) => {
+  addressUDBTN.addEventListener("click", (e) => {
+    let addressUDContainer = e.target.parentElement.parentElement.querySelector(
+      ".addressUDContainer"
+    );
+    addressUDContainer.classList.toggle("hidden");
+  });
 });
