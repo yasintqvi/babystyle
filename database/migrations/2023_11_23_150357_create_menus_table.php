@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->foreignId('parent_id')->constrained('menus');
-            $table->string('url');
+            $table->foreignId('parent_id')->nullable()->constrained('menus');
+            $table->string('url')->nullable();
             $table->tinyInteger('is_active')->default(0)->comment('1 => is active');
             $table->timestamps();
         });

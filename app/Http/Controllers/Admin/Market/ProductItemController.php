@@ -31,9 +31,12 @@ class ProductItemController extends Controller
 
     public function fetch(Product $product)
     {
-        $data = $product->load(['items' => function ($query) {
-            $query->latest();
-        }, 'items.variationOptions']);
+        $data = $product->load([
+            'items' => function ($query) {
+                $query->latest();
+            },
+            'items.variationOptions'
+        ]);
 
         return response()->json($data, 200);
     }
@@ -54,6 +57,10 @@ class ProductItemController extends Controller
                 $validData['product_image'] = $imageService->save($request->file('product_image'));
             }
 
+            if ($request->has('is_default')) {
+                $product->items()->update(['is_default' => 0]);
+            }
+
             $validData['sku'] = ProductItem::generateSKU();
 
             $productItem = $product->items()->create($validData);
@@ -65,11 +72,8 @@ class ProductItemController extends Controller
             } else if ($product->items->count() > 1) {
                 $productItem->forceDelete();
                 throw new HttpResponseException(
-                    new JsonResponse(['message' => 'برای افزودن تنوع نیاز است حداقل یک ویژگی به محصول اضافه کنید.'], 500));
-            }
-
-            if ($request->has('is_default')) {
-                $product->items()->update(['is_default' => 0]);
+                    new JsonResponse(['message' => 'برای افزودن تنوع نیاز است حداقل یک ویژگی به محصول اضافه کنید.'], 500)
+                );
             }
 
             return response()->json(['success' => true, 'message' => 'محصول با ویژگی های جدید به انبار اضافه شد.'], 201);
@@ -100,7 +104,8 @@ class ProductItemController extends Controller
 
         if (collect($productItemHasCurrentOptions)->isNotEmpty()) {
             throw new HttpResponseException(
-                new JsonResponse(['message' => 'شما نمی توانید ویژگی های تکراری اضافه کنید.'], 500));
+                new JsonResponse(['message' => 'شما نمی توانید ویژگی های تکراری اضافه کنید.'], 500)
+            );
         }
 
         $productItem->variationOptions()->sync($productItemOptions);
@@ -141,30 +146,31 @@ class ProductItemController extends Controller
 
             $item->update($validData);
 
-            $productItemOptions = collect([]);
+            if ($product->hasVariaty()) {
+                $productItemOptions = collect([]);
 
-            collect($validData['options'])->map(function ($option) use ($productItemOptions) {
-                if (!empty($option['value'])) {
-                    // checking that the duplicate value is not stored
-                    $variationOption = VariationOption::where('is_color', 0)->where('variation_id', $option['variation_id'])
-                        ->where('value', $option['value']);
+                collect($validData['options'])->map(function ($option) use ($productItemOptions) {
+                    if (!empty($option['value'])) {
+                        // checking that the duplicate value is not stored
+                        $variationOption = VariationOption::where('is_color', 0)->where('variation_id', $option['variation_id'])
+                            ->where('value', $option['value']);
 
-                    $variationOption = $variationOption->exists() ? $variationOption->first() : VariationOption::create($option);
+                        $variationOption = $variationOption->exists() ? $variationOption->first() : VariationOption::create($option);
 
-                    $productItemOptions->push($variationOption->id);
+                        $productItemOptions->push($variationOption->id);
+                    }
+                });
+
+                $productItemHasCurrentOptions = ProductItem::whereNot('id', $item->id)->whereHas('variationOptions', function ($query) use ($productItemOptions) {
+                    $query->whereIn('variation_option_id', $productItemOptions);
+                }, '=', count($productItemOptions))->get();
+
+                if (collect($productItemHasCurrentOptions)->isNotEmpty()) {
+                    return back()->with('error', 'شما نمی توانید ویژگی های تکراری اضافه کنید.');
                 }
-            });
 
-            $productItemHasCurrentOptions = ProductItem::whereNot('id', $item->id)->whereHas('variationOptions', function ($query) use ($productItemOptions) {
-                $query->whereIn('variation_option_id', $productItemOptions);
-            }, '=', count($productItemOptions))->get();
-
-            if (collect($productItemHasCurrentOptions)->isNotEmpty()) {
-                throw new HttpResponseException(
-                    new JsonResponse(['message' => 'شما نمی توانید ویژگی های تکراری اضافه کنید.'], 500));
+                $item->variationOptions()->sync($productItemOptions);
             }
-
-            $item->variationOptions()->sync($productItemOptions);
 
             return back()->with('success', 'محصول با موفقیت بروز رسانی شد.');
         });

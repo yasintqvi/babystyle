@@ -24,6 +24,7 @@ class ProductItem extends Model
 
     protected $appends = ['price_with_discount'];
 
+    protected $with = ['variationOptions'];
 
     // mutators 
     public function setQuantityAttribute($value)
@@ -77,6 +78,17 @@ class ProductItem extends Model
             return $this->price - $discountAmount;
         }
         return $this->price;
+    }
+
+
+    public function scopeDefault($query)
+    {
+        return $query->where('is_default', 1);
+    }
+
+    public function scopeMaxQty($query)
+    {
+        return $query->orderBy('quantity', 'desc');
     }
 
     // set sku

@@ -12,7 +12,7 @@
                     {{ $item->variationOptions->pluck('value')->implode('-') }} - کد محصول {{ $item->sku }}</h5>
             </div>
         </div>
-        <a href="{{ route('admin.market.products.index') }}" class="btn btn-success">بازگشت</a>
+        <a href="{{ route('admin.market.products.edit', $product->id) }}" class="btn btn-success">بازگشت</a>
 
     </div>
 
@@ -106,11 +106,11 @@
                                                         <span class="input-group-text"
                                                             style="background: transparent !important; border:none;">
                                                             <input type="color"
-                                                                value="{{ $item->variationOptions->where('variation_id', $variation->id)->first()->second_value ?? '' }}"
+                                                                value="{{ $item->variationOptions->where('variation_id', $variation->id)->first()->second_value }}"
                                                                 id="variation-{{ $variation->id }}-second"
                                                                 name="options[{{ $variation->id }}][second_value]"
                                                                 class="custom-color-input border-0">
-                                                            <input type="hidden" name="is_color" value="1">
+                                                            <input type="hidden" name="options[{{ $variation->id }}][is_color]" value="1">
                                                         </span>
                                                     </div>
                                                 @endif
@@ -131,7 +131,8 @@
                                         <div class="form-control-wrap">
                                             <div class="custom-control custom-control-lg custom-switch">
                                                 <input type="checkbox" name="is_default" value="1"
-                                                    class="custom-control-input" @checked(old('is_default', $item->is_default)) id="is_default">
+                                                    class="custom-control-input" @checked(old('is_default', $item->is_default))
+                                                    id="is_default">
                                                 <label class="custom-control-label" for="is_default">فعال</label>
                                             </div>
                                         </div>

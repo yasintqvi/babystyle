@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="flex flex-col items-center">
-        <form action="{{ route('login.otp') }}" onsubmit="checkVerify(event)" method="post"
+        <form action="{{ route('login.otp', ['backUrl' => request()->query('backUrl')] ) }}" onsubmit="checkVerify(event)" method="post"
             class="md:w-1/2 xl:w-1/3 w-full flex flex-col items-start rounded-xl border border-gray-300 shadow-xl p-5 py-8">
             @csrf
             <a href="#" class="w-full flex justify-center">

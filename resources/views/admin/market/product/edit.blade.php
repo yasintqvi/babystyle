@@ -283,7 +283,7 @@
                                                         <input type="color" id="variation-{{ $variation->id }}-second"
                                                             name="options[{{ $variation->id }}][second_value]"
                                                             class="custom-color-input border-0">
-                                                        <input type="hidden" name="is_color" value="1">
+                                                        <input type="hidden" name="options[{{ $variation->id }}][is_color]" value="1">
                                                     </span>
                                                 </div>
                                             @endif

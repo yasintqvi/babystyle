@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProfileRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -11,23 +13,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+        return view("app.profile.index");
     }
 
     /**
@@ -41,17 +27,44 @@ class ProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request)
     {
-        //
+        return view("app.profile.edit");
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProfileRequest $request)
     {
-        //
+        $validData = $request->validated();
+
+        $request->user()->update($validData);
+
+        $messages = [
+            'success' => 'اطلاعات حساب کاربری بروز رسانی شد.'
+        ];
+
+        // if the user wants to change her password
+        if ($request->filled('password')) {
+
+            $request->validate([
+                'current_password' => $request->user()->password ? 'required_if:password,!=,' : 'nullable',
+                'password' => 'nullable|min:8|max:64|confirmed',
+            ]);
+
+            $passwordVerify = isset($request->user()->password) ? Hash::check($request->get('current_password'), $request->user()->password) : true;
+
+            if ($passwordVerify) {
+                $request->user()->update(['password' => Hash::make($request->password)]);
+            }
+            else {
+                $messages['error'] = 'کلمه عبور فعلی مطابقت ندارد.';
+            }
+
+        }
+        
+        return back()->with($messages);
     }
 
     /**

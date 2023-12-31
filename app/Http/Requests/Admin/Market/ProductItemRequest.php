@@ -27,10 +27,10 @@ class ProductItemRequest extends FormRequest
         return [
             'price' => "required|integer|min:0|max:100000000",
             'quantity' => 'required|integer|min:0|max:10000',
-            'options.*.variation_id' => "required|exists:variations,id",
-            'options.*.value' => 'required|max:255',
+            'options.*.variation_id' => "nullable|exists:variations,id",
+            'options.*.value' => 'nullable|max:255',
             'options.*.second_value' => 'nullable|max:255',
-            'product_image' => 'required|image|max:4096',
+            'product_image' => 'nullable|image|max:4096',
         ];
     }
 

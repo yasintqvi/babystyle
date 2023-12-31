@@ -22,7 +22,6 @@ class ProductItemDiscount extends Model
         return $this->start_date <= now() && $this->end_date >= now();
     }
 
-
     // set scopes
     public function scopeActive($query) {
         return $query->where('start_date', '<=', now())->where('end_date', '>=', now());

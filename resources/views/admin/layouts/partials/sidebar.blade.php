@@ -59,6 +59,13 @@
                         </a>
                     </li>
                     <li class="nk-menu-item">
+                        <a href="{{ route('admin.market.menus.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-menu-circled"></em></span>
+
+                            <span class="nk-menu-text">منو ها</span>
+                        </a>
+                    </li>
+                    <li class="nk-menu-item">
                         <a href="{{ route('admin.market.sliders.index') }}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-layer"></em></span>
                             <span class="nk-menu-text">اسلایدر</span>

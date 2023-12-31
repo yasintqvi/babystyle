@@ -1,7 +1,7 @@
 @extends('auth.layouts.app', ['title' => 'ورود'])
 
 @section('content')
-    <form onsubmit="checkLogin(event)" action="{{ route('login.check') }}" method="post"
+    <form onsubmit="checkLogin(event)" action="{{ route('login.check', ['backUrl' => request()->query('backUrl')] ) }}" method="post"
         class="md:w-1/2 xl:w-1/3 w-full flex flex-col items-start rounded-xl border border-gray-300 shadow-xl p-5 py-8">
         @csrf
         <a href="#" class="w-full flex justify-center">

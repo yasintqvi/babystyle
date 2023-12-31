@@ -59,7 +59,7 @@ class PasswordController extends Controller
 
         Auth::loginUsingId($user->id);
 
-        return to_route('home')->with('success', 'شما وارد حساب کاربری شدید.');
+        return redirect(request()->query('backUrl') ?? '/')->with('success', 'شما وارد حساب کاربری شدید.');
 
     }
 }

@@ -13,8 +13,6 @@ class Product extends Model
 
     protected $table = "products";
 
-
-
     protected $fillable = [
         'title',
         'description',
@@ -31,10 +29,7 @@ class Product extends Model
         'is_active',
         'sold_number',
         'quantity',
-        'price'
     ];
-
-
 
     // scopes
     public function scopeSearch($query, $keyword)
@@ -77,12 +72,12 @@ class Product extends Model
     {
         return $this->hasMany(ProductItem::class);
     }
-    
 
     public function getQuantityCheckAttribute()
     {
         return $this->items()->where('quantity' , '>' , '0')->first() ?? 0;
     }
+
 
     public function hasVariaty()
     {

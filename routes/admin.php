@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Market\BrandController;
+use App\Http\Controllers\Admin\Market\MenuController;
 use App\Http\Controllers\Admin\Market\PageController;
 use App\Http\Controllers\Admin\Market\CategoryController;
 use App\Http\Controllers\Admin\Market\CommentController;
@@ -13,8 +14,6 @@ use App\Http\Controllers\Admin\Market\SliderController;
 use App\Http\Controllers\Admin\User\ChangePasswordController;
 use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Admin\Market\ProductItemController;
-use App\Http\Requests\Market\FaqRequest;
-use App\Models\Market\shippingMethod;
 use Illuminate\Support\Facades\Route;
 
 
@@ -49,6 +48,10 @@ Route::prefix('admin')->as('admin.')->group(function () {
         Route::post('categories/batch-delete', [CategoryController::class, "batchDelete"])->name('categories.batch-delete');
         Route::get('categories/fetch', [CategoryController::class, "fetch"])->name('categories.fetch');
         Route::resource('categories', CategoryController::class)->except('show');
+        
+        Route::resource('menus', MenuController::class)->except('show');
+        Route::get('menus/fetch', [MenuController::class, "fetch"])->name('menus.fetch');
+        Route::post('menus/batch-delete', [MenuController::class, "batchDelete"])->name('menus.batch-delete');
 
         Route::post('sliders/batch-delete', [SliderController::class, "batchDelete"])->name('sliders.batch-delete');
         Route::get('sliders/fetch', [SliderController::class, "fetch"])->name('sliders.fetch');

@@ -30,7 +30,8 @@
                     <div class="w-4/5 sm:w-1/2 h-full bg-white overflow-scroll px-4">
                         <!-- logo -->
                         <a href="#" class="w-full my-5 flex justify-center !z-50">
-                            <img class="w-24" src="{{ asset('assets/app/images/logo-home.png') }}" alt="لوگوی بیبی استایل" />
+                            <img class="w-24" src="{{ asset('assets/app/images/logo-home.png') }}"
+                                alt="لوگوی بیبی استایل" />
                         </a>
                         <div class="flex items-center text-base justify-center">
                             <button class="px-3 text-end h-10">عضویت</button>
@@ -533,12 +534,11 @@
                                 </div>
                             </div>
                         </div>
-
-                        <button class="hidden lg:block px-3 text-end h-10">
+                        <a href="{{ route('login.form', ['backUrl' => request()->getRequestUri()]) }}" class="hidden lg:block px-3 py-1.5 text-end h-10">
                             عضویت
-                        </button>
+                        </a>
                         <div class="hidden lg:block border border-gray-600 h-4"></div>
-                        <button class="hidden lg:block px-3 h-10">ورود</button>
+                        <a href="{{ route('login.form', ['backUrl' => request()->getRequestUri()]) }}" class="hidden lg:block px-3 py-1.5 h-10">ورود</a>
                     </div>
                 </div>
             </div>

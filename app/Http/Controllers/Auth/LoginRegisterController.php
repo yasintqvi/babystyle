@@ -34,12 +34,12 @@ class LoginRegisterController extends Controller
         $request->session()->flash('verify', ['allowed_otp_method' => $user->userCanLoginOtp(), 'user_id' => $user->id, 'phone_number' => $user->phone_number]);
         
         if ($user->is_admin || $user->is_staff) {
-            return to_route("login.password.show");
+            return to_route("login.password.show", ['backUrl' => $request->query('backUrl')]);
         }
 
         $user->generateOtpCode();
 
-        return to_route("login.otp.show");
+        return to_route("login.otp.show", ['backUrl' => $request->query('backUrl')]);
 
     }
 
