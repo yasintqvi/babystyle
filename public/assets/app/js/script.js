@@ -221,8 +221,12 @@ let inputRadioHndler = (inputClass) => {
     selectInput.addEventListener("click", (e) => {
       [...allSelectInput].forEach((input) => {
         input.parentElement.classList.remove("border-gray-500");
-        e.target === input &&
+        input.removeAttribute('checked');
+
+        if (e.target === input){
           input.parentElement.classList.add("border-gray-500");
+          e.target.setAttribute('checked', 'checked');
+        }
       });
     });
   });

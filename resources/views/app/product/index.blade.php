@@ -156,7 +156,7 @@
                     @php
                         $productItem = $product->items->where('is_default', 1)->first() ?? $product->items->first();
                     @endphp
-                    <a href="#" class="xl:w-1/4 sm:w-1/3 w-1/2 p-2">
+                    <a href="{{ $product->path() }}" class="xl:w-1/4 sm:w-1/3 w-1/2 p-2">
                         <div
                             class="relative group aspect-[6/8] rounded-lg overflow-hidden bg-white border shadow text-sm md:text-base">
                             <img class="aspect-square object-cover w-full group-hover:hidden"

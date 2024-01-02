@@ -74,6 +74,10 @@ class OtpController extends Controller
 
         Auth::loginUsingId($user->id);
 
+        if (collect($user->shoppingCart()->first())->isEmpty()) {
+            $user->shoppingCart()->create();
+        }
+
         return redirect(request()->query('backUrl') ?? '/')->with('success', 'شما وارد حساب کاربری شدید.');
 
     }

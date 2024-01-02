@@ -15,5 +15,7 @@
     @include('app.layouts.partials.footer')
 
     @include('app.layouts.partials.script')
+    
+    @yield('script')
   </body>
 </html>

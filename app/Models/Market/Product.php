@@ -84,6 +84,10 @@ class Product extends Model
         return $this->category->variations->isNotEmpty(); 
     }
 
+    public function path()
+    {
+        return route('products.show', $this->slug);
+    }
     
     public function sluggable(): array
     {
