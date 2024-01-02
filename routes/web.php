@@ -65,8 +65,6 @@ Route::prefix('profile')->middleware('auth')->as('profile.')->group(function () 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('products/{category:slug?}', [AppProductController::class, 'index'])->name('products.index');
-
 Route::get('products', [AppProductController::class, 'index'])->name('products.index');
 Route::get('products/{product:slug}', [AppProductController::class, 'show'])->name('products.show');
 Route::post('products/get-price/{product}', [AppProductController::class, 'getPrice'])->name('products.get-price');

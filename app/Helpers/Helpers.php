@@ -43,3 +43,23 @@ if (!function_exists('calcDiscount')) {
         return $price - $discountAmount;
     }
 }
+
+if (!function_exists('requestWithQuery')) {
+    
+    function requestWithQuery($query) {
+
+        $currentQueries = collect(request()->query());
+
+        $currentQueries->push($query);
+        
+        if ($currentQueries->contains(array_keys($query))) {
+            $currentQueries->except(array_keys($query));
+        }
+
+        $fullUrl = request()->url();
+
+        $queryString = http_build_query($currentQueries->toArray(), '', '&', PHP_QUERY_RFC3986);
+
+        return $currentQueries->isEmpty() ? "{$fullUrl}?{$queryString}" : "{$fullUrl}?{$queryString}";
+    }
+}

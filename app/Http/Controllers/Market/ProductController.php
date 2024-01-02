@@ -17,14 +17,12 @@ class ProductController extends Controller
     {
         $products = Product::query()->with('items.discounts');
 
-        $products->orderByRaw('quantity = 0');
-
-        // filter 
-        if ($filter = request('filter')) {
-            dd('hi');
-        } else {
-            $products->latest();
-        }
+        $products->filter(request([
+            'sort',
+            'category',
+            'price',
+            'search'
+        ]));
 
         $categories = Category::active()->get();
 
