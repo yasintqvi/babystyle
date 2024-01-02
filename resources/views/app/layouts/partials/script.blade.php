@@ -4,5 +4,9 @@
 
 <script src="{{ asset('assets/app/js/script.js') }}"></script>
 
+<script src="{{ asset('assets/app/js/flowbite.min.js') }}"></script>
+
+
+
 @include('app.alerts.toast.success')
 @include('app.alerts.toast.error')

@@ -65,3 +65,4 @@ Route::prefix('profile')->middleware('auth')->as('profile.')->group(function () 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('products/{category:slug?}', [AppProductController::class, 'index'])->name('products.index');
+Route::get('search', [AppProductController::class, 'search'])->name('products.search');

@@ -106,7 +106,7 @@
                                                         <span class="input-group-text"
                                                             style="background: transparent !important; border:none;">
                                                             <input type="color"
-                                                                value="{{ $item->variationOptions->where('variation_id', $variation->id)->first()->second_value }}"
+                                                                value="{{ $item->variationOptions->where('variation_id', $variation->id)->first()->second_value ?? '' }}"
                                                                 id="variation-{{ $variation->id }}-second"
                                                                 name="options[{{ $variation->id }}][second_value]"
                                                                 class="custom-color-input border-0">

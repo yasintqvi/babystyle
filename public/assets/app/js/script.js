@@ -43,6 +43,18 @@ closeCard2?.addEventListener("click", cardBarHandler);
 
 // end card bar
 
+// start profile menu
+
+let profileMenuBarBTN = document.querySelector("#profileMenuBarBTN");
+profileMenuBarBTN?.addEventListener("click", () => {
+  let profileMenuBarContainer = document.querySelector(
+    "#profileMenuBarContainer"
+  );
+  profileMenuBarContainer.classList.toggle("hidden");
+});
+
+// end profile menu
+
 // start intro slider
 
 const introSlider = new Swiper("#intro-slider", {
@@ -239,7 +251,6 @@ if (raitingStarsContainer) {
 
 // start customerList pannel
 
-console.log(document.querySelector("#customerList"));
 const customerList = new Swiper("#customerList", {
   // Optional parameters
   direction: "horizontal",
@@ -266,7 +277,6 @@ const customerList = new Swiper("#customerList", {
 // end customerList pannel
 // start repeatedly pannel
 
-console.log(document.querySelector("#repeatedly"));
 const repeatedly = new Swiper("#repeatedly", {
   // Optional parameters
   direction: "horizontal",
@@ -325,6 +335,7 @@ showfilter("closeSortBTN", "sortContainer");
 // end filter
 
 let allAddressUDBTN = document.querySelectorAll(".addressUDBTN");
+
 allAddressUDBTN.forEach((addressUDBTN) => {
   addressUDBTN.addEventListener("click", (e) => {
     let addressUDContainer = e.target.parentElement.parentElement.querySelector(
@@ -333,3 +344,71 @@ allAddressUDBTN.forEach((addressUDBTN) => {
     addressUDContainer.classList.toggle("hidden");
   });
 });
+
+let toggelShowAddress = (btnId, containerId) => {
+  let BTN = document.querySelector(btnId);
+
+  BTN?.addEventListener("click", (e) => {
+    let container = document.querySelector(containerId);
+    container.classList.toggle("hidden");
+    console.log(container);
+  });
+};
+
+toggelShowAddress("#addNewAddressBTN", "#addNewAddressCountainer");
+
+toggelShowAddress("#closeNewAddressBTN", "#addNewAddressCountainer");
+
+// comments
+
+let ratingInput = document.querySelector(".ratingInput");
+ratingInput?.addEventListener("change", (e) => {
+  let ratingSpan = document.querySelector(".ratingSpan");
+
+  switch (e.target.value) {
+    case "1":
+      ratingSpan.innerHTML = "بد";
+      break;
+    case "2":
+      ratingSpan.innerHTML = "ضعیف";
+      break;
+    case "3":
+      ratingSpan.innerHTML = "متوسط";
+      break;
+    case "4":
+      ratingSpan.innerHTML = "خوب";
+      break;
+    case "5":
+      ratingSpan.innerHTML = "عالی";
+      break;
+
+    default:
+      ratingSpan.innerHTML = "";
+      break;
+  }
+});
+
+let toggelShowComments = (btnClass, containerClass) => {
+  let allBTN = document.querySelectorAll(btnClass);
+  allBTN?.forEach((BTN) => {
+    BTN.addEventListener("click", (e) => {
+      let container =
+        e.target.parentElement.querySelector(containerClass) ||
+        e.target.parentElement.parentElement.parentElement.parentElement;
+      console.log(container);
+      container.classList.toggle("hidden");
+    });
+  });
+};
+
+toggelShowComments(".openNewCommentBTN", ".NewCommentCountainer");
+
+toggelShowComments(".closeNewCommentBTN", ".NewCommentCountainer");
+
+toggelShowComments(".openUpdateCommentBTN", ".UpdateCommentCountainer");
+
+toggelShowComments(".closeUpdateCommentBTN", ".UpdateCommentCountainer");
+
+// profile menu
+
+let profileMenuBTN = document.querySelector("#profileMenuBTN");
