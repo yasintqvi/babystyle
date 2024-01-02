@@ -13,13 +13,9 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Category $category=null)
+    public function index()
     {
         $products = Product::query()->with('items.discounts');
-
-        if ($category) {
-            $products->where('category_id', $category->id);
-        }
 
         $products->orderByRaw('quantity = 0');
 
@@ -43,7 +39,7 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Product $product)
     {
         //
     }
@@ -59,32 +55,30 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Product $product)
     {
-        //
+        $product->load(['items', 'category', 'images', 'attributes']);
+        return view('app.product.show', compact('product'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function getPrice(Request $request, Product $product) 
     {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        $optionsIds = $request->get('options');
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        if ($optionsIds) {
+            $productItemHasCurrentOptions = $product->items()->whereHas('variationOptions', function ($query) use ($optionsIds) {
+                $query->whereIn('variation_option_id', $optionsIds);
+            }, '=', count($optionsIds))->get();
+
+            if (collect($productItemHasCurrentOptions)->isNotEmpty()) {
+                $productItemPrice = $productItemHasCurrentOptions->first()->price; 
+                return response()->json(['success' => true, 'price' => $productItemPrice]);
+            }
+
+            return response()->json(['success' => true, 'price' => null]);
+        }
+
+        return false;
     }
 }

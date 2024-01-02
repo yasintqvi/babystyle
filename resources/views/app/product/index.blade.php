@@ -139,22 +139,22 @@
                         مرتب سازی بر اساس
                     </li>
                     <li class="w-full">
-                        <a class="block w-max py-4 md:py-0 {{ request('filter') ?? 'font-bold text-primary' }}" href="#">جدیدترین</a>
+                        <a href="" class="block w-max py-4 md:py-0 {{ request('filter') ?? 'font-bold text-primary' }}" href="#">جدیدترین</a>
                     </li>
                     <li class="w-full">
-                        <a class="block w-max py-4 md:py-0" href="#">پرفروش‌ ترین‌</a>
+                        <a href="" class="block w-max py-4 md:py-0 {{ request('filter') == 'bestselling' ? 'font-bold text-primary' : '' }}" href="#">پرفروش‌ ترین‌</a>
                     </li>
-                    <li class="w-full">
-                        <a class="block w-max py-4 md:py-0" href="#">مرتبط‌ ترین</a>
+                    {{-- <li class="w-full">
+                        <a class="block w-max py-4 md:py-0 {{ request('filter') == 'bestselling' ? 'font-bold text-primary' : '' }}" href="#">مرتبط‌ ترین</a>
                     </li>
                     <li class="w-full">
                         <a class="block w-max py-4 md:py-0" href="#">پربازدیدترین</a>
+                    </li> --}}
+                    <li class="w-full">
+                        <a href="" class="block w-max py-4 md:py-0 {{ request('filter') == 'most-expensive' ? 'font-bold text-primary' : '' }}" href="#">گران‌ترین</a>
                     </li>
                     <li class="w-full">
-                        <a class="block w-max py-4 md:py-0" href="#">ارزان‌ترین</a>
-                    </li>
-                    <li class="w-full">
-                        <a class="block w-max py-4 md:py-0" href="#">گران‌ترین</a>
+                        <a href="" class="block w-max py-4 md:py-0 {{ request('filter') == 'cheapest' ? 'font-bold text-primary' : '' }}" href="#">ارزان‌ترین</a>
                     </li>
                 </ul>
             </div>
@@ -163,7 +163,7 @@
                     @php
                         $productItem = $product->items->where('is_default', 1)->first() ?? $product->items->first();
                     @endphp
-                    <a href="#" class="xl:w-1/4 sm:w-1/3 w-1/2 p-2">
+                    <a href="{{ $product->path() }}" class="xl:w-1/4 sm:w-1/3 w-1/2 p-2">
                         <div
                             class="relative group aspect-[6/8] rounded-lg overflow-hidden bg-white border shadow text-sm md:text-base">
                             <img class="aspect-square object-cover w-full group-hover:hidden"

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Market\ShoppingCart;
 use App\Models\User\OtpCode;
 use App\Notifications\OTPSms;
 use App\Traits\Permissions\HasPermissionsTrait;
@@ -99,7 +100,7 @@ class User extends Authenticatable
                 'expired_at'    =>  now()->addSeconds(config('auth.resend_otp_time')),
             ]);
 
-            $this->notify(new OTPSms($newOtpCode->code));
+            // $this->notify(new OTPSms($newOtpCode->code));
 
             return $newOtpCode;
         }
@@ -140,6 +141,10 @@ class User extends Authenticatable
         return $this->hasMany(OtpCode::class);
     }
 
+    public function shoppingCart()
+    {
+        return $this->hasOne(ShoppingCart::class);
+    }
     
 
 }

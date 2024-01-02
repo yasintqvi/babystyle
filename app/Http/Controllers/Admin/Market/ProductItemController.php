@@ -89,7 +89,7 @@ class ProductItemController extends Controller
         collect($options)->map(function ($option) use ($productItemOptions) {
             if (!empty($option['value'])) {
                 // checking that the duplicate value is not stored
-                $variationOption = VariationOption::where('is_color', 0)->where('variation_id', $option['variation_id'])
+                $variationOption = VariationOption::where('variation_id', $option['variation_id'])
                     ->where('value', $option['value']);
 
                 $variationOption = $variationOption->exists() ? $variationOption->first() : VariationOption::create($option);

@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Market\HomeController;
+use App\Http\Controllers\Market\ShoppingCartController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Market\ProductController as AppProductController;
 use Illuminate\Support\Facades\Route;
@@ -64,4 +65,10 @@ Route::prefix('profile')->middleware('auth')->as('profile.')->group(function () 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('products/{category:slug?}', [AppProductController::class, 'index'])->name('products.index');
+Route::get('products', [AppProductController::class, 'index'])->name('products.index');
+Route::get('products/{product:slug}', [AppProductController::class, 'show'])->name('products.show');
+Route::post('products/get-price/{product}', [AppProductController::class, 'getPrice'])->name('products.get-price');
+
+Route::prefix('shopping-cart')->group(function() {
+    Route::post('/{product}', [ShoppingCartController::class, 'store'])->name('shopping-cart.store')->middleware('auth');
+});
