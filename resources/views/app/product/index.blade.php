@@ -5,7 +5,7 @@
         <div class="md:w-1/4 w-full md:pl-2 mb-4">
             <div id="filterContainer"
                 class="border rounded-lg md:sticky fixed top-0 left-0 w-full h-full md:h-max md:translate-y-0 z-40 translate-y-full transition-all duration-1000 bg-white p-5">
-                <form action="" class="divide-y">
+                <form action="" id="filter-form" class="divide-y">
                     <div class="flex justify-between items-center pb-8">
                         <div class="flex font-medium items-center gap-2">
                             <button id="closeFilterBTN" class="md:hidden block">
@@ -78,7 +78,7 @@
                                     <span>از</span>
                                     <input type="text" dir="ltr" oninput="formatInput(event)" name="price[min]"
                                         value="{{ request('price')['min'] ?? '' }}"
-                                        class="w-full border-none text-lg font-bold tracking-widest outline-none focus:ring-0">
+                                        class="w-full border-none price-limiter text-lg font-bold tracking-widest outline-none focus:ring-0">
                                     <span> تومان </span>
                                 </div>
                             </div>
@@ -88,7 +88,7 @@
                                     <span>تا</span>
                                     <input type="text" dir="ltr" oninput="formatInput(event)" name="price[max]"
                                         value="{{ request('price')['max'] ?? '' }}"
-                                        class="w-full border-none text-lg font-bold tracking-widest outline-none focus:ring-0">
+                                        class="w-full border-none price-limiter text-lg font-bold tracking-widest outline-none focus:ring-0">
                                     <span> تومان </span>
                                 </div>
                             </div>
@@ -254,5 +254,20 @@
             const regex = /(\d)(?=(\d{3})+$)/g;
             return value.replace(regex, '$1,');
         }
+    </script>
+
+    <script>
+        const filterForm = document.querySelector('#filter-form');
+
+        filterForm.addEventListener('submit',(event) => {
+            event.preventDefault();
+            priceLimiterElements = document.querySelectorAll('.price-limiter');
+
+            [...priceLimiterElements].map((item) => {
+                item.value = parseInt(item.value.replaceAll(',', ''));
+            });
+            
+            filterForm.submit();
+        })
     </script>
 @endsection
