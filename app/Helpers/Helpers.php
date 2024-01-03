@@ -45,21 +45,30 @@ if (!function_exists('calcDiscount')) {
 }
 
 if (!function_exists('requestWithQuery')) {
-    
-    function requestWithQuery($query) {
+
+    function requestWithQuery($key, $value)
+    {
 
         $currentQueries = collect(request()->query());
 
-        $currentQueries->push($query);
-        
-        if ($currentQueries->contains(array_keys($query))) {
-            $currentQueries->except(array_keys($query));
-        }
+        $currentQueries->put($key, $value);
 
-        $fullUrl = request()->url();
+        $currentQueries->map(fn($value, $currentKey) => $currentKey != $key ?: $value);
 
-        $queryString = http_build_query($currentQueries->toArray(), '', '&', PHP_QUERY_RFC3986);
+        $arrayQueries = $currentQueries->toArray();
 
-        return $currentQueries->isEmpty() ? "{$fullUrl}?{$queryString}" : "{$fullUrl}?{$queryString}";
+        $queryString = http_build_query($arrayQueries, '', '&', PHP_QUERY_RFC3986);
+
+        return request()->url() . "?" . $queryString;
     }
 }
+
+if (!function_exists('isActive')) {
+
+    function isActive($key, $value)
+    {
+        return request($key) === $value; 
+    }
+}
+
+

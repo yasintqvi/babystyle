@@ -53,3 +53,7 @@ button:disabled {
 .swiper-slide-thumb-active {
   @apply !grayscale-0;
 }
+
+.active-link {
+  @apply text-primary font-extrabold
+}
