@@ -15,7 +15,7 @@ class ShoppingCartController extends Controller
      */
     public function index()
     {
-        //
+      
     }
 
     /**
@@ -43,17 +43,17 @@ class ShoppingCartController extends Controller
 
             if (collect($productItemHasCurrentOptions)->isNotEmpty()) {
                 $productItem = $productItemHasCurrentOptions->first();
-                
+
                 $userShoppingCart = $user->shoppingCart()->first();
 
                 if ($productItem->quantity > 0) {
-                    
+
                     $isAlreadyExist = $userShoppingCart->items()->where('product_item_id', $productItem->id)->exists();
-                    
+
                     if ($isAlreadyExist) {
                         return response()->json(['success' => true, 'message' => 'محصول قبلا به سبد خریدتان اضافه شده است.']);
                     }
-                    
+
                     $userShoppingCart->items()->create([
                         'product_item_id' => $productItem->id,
                         'quantity' => 1
@@ -62,10 +62,19 @@ class ShoppingCartController extends Controller
                     return response()->json(['success' => true, 'message' => 'محصول به سبد خریدتان اضافه شد.']);
                 }
             }
-
         }
 
         return response()->json(['success' => false, 'message' => 'محصول در انبار یافت نشد.']);
+    }
+
+    public function getCartItemCount()
+    {
+        $user = Auth::user();
+        $cartItemCount = $user->shoppingCart()->sum('quantity');
+
+        dd($cartItemCount);
+
+        return response()->json(['count' => $cartItemCount]);
     }
 
     /**

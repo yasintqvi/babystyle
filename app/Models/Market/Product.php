@@ -47,6 +47,47 @@ class Product extends Model
         return $query->where('is_active', 0);
     }
 
+    public function scopeFilter($query, $filters)
+    {
+        $filters = collect($filters);
+
+        if ($filters->get('category')) {
+            $query->whereIn('category_id', $filters['category']);
+        }
+
+        if ($sort = $filters->get('sort')) {
+            
+            if ($sort === 'newaest') {
+                $query->latest();
+            } 
+            
+            if ($sort === 'best-seller') {
+                $query->orderBy('sold_number', 'DESC');
+            } 
+            else if ($sort === 'cheapest') {
+                $query->select('products.*')
+                    ->join('product_items', 'products.id', '=', 'product_items.product_id')
+                    ->orderBy('product_items.price')
+                    ->get();
+            }
+            else if ($sort === 'most-expensive') {
+                $query->select('products.*')
+                    ->join('product_items', 'products.id', '=', 'product_items.product_id')
+                    ->orderBy('product_items.price', 'DESC')
+                    ->get();
+            }
+        } else {
+            $query->latest();
+        }
+
+        if ($keyword = $filters->get('search')) {
+            $query->where('title', "LIKE" ,"%{$keyword}%");
+        }
+
+        return $query;
+    }
+
+
     // relations
     public function category()
     {
@@ -75,20 +116,20 @@ class Product extends Model
 
     public function getQuantityCheckAttribute()
     {
-        return $this->items()->where('quantity' , '>' , '0')->first() ?? 0;
+        return $this->items()->where('quantity', '>', '0')->first() ?? 0;
     }
 
 
     public function hasVariaty()
     {
-        return $this->category->variations->isNotEmpty(); 
+        return $this->category->variations->isNotEmpty();
     }
 
     public function path()
     {
         return route('products.show', $this->slug);
     }
-    
+
     public function sluggable(): array
     {
         return [
