@@ -80,6 +80,21 @@ class ProductItem extends Model
         return $this->price;
     }
 
+    public function getDiscountInfoAttribute()
+    {
+        if (!$this->hasDiscount()) {
+            return false;
+        }
+
+        $discountRate = $this->discounts()->active()->first()->discount_rate;
+
+        $discountAmount = $this->price * ($discountRate / 100);
+
+        $priceWithDiscount = $this->price - $discountAmount;
+
+        return ['price' => $priceWithDiscount, 'rate' => $discountRate];
+    }
+
 
     public function scopeDefault($query)
     {
