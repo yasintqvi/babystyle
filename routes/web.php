@@ -70,5 +70,8 @@ Route::get('products/{product:slug}', [AppProductController::class, 'show'])->na
 Route::post('products/get-price/{product}', [AppProductController::class, 'getPrice'])->name('products.get-price');
 
 Route::prefix('shopping-cart')->group(function() {
-    Route::post('/{product}', [ShoppingCartController::class, 'store'])->name('shopping-cart.store')->middleware('auth');
+    Route::get('/', [ShoppingCartController::class, 'index'])->name('shopping-cart.index');
+    Route::delete('shopping-cart/{shoppingCartItem}', [ShoppingCartController::class, 'destroy'])->name('shopping-cart.destroy');
+    Route::post('/{product}', [ShoppingCartController::class, 'store'])->name('shopping-cart.store');
+    Route::post('/shoppingCartItem/{shoppingCartItem}/change-quantity', [ShoppingCartController::class, 'changeQuantity'])->name('shopping-cart.change-quantity');
 });

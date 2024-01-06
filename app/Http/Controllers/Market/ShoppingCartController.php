@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Market;
 
 use App\Http\Controllers\Controller;
 use App\Models\Market\Product;
+use App\Models\Market\ProductItem;
+use App\Models\Market\ShoppingCartItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,8 +16,10 @@ class ShoppingCartController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        //
+    {   
+        $userShoppingCart = Auth::user()->shoppingCart()->first();
+        $shoppingCartItems = $userShoppingCart->items;
+        return view('app.shopping-cart.index', compact('shoppingCartItems'));
     }
 
     /**
@@ -31,6 +35,11 @@ class ShoppingCartController extends Controller
      */
     public function store(Request $request, Product $product)
     {
+
+        if (Auth::guest()) {
+            return response()->json(['success' => false, 'redirect' => route('login.form'). "?backUrl=products/{$product->slug}"], 401);
+        }
+
         $user = $request->user();
 
         $optionsIds = $request->get('options');
@@ -51,7 +60,7 @@ class ShoppingCartController extends Controller
                     $isAlreadyExist = $userShoppingCart->items()->where('product_item_id', $productItem->id)->exists();
                     
                     if ($isAlreadyExist) {
-                        return response()->json(['success' => true, 'message' => 'محصول قبلا به سبد خریدتان اضافه شده است.']);
+                        return response()->json(['success' => true, 'message' => 'محصول قبلا به سبد خریدتان اضافه شده است.', 'statusCode' => 200], 200);
                     }
                     
                     $userShoppingCart->items()->create([
@@ -59,7 +68,7 @@ class ShoppingCartController extends Controller
                         'quantity' => 1
                     ]);
 
-                    return response()->json(['success' => true, 'message' => 'محصول به سبد خریدتان اضافه شد.']);
+                    return response()->json(['success' => true, 'message' => 'محصول به سبد خریدتان اضافه شد.', 'statusCode' => 201], 201);
                 }
             }
 
@@ -95,8 +104,17 @@ class ShoppingCartController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(ShoppingCartItem $shoppingCartItem)
     {
-        //
+        $shoppingCartItem->delete();
+        
+        return back()->with('success', 'محصول از سبد خرید حذف گردید.');
     }
+
+
+    public function changeQuantity(Request $request ,ShoppingCartItem $shoppingCartItem)
+    {
+        
+    }
+
 }

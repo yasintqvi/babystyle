@@ -170,6 +170,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\PermissionServicProvider::class,
         App\Providers\BladeServiceProvider::class,
+        App\Providers\ViewServiceProvider::class,
 
     ])->toArray(),
 

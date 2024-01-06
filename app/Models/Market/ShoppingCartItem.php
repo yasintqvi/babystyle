@@ -6,7 +6,7 @@ use App\Models\Market\ShoppingCart;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ShoppingCartItems extends Model
+class ShoppingCartItem extends Model
 {
     use HasFactory;
 
@@ -16,5 +16,11 @@ class ShoppingCartItems extends Model
     public function shoppingCart()
     {
         return $this->belongsTo(ShoppingCart::class, 'cart_id');
+    }
+
+
+    public function productItem()
+    {
+        return $this->belongsTo(ProductItem::class);
     }
 }

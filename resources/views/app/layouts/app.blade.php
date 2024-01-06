@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
   <head>
-    @include('app.layouts.partials.head-tag')
     @yield('head-tag')
+    @include('app.layouts.partials.head-tag')
   </head>
   <body class="font-vazir scroll-smooth">
     
     @include('app.layouts.partials.header')
 
 
-    @yield('content')
+    <section class="min-h-screen overflow-x-hidden">
+      @yield('content')
+    </section>
 
     
     @include('app.layouts.partials.footer')
