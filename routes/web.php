@@ -44,6 +44,7 @@ Route::prefix('forgot-password')->as('forgot.')->group(function() {
 
 Route::middleware('auth')->group(function () {
 
+    Auth::loginUsingId
     // Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
     //     ->name('password.confirm');
 

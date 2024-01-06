@@ -5,7 +5,7 @@
         <div class="md:w-1/4 w-full md:pl-2 mb-4">
             <div id="filterContainer"
                 class="border rounded-lg md:sticky fixed top-0 left-0 w-full h-full md:h-max md:translate-y-0 z-40 translate-y-full transition-all duration-1000 bg-white p-5">
-                <div class="divide-y">
+                <form action="" id="filter-form" class="divide-y">
                     <div class="flex justify-between items-center pb-8">
                         <div class="flex font-medium items-center gap-2">
                             <button id="closeFilterBTN" class="md:hidden block">
@@ -69,28 +69,29 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                 </svg>
 
-                                <a id="priceRangeBTN" class="absolute cursor-pointer w-full h-full top-0"></a>
-                            </div>
-                            <div class="divide-y overflow-hidden h-0">
-                                <div class="flex gap-2 items-center py-4">
-                                    <div class="flex items-center w-full gap-2">
-                                        <span>از</span>
-                                        <input type="text" name="priceRange" value="" name="min_price"
-                                            class="w-full text-left text-sm border-none outline-none focus:ring-0">
-                                        <span> تومان </span>
-                                    </div>
+                            <a id="priceRangeBTN" class="absolute cursor-pointer w-full h-full top-0"></a>
+                        </div>
+                        <div class="divide-y overflow-hidden h-0">
+                            <div class="flex gap-2 items-center py-4">
+                                <div class="flex items-center w-full gap-2">
+                                    <span>از</span>
+                                    <input type="text" dir="ltr" oninput="formatInput(event)" name="price[min]"
+                                        value="{{ request('price')['min'] ?? '' }}"
+                                        class="w-full border-none price-limiter text-lg font-bold tracking-widest outline-none focus:ring-0">
+                                    <span> تومان </span>
                                 </div>
+                            </div>
 
-                                <div class="flex gap-2 items-center py-4">
-                                    <div class="flex items-center w-full gap-2">
-                                        <span>تا</span>
-                                        <input type="text" name="priceRange" value="" name="max_price"
-                                            class="w-full text-left text-sm border-none outline-none focus:ring-0">
-                                        <span> تومان </span>
-                                    </div>
+                            <div class="flex gap-2 items-center py-4">
+                                <div class="flex items-center w-full gap-2">
+                                    <span>تا</span>
+                                    <input type="text" dir="ltr" oninput="formatInput(event)" name="price[max]"
+                                        value="{{ request('price')['max'] ?? '' }}"
+                                        class="w-full border-none price-limiter text-lg font-bold tracking-widest outline-none focus:ring-0">
+                                    <span> تومان </span>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                     <button type="submit" class="w-full py-2 border-transparent bg-green-400 text-white rounded-md mt-4">
                         اعمال تغییرات
@@ -238,4 +239,35 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        function formatInput(event) {
+            const value = event.target.value.replace(/\D/g, '');
+            const formattedValue = formatNumber(value);
+
+            event.target.value = formattedValue;
+        }
+
+        function formatNumber(value) {
+            const regex = /(\d)(?=(\d{3})+$)/g;
+            return value.replace(regex, '$1,');
+        }
+    </script>
+
+    <script>
+        const filterForm = document.querySelector('#filter-form');
+
+        filterForm.addEventListener('submit',(event) => {
+            event.preventDefault();
+            priceLimiterElements = document.querySelectorAll('.price-limiter');
+
+            [...priceLimiterElements].map((item) => {
+                item.value = parseInt(item.value.replaceAll(',', ''));
+            });
+            
+            filterForm.submit();
+        })
+    </script>
 @endsection

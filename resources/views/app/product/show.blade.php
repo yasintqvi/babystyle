@@ -91,11 +91,16 @@
                 <form action="{{ route('shopping-cart.store', $product->id) }}" onsubmit="addToCart(event, this)"
                     method="post" id="add_to_cart_form">
                     @csrf
+                    <div class="my-3" id="discountZone">
+                        <span class="text-gray-500 text-lg tracking-wide line-through mx-2" id="oldPrice">21000000</span>
+                        <span class="text-danger py-.5 px-2 text-white bg-red-600 rounded-lg font-bold" id="discountRate">44 %</span>
+                    </div>  
                     @if (collect($variations)->isEmpty())
                         <div class="text-primary text-center md:text-start">
                             @if ($product->quantity > 0)
                                 <div>
-                                    <span class="text-3xl font-bold">{{ $product->items()->first()->price }}</span>
+                                    <span
+                                        class="text-3xl font-bold tracking-widest">{{ $product->items()->first()->price }}</span>
                                     تومان
                                 </div>
                             @else
@@ -420,6 +425,11 @@
         const addToCartForm = document.querySelector('#add_to_cart_form');
         const addToCartBtn = document.querySelector('#add_to_cart_btn');
 
+        function formatNumber(value) {
+            const regex = /(\d)(?=(\d{3})+$)/g;
+            return value.toString().replace(regex, '$1,');
+        }
+
         checkAndGetPrice();
 
         function checkAndGetPrice() {
@@ -437,12 +447,23 @@
                 .then(data => {
                     if (data.success) {
                         if (data.price) {
-                            price.innerText = `${data.price} تومان`;
-                            price.classList.remove('hidden');
-                            unavailable.classList.add('hidden');
-                            addToCartBtn.disabled = false;
+                            if (data.discount) {
+                                discountZone.classList.remove('hidden');
+                                price.innerText = `${formatNumber(data.discount.price)} تومان`;
+                                oldPrice.innerText = data.price;
+                                discountRate.innerText = `${data.discount.rate} %`;
+                                price.classList.remove('hidden');
+                                unavailable.classList.add('hidden');
+                                addToCartBtn.disabled = false;
+                            }else {
+                                discountZone.classList.add('hidden');
+                                price.innerText = `${formatNumber(data.price)} تومان`;
+                                price.classList.remove('hidden');
+                                unavailable.classList.add('hidden');
+                                addToCartBtn.disabled = false;
+                            }
                         } else {
-                            console.log('hi');
+                            discountZone.classList.add('hidden');
                             price.classList.add('hidden');
                             unavailable.classList.remove('hidden');
                             addToCartBtn.disabled = true;
