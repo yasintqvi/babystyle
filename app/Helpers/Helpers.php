@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Market\City;
+use App\Models\Market\Province;
 use Illuminate\Support\Carbon;
 
 if (!function_exists('getJalaliTime')) {
@@ -61,5 +63,15 @@ if (!function_exists('requestWithQuery')) {
         $queryString = http_build_query($currentQueries->toArray(), '', '&', PHP_QUERY_RFC3986);
 
         return $currentQueries->isEmpty() ? "{$fullUrl}?{$queryString}" : "{$fullUrl}?{$queryString}";
+    }
+
+    function province_name($provinceId)
+    {
+        return Province::findOrFail($provinceId)->name;
+    }
+
+    function city_name($cityId)
+    {
+        return City::findOrFail($cityId)->name;
     }
 }

@@ -88,13 +88,13 @@
 
 
                 {{-- if our product had no variation --}}
-                <form action="{{ route('shopping-cart.store', $product->id) }}" onsubmit="addToCart(event, this)"
-                    method="post" id="add_to_cart_form">
+                <form action="{{ route('shopping-cart.store', $product->id) }}" method="post" id="add_to_cart_form">
                     @csrf
                     <div class="my-3" id="discountZone">
                         <span class="text-gray-500 text-lg tracking-wide line-through mx-2" id="oldPrice">21000000</span>
-                        <span class="text-danger py-.5 px-2 text-white bg-red-600 rounded-lg font-bold" id="discountRate">44 %</span>
-                    </div>  
+                        <span class="text-danger py-.5 px-2 text-white bg-red-600 rounded-lg font-bold" id="discountRate">44
+                            %</span>
+                    </div>
                     @if (collect($variations)->isEmpty())
                         <div class="text-primary text-center md:text-start">
                             @if ($product->quantity > 0)
@@ -149,7 +149,7 @@
                             </div>
                         @endforeach
                     @endif
-                    <button id="add_to_cart_btn"
+                    <button type="submit" id="add_to_cart_btn"
                         class="bg-green-500 px-5 py-3 text-white rounded shadow-lg mt-8 w-full md:w-max flex">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-6 h-6">
@@ -424,11 +424,15 @@
     <script>
         const addToCartForm = document.querySelector('#add_to_cart_form');
         const addToCartBtn = document.querySelector('#add_to_cart_btn');
+        
+        document.addEventListener('DOMContentLoaded', function() {
 
-        function formatNumber(value) {
-            const regex = /(\d)(?=(\d{3})+$)/g;
-            return value.toString().replace(regex, '$1,');
-        }
+            addToCartForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const shopCart = new ShoppingCart();
+                shopCart.addToCart(addToCartForm);
+            })
+        });
 
         checkAndGetPrice();
 
@@ -455,7 +459,7 @@
                                 price.classList.remove('hidden');
                                 unavailable.classList.add('hidden');
                                 addToCartBtn.disabled = false;
-                            }else {
+                            } else {
                                 discountZone.classList.add('hidden');
                                 price.innerText = `${formatNumber(data.price)} تومان`;
                                 price.classList.remove('hidden');
@@ -473,6 +477,11 @@
                 .catch(err => {
                     console.log(err);
                 });
+        }
+
+        function formatNumber(value) {
+            const regex = /(\d)(?=(\d{3})+$)/g;
+            return value.toString().replace(regex, '$1,');
         }
     </script>
 @endsection

@@ -5,10 +5,12 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\Market\AddressController;
 use App\Http\Controllers\Market\HomeController;
 use App\Http\Controllers\Market\ShoppingCartController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Market\ProductController as AppProductController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,7 +46,7 @@ Route::prefix('forgot-password')->as('forgot.')->group(function() {
 
 Route::middleware('auth')->group(function () {
 
-    Auth::loginUsingId
+    // Auth::loginUsingId(1);
     // Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
     //     ->name('password.confirm');
 
@@ -61,6 +63,10 @@ Route::prefix('profile')->middleware('auth')->as('profile.')->group(function () 
     Route::get('/', [ProfileController::class, 'index'])->name('index');
     Route::get('/edit', [ProfileController::class, 'edit'])->name('edit');
     Route::put('/update', [ProfileController::class, 'update'])->name('update');
+
+    Route::get('/addresses', [AddressController::class, 'index'])->name('addresses.index');
+    Route::post('/addresses/store', [AddressController::class, 'store'])->name('addresses.store');
+    Route::put('/addresses/update/{address}', [AddressController::class, 'update'])->name('addresses.update');
 });
 
 
@@ -71,5 +77,10 @@ Route::get('products/{product:slug}', [AppProductController::class, 'show'])->na
 Route::post('products/get-price/{product}', [AppProductController::class, 'getPrice'])->name('products.get-price');
 
 Route::prefix('shopping-cart')->group(function() {
-    Route::post('/{product}', [ShoppingCartController::class, 'store'])->name('shopping-cart.store')->middleware('auth');
+    Route::get('/', [ShoppingCartController::class, 'index'])->name('shopping-cart.index');
+    Route::delete('shopping-cart/{shoppingCartItem}', [ShoppingCartController::class, 'destroy'])->name('shopping-cart.destroy');
+    Route::post('/{product}', [ShoppingCartController::class, 'store'])->name('shopping-cart.store');
+    Route::post('/shoppingCartItem/{shoppingCartItem}/change-quantity', [ShoppingCartController::class, 'changeQuantity'])->name('shopping-cart.change-quantity');
 });
+
+Route::get('/get-province-cities-list' , [AddressController::class, 'getProvinceCitiesList']);

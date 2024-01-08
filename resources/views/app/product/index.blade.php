@@ -1,5 +1,10 @@
 @extends('app.layouts.app', ['title' => 'محصولات'])
 
+@section('head-tag')
+<link rel="stylesheet" href="{{ asset('assets/app/css/flowbite.min.css') }}" />
+
+@endsection
+
 @section('content')
     <div class="container flex flex-wrap py-5 min-h-screen">
         <div class="md:w-1/4 w-full md:pl-2 mb-4">
