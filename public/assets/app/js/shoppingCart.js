@@ -1,4 +1,4 @@
-const successToast = (message) => {
+const successAlert = (message) => {
     Toastify({
         text: message,
         close: true,
@@ -15,7 +15,7 @@ const successToast = (message) => {
     }).showToast();
 }
 
-const errorToast = (message) => {
+const errorAlert = (message) => {
     Toastify({
         text: message,
         close: true,
@@ -32,10 +32,15 @@ const errorToast = (message) => {
     }).showToast();
 }
 
+const formatMoney = (money) => {
+    const regex = /(\d)(?=(\d{3})+$)/g;
+    return money.toString().replace(regex, '$1,');
+}
+
 class ShoppingCart {
     addToCart(addToCartForm) {
         const formData = new FormData(addToCartForm);
-
+        
         fetch(addToCartForm.action, {
             method: "POST",
             body: formData
@@ -45,17 +50,17 @@ class ShoppingCart {
                     if (data.statusCode === 201) {
                         this.#updateShoppingCartItemCount();
                     }
-                    successToast(data.message);
+                    successAlert(data.message);
                 }
                 else if (data.redirect) {
-                    errorToast('برای اضافه کردن محصول به سبد خرید ابتدا وارد حساب کاربری خود شوید.');
+                    errorAlert('برای اضافه کردن محصول به سبد خرید ابتدا وارد حساب کاربری خود شوید.');
                     setTimeout(() => {
-                        successToast('در حال انتقال به صفحه ورود ...');
+                        successAlert('در حال انتقال به صفحه ورود ...');
                         window.location.href = data.redirect;
                     }, 2000);
                 }
                 else {
-                    errorToast(data.message);
+                    errorAlert(data.message);
                 }
             })
             .catch(err => {
@@ -68,9 +73,10 @@ class ShoppingCart {
         shoppingCartItemCountEle.textContent = parseInt(shoppingCartItemCountEle.textContent) + 1;
     }
 
-    changeQuantity(quantityForm) {
-        
+    changeQuantity(quantityForm, qtyAction) {
         const formData = new FormData(quantityForm);
+        
+        formData.append('action', qtyAction);
 
         fetch(quantityForm.action, {
             method: "POST",
@@ -78,19 +84,33 @@ class ShoppingCart {
         }).then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    if (data.statusCode === 201) {
-                        this.#updateShoppingCartItemCount();
-                    }
-                    successToast(data.message);
-                } else if (data.redirect) {
-                    errorToast('برای اضافه کردن محصول به سبد خرید ابتدا وارد حساب کاربری خود شوید.');
-                    setTimeout(() => {
-                        successToast('در حال انتقال به صفحه ورود ...');
-                        window.location.href = data.redirect;
-                    }, 2000);
-                } else {
-                    errorToast(data.message);
+                    const productPriceEle = quantityForm.querySelector('.product-price-unit');
+                    quantityForm.querySelector('input[name=quantity]').textContent = data.new_quantity;
+                    quantityForm.querySelector('#currentQuantity').textContent = data.new_quantity;
+                    productPriceEle.textContent = formatMoney(productPriceEle.dataset.unitPrice * data.new_quantity);
+                    this.updateShoppingCartAmounts();
                 }
+                else {
+                    errorAlert(data.message);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+    updateShoppingCartAmounts() {
+        const amountsForm = document.querySelector('#getAmountsForm');
+        const formData = new FormData(amountsForm);
+        
+        fetch(amountsForm.action, {
+            method: "POST",
+            body: formData
+        }).then(response => response.json())
+            .then(data => {
+                document.querySelector("#totalAmount").innerText = formatMoney(data.total_amount);
+                document.querySelector("#discountAmount").innerText = formatMoney(data.discount_amount);
+                document.querySelector("#final_amount").innerText = formatMoney(data.total_amount - data.discount_amount);
             })
             .catch(err => {
                 console.log(err);

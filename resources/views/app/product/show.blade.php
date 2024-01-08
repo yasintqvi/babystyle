@@ -91,9 +91,8 @@
                 <form action="{{ route('shopping-cart.store', $product->id) }}" method="post" id="add_to_cart_form">
                     @csrf
                     <div class="my-3" id="discountZone">
-                        <span class="text-gray-500 text-lg tracking-wide line-through mx-2" id="oldPrice">21000000</span>
-                        <span class="text-danger py-.5 px-2 text-white bg-red-600 rounded-lg font-bold" id="discountRate">44
-                            %</span>
+                        <span class="text-gray-500 text-lg tracking-wide line-through mx-2" id="oldPrice"></span>
+                        <span class="text-danger py-.5 px-2 text-white bg-red-600 rounded-lg font-bold" id="discountRate"></span>
                     </div>
                     @if (collect($variations)->isEmpty())
                         <div class="text-primary text-center md:text-start">

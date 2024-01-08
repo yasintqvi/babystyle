@@ -69,9 +69,10 @@ Route::get('products', [AppProductController::class, 'index'])->name('products.i
 Route::get('products/{product:slug}', [AppProductController::class, 'show'])->name('products.show');
 Route::post('products/get-price/{product}', [AppProductController::class, 'getPrice'])->name('products.get-price');
 
-Route::prefix('shopping-cart')->group(function() {
+Route::prefix('shopping-cart')->middleware('auth')->group(function() {
     Route::get('/', [ShoppingCartController::class, 'index'])->name('shopping-cart.index');
     Route::delete('shopping-cart/{shoppingCartItem}', [ShoppingCartController::class, 'destroy'])->name('shopping-cart.destroy');
     Route::post('/{product}', [ShoppingCartController::class, 'store'])->name('shopping-cart.store');
-    Route::post('/shoppingCartItem/{shoppingCartItem}/change-quantity', [ShoppingCartController::class, 'changeQuantity'])->name('shopping-cart.change-quantity');
+    Route::post('/shopping-cart/{shoppingCartItem}/change-quantity', [ShoppingCartController::class, 'changeQuantity'])->name('shopping-cart.change-quantity');
+    Route::post('/shopping-cart/get-amounts', [ShoppingCartController::class, 'getAmounts'])->name('shopping-cart.get-amounts');
 });
