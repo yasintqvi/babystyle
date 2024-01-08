@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Market\City;
+use App\Models\Market\Province;
 use Illuminate\Support\Carbon;
 
 if (!function_exists('getJalaliTime')) {
@@ -45,30 +47,31 @@ if (!function_exists('calcDiscount')) {
 }
 
 if (!function_exists('requestWithQuery')) {
-
-    function requestWithQuery($key, $value)
-    {
+    
+    function requestWithQuery($query) {
 
         $currentQueries = collect(request()->query());
 
-        $currentQueries->put($key, $value);
+        $currentQueries->push($query);
+        
+        if ($currentQueries->contains(array_keys($query))) {
+            $currentQueries->except(array_keys($query));
+        }
 
-        $currentQueries->map(fn($value, $currentKey) => $currentKey != $key ?: $value);
+        $fullUrl = request()->url();
 
-        $arrayQueries = $currentQueries->toArray();
+        $queryString = http_build_query($currentQueries->toArray(), '', '&', PHP_QUERY_RFC3986);
 
-        $queryString = http_build_query($arrayQueries, '', '&', PHP_QUERY_RFC3986);
-
-        return request()->url() . "?" . $queryString;
+        return $currentQueries->isEmpty() ? "{$fullUrl}?{$queryString}" : "{$fullUrl}?{$queryString}";
     }
-}
 
-if (!function_exists('isActive')) {
-
-    function isActive($key, $value)
+    function province_name($provinceId)
     {
-        return request($key) === $value; 
+        return Province::findOrFail($provinceId)->name;
+    }
+
+    function city_name($cityId)
+    {
+        return City::findOrFail($cityId)->name;
     }
 }
-
-

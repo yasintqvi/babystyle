@@ -47,59 +47,41 @@ class Product extends Model
         return $query->where('is_active', 0);
     }
 
-    public function scopePriceOrder($query, $order = "ASC")
-    {
-        return request('price') ? $query->orderBy('price', $order) : $query->withPrice()->orderBy('price', $order);
-    }
-
-    public function scopeWithPrice($query) {
-        return $query->join('product_items', 'products.id', '=', 'product_items.product_id')
-            ->select('products.*', 'product_items.price')
-            ->where('product_items.is_default', 1);
-    }
-
     public function scopeFilter($query, $filters)
     {
         $filters = collect($filters);
 
-        if ($price = $filters->get('price')) {
-            [$price['min'], $price['max']] = [$price['min'] ?? 0, $price['max'] ?? null];
-
-            if ($price['max']) {
-                $query->withPrice()->where('price', '>=', $price['min'])->where('price' , "<=" , $price['max']);
-            }
-            else {
-                $query->withPrice()->where('price', '>=', $price['min']);
-            }
-        }
-
-        // category filter
         if ($filters->get('category')) {
             $query->whereIn('category_id', $filters['category']);
         }
 
-        // sorting products
-        switch ($filters->get('sort')) {
-            case 'newaest':
+        if ($sort = $filters->get('sort')) {
+            
+            if ($sort === 'newaest') {
                 $query->latest();
-                break;
-            case 'best-seller':
+            } 
+            
+            if ($sort === 'best-seller') {
                 $query->orderBy('sold_number', 'DESC');
-                break;
-            case 'cheapest':
-                $query->priceOrder();
-                break;
-            case 'most-expensive':
-                $query->priceOrder("DESC");
-                break;
-            default:
-                $query->latest();
-                break;
+            } 
+            else if ($sort === 'cheapest') {
+                $query->select('products.*')
+                    ->join('product_items', 'products.id', '=', 'product_items.product_id')
+                    ->orderBy('product_items.price')
+                    ->get();
+            }
+            else if ($sort === 'most-expensive') {
+                $query->select('products.*')
+                    ->join('product_items', 'products.id', '=', 'product_items.product_id')
+                    ->orderBy('product_items.price', 'DESC')
+                    ->get();
+            }
+        } else {
+            $query->latest();
         }
 
-        // search
         if ($keyword = $filters->get('search')) {
-            $query->where('title', "LIKE", "%{$keyword}%");
+            $query->where('title', "LIKE" ,"%{$keyword}%");
         }
 
         return $query;

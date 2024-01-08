@@ -17,7 +17,7 @@ class ShoppingCartController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index() 
     {
         $userShoppingCart = Auth::user()->shoppingCart()->first();
         $shoppingCartItems = $userShoppingCart->items;
@@ -65,7 +65,6 @@ class ShoppingCartController extends Controller
 
                 return $this->addToCart($user, $productItem, $userShoppingCart);
             }
-
         }
 
     }
@@ -91,28 +90,14 @@ class ShoppingCartController extends Controller
         return response()->json(['success' => false, 'message' => 'محصول در انبار یافت نشد.']);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function getCartItemCount()
     {
-        //
-    }
+        $user = Auth::user();
+        $cartItemCount = $user->shoppingCart()->sum('quantity');
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        dd($cartItemCount);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+        return response()->json(['count' => $cartItemCount]);
     }
 
     /**

@@ -152,21 +152,20 @@
                         <!-- search Box -->
 
                         <div id="searchBox"
-                            class="absolute left-0 px-2 z-40 md:w-max bg-white overflow-hidden {{ !empty(request('search')) ? '': 'opacity-0 !w-0' }} transition-all">
-                            <form action="{{ route('products.index') }}" method="get" class="flex gap-2 border shadow rounded-md p-1">
-                                <button type="button" id="hiddenSearchBox">
+                            class="absolute left-0 px-2 z-40 md:w-max bg-white overflow-hidden opacity-0 !w-0 transition-all">
+                            <form action="" method="get" class="flex gap-2 border shadow rounded-md p-1">
+                                <button id="hiddenSearchBox">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M6 18L18 6M6 6l12 12" />
                                     </svg>
+
                                 </button>
-
-                                <input type="text" id="search" value="{{ request('search') }}" name="search"
-                                    class="outline-none w-full focus:ring-0 border-none" placeholder="نام محصول یا دسته" />
-
-                                <button type="submit" class="bg-primary text-white p-1 px-3 m-1 rounded-md disabled:bg-gray-300">
-                                    جستجو
+                                <input type="text" id="search" value="{{ request()->search }}" name="search"
+                                    class="outline-none w-full" placeholder="نام محصول یا دسته" />
+                                <button class="bg-primary text-white p-1 px-3 m-1 rounded-md disabled:bg-gray-300">
+                                    جسنجو
                                 </button>
 
                             </form>
@@ -214,7 +213,7 @@
                                     <div class="divide-y">
                                         <div class="flex justify-between items-center pb-3">
                                             <div class="flex flex-col font-medium items-center">
-                                                <span>علی بهره مند</span>
+                                                <span>{{ auth()->user()->fullName ?? auth()->user()->phone_number }}</span>
                                             </div>
 
                                             <a href="#">

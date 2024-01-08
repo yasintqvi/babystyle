@@ -15,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::query();
+        $products = Product::query()->with('items.discounts');
 
         $products->filter(request([
             'sort',
@@ -25,8 +25,6 @@ class ProductController extends Controller
         ]));
 
         $categories = Category::active()->get();
-
-        $products->with('items.discounts');
 
         $products = $products->paginate(16);
 

@@ -594,6 +594,18 @@ video {
   }
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .fixed {
   position: fixed;
 }
@@ -628,6 +640,10 @@ video {
 
 .left-1 {
   left: 0.25rem;
+}
+
+.left-1\/2 {
+  left: 50%;
 }
 
 .right-0 {
@@ -718,6 +734,11 @@ video {
   margin-right: auto;
 }
 
+.my-1 {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
 .my-2 {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
@@ -767,6 +788,10 @@ video {
   margin-bottom: 1.5rem;
 }
 
+.me-3 {
+  margin-inline-end: 0.75rem;
+}
+
 .ml-3 {
   margin-left: 0.75rem;
 }
@@ -777,6 +802,18 @@ video {
 
 .mr-auto {
   margin-right: auto;
+}
+
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
+.mt-1\.5 {
+  margin-top: 0.375rem;
+}
+
+.mt-10 {
+  margin-top: 2.5rem;
 }
 
 .mt-2 {
@@ -803,8 +840,8 @@ video {
   margin-top: 2rem;
 }
 
-.mr-3 {
-  margin-right: 0.75rem;
+.mt-\[2px\] {
+  margin-top: 2px;
 }
 
 .line-clamp-1 {
@@ -820,6 +857,10 @@ video {
 
 .inline-block {
   display: inline-block;
+}
+
+.inline {
+  display: inline;
 }
 
 .flex {
@@ -891,6 +932,10 @@ video {
   height: 100vh;
 }
 
+.max-h-32 {
+  max-height: 8rem;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
@@ -951,6 +996,10 @@ video {
   width: 1.25rem;
 }
 
+.w-52 {
+  width: 13rem;
+}
+
 .w-56 {
   width: 14rem;
 }
@@ -976,14 +1025,6 @@ video {
   width: max-content;
 }
 
-.w-\[50\] {
-  width: 50;
-}
-
-.w-\[50\%\] {
-  width: 50%;
-}
-
 .min-w-\[3rem\] {
   min-width: 3rem;
 }
@@ -996,16 +1037,12 @@ video {
   min-width: 8rem;
 }
 
-.min-w-\[\] {
-  min-width: ;
-}
-
-.min-w-\[6rem\] {
-  min-width: 6rem;
-}
-
 .flex-1 {
   flex: 1 1 0%;
+}
+
+.flex-shrink-0 {
+  flex-shrink: 0;
 }
 
 .-translate-y-1\/2 {
@@ -1309,6 +1346,11 @@ video {
   border-color: rgb(75 85 99 / var(--tw-border-opacity));
 }
 
+.border-red-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(239 68 68 / var(--tw-border-opacity));
+}
+
 .border-red-600 {
   --tw-border-opacity: 1;
   border-color: rgb(220 38 38 / var(--tw-border-opacity));
@@ -1368,6 +1410,11 @@ video {
   background-color: rgb(198 150 136 / var(--tw-bg-opacity));
 }
 
+.bg-red-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 242 242 / var(--tw-bg-opacity));
+}
+
 .bg-red-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(239 68 68 / var(--tw-bg-opacity));
@@ -1412,12 +1459,20 @@ video {
   fill: #9ca3af;
 }
 
+.fill-gray-500 {
+  fill: #6b7280;
+}
+
 .fill-gray-600 {
   fill: #4b5563;
 }
 
 .fill-green-900 {
   fill: #14532d;
+}
+
+.fill-red-500 {
+  fill: #ef4444;
 }
 
 .fill-red-900 {
@@ -1430,6 +1485,10 @@ video {
 
 .stroke-gray-500 {
   stroke: #6b7280;
+}
+
+.stroke-1 {
+  stroke-width: 1;
 }
 
 .stroke-2 {
@@ -1556,6 +1615,10 @@ video {
 
 .pb-3 {
   padding-bottom: 0.75rem;
+}
+
+.pb-4 {
+  padding-bottom: 1rem;
 }
 
 .pb-8 {
@@ -1753,6 +1816,11 @@ video {
   color: rgb(220 38 38 / var(--tw-text-opacity));
 }
 
+.text-red-800 {
+  --tw-text-opacity: 1;
+  color: rgb(153 27 27 / var(--tw-text-opacity));
+}
+
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -1814,6 +1882,10 @@ video {
 .outline-none {
   outline: 2px solid transparent;
   outline-offset: 2px;
+}
+
+.outline-0 {
+  outline-width: 0px;
 }
 
 .ring-1 {
@@ -2065,12 +2137,6 @@ button:disabled:hover {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow) !important;
 }
 
-.active-link {
-  font-weight: 800;
-  --tw-text-opacity: 1;
-  color: rgb(198 150 136 / var(--tw-text-opacity));
-}
-
 .hover\:scale-105:hover {
   --tw-scale-x: 1.05;
   --tw-scale-y: 1.05;
@@ -2236,6 +2302,10 @@ button:disabled:hover {
     width: 33.333333%;
   }
 
+  .sm\:w-2\/3 {
+    width: 66.666667%;
+  }
+
   .sm\:flex-1 {
     flex: 1 1 0%;
   }
@@ -2265,6 +2335,11 @@ button:disabled:hover {
 
   .md\:sticky {
     position: sticky;
+  }
+
+  .md\:mx-32 {
+    margin-left: 8rem;
+    margin-right: 8rem;
   }
 
   .md\:mb-0 {

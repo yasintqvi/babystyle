@@ -221,12 +221,8 @@ let inputRadioHndler = (inputClass) => {
     selectInput.addEventListener("click", (e) => {
       [...allSelectInput].forEach((input) => {
         input.parentElement.classList.remove("border-gray-500");
-        input.removeAttribute('checked');
-
-        if (e.target === input){
+        e.target === input &&
           input.parentElement.classList.add("border-gray-500");
-          e.target.setAttribute('checked', 'checked');
-        }
       });
     });
   });
@@ -338,16 +334,24 @@ showfilter("closeSortBTN", "sortContainer");
 
 // end filter
 
-let allAddressUDBTN = document.querySelectorAll(".addressUDBTN");
+let toggelShowAddressByClass = (btnClass, containerClass) => {
+  let allAddressUDBTN = document.querySelectorAll(btnClass);
 
-allAddressUDBTN.forEach((addressUDBTN) => {
-  addressUDBTN.addEventListener("click", (e) => {
-    let addressUDContainer = e.target.parentElement.parentElement.querySelector(
-      ".addressUDContainer"
-    );
-    addressUDContainer.classList.toggle("hidden");
+  allAddressUDBTN.forEach((addressUDBTN) => {
+    addressUDBTN.addEventListener("click", (e) => {
+      let addressUDContainer =
+        e.target.parentElement.parentElement.querySelector(containerClass) ||
+        e.target.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector(
+          containerClass
+        );
+      console.log(addressUDContainer);
+      addressUDContainer.classList.toggle("hidden");
+    });
   });
-});
+};
+toggelShowAddressByClass(".addressUDBTN", ".addressUDContainer");
+toggelShowAddressByClass(".editAddressBTN", ".editAddressContainer");
+toggelShowAddressByClass(".closeEditAddressBTN", ".editAddressContainer");
 
 let toggelShowAddress = (btnId, containerId) => {
   let BTN = document.querySelector(btnId);

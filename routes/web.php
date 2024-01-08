@@ -5,10 +5,12 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\Market\AddressController;
 use App\Http\Controllers\Market\HomeController;
 use App\Http\Controllers\Market\ShoppingCartController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Market\ProductController as AppProductController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,6 +46,7 @@ Route::prefix('forgot-password')->as('forgot.')->group(function() {
 
 Route::middleware('auth')->group(function () {
 
+    // Auth::loginUsingId(1);
     // Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
     //     ->name('password.confirm');
 
@@ -60,6 +63,10 @@ Route::prefix('profile')->middleware('auth')->as('profile.')->group(function () 
     Route::get('/', [ProfileController::class, 'index'])->name('index');
     Route::get('/edit', [ProfileController::class, 'edit'])->name('edit');
     Route::put('/update', [ProfileController::class, 'update'])->name('update');
+
+    Route::get('/addresses', [AddressController::class, 'index'])->name('addresses.index');
+    Route::post('/addresses/store', [AddressController::class, 'store'])->name('addresses.store');
+    Route::put('/addresses/update/{address}', [AddressController::class, 'update'])->name('addresses.update');
 });
 
 
@@ -76,3 +83,5 @@ Route::prefix('shopping-cart')->middleware('auth')->group(function() {
     Route::post('/shopping-cart/{shoppingCartItem}/change-quantity', [ShoppingCartController::class, 'changeQuantity'])->name('shopping-cart.change-quantity');
     Route::post('/shopping-cart/get-amounts', [ShoppingCartController::class, 'getAmounts'])->name('shopping-cart.get-amounts');
 });
+
+Route::get('/get-province-cities-list' , [AddressController::class, 'getProvinceCitiesList']);

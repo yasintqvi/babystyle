@@ -14,18 +14,18 @@
                     <div class="flex justify-between items-center pb-8">
                         <div class="flex font-medium items-center gap-2">
                             <button id="closeFilterBTN" class="md:hidden block">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                                 </svg>
                             </button>
                             <span>فیلترها </span>
                         </div>
 
-                        <a href="{{ route('products.index') }}">
+                        <button href="editProfile.html">
                             <span class="text-xs font-medium text-cyan-500">
                                 حذف فیلتر‌ها</span>
-                        </a>
+                        </button>
                     </div>
 
                     <div class="">
@@ -37,20 +37,18 @@
                             </svg>
 
                             <span class="font-medium"> دسته بندی ها </span>
-
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-4">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                             </svg>
 
-                            <button type="button" id="brandBTN" class="absolute w-full h-full top-0"></button>
+                            <button id="brandBTN" class="absolute w-full h-full top-0"></button>
                         </div>
                         <div class="divide-y overflow-hidden">
-                            @foreach ($categories as $key => $category)
+                            @foreach ($categories as $category)
                                 <div class="flex gap-2 items-center py-4 mr-1">
                                     <div class="flex items-center">
-                                        <input id="category-{{ $category->id }}" type="checkbox" name="category[]"
-                                            @checked(in_array($category->id, request('category') ?? [])) value="{{ $category->id }}"
+                                        <input id="category-{{ $category->id }}" type="checkbox" value=""
                                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 ">
                                     </div>
                                     <label for="category-{{ $category->id }}"
@@ -62,18 +60,19 @@
 
                         </div>
                     </div>
-                    <div>
-                        <div class="flex relative w-full items-center justify-between py-3 gap-2 text-gray-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" />
-                            </svg>
-                            <span class="font-medium"> محدوده قیمت </span>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-4">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                            </svg>
+                    <div class="">
+                        <form action="" method="get">
+                            <div class="flex relative w-full items-center justify-between py-3 gap-2 text-gray-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" />
+                                </svg>
+                                <span class="font-medium"> محدوده قیمت </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                </svg>
 
                             <a id="priceRangeBTN" class="absolute cursor-pointer w-full h-full top-0"></a>
                         </div>
@@ -102,6 +101,7 @@
                     <button type="submit" class="w-full py-2 border-transparent bg-green-400 text-white rounded-md mt-4">
                         اعمال تغییرات
                     </button>
+                </div>
                 </form>
             </div>
         </div>
@@ -144,21 +144,21 @@
                         مرتب سازی بر اساس
                     </li>
                     <li class="w-full">
-                        <a class="block w-max py-4 md:py-0 {{ isActive('sort', 'newaest') ? 'active-link' : '' }}"
-                            href="{{ requestWithQuery('sort', 'newaest') }}">جدیدترین</a>
+                        <a class="block w-max py-4 md:py-0"
+                            href="{{ requestWithQuery(['sort' => 'newaest']) }}">جدیدترین</a>
                     </li>
                     <li class="w-full">
-                        <a class="block w-max py-4 md:py-0 {{ isActive('sort', 'most-seller') ? 'active-link' : '' }}"
-                            href="{{ requestWithQuery('sort', 'most-seller') }}">پرفروش‌
+                        <a class="block w-max py-4 md:py-0"
+                            href="{{ requestWithQuery(['sort' => 'most-seller']) }}">پرفروش‌
                             ترین‌</a>
                     </li>
                     <li class="w-full">
-                        <a class="block w-max py-4 md:py-0 {{ isActive('sort', 'cheapest') ? 'active-link' : '' }}"
-                            href="{{ requestWithQuery('sort', 'cheapest') }}">ارزان‌ترین</a>
+                        <a class="block w-max py-4 md:py-0"
+                            href="{{ requestWithQuery(['sort' => 'cheapest']) }}">ارزان‌ترین</a>
                     </li>
                     <li class="w-full">
-                        <a class="block w-max py-4 md:py-0 {{ isActive('sort', 'most-expensive') ? 'active-link' : '' }}"
-                            href="{{ requestWithQuery('sort', 'most-expensive') }}">گران‌ترین</a>
+                        <a class="block w-max py-4 md:py-0"
+                            href="{{ requestWithQuery(['sort' => 'most-expensive']) }}">گران‌ترین</a>
                     </li>
                 </ul>
             </div>
@@ -234,13 +234,13 @@
                         </div>
                     </a>
                 @empty
-                    <div class="flex p-2 mt-3 text-gray-500 w-full justify-center items-center">
-                        <p>متاسفانه هیچ محصولی یافت نشد</p>
+                    <div class="flex ring-1 rounded-xl p-2 mt-3 bg-red-50 w-full justify-center items-center">
+                        <p>محصولی وجود ندارد</p>
                     </div>
                 @endforelse
             </div>
             <div class="my-4">
-                {{ $products->appends($_GET)->render('pagination::tailwind') }}
+                {{ $products->render('pagination::tailwind') }}
             </div>
         </div>
     </div>
