@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Market\AddressController;
+use App\Http\Controllers\Market\CommentController;
 use App\Http\Controllers\Market\HomeController;
 use App\Http\Controllers\Market\ShoppingCartController;
 use App\Http\Controllers\ProfileController;
@@ -75,6 +76,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('products', [AppProductController::class, 'index'])->name('products.index');
 Route::get('products/{product:slug}', [AppProductController::class, 'show'])->name('products.show');
 Route::post('products/get-price/{product}', [AppProductController::class, 'getPrice'])->name('products.get-price');
+
+Route::post('comments/{product}', [CommentController::class, 'store'])->name('comments.store');
 
 Route::prefix('shopping-cart')->group(function() {
     Route::get('/', [ShoppingCartController::class, 'index'])->name('shopping-cart.index');

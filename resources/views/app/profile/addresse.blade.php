@@ -324,8 +324,7 @@
 
 @section('script')
     <script src="{{ asset('assets/app/js/jquery-1.12.4.min.js') }}"></script>
-    <script src="{{ asset('assets/app/js/home.js') }}"></script>
-    <script src="{{ asset('assets/app/js/plugins.js') }}"></script>
+
 
     <script>
         $('.province-select').change(function() {

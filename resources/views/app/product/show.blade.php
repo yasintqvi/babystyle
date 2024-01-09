@@ -1,5 +1,9 @@
 @extends('app.layouts.app', ['title' => $product->title])
 
+@section('head-tag')
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+@endsection
 
 @section('content')
     <section>
@@ -35,7 +39,7 @@
                             </svg>
                         </button>
                     </div>
-                    <div class="swiper-wrapper">
+                    <div class="swiper-wrapper -z-20">
                         @foreach ($product->images as $image)
                             <div class="swiper-slide">
                                 <img src="{{ asset($image->image) }}"
@@ -85,8 +89,6 @@
 
                     $variations = $options->unique('id')->groupBy('variation_id');
                 @endphp
-
-
                 {{-- if our product had no variation --}}
                 <form action="{{ route('shopping-cart.store', $product->id) }}" method="post" id="add_to_cart_form">
                     @csrf
@@ -179,7 +181,7 @@
             </div>
         </div>
         {{-- comments section --}}
-        <div class="container">
+        <div class="container">         
             <hr class="border-2 rounded-lg" />
             <div class="py-4 font-medium text-lg">
                 <span>امتیاز و دیدگاه کاربران </span>
@@ -188,119 +190,83 @@
                 <div class="md:w-1/4 w-full relative pb-2">
                     <div class="sticky top-0 pl-2 py-2">
                         <div class="">
-                            <span class="text-xl font-bold">3.9</span>
+                            <span class="text-xl font-bold">{{ ceil($product->reats->avg('rate')) }}</span>
                             <span class="text-xs px-1">از 5</span>
                         </div>
                         <div class="flex items-center">
-                            <div class="relative">
-                                <div id="raitingStars" class="flex" data-rate="3.9">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width=".5" stroke="currentColor"
-                                        class="w-5 fill-yellow-400 stroke-gray-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" class=""
-                                            d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                                    </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width=".5" stroke="currentColor"
-                                        class="w-5 fill-yellow-400 stroke-gray-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            class="[clip-path: inset( 0px 0px 0px 90%)]"
-                                            d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                                    </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width=".5" stroke="currentColor"
-                                        class="w-5 fill-yellow-400 stroke-gray-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            class="[clip-path: inset( 0px 0px 0px 90%)]"
-                                            d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                                    </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width=".5" stroke="currentColor"
-                                        class="w-5 fill-yellow-400 stroke-gray-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            class="[clip-path: inset( 0px 0px 0px 90%)]"
-                                            d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                                    </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width=".5" stroke="currentColor"
-                                        class="w-5 fill-yellow-400 stroke-gray-500 relative">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            class="[clip-path: inset( 0px 0px 0px 90%)]"
-                                            d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                                    </svg>
-                                </div>
-                                <div class="flex absolute top-0 left-0 -z-10">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width=".5" stroke="currentColor"
-                                        class="w-5 fill-gray-400 stroke-gray-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" class=""
-                                            d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                                    </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width=".5" stroke="currentColor"
-                                        class="w-5 fill-gray-400 stroke-gray-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            class="[clip-path: inset( 0px 0px 0px 90%)]"
-                                            d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                                    </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width=".5" stroke="currentColor"
-                                        class="w-5 fill-gray-400 stroke-gray-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            class="[clip-path: inset( 0px 0px 0px 90%)]"
-                                            d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                                    </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width=".5" stroke="currentColor"
-                                        class="w-5 fill-gray-400 stroke-gray-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            class="[clip-path: inset( 0px 0px 0px 90%)]"
-                                            d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                                    </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width=".5" stroke="currentColor"
-                                        class="w-5 fill-gray-400 stroke-gray-500 relative">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            class="[clip-path: inset( 0px 0px 0px 90%)]"
-                                            d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                                    </svg>
-                                </div>
+
+                            <div id="dataReadonlyReview"
+                                data-rating-stars="5"
+                                data-rating-readonly="true"
+                                data-rating-value="{{ ceil($product->reats->avg('rate')) }}"
+                                data-rating-input="#dataReadonlyInput">
                             </div>
+
                             <span class="text-[11px] px-1"> از مجموع ۵۴ امتیاز </span>
                         </div>
                         <span class="text-sm py-1">شما هم درباره این کالا دیدگاه ثبت کنید</span>
 
-                        <button class="w-full border border-red-600 rounded-lg text-red-600 py-2 my-2">
-                            ثبت دیدگاه
-                        </button>
+                        <div class="">
+                            <button
+                                class="openNewCommentBTN w-full border border-red-500 rounded-md text-red-500 py-2 mt-4">
+                                ثبت دیدگاه و امتیاز
+                            </button>
+                            <div
+                                class="NewCommentCountainer z-50 fixed flex items-center justify-center w-full h-full top-0 left-0 bg-black bg-opacity-20 {{ count($errors) > 0 ? '' : 'hidden'}}">
+                                <div class="md:w-1/3 sm:w-2/3 w-full bg-white p-4 rounded-md m-3 ">
+                                    <div class="flex justify-between mb-4">
+                                        <span class="text-base font-medium text-black">دیدگاه شما
+                                        </span>
+                                        <div class="relative">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M6 18 18 6M6 6l12 12"></path>
+                                            </svg>
+                                            <button
+                                                class="closeNewCommentBTN absolute w-full h-full top-0 left-0"></button>
+                                        </div>
+                                    </div>
+                                    <form action="{{ route('comments.store' , $product->id) }}" method="post" class="flex flex-wrap text-gray-600">
+                                        @csrf
+                                        <div class="w-full p-2">
+                                            <label for="" class="block my-1">
+                                                امتیاز دهید:
+                                                <span class="ratingSpan">متوسط</span>
+                                            </label>
+                                            <input value="0" type="range" max="5" name="rate"
+                                                id="rangInput"
+                                                class="ratingInput w-full outline-none border rounded-md p-1 z-10">
+                                        </div>
+
+                                        <div class="flex flex-col w-full p-2">
+                                            <label for="" class="block my-1"> متن نظر </label>
+                                            <textarea name="description" id="" cols="30" rows="10" class="h-20 outline-0 border rounded-md p-1"
+                                                style="height: 93px;"></textarea>
+                                                @error('description')
+                                                <span class="text-red-500 text-bold text-xs mt-2">{{ $message }}</span>
+                                                @endif
+                                        </div>
+                                        
+                                        <div class="sticky bottom-0 w-full">
+                                            <button class="openNewCommentBTN w-full py-2 text-white bg-red-600 rounded-md">
+                                                ثبت دیدگاه و امتیاز
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="md:w-3/4 w-full pr-2">
                     <div class="">
                         <hr class="w-full" />
                         <div class="flex gap-2 py-3 items-start">
-                            <span class="block p-1 px-2 bg-green-600 text-white rounded text-xs">
-                                4.0</span>
+                          
                             <div class="w-full">
                                 <div class="">
-                                    <span class="block font-medium pb-2">سرهمی نوزادی</span>
-                                </div>
-                                <div class="flex pb-3">
-                                    <div class="flex gap-2">
-                                        <span class="text-xs text-gray-400 p-1 px-2">18 مهر 1402</span>
-                                        <span class="text-xs text-gray-400 p-1 px-2">علیرضا سعیدی
-                                        </span>
-                                        <span
-                                            class="text-xs text-green-600 bg-green-100 p-1 px-2 rounded-lg block">خریدار</span>
-                                    </div>
-                                </div>
-
-                                <div class="">
-                                    <hr class="border-gray-100" />
-                                    <p class="py-3 text-sm">
-                                        جنس و قیمت خوبی تو تخفیف داشت منم دوست داشتم و با کلاهش از
-                                        همین مارک ست کردم
-                                    </p>
+                                    <span class="block font-medium pb-2">{{$product->title}}</span>
                                 </div>
                             </div>
                             <button>
@@ -313,27 +279,28 @@
                             </button>
                         </div>
                     </div>
+                    @foreach ($product->commentApproved as $comment)
                     <div class="">
                         <hr class="w-full" />
                         <div class="flex gap-2 py-3 items-start">
-                            <span class="block p-1 px-2 bg-green-600 text-white rounded text-xs">
-                                4.0</span>
+                            <span class="block p-1 px-2 @if($comment->rate >= 0 && $comment->rate <= 1) bg-red-500 @elseif($comment->rate >= 2 && $comment->rate <= 3) bg-yellow-400 @elseif($comment->rate >= 4) bg-green-500 @endif text-white rounded text-xs">
+                                {{$comment->rate}}.0
+                            </span>
                             <div class="w-full">
                                 <div class="flex pb-3">
                                     <div class="flex gap-2">
-                                        <span class="text-xs text-gray-400 p-1 px-2">18 مهر 1402</span>
-                                        <span class="text-xs text-gray-400 p-1 px-2">علیرضا سعیدی
+                                        <span class="text-xs text-gray-400 p-1 px-2">{{ getJalaliTime($comment->created_at) }}</span>
+                                        <span class="text-xs text-gray-400 p-1 px-2">{{$comment->user->fullName}}
                                         </span>
-                                        <span
-                                            class="text-xs text-green-600 bg-green-100 p-1 px-2 rounded-lg block">خریدار</span>
+                                        {{-- <span
+                                            class="text-xs text-green-600 bg-green-100 p-1 px-2 rounded-lg block">خریدار</span> --}}
                                     </div>
                                 </div>
 
                                 <div class="">
                                     <hr class="border-gray-100" />
                                     <p class="py-3 text-sm">
-                                        جنس و قیمت خوبی تو تخفیف داشت منم دوست داشتم و با کلاهش از
-                                        همین مارک ست کردم
+                                      {{ $comment->description}}
                                     </p>
                                 </div>
                             </div>
@@ -346,72 +313,8 @@
                             </button>
                         </div>
                     </div>
-                    <div class="">
-                        <hr class="w-full" />
-                        <div class="flex gap-2 py-3 items-start">
-                            <span class="block p-1 px-2 bg-green-600 text-white rounded text-xs">
-                                4.0</span>
-                            <div class="w-full">
-                                <div class="flex pb-3">
-                                    <div class="flex gap-2">
-                                        <span class="text-xs text-gray-400 p-1 px-2">18 مهر 1402</span>
-                                        <span class="text-xs text-gray-400 p-1 px-2">علیرضا سعیدی
-                                        </span>
-                                        <span
-                                            class="text-xs text-green-600 bg-green-100 p-1 px-2 rounded-lg block">خریدار</span>
-                                    </div>
-                                </div>
-
-                                <div class="">
-                                    <hr class="border-gray-100" />
-                                    <p class="py-3 text-sm">
-                                        جنس و قیمت خوبی تو تخفیف داشت منم دوست داشتم و با کلاهش از
-                                        همین مارک ست کردم
-                                    </p>
-                                </div>
-                            </div>
-                            <button>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width=".5" stroke="currentColor" class="w-5 fill-yellow-400 stroke-gray-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="">
-                        <hr class="w-full" />
-                        <div class="flex gap-2 py-3 items-start">
-                            <span class="block p-1 px-2 bg-green-600 text-white rounded text-xs">
-                                4.0</span>
-                            <div class="w-full">
-                                <div class="flex pb-3">
-                                    <div class="flex gap-2">
-                                        <span class="text-xs text-gray-400 p-1 px-2">18 مهر 1402</span>
-                                        <span class="text-xs text-gray-400 p-1 px-2">علیرضا سعیدی
-                                        </span>
-                                        <span
-                                            class="text-xs text-green-600 bg-green-100 p-1 px-2 rounded-lg block">خریدار</span>
-                                    </div>
-                                </div>
-
-                                <div class="">
-                                    <hr class="border-gray-100" />
-                                    <p class="py-3 text-sm">
-                                        جنس و قیمت خوبی تو تخفیف داشت منم دوست داشتم و با کلاهش از
-                                        همین مارک ست کردم
-                                    </p>
-                                </div>
-                            </div>
-                            <button>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width=".5" stroke="currentColor" class="w-5 fill-yellow-400 stroke-gray-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
+                    @endforeach 
+                   
                 </div>
             </div>
         </div>
@@ -420,11 +323,13 @@
 
 @section('script')
     <script src="{{ asset('assets/app/js/shoppingCart.js') }}"></script>
+    <script src="{{ asset('assets/app/js/jquery-1.12.4.min.js') }}"></script>
+    <script src="{{ asset('assets/app/js/rating.js') }}"></script>
 
     <script>
         const addToCartForm = document.querySelector('#add_to_cart_form');
         const addToCartBtn = document.querySelector('#add_to_cart_btn');
-        
+
         document.addEventListener('DOMContentLoaded', function() {
 
             addToCartForm.addEventListener('submit', (event) => {
