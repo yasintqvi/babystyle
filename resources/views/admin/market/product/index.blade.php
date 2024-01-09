@@ -196,7 +196,7 @@
                                 <div class="dropdown-menu dropdown-menu-end" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(0px, -36.6667px, 0px);" data-popper-placement="top-start" data-popper-reference-hidden="">
                                     <ul class="link-list-opt no-bdr">
                                         <li>
-                                            <a href="#"><em class="icon ni ni-eye"></em><span>مشاهده محصول</span></a>
+                                            <a href="/products/{{ slug }}" target="_blank"><em class="icon ni ni-eye"></em><span>مشاهده محصول</span></a>
                                         </li>
                                         <li>
                                             <a href="/admin/market/products/{{ id }}/edit"><em class="icon ni ni-edit"></em><span>ویرایش محصول</span></a>

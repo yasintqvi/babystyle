@@ -21,7 +21,6 @@
         </div>
     @endif
 
-    {{-- {{dd($errors)}} --}}
     <section>
         <div class="container flex flex-wrap py-5">
             @include('app.profile.partials.aside')
@@ -51,7 +50,7 @@
                             <span>ثبت آدرس جدید</span>
                             <button id="addNewAddressBTN" class="absolute w-full h-full top-0 left-0"></button>
                             <div id="addNewAddressCountainer"
-                                class="fixed flex items-center justify-center w-full h-full top-0 left-0 z-40 bg-black bg-opacity-20 hidden">
+                                class="fixed flex items-center justify-center w-full h-full top-0 left-0 z-40 bg-black bg-opacity-20 hidden }}">
                                 <div class="md:w-1/2 sm:w-2/3 w-full bg-white p-4 rounded-md m-3">
                                     <div class="flex justify-between mb-4">
                                         <span class="text-base font-medium text-black">آدرس جدید</span>
@@ -97,24 +96,24 @@
                                                 name="receiver_phone_number" id=""
                                                 class="w-full outline-none border rounded-md p-1" />
                                         </div>
-                                        <div class="sm:w-1/2 w-full p-2">
+                                        <div class="sm:w-1/3 w-full p-2">
                                             <label for="" class="block my-1">کد پستی </label>
                                             <input type="number" value="{{ old('postal_code') }}" name="postal_code"
                                                 id="" class="w-full outline-none border rounded-md p-1" />
                                         </div>
-                                        <div class="sm:w-1/2 w-full p-2">
+                                        <div class="sm:w-1/3 w-full p-2">
                                             <label for="" class="block my-1">پلاک</label>
                                             <input type="number" value="{{ old('plaque') }}" name="plaque" id=""
                                                 class="w-full outline-none border rounded-md p-1" />
                                         </div>
 
-                                        <div class="sm:w-1/2 w-full p-2">
+                                        <div class="sm:w-1/3 w-full p-2">
                                             <label for="" class="block my-1">واحد</label>
                                             <input type="number" value="{{ old('unit') }}" name="unit"
                                                 id="" class="w-full outline-none border rounded-md p-1" />
                                         </div>
 
-                                        <div class="flex flex-col md:w-1/2 w-full p-2">
+                                        <div class="flex flex-col my-2 w-full p-2">
                                             <label for="" class="block my-1" class="">آدرس دقیق
                                             </label>
                                             <textarea name="address" id="" cols="30" rows="10" class="h-20 outline-0 border rounded-md p-1">{{ old('address') }}</textarea>

@@ -12,5 +12,14 @@ class Address extends Model
     protected $table = "addresses";
     protected $fillable = ['user_id', 'province_id', 'city_id' , 'address' , 'postal_code' , 'plaque' , 'unit' , 'receiver_phone_number' , 'receiver_full_name' , 'is_default'];
 
+
+    public function province()
+    {
+        return $this->belongsTo(Province::class);
+    }
     
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
 }

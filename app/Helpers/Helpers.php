@@ -47,13 +47,14 @@ if (!function_exists('calcDiscount')) {
 }
 
 if (!function_exists('requestWithQuery')) {
-    
-    function requestWithQuery($query) {
+
+    function requestWithQuery($query)
+    {
 
         $currentQueries = collect(request()->query());
 
         $currentQueries->push($query);
-        
+
         if ($currentQueries->contains(array_keys($query))) {
             $currentQueries->except(array_keys($query));
         }
@@ -65,13 +66,21 @@ if (!function_exists('requestWithQuery')) {
         return $currentQueries->isEmpty() ? "{$fullUrl}?{$queryString}" : "{$fullUrl}?{$queryString}";
     }
 
-    function province_name($provinceId)
-    {
-        return Province::findOrFail($provinceId)->name;
-    }
 
-    function city_name($cityId)
-    {
-        return City::findOrFail($cityId)->name;
+}
+
+if (!function_exists('isActiveLink')) {
+    function isActiveLink($routeName) {
+        return Route::currentRouteName() == $routeName;
     }
+}
+
+function province_name($provinceId)
+{
+    return Province::findOrFail($provinceId)->name;
+}
+
+function city_name($cityId)
+{
+    return City::findOrFail($cityId)->name;
 }

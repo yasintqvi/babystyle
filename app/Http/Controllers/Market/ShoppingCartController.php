@@ -46,7 +46,7 @@ class ShoppingCartController extends Controller
 
         $userShoppingCart = $user->shoppingCart()->first();
 
-        if (!$product->category->has('variations')) {
+        if ($product->category->variations->isEmpty()) {
             $productItem = $product->items()->first();
             return $this->addToCart($user, $productItem, $userShoppingCart);
         }

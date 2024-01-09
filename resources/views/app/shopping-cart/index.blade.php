@@ -164,9 +164,9 @@
                                 <span class="text-xs">تومان</span>
                             </span>
                         </div>
-                        <button class="w-full py-3 bg-primary text-white rounded-lg">
+                        <a href="{{ route('shopping-cart.checkout.index') }}" class="w-full block text-center py-3 bg-primary text-white rounded-lg">
                             ثبت سفارش
-                        </button>
+                        </a>
                     </div>
                     <p class="text-xs text-gray-400 py-2 leading-relaxed">
                         هزینه این سفارش هنوز پرداخت نشده‌ و در صورت اتمام موجودی، کالاها

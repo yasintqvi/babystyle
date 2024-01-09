@@ -44,7 +44,7 @@ class ProductController extends Controller
      */
     public function fetch()
     {
-        $products = Product::query()->select('id', 'title', 'quantity', 'primary_image', 'category_id', 'is_active', 'brand_id')->with(['category', 'brand'])->latest();
+        $products = Product::query()->select('id', 'title', 'quantity', 'slug', 'primary_image', 'category_id', 'is_active', 'brand_id')->with(['category', 'brand'])->latest();
 
         if ($keyword = request('search')) {
             $products->search($keyword);

@@ -3,10 +3,10 @@ let closeSideBar = document.querySelector("#closeSideBar");
 let sideBar = document.querySelector("#sideBar");
 let sideBarSub = document
   .querySelector("#sideBar")
-  .querySelector(".menu")
-  .querySelectorAll("li.relative");
+  ?.querySelector(".menu")
+  ?.querySelectorAll("li.relative");
 
-sideBarSub.forEach((item) => {
+sideBarSub?.forEach((item) => {
   item.addEventListener("click", (e) => {
     let isDiv = item.children[0] === e.target.parentElement;
     let isLi = item.children[0] === e.target;
@@ -22,9 +22,9 @@ const sideBarHandeler = () => {
   sideBar.parentElement.classList.toggle("!z-50");
 };
 
-closeSideBar.addEventListener("click", sideBarHandeler);
+closeSideBar?.addEventListener("click", sideBarHandeler);
 
-openSideBar.addEventListener("click", sideBarHandeler);
+openSideBar?.addEventListener("click", sideBarHandeler);
 
 // end side bar
 
@@ -144,12 +144,12 @@ let searchBox = document.querySelector("#searchBox");
 let searchIcon = document.querySelector("#searchIcon");
 let hiddenSearchBoxIcon = document.querySelector("#hiddenSearchBox");
 
-searchIcon.addEventListener("click", (e) => {
+searchIcon?.addEventListener("click", (e) => {
   searchBox.classList.remove("opacity-0");
   searchBox.classList.remove("!w-0");
 });
 
-hiddenSearchBoxIcon.addEventListener("click", (e) => {
+hiddenSearchBoxIcon?.addEventListener("click", (e) => {
   e.preventDefault();
 
   searchBox.classList.add("opacity-0");
@@ -352,6 +352,22 @@ let toggelShowAddressByClass = (btnClass, containerClass) => {
 toggelShowAddressByClass(".addressUDBTN", ".addressUDContainer");
 toggelShowAddressByClass(".editAddressBTN", ".editAddressContainer");
 toggelShowAddressByClass(".closeEditAddressBTN", ".editAddressContainer");
+toggelShowAddressByClass(
+  ".editCheckoutAddressBTN",
+  ".editCheckoutAddressContainer"
+);
+toggelShowAddressByClass(
+  ".closeEditAddressBTN",
+  ".editCheckoutAddressContainer"
+);
+toggelShowAddressByClass(
+  ".checkoutAddNewAddressBTN",
+  ".checkoutAddNewAddressContainer"
+);
+toggelShowAddressByClass(
+  ".closeAddNewAddressBTN",
+  ".checkoutAddNewAddressContainer"
+);
 
 let toggelShowAddress = (btnId, containerId) => {
   let BTN = document.querySelector(btnId);

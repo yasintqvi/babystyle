@@ -16,7 +16,7 @@ class AddressController extends Controller
     {
         $addresses = Address::where('user_id', auth()->id())->get();
         $provinces = Province::all();
-        return view('app.profile.addresse' , compact('addresses' , 'provinces'));
+        return view('app.profile.addresses' , compact('addresses' , 'provinces'));
     }
 
     public function store(AddressRequest $request)

@@ -56,7 +56,7 @@
                 </span>
                 <span> دیدگاه‌ها</span>
             </a>
-            <a href="#" class="flex items-center py-3 text-sm gap-2 text-gray-600">
+            <a href="{{ route('profile.addresses.index') }}" class="flex {{ isActiveLink('profile.addresses.index') ? 'text-primary' : '' }} items-center py-3 text-sm gap-2 text-gray-600">
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-5">

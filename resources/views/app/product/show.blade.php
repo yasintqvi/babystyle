@@ -91,15 +91,16 @@
                 <form action="{{ route('shopping-cart.store', $product->id) }}" method="post" id="add_to_cart_form">
                     @csrf
                     <div class="my-3" id="discountZone">
-                        <span class="text-gray-500 text-lg tracking-wide line-through mx-2" id="oldPrice"></span>
-                        <span class="text-danger py-.5 px-2 text-white bg-red-600 rounded-lg font-bold" id="discountRate"></span>
+                        <span class="text-gray-500 text-lg tracking-wide line-through mx-2 money" id="oldPrice"></span>
+                        <span class="text-danger py-.5 px-2 text-white bg-red-600 rounded-lg font-bold hidden"
+                            id="discountRate"></span>
                     </div>
                     @if (collect($variations)->isEmpty())
                         <div class="text-primary text-center md:text-start">
                             @if ($product->quantity > 0)
                                 <div>
                                     <span
-                                        class="text-3xl font-bold tracking-widest">{{ $product->items()->first()->price }}</span>
+                                        class="text-3xl font-bold tracking-widest money">{{ $product->items()->first()->price }}</span>
                                     تومان
                                 </div>
                             @else
@@ -421,9 +422,29 @@
     <script src="{{ asset('assets/app/js/shoppingCart.js') }}"></script>
 
     <script>
+        const moneiesElements = document.querySelectorAll('.money');
+
+        [...moneiesElements].map((item) => {
+            item.textContent = formatNumber(item.textContent);
+        });
+
+        function formatNumber(value) {
+            console.log(value);
+            const regex = /(\d)(?=(\d{3})+$)/g;
+            return value.toString().replace(regex, '$1,');
+        }
+    </script>
+
+    @if ($product->category->variations->isNotEmpty())
+        <script>
+            checkAndGetPrice();
+        </script>
+    @endif
+
+    <script>
         const addToCartForm = document.querySelector('#add_to_cart_form');
         const addToCartBtn = document.querySelector('#add_to_cart_btn');
-        
+
         document.addEventListener('DOMContentLoaded', function() {
 
             addToCartForm.addEventListener('submit', (event) => {
@@ -432,8 +453,6 @@
                 shopCart.addToCart(addToCartForm);
             })
         });
-
-        checkAndGetPrice();
 
         function checkAndGetPrice() {
             const formData = new FormData(addToCartForm);
@@ -452,6 +471,7 @@
                         if (data.price) {
                             if (data.discount) {
                                 discountZone.classList.remove('hidden');
+                                discountRate.classList.remove('hidden');
                                 price.innerText = `${formatNumber(data.discount.price)} تومان`;
                                 oldPrice.innerText = data.price;
                                 discountRate.innerText = `${data.discount.rate} %`;
@@ -476,11 +496,6 @@
                 .catch(err => {
                     console.log(err);
                 });
-        }
-
-        function formatNumber(value) {
-            const regex = /(\d)(?=(\d{3})+$)/g;
-            return value.toString().replace(regex, '$1,');
         }
     </script>
 @endsection
