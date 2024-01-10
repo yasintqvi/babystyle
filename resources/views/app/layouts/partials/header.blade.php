@@ -29,7 +29,7 @@
                     class="fixed z-50 flex top-0 right-0 w-0 h-full overflow-hidden bg-black bg-opacity-20 transition-all duration-300">
                     <div class="w-4/5 sm:w-1/2 h-full bg-white overflow-scroll px-4">
                         <!-- logo -->
-                        <a href="#" class="w-full my-5 flex justify-center !z-50">
+                        <a href="{{ route('home') }}" class="w-full my-5 flex justify-center !z-50">
                             <img class="w-24" src="{{ asset('assets/app/images/logo-home.png') }}"
                                 alt="لوگوی بیبی استایل" />
                         </a>
@@ -86,7 +86,7 @@
                 </div>
             </div>
             <!-- logo -->
-            <a href="#" class="w-10 lg:w-20 m-3">
+            <a href="{{route('home')}}" class="w-10 lg:w-20 m-3">
                 <img src="{{ asset('assets/app/images/logo-home.png') }}" alt="" />
             </a>
 
@@ -170,7 +170,7 @@
 
                             </form>
                         </div>
-
+                        @auth
                         <div class="mx-3 px-3 relative">
                             <a href="{{ route('shopping-cart.index') }}" id="cardBarIcon" class="text-end w-full">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -179,9 +179,9 @@
                                         d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                                 </svg>
                             </a>
-                            <span class="px-2 bg-red-500 text-white rounded-full absolute -bottom-3 left-1 " id="shopping_items_count">{{ $shoppingCartCount }}</span>
+                            <a href="{{ route('shopping-cart.index') }}" class="px-2 bg-red-500 text-white rounded-full absolute -bottom-3 left-1 " id="shopping_items_count">{{ $shoppingCartCount }}</a>
                         </div>
-
+                        @endauth
                         @guest
                             <a href="{{ route('login.form', ['backUrl' => request()->getRequestUri()]) }}"
                                 class="hidden lg:block px-3 py-1.5 text-end h-10">
@@ -212,11 +212,11 @@
                                     class="absolute top-full left-0 bg-white rounded-md w-56 border p-4 pb-2 hidden">
                                     <div class="divide-y">
                                         <div class="flex justify-between items-center pb-3">
-                                            <div class="flex flex-col font-medium items-center">
+                                            <a href="{{ route('profile.index') }}" class="flex flex-col font-medium items-center">
                                                 <span>{{ auth()->user()->fullName ?? auth()->user()->phone_number }}</span>
-                                            </div>
+                                            </a>
 
-                                            <a href="#">
+                                            <a href="{{ route('profile.index') }}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                                     class="w-6 h-6">

@@ -28,8 +28,8 @@ class AddressRequest extends FormRequest
             'postal_code' => ['required', 'regex:/\b(?!(\d)\1{3})[13-9]{4}[1346-9][013-9]{5}\b/'],
             'plaque' => 'nullable',
             'unit' => 'nullable',
-            'receiver_full_name' => 'required',
-            'receiver_phone_number' => 'required',
+            'receiver_full_name' => 'nullable',
+            'receiver_phone_number' => 'nullable',
         ];
     }
 

@@ -93,16 +93,16 @@
                 <form action="{{ route('shopping-cart.store', $product->id) }}" method="post" id="add_to_cart_form">
                     @csrf
                     <div class="my-3" id="discountZone">
-                        <span class="text-gray-500 text-lg tracking-wide line-through mx-2" id="oldPrice">21000000</span>
-                        <span class="text-danger py-.5 px-2 text-white bg-red-600 rounded-lg font-bold" id="discountRate">44
-                            %</span>
+                        <span class="text-gray-500 text-lg tracking-wide line-through mx-2 money" id="oldPrice"></span>
+                        <span class="text-danger py-.5 px-2 text-white bg-red-600 rounded-lg font-bold hidden"
+                            id="discountRate"></span>
                     </div>
                     @if (collect($variations)->isEmpty())
                         <div class="text-primary text-center md:text-start">
                             @if ($product->quantity > 0)
                                 <div>
                                     <span
-                                        class="text-3xl font-bold tracking-widest">{{ $product->items()->first()->price }}</span>
+                                        class="text-3xl font-bold tracking-widest money">{{ $product->items()->first()->price }}</span>
                                     تومان
                                 </div>
                             @else
@@ -190,15 +190,15 @@
                 <div class="md:w-1/4 w-full relative pb-2">
                     <div class="sticky top-0 pl-2 py-2">
                         <div class="">
-                            <span class="text-xl font-bold">{{ ceil($product->reats->avg('rate')) }}</span>
+                            <span class="text-xl font-bold">{{ ceil($product->commentApproved->avg('rate')) }}</span>
                             <span class="text-xs px-1">از 5</span>
                         </div>
                         <div class="flex items-center">
 
                             <div id="dataReadonlyReview"
-                                data-rating-stars="5"
+                                data-rating-stars="5"   
                                 data-rating-readonly="true"
-                                data-rating-value="{{ ceil($product->reats->avg('rate')) }}"
+                                data-rating-value="{{ ceil($product->commentApproved->avg('rate')) }}"
                                 data-rating-input="#dataReadonlyInput">
                             </div>
 
@@ -212,8 +212,8 @@
                                 ثبت دیدگاه و امتیاز
                             </button>
                             <div
-                                class="NewCommentCountainer z-50 fixed flex items-center justify-center w-full h-full top-0 left-0 bg-black bg-opacity-20 {{ count($errors) > 0 ? '' : 'hidden'}}">
-                                <div class="md:w-1/3 sm:w-2/3 w-full bg-white p-4 rounded-md m-3 ">
+                                class="NewCommentCountainer fixed flex items-center justify-center w-full h-full top-0 left-0 z-40 bg-black bg-opacity-20 {{ count($errors) > 0 ? '' : 'hidden'}}">
+                                <div class="md:w-1/3 sm:w-2/3 w-full  overflow-y-auto bg-white p-4 rounded-md m-3">
                                     <div class="flex justify-between mb-4">
                                         <span class="text-base font-medium text-black">دیدگاه شما
                                         </span>
@@ -249,7 +249,7 @@
                                         </div>
                                         
                                         <div class="sticky bottom-0 w-full">
-                                            <button class="openNewCommentBTN w-full py-2 text-white bg-red-600 rounded-md">
+                                            <button class="openNewCommentBTN w-full py-2 text-white bg-primary rounded-md">
                                                 ثبت دیدگاه و امتیاز
                                             </button>
                                         </div>
@@ -327,6 +327,26 @@
     <script src="{{ asset('assets/app/js/rating.js') }}"></script>
 
     <script>
+        const moneiesElements = document.querySelectorAll('.money');
+
+        [...moneiesElements].map((item) => {
+            item.textContent = formatNumber(item.textContent);
+        });
+
+        function formatNumber(value) {
+            console.log(value);
+            const regex = /(\d)(?=(\d{3})+$)/g;
+            return value.toString().replace(regex, '$1,');
+        }
+    </script>
+
+    @if ($product->category->variations->isNotEmpty())
+        <script>
+            checkAndGetPrice();
+        </script>
+    @endif
+
+    <script>
         const addToCartForm = document.querySelector('#add_to_cart_form');
         const addToCartBtn = document.querySelector('#add_to_cart_btn');
 
@@ -338,8 +358,6 @@
                 shopCart.addToCart(addToCartForm);
             })
         });
-
-        checkAndGetPrice();
 
         function checkAndGetPrice() {
             const formData = new FormData(addToCartForm);
@@ -358,6 +376,7 @@
                         if (data.price) {
                             if (data.discount) {
                                 discountZone.classList.remove('hidden');
+                                discountRate.classList.remove('hidden');
                                 price.innerText = `${formatNumber(data.discount.price)} تومان`;
                                 oldPrice.innerText = data.price;
                                 discountRate.innerText = `${data.discount.rate} %`;
@@ -382,11 +401,6 @@
                 .catch(err => {
                     console.log(err);
                 });
-        }
-
-        function formatNumber(value) {
-            const regex = /(\d)(?=(\d{3})+$)/g;
-            return value.toString().replace(regex, '$1,');
         }
     </script>
 @endsection

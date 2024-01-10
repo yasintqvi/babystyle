@@ -101,7 +101,6 @@
                     <button type="submit" class="w-full py-2 border-transparent bg-green-400 text-white rounded-md mt-4">
                         اعمال تغییرات
                     </button>
-                </div>
                 </form>
             </div>
         </div>

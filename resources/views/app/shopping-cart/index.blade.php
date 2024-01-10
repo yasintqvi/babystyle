@@ -18,7 +18,7 @@
                         <span class="font-semibold text-gray-700">سبد خرید شما</span>
                     </div>
                     <div class="text-gray-500 text-sm px-5">
-                        <span> 2</span>
+                        <span>{{ $shoppingCartItems->sum('quantity') }}</span>
                         <span> کالا</span>
                     </div>
                     <div class="divide-y">
@@ -66,48 +66,51 @@
                                 </div>
                                 <div class="flex justify-between items-center">
                                     @if ($productItem->quantity > 0)
-                                        <div class="flex mt-6 space-x-2 space-x-reverse">
+                                        <div class="flex items-center mt-6 space-x-2 space-x-reverse">
                                             <form
                                                 action="{{ route('shopping-cart.change-quantity', $shoppingCartItem->id) }}"
-                                                method="POST" id="quantityForm" class="min-w-[8rem] rounded px-2">
+                                                method="POST" id="quantityForm"
+                                                class="rounded px-2 quantity-form">
                                                 @csrf
-                                                <div
-                                                    class="border flex justify-between items-center rounded-lg text-red-400">
-                                                    <button class="text-2xl w-1/3 flex justify-center items-center py-1"
-                                                        data-action="plus">
-                                                        +
-                                                    </button>
-                                                    <input type="hidden" name="quantity"
-                                                        value="{{ $shoppingCartItem->quantity }}">
-                                                    <span
-                                                        class="text-lg w-1/3 flex justify-center items-center py-1">{{ $shoppingCartItem->quantity }}</span>
-                                                    <button class="text-2xl w-1/3 flex justify-center items-center py-1"
-                                                        data-action="minus">
-                                                        -
-                                                    </button>
+                                                <div class="flex flex-col sm:flex-row items-center">
+                                                    <div
+                                                        class="border min-w-[8rem] ml-3 flex justify-between items-center rounded-lg text-red-400">
+                                                        <button class="text-2xl w-1/3 flex justify-center items-center py-1"
+                                                            data-action="plus">
+                                                            +
+                                                        </button>
+                                                        <input type="hidden" name="quantity"
+                                                            value="{{ $shoppingCartItem->quantity }}">
+                                                        <span class="text-lg w-1/3 flex justify-center items-center py-1"
+                                                            id="currentQuantity">{{ $shoppingCartItem->quantity }}</span>
+                                                        <button class="text-2xl w-1/3 flex justify-center items-center py-1"
+                                                            data-action="minus">
+                                                            -
+                                                        </button>
+                                                    </div>
+                                                    @php
+                                                        $totalAmount += $productItem->price * $shoppingCartItem->quantity;
+                                                    @endphp
+                                                    <div class="space-y-1">
+                                                        @if ($productItem->hasDiscount())
+                                                            @php
+                                                                $discountAmountItem = ($productItem->price - $productItem->price_with_discount) * $shoppingCartItem->quantity;
+                                                                $discountAmount += $discountAmountItem;
+                                                            @endphp
+                                                            <div class="text-sm text-red-400 font-medium">
+                                                                <span class="money">{{ $discountAmountItem }}</span>
+                                                                <span class="text-xs">تومان</span>
+                                                                <span> تخفیف</span>
+                                                            </div>
+                                                        @endif
+                                                        <div class="text-lg font-medium ">
+                                                            <span
+                                                                class="money product-price-unit" data-unit-price="{{ $productItem->price_with_discount }}">{{ $productItem->price_with_discount * $shoppingCartItem->quantity }}</span>
+                                                            <span class="text-sm"> تومان </span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </form>
-
-                                            @php
-                                                $totalAmount += $productItem->price * $shoppingCartItem->quantity;
-                                            @endphp
-                                            <div class="space-y-1">
-                                                @if ($productItem->hasDiscount())
-                                                    @php
-                                                        $discountAmountItem = $productItem->price - $productItem->price_with_discount * $shoppingCartItem->quantity;
-                                                        $discountAmount += $discountAmountItem;
-                                                    @endphp
-                                                    <div class="text-sm text-red-400 font-medium">
-                                                        <span class="money">{{ $discountAmountItem }}</span>
-                                                        <span class="text-xs">تومان</span>
-                                                        <span> تخفیف</span>
-                                                    </div>
-                                                @endif
-                                                <div class="text-lg font-medium ">
-                                                    <span class="money">{{ $productItem->price_with_discount }}</span>
-                                                    <span class="text-sm"> تومان </span>
-                                                </div>
-                                            </div>
                                         </div>
                                     @else
                                         <div
@@ -126,7 +129,9 @@
                                 </div>
                             </div>
                         @empty
-                            سبد خرید خالی می باشد.
+                            <div class="text-gray-600 text-center py-3">
+                                سبد خرید خالی می باشد.
+                            </div>
                         @endforelse
                     </div>
                 </div>
@@ -134,31 +139,34 @@
             <div class="md:w-1/4 w-full">
                 <div class="sticky top-2">
                     <div class="space-y-4 border rounded-lg font-medium p-5 text-sm">
+                        <form action="{{ route('shopping-cart.get-amounts') }}" method="post" id="getAmountsForm">
+                            @csrf
+                        </form>
                         <div class="flex justify-between text-gray-500">
                             <span>قیمت کل</span>
                             <span>
-                                <span class="money">{{ $totalAmount }}</span>
+                                <span class="money" id="totalAmount">{{ $totalAmount }}</span>
 
                                 <span class="text-xs">تومان</span>
                             </span>
                         </div>
                         <div class="flex justify-between text-gray-600">
-                            <span> جمع سبد خرید </span>
+                            <span> جمع سبد خرید (قابل پرداخت) </span>
                             <span>
-                                <span class="money">{{ $totalAmount - $discountAmount }}</span>
+                                <span class="money" id="final_amount">{{ $totalAmount - $discountAmount }}</span>
                                 <span class="text-xs">تومان</span>
                             </span>
                         </div>
                         <div class="flex justify-between items-center text-red-500">
                             <span> سود شما از خرید </span>
                             <span>
-                                <span class="money">{{ $discountAmount }}</span>
+                                <span class="money" id="discountAmount">{{ $discountAmount }}</span>
                                 <span class="text-xs">تومان</span>
                             </span>
                         </div>
-                        <button class="w-full py-3 bg-primary text-white rounded-lg">
+                        <a href="{{ route('shopping-cart.checkout.index') }}" class="w-full block text-center py-3 bg-primary text-white rounded-lg">
                             ثبت سفارش
-                        </button>
+                        </a>
                     </div>
                     <p class="text-xs text-gray-400 py-2 leading-relaxed">
                         هزینه این سفارش هنوز پرداخت نشده‌ و در صورت اتمام موجودی، کالاها
@@ -180,16 +188,22 @@
 @endsection
 
 @section('script')
-    <script src="{{ asset('assets/app/js/custom.js') }}"></script>
     <script src="{{ asset('assets/app/js/shoppingCart.js') }}"></script>
+    <script src="{{ asset('assets/app/js/custom.js') }}"></script>
 
     <script>
-        const quantityForm = document.querySelector('#quantityForm');
+        const quantityForms = document.querySelectorAll('.quantity-form');
         document.addEventListener("DOMContentLoaded", () => {
-            quantityForm.addEventListener('submit', (event) => {
-                event.preventDefault();
-                const shc = new ShoppingCart(quantityForm);
-                shc.changeQuantity();
+            [...quantityForms].map((form) => {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const {
+                        target: qtyForm,
+                        submitter
+                    } = e;
+                    const shc = new ShoppingCart();
+                    shc.changeQuantity(qtyForm, submitter.dataset.action);
+                })
             })
         })
     </script>

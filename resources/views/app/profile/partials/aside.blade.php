@@ -16,7 +16,7 @@
                     </svg>
                 </a>
             </div>
-            <a href="{{ route('profile.index') }}" class="flex items-center py-3 text-sm gap-2 text-gray-600">
+            {{-- <a href="{{ route('profile.index') }}" class="flex items-center py-3 text-sm gap-2 text-gray-600">
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-5">
@@ -25,8 +25,8 @@
                     </svg>
                 </span>
                 <span class="font-medium"> خلاصه فعالیت ‌ها</span>
-            </a>
-            <a href="orders.html" class="flex items-center py-3 text-sm gap-2 text-gray-600">
+            </a> --}}
+            {{-- <a href="orders.html" class="flex items-center py-3 text-sm gap-2 text-gray-600">
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-5">
@@ -35,8 +35,8 @@
                     </svg>
                 </span>
                 <span class=" "> سفارش‌ها</span>
-            </a>
-            <a href="#" class="flex items-center py-3 text-sm gap-2 text-gray-600">
+            </a> --}}
+            {{-- <a href="#" class="flex items-center py-3 text-sm gap-2 text-gray-600">
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-5">
@@ -45,8 +45,8 @@
                     </svg>
                 </span>
                 <span> لیست‌های من</span>
-            </a>
-            <a href="#" class="flex items-center py-3 text-sm gap-2 text-gray-600">
+            </a> --}}
+            <a href="{{ route('profile.comments.index') }}" class="flex {{ isActiveLink('profile.comments.index') ? 'text-primary' : '' }} items-center py-3 text-sm gap-2 text-gray-600">
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-5">
@@ -56,7 +56,7 @@
                 </span>
                 <span> دیدگاه‌ها</span>
             </a>
-            <a href="#" class="flex items-center py-3 text-sm gap-2 text-gray-600">
+            <a href="{{ route('profile.addresses.index') }}" class="flex {{ isActiveLink('profile.addresses.index') ? 'text-primary' : '' }} items-center py-3 text-sm gap-2 text-gray-600">
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-5">
@@ -68,7 +68,7 @@
                 </span>
                 <span> آدرس‌ها</span>
             </a>
-            <a href="#" class="flex items-center py-3 text-sm gap-2 text-gray-600">
+            {{-- <a href="#" class="flex items-center py-3 text-sm gap-2 text-gray-600">
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke-width="1.5" stroke="currentColor" class="w-5">
@@ -77,8 +77,8 @@
                     </svg>
                 </span>
                 <span> کارت‌های هدیه</span>
-            </a>
-            <a href="#" class="flex items-center py-3 text-sm gap-2 text-gray-600">
+            </a> --}}
+            {{-- <a href="#" class="flex items-center py-3 text-sm gap-2 text-gray-600">
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke-width="1.5" stroke="currentColor" class="w-5">
@@ -87,8 +87,8 @@
                     </svg>
                 </span>
                 <span> پیغام‌ها</span>
-            </a>
-            <a href="#" class="flex items-center py-3 text-sm gap-2 text-gray-600">
+            </a> --}}
+            {{-- <a href="#" class="flex items-center py-3 text-sm gap-2 text-gray-600">
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke-width="1.5" stroke="currentColor" class="w-5">
@@ -97,8 +97,8 @@
                     </svg>
                 </span>
                 <span> بازدید‌های اخیر</span>
-            </a>
-            <a href="#" class="flex items-center py-3 text-sm gap-2 text-gray-600">
+            </a> --}}
+            <a href="{{route('profile.edit')}}" class="flex {{ isActiveLink('profile.edit') ? 'text-primary' : '' }} items-center py-3 text-sm gap-2 text-gray-600">
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke-width="1.5" stroke="currentColor" class="w-5">

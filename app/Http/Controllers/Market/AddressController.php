@@ -16,7 +16,7 @@ class AddressController extends Controller
     {
         $addresses = Address::where('user_id', auth()->id())->get();
         $provinces = Province::all();
-        return view('app.profile.addresse' , compact('addresses' , 'provinces'));
+        return view('app.profile.addresses' , compact('addresses' , 'provinces'));
     }
 
     public function store(AddressRequest $request)
@@ -40,5 +40,11 @@ class AddressController extends Controller
     {
         $cities = City::where('province_id' , $request->province_id)->get();
         return $cities;
+    }
+
+    public function destroy(Address $address)
+    {
+        $address->delete();
+        return back()->with('success', 'آدرس مورد نظر حذف شد');
     }
 }

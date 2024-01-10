@@ -24,7 +24,7 @@ class DiscountCodeRequest extends FormRequest
         return [
             'name' => 'required',
             'description' => 'required',
-            'code' => 'required|max:120|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u',
+            'code' => 'required|max:120|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u|unique:discount_codes,code',
             'type' => 'required|in:0,1',
             'start_date' => 'required|numeric',
             'end_date' => 'required|numeric',

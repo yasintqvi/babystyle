@@ -53,7 +53,7 @@
                             <label class="form-label" for="fv-full-name">وضعیت</label>
                             <div class="form-control-wrap">
                                 <input type="text" disabled class="form-control" id="fv-full-name" name="question"
-                                    value="{{ $comment->is_approved }}">
+                                    value="{{ $comment->is_approved_comment }}">
                             </div>
                 
                         </div>
@@ -80,7 +80,7 @@
                     
                     <div class="col-md-12">
                         <div class="form-group">
-                            @if ($comment->getRawOriginal('is_approved'))
+                            @if ($comment->getRawOriginal('is_approved_comment'))
                             <a href="{{ route('admin.market.comments.change-approved' , $comment->id) }}" type="submit" class="btn btn-danger">عدم تایید</a>
                                 @else
                             <a href="{{ route('admin.market.comments.change-approved' , $comment->id) }}" type="submit" class="btn btn-success">تایید</a>

@@ -17,6 +17,7 @@ class CommentController extends Controller
          $this->middleware('can:manage_comment')->only('index');
          $this->middleware('can:show_comment')->only('show');
      }
+     
     public function index()
     {
         $unSeenComments = Comment::where('is_seen' , 0)->get();

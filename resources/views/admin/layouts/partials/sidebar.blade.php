@@ -82,6 +82,8 @@
                             <span class="nk-menu-text">منو ها</span>
                         </a>
                     </li>
+                    @endcan
+                    @can('manage_slider')
                     <li class="nk-menu-item">
                         <a href="{{ route('admin.market.sliders.index') }}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-layer"></em></span>
@@ -119,7 +121,6 @@
                         <a href="{{ route('admin.market.shipping-methods.index')}}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-swap"></em></span>
                             <span class="nk-menu-text">روش های ارسال</span>
-                            <span class="badge rounded-pill bg-primary" style="margin-left: 10px">{{ $comments->count() == 1 ? $comments->count() : null }}</span> 
                         </a>
                     </li>
                     @endcan
@@ -129,7 +130,6 @@
                         <a href="{{ route('admin.market.discount-codes.index')}}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-ticket"></em></span>
                             <span class="nk-menu-text">کد تخفیف</span>
-                            <span class="badge rounded-pill bg-primary" style="margin-left: 10px">{{ $comments->count() == 1 ? $comments->count() : null }}</span> 
                         </a>
                     </li>
                     @endcan

@@ -144,9 +144,9 @@ class Product extends Model
         return $this->hasMany(Comment::class)->where('is_approved', 1);
     }
 
-    public function reats()
+    public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->where('is_approved', 1);
     }
 
 }

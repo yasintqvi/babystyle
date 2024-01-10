@@ -21,7 +21,6 @@
         </div>
     @endif
 
-    {{-- {{dd($errors)}} --}}
     <section>
         <div class="container flex flex-wrap py-5">
             @include('app.profile.partials.aside')
@@ -51,7 +50,7 @@
                             <span>ثبت آدرس جدید</span>
                             <button id="addNewAddressBTN" class="absolute w-full h-full top-0 left-0"></button>
                             <div id="addNewAddressCountainer"
-                                class="fixed flex items-center justify-center w-full h-full top-0 left-0 z-40 bg-black bg-opacity-20 hidden">
+                                class="fixed flex items-center justify-center w-full h-full top-0 left-0 z-40 bg-black bg-opacity-20 hidden }}">
                                 <div class="md:w-1/2 sm:w-2/3 w-full bg-white p-4 rounded-md m-3">
                                     <div class="flex justify-between mb-4">
                                         <span class="text-base font-medium text-black">آدرس جدید</span>
@@ -97,30 +96,30 @@
                                                 name="receiver_phone_number" id=""
                                                 class="w-full outline-none border rounded-md p-1" />
                                         </div>
-                                        <div class="sm:w-1/2 w-full p-2">
+                                        <div class="sm:w-1/3 w-full p-2">
                                             <label for="" class="block my-1">کد پستی </label>
                                             <input type="number" value="{{ old('postal_code') }}" name="postal_code"
                                                 id="" class="w-full outline-none border rounded-md p-1" />
                                         </div>
-                                        <div class="sm:w-1/2 w-full p-2">
+                                        <div class="sm:w-1/3 w-full p-2">
                                             <label for="" class="block my-1">پلاک</label>
                                             <input type="number" value="{{ old('plaque') }}" name="plaque" id=""
                                                 class="w-full outline-none border rounded-md p-1" />
                                         </div>
 
-                                        <div class="sm:w-1/2 w-full p-2">
+                                        <div class="sm:w-1/3 w-full p-2">
                                             <label for="" class="block my-1">واحد</label>
                                             <input type="number" value="{{ old('unit') }}" name="unit"
                                                 id="" class="w-full outline-none border rounded-md p-1" />
                                         </div>
 
-                                        <div class="flex flex-col md:w-1/2 w-full p-2">
+                                        <div class="flex flex-col my-2 w-full p-2">
                                             <label for="" class="block my-1" class="">آدرس دقیق
                                             </label>
                                             <textarea name="address" id="" cols="30" rows="10" class="h-20 outline-0 border rounded-md p-1">{{ old('address') }}</textarea>
                                         </div>
                                         <div class="sticky bottom-0 w-full">
-                                            <button class="w-full py-2 text-white bg-red-600 rounded-md">
+                                            <button class="w-full py-2 text-white bg-primary rounded-md">
                                                 ثبت آدرس
                                             </button>
                                         </div>
@@ -158,7 +157,6 @@
                                                 <div class="">
                                                   <span class="w-max">ویرایش آدرس</span>
                                                   <button class="editAddressBTN absolute w-full h-full top-0 left-0"></button>
-                          
                                                   <div
                                                     class="editAddressContainer fixed flex items-center justify-center w-full h-full top-0 left-0 z-40 bg-black bg-opacity-20 hidden">
                                                     <div class="md:w-1/2 sm:w-2/3 w-full bg-white p-4 rounded-md m-3">
@@ -244,16 +242,20 @@
                                                         </div>
                                                         <div class="sticky bottom-0 w-full">
                                                             <button
-                                                                class="w-full py-2 text-white bg-red-600 rounded-md">
+                                                                class="w-full py-2 text-white bg-primary rounded-md">
                                                                 ویرایش آدرس
                                                             </button>
                                                         </div>
+                                                        
                                                     </form>
                                                     </div>
                                                   </div>
                                                 </div>
                                               </a>
-                                            <a href="#" class="flex gap-2 px-2 py-3 text-sm">
+                                        <form action="{{route('profile.addresses.destroy', $address->id)}}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button href="#" class="flex gap-2 px-2 py-3 text-sm">
                                                 <svg class="w-3 fill-red-500" xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 448 512">
                                                     <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
@@ -261,7 +263,8 @@
                                                         d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
                                                 </svg>
                                                 <span class="w-max">حذف آدرس</span>
-                                            </a>
+                                            </button>
+                                        </form>
                                         </div>
                                     </div>
                                 </div>

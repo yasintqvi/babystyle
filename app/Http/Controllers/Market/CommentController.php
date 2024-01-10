@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
+
+    public function index(Product $product)
+    {
+        $comments = Comment::query()->where('user_id', auth()->id());
+        $comments = $comments->paginate(7);
+        return view('app.profile.comments' , compact('comments'));
+    }
     public function store(Request $request, Product $product)
     {
         if(Auth::guest())
