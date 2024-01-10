@@ -38,10 +38,6 @@ class ShoppingCartController extends Controller
     public function store(Request $request, Product $product)
     {
 
-        if (Auth::guest()) {
-            return response()->json(['success' => false, 'redirect' => route('login.form') . "?backUrl=products/{$product->slug}"], 401);
-        }
-
         $user = $request->user();
 
         $userShoppingCart = $user->shoppingCart()->first();

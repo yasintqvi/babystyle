@@ -9,6 +9,7 @@ use App\Http\Controllers\Market\CheckoutController;
 use App\Http\Controllers\Market\AddressController;
 use App\Http\Controllers\Market\HomeController;
 use App\Http\Controllers\Market\ShoppingCartController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Market\ProductController as AppProductController;
 use Illuminate\Support\Facades\Auth;
@@ -77,14 +78,19 @@ Route::get('products', [AppProductController::class, 'index'])->name('products.i
 Route::get('products/{product:slug}', [AppProductController::class, 'show'])->name('products.show');
 Route::post('products/get-price/{product}', [AppProductController::class, 'getPrice'])->name('products.get-price');
 
-Route::prefix('shopping-cart')->middleware('auth')->as('shopping-cart.')->group(function() {
-    Route::get('/', [ShoppingCartController::class, 'index'])->name('index');
-    Route::delete('shopping-cart/{shoppingCartItem}', [ShoppingCartController::class, 'destroy'])->name('destroy');
-    Route::post('/{product}', [ShoppingCartController::class, 'store'])->name('store');
-    Route::post('/shopping-cart/{shoppingCartItem}/change-quantity', [ShoppingCartController::class, 'changeQuantity'])->name('change-quantity');
+Route::prefix('shopping-cart')->as('shopping-cart.')->group(function() {
+    Route::get('/', [ShoppingCartController::class, 'index'])->name('index')->middleware('auth');
+    Route::delete('shopping-cart/{shoppingCartItem}', [ShoppingCartController::class, 'destroy'])->name('destroy')->middleware('auth');
+    Route::post('/{product}', [ShoppingCartController::class, 'store'])->name('store')->middleware('auth-json-response');
+    Route::post('/shopping-cart/{shoppingCartItem}/change-quantity', [ShoppingCartController::class, 'changeQuantity'])->name('change-quantity')->middleware('auth');
     Route::post('/shopping-cart/get-amounts', [ShoppingCartController::class, 'getAmounts'])->name('get-amounts');
+    Route::post('/shopping-cart/checkout/get-amounts', [CheckoutController::class, 'getAmounts'])->name('checkout.get-amounts');
 
-    Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index')->middleware('check-shoppingcart');
+    Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index')->middleware(['auth', 'check-shoppingcart']);
 });
 
-Route::get('/get-province-cities-list' , [AddressController::class, 'getProvinceCitiesList']);
+Route::middleware(['auth', 'check-shopping-cart'])->group(function() {
+    Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
+});
+
+Route::get('/get-province-cities-list' , [AddressController::class, 'getProvinceCitiesList'])->middleware('auth');

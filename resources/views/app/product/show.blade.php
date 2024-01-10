@@ -435,25 +435,7 @@
         }
     </script>
 
-    @if ($product->category->variations->isNotEmpty())
-        <script>
-            checkAndGetPrice();
-        </script>
-    @endif
-
     <script>
-        const addToCartForm = document.querySelector('#add_to_cart_form');
-        const addToCartBtn = document.querySelector('#add_to_cart_btn');
-
-        document.addEventListener('DOMContentLoaded', function() {
-
-            addToCartForm.addEventListener('submit', (event) => {
-                event.preventDefault();
-                const shopCart = new ShoppingCart();
-                shopCart.addToCart(addToCartForm);
-            })
-        });
-
         function checkAndGetPrice() {
             const formData = new FormData(addToCartForm);
 
@@ -497,5 +479,28 @@
                     console.log(err);
                 });
         }
+    </script>
+
+
+    @if ($product->category->variations->isNotEmpty())
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                checkAndGetPrice();
+            })
+        </script>
+    @endif
+
+    <script>
+        const addToCartForm = document.querySelector('#add_to_cart_form');
+        const addToCartBtn = document.querySelector('#add_to_cart_btn');
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            addToCartForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const shopCart = new ShoppingCart();
+                shopCart.addToCart(addToCartForm);
+            })
+        });
     </script>
 @endsection
