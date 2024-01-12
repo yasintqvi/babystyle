@@ -18,6 +18,8 @@ class AdminDashboardController extends Controller
             $permissionSeed->run();
         }
 
+        
+
         return view('admin.dashboard');
 
     }

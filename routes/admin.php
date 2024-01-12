@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\Market\ProductAttributeController;
 use App\Http\Controllers\Admin\Market\ProductController;
 use App\Http\Controllers\Admin\Market\ShippingMethodController;
 use App\Http\Controllers\Admin\Market\SliderController;
+use App\Http\Controllers\Admin\Market\OrderController;
 use App\Http\Controllers\Admin\User\ChangePasswordController;
 use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Admin\Market\ProductItemController;
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::prefix('admin')->as('admin.')->group(function () {
+
     Route::get('/', fn() => view('admin.dashboard'))->name('index');
     Route::get('/', AdminDashboardController::class)->name('index');
 
@@ -86,11 +88,12 @@ Route::prefix('admin')->as('admin.')->group(function () {
         Route::get('discount-codes/fetch', [DiscountCodeController::class, "fetch"])->name('discount-codes.fetch');
         Route::resource('discount-codes', DiscountCodeController::class);
 
-
-
-
-        // تایید و عدم تایید کامنت
         Route::get('/comments/{comment}/chang-approved' , [CommentController::class , 'changeApproved'])->name('comments.change-approved');
+
+        Route::post('orders/{order}/change-status', [OrderController::class, "changeStatus"])->name('orders.change-status');
+        Route::get('orders/fetch', [OrderController::class, "fetch"])->name('orders.fetch');
+        Route::resource('orders', OrderController::class)->only('index', 'show');
+
     });
 
 });

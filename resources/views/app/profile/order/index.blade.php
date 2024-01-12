@@ -43,7 +43,7 @@
                             <div class="flex items-center mx-5 gap-4 pb-4">
                                 <span class="text-sm font-medium text-gray-600">
                                     {{-- 9 بهمن 1399 --}}
-                                    {{ getJalaliTime($order->order_date, 'd F Y') }}
+                                    {{ getJalaliTime($order->created_at, 'd F Y') }}
                                 </span>
                                 <span
                                     class="flex justify-center text-2xl font-bold bg-gray-300 h-1 aspect-square rounded-full"></span>

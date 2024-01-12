@@ -75,7 +75,6 @@ Route::prefix('profile')->middleware('auth')->as('profile.')->group(function () 
     Route::get('/comments', [CommentController::class, 'index'])->name('comments.index');
 
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
-    // Route::get('/orders', [OrderController::class, 'index'])->name('profile.orders.index');
 });
 
 
