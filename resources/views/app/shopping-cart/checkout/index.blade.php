@@ -77,11 +77,11 @@
             <div class="container flex flex-wrap md:flex-nowrap py-5 gap-4">
                 <div class="md:w-3/4 w-full space-y-3">
                     @if ($errors->any())
-                    <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
-                        <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                        <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                            <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                             </svg>
                             <span class="sr-only">Danger</span>
                             <div>
@@ -93,6 +93,35 @@
                                 </ul>
                             </div>
                         </div>
+                    @endif
+                    @if (auth()->user()->first_name && auth()->user()->last_name)
+                        <input type="hidden" value="{{ auth()->user()->first_name }}" name="first_name">
+                        <input type="hidden" value="{{ auth()->user()->last_name }}" name="last_name">
+                    @else
+                    <div class="border rounded-lg py-5 space-y-2 px-4">
+                        <div class="flex justify-between">
+                            <div class="flex items-center mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                </svg>
+                                <h1 class="mx-2 font-bold text-gray-600">تکمیل اطلاعات حساب کاربری</h1>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="sm:w-1/2 w-full p-2">
+                                <label for="" class="block my-1">نام </label>
+                                <input type="text" value="{{ old('first_name') }}" name="first_name" id=""
+                                    class="w-full outline-none border rounded-md p-1">
+                            </div>
+                            <div class="sm:w-1/2 w-full p-2">
+                                <label for="" class="block my-1">نام خانوادگی </label>
+                                <input type="text" value="{{ old('last_name') }}" name="last_name" id=""
+                                    class="w-full outline-none border rounded-md p-1">
+                            </div>
+                        </div>
+                    </div>
                     @endif
                     <div class="border rounded-lg py-5 space-y-2 px-4">
                         <div class="flex justify-between">

@@ -88,6 +88,11 @@ class OrderController extends Controller
                 'final_amount' => (int) $finalAmount,
             ]);
 
+            $request->user()->update([
+                'first_name' => $request->get('first_name'),
+                'last_name' => $request->get('last_name')
+            ]);
+
             $this->clearShoppingCartItems($order);
 
             return $order;
