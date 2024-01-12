@@ -15,6 +15,7 @@ class Comment extends Model
     protected $fillable = [
         'user_id',
         'product_item_id',
+        'product_id',
         'parent_id',
         'description',
         'is_seen',
@@ -48,7 +49,7 @@ class Comment extends Model
         return $this->belongsTo(Product::class);
     }
 
-    public function getISApprovedAttribute($is_active){
+    public function getISApprovedCommentAttribute($is_active){
         return $is_active ? "تایید شده" : "تایید نشده";
     }
 

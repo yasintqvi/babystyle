@@ -52,7 +52,7 @@ class ShoppingCart {
                     }
                     successAlert(data.message);
                 }
-                else if (!data.auth) {
+                else if (data.auth) {
                     errorAlert('برای اضافه کردن محصول به سبد خرید ابتدا وارد حساب کاربری خود شوید.');
                     setTimeout(() => {
                         successAlert('در حال انتقال به صفحه ورود ...');

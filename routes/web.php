@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Market\CheckoutController;
 use App\Http\Controllers\Market\AddressController;
+use App\Http\Controllers\Market\CommentController;
 use App\Http\Controllers\Market\HomeController;
 use App\Http\Controllers\Market\ShoppingCartController;
 use App\Http\Controllers\OrderController;
@@ -69,6 +70,12 @@ Route::prefix('profile')->middleware('auth')->as('profile.')->group(function () 
     Route::get('/addresses', [AddressController::class, 'index'])->name('addresses.index');
     Route::post('/addresses/store', [AddressController::class, 'store'])->name('addresses.store');
     Route::put('/addresses/update/{address}', [AddressController::class, 'update'])->name('addresses.update');
+    Route::delete('/addresses/destroy/{address}', [AddressController::class, 'destroy'])->name('addresses.destroy');
+
+    Route::get('/comments', [CommentController::class, 'index'])->name('comments.index');
+
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    // Route::get('/orders', [OrderController::class, 'index'])->name('profile.orders.index');
 });
 
 
@@ -77,6 +84,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('products', [AppProductController::class, 'index'])->name('products.index');
 Route::get('products/{product:slug}', [AppProductController::class, 'show'])->name('products.show');
 Route::post('products/get-price/{product}', [AppProductController::class, 'getPrice'])->name('products.get-price');
+Route::post('comments/{product}', [CommentController::class, 'store'])->name('comments.store');
 
 Route::prefix('shopping-cart')->as('shopping-cart.')->group(function() {
     Route::get('/', [ShoppingCartController::class, 'index'])->name('index')->middleware('auth');
@@ -89,8 +97,9 @@ Route::prefix('shopping-cart')->as('shopping-cart.')->group(function() {
     Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index')->middleware(['auth', 'check-shoppingcart']);
 });
 
-Route::middleware(['auth', 'check-shopping-cart'])->group(function() {
-    Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
+Route::middleware('auth')->group(function() {
+    Route::post('/orders', [OrderController::class, 'store'])->name('orders.store')->middleware('check-shoppingcart');
+    Route::get('orders/result', [OrderController::class, 'result'])->name('orders.result');
 });
 
 Route::get('/get-province-cities-list' , [AddressController::class, 'getProvinceCitiesList'])->middleware('auth');

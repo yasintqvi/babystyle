@@ -27,4 +27,12 @@ class OrderRequest extends FormRequest
             'discount_code' => 'nullable|string|max:255'
         ];
     }
+
+    public function messages(): array 
+    {
+        return [
+            'address_id' => 'لطفا یک آدرس را انتخاب نمایید',
+            'shipping_method_id' => 'لطفا یک از روش های ارسال را انتخاب نمایید'
+        ];
+    }
 }

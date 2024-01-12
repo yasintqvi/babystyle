@@ -1,15 +1,104 @@
 @extends('app.layouts.app', ['title' => 'تکمیل خرید'])
 
 @section('content')
-    <form action="{{ route('orders.store') }}">
+    <div id="addNewAddressCountainer"
+        class="fixed flex items-center justify-center w-full h-full top-0 left-0 z-40 bg-black bg-opacity-20 hidden">
+        <div class="md:w-1/2 sm:w-2/3 w-full bg-white p-4 rounded-md m-3">
+            <div class="flex justify-between mb-4">
+                <span class="text-base font-medium text-black">آدرس جدید</span>
+                <div class="relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path>
+                    </svg>
+                    <button type="button" id="closeNewAddressBTN" class="absolute w-full h-full top-0 left-0"></button>
+                </div>
+            </div>
+            <form action="{{ route('profile.addresses.store') }}" method="post" class="flex flex-wrap text-gray-600">
+                @csrf
+                <div class="sm:w-1/2 w-full p-2">
+                    <label for="" class="block my-1">استان</label>
+                    <select name="province_id" class="w-full outline-none border province-select rounded-md p-1">
+                        <option>انتخاب کنید</option>
+                        @foreach ($provinces as $province)
+                            <option value="{{ $province->id }}">{{ $province->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="sm:w-1/2 w-full p-2">
+                    <label for="" class="block my-1">شهر</label>
+                    <select name="city_id" class="w-full outline-none border city-select rounded-md p-1">
+                        <option>انتخاب کنید</option>
+                    </select>
+                </div>
+                <div class="sm:w-1/2 w-full p-2">
+                    <label for="" class="block my-1">نام تحویل گیرنده</label>
+                    <input type="text" value="{{ old('receiver_full_name') }}" name="receiver_full_name" id=""
+                        class="w-full outline-none border rounded-md p-1" />
+                </div>
+                <div class="sm:w-1/2 w-full p-2">
+                    <label for="" class="block my-1">شماره تماس تحویل گیرنده</label>
+                    <input type="number" value="{{ old('receiver_phone_number') }}" name="receiver_phone_number"
+                        id="" class="w-full outline-none border rounded-md p-1" />
+                </div>
+                <div class="sm:w-1/3 w-full p-2">
+                    <label for="" class="block my-1">کد پستی </label>
+                    <input type="number" value="{{ old('postal_code') }}" name="postal_code" id=""
+                        class="w-full outline-none border rounded-md p-1" />
+                </div>
+                <div class="sm:w-1/3 w-full p-2">
+                    <label for="" class="block my-1">پلاک</label>
+                    <input type="number" value="{{ old('plaque') }}" name="plaque" id=""
+                        class="w-full outline-none border rounded-md p-1" />
+                </div>
+
+                <div class="sm:w-1/3 w-full p-2">
+                    <label for="" class="block my-1">واحد</label>
+                    <input type="number" value="{{ old('unit') }}" name="unit" id=""
+                        class="w-full outline-none border rounded-md p-1" />
+                </div>
+
+                <div class="flex flex-col my-2 w-full p-2">
+                    <label for="" class="block my-1" class="">آدرس دقیق
+                    </label>
+                    <textarea name="address" id="" cols="30" rows="10" class="h-20 outline-0 border rounded-md p-1">{{ old('address') }}</textarea>
+                </div>
+                <div class="sticky bottom-0 w-full">
+                    <button class="w-full py-2 text-white bg-primary rounded-md">
+                        ثبت آدرس
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <form action="{{ route('orders.store') }}" method="post">
+        @csrf
         <section>
             <div class="container flex flex-wrap md:flex-nowrap py-5 gap-4">
                 <div class="md:w-3/4 w-full space-y-3">
+                    @if ($errors->any())
+                    <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                            </svg>
+                            <span class="sr-only">Danger</span>
+                            <div>
+                                <span class="font-medium">لطفا خطاهای زیر را برطرف نمایید</span>
+                                <ul class="mt-1.5 list-disc list-inside">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
                     <div class="border rounded-lg py-5 space-y-2 px-4">
                         <div class="flex justify-between">
                             <div class="flex items-center mb-8">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                    stroke="currentColor" class="w-6 h-6 stroke-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6 stroke-2">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -26,83 +115,6 @@
                                 <span>ثبت آدرس جدید</span>
                                 <button type="button" id="addNewAddressBTN"
                                     class="absolute w-full h-full top-0 left-0"></button>
-                                <div id="addNewAddressCountainer"
-                                    class="fixed flex items-center justify-center w-full h-full top-0 left-0 z-40 bg-black bg-opacity-20 hidden">
-                                    <div class="md:w-1/2 sm:w-2/3 w-full bg-white p-4 rounded-md m-3">
-                                        <div class="flex justify-between mb-4">
-                                            <span class="text-base font-medium text-black">آدرس جدید</span>
-                                            <div class="relative">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M6 18 18 6M6 6l12 12"></path>
-                                                </svg>
-                                                <button type="button" id="closeNewAddressBTN"
-                                                    class="absolute w-full h-full top-0 left-0"></button>
-                                            </div>
-                                        </div>
-                                        <form action="{{ route('profile.addresses.store') }}" method="post"
-                                            class="flex flex-wrap text-gray-600">
-                                            @csrf
-                                            <div class="sm:w-1/2 w-full p-2">
-                                                <label for="" class="block my-1">استان</label>
-                                                <select name="province_id"
-                                                    class="w-full outline-none border province-select rounded-md p-1">
-                                                    <option>انتخاب کنید</option>
-                                                    @foreach ($provinces as $province)
-                                                        <option value="{{ $province->id }}">{{ $province->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="sm:w-1/2 w-full p-2">
-                                                <label for="" class="block my-1">شهر</label>
-                                                <select name="city_id"
-                                                    class="w-full outline-none border city-select rounded-md p-1">
-                                                    <option>انتخاب کنید</option>
-                                                </select>
-                                            </div>
-                                            <div class="sm:w-1/2 w-full p-2">
-                                                <label for="" class="block my-1">نام تحویل گیرنده</label>
-                                                <input type="text" value="{{ old('receiver_full_name') }}"
-                                                    name="receiver_full_name" id=""
-                                                    class="w-full outline-none border rounded-md p-1" />
-                                            </div>
-                                            <div class="sm:w-1/2 w-full p-2">
-                                                <label for="" class="block my-1">شماره تماس تحویل گیرنده</label>
-                                                <input type="number" value="{{ old('receiver_phone_number') }}"
-                                                    name="receiver_phone_number" id=""
-                                                    class="w-full outline-none border rounded-md p-1" />
-                                            </div>
-                                            <div class="sm:w-1/3 w-full p-2">
-                                                <label for="" class="block my-1">کد پستی </label>
-                                                <input type="number" value="{{ old('postal_code') }}" name="postal_code"
-                                                    id="" class="w-full outline-none border rounded-md p-1" />
-                                            </div>
-                                            <div class="sm:w-1/3 w-full p-2">
-                                                <label for="" class="block my-1">پلاک</label>
-                                                <input type="number" value="{{ old('plaque') }}" name="plaque"
-                                                    id="" class="w-full outline-none border rounded-md p-1" />
-                                            </div>
-
-                                            <div class="sm:w-1/3 w-full p-2">
-                                                <label for="" class="block my-1">واحد</label>
-                                                <input type="number" value="{{ old('unit') }}" name="unit"
-                                                    id="" class="w-full outline-none border rounded-md p-1" />
-                                            </div>
-
-                                            <div class="flex flex-col my-2 w-full p-2">
-                                                <label for="" class="block my-1" class="">آدرس دقیق
-                                                </label>
-                                                <textarea name="address" id="" cols="30" rows="10" class="h-20 outline-0 border rounded-md p-1">{{ old('address') }}</textarea>
-                                            </div>
-                                            <div class="sticky bottom-0 w-full">
-                                                <button class="w-full py-2 text-white bg-primary rounded-md">
-                                                    ثبت آدرس
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
@@ -110,7 +122,7 @@
                             @forelse($addresses as $address)
                                 <li>
                                     <input type="radio" id="address-{{ $address->id }}" name="address_id"
-                                        value="{{ $address->id }}" class="hidden peer" required>
+                                        value="{{ $address->id }}" class="hidden peer">
                                     <label for="address-{{ $address->id }}"
                                         class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-500 peer-checked:text-blue-500 hover:text-gray-600 hover:bg-gray-100">
                                         <div class="block">
@@ -126,6 +138,7 @@
                     </ul>
 
                 </div>
+
                 <div class="border rounded-lg py-5 space-y-2 px-4">
                     <div class="flex gap-3">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -191,10 +204,6 @@
             <div class="md:w-1/4 w-full">
                 <div class="sticky top-2">
                     <div class="space-y-4 border rounded-lg font-medium p-5 text-sm">
-                        <form action="{{ route('shopping-cart.checkout.get-amounts') }}" method="post"
-                            id="getAmountsForm">
-                            @csrf
-                        </form>
                         <div class="flex justify-between text-gray-500">
                             <span>قیمت کل</span>
                             <span>
@@ -238,7 +247,7 @@
                         </div>
                         <button type="submit" class="w-full block text-center py-3 bg-primary text-white rounded-lg">
                             پرداخت و ثبت سفارش
-                            </a>
+                        </button>
                     </div>
                     <p class="text-xs text-gray-400 py-2 leading-relaxed">
                         هزینه این سفارش هنوز پرداخت نشده‌ و در صورت اتمام موجودی، کالاها
@@ -247,6 +256,9 @@
                 </div>
             </div>
     </section>
+</form>
+<form action="{{ route('shopping-cart.checkout.get-amounts') }}" method="post" id="getAmountsForm">
+    @csrf
 </form>
 @endsection
 

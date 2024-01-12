@@ -41,4 +41,10 @@ class AddressController extends Controller
         $cities = City::where('province_id' , $request->province_id)->get();
         return $cities;
     }
+
+    public function destroy(Address $address)
+    {
+        $address->delete();
+        return back()->with('success', 'آدرس مورد نظر حذف شد');
+    }
 }

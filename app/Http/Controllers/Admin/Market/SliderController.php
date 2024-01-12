@@ -15,10 +15,10 @@ class SliderController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('can:manage_sldier')->only('index');
-        $this->middleware('can:create_sldier')->only('edit', 'update');
-        $this->middleware('can:edit_sldier')->only('store', 'create');
-        $this->middleware('can:delete_sldier')->only('destroy');
+        $this->middleware('can:manage_slider')->only('index');
+        $this->middleware('can:create_slider')->only('edit', 'update');
+        $this->middleware('can:edit_slider')->only('store', 'create');
+        $this->middleware('can:delete_slider')->only('destroy');
     }
 
     public function index()

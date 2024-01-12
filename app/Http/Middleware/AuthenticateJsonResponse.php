@@ -17,7 +17,7 @@ class AuthenticateJsonResponse
     public function handle(Request $request, Closure $next): Response
     {   
         if (Auth::guest()) {
-            return response()->json(['success' => false, 'auth' => false], 401);
+            return response()->json(['success' => false, 'auth' => true], 401);
         }
 
         return $next($request);
