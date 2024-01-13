@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\Market\BrandController;
 use App\Http\Controllers\Admin\Market\MenuController;
+use App\Http\Controllers\Admin\Market\OnlinePaymentController;
 use App\Http\Controllers\Admin\Market\PageController;
 use App\Http\Controllers\Admin\Market\CategoryController;
 use App\Http\Controllers\Admin\Market\CommentController;
@@ -92,6 +93,9 @@ Route::prefix('admin')->as('admin.')->group(function () {
         Route::post('orders/{order}/change-status', [OrderController::class, "changeStatus"])->name('orders.change-status');
         Route::get('orders/fetch', [OrderController::class, "fetch"])->name('orders.fetch');
         Route::resource('orders', OrderController::class)->only('index', 'show');
+
+        Route::get('online-payments/fetch', [OnlinePaymentController::class, "fetch"])->name('online-payments.fetch');
+        Route::resource('online-payments', OnlinePaymentController::class)->only('index', 'show');
 
     });
 

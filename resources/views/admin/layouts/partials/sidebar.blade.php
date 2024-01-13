@@ -127,6 +127,16 @@
                         </a>
                     </li>
                     @endcan
+
+                    @can('manage_product')
+                    <li class="nk-menu-item">
+                        <a href="{{ route('admin.market.online-payments.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-coins"></em></span>
+
+                            <span class="nk-menu-text">پرداخت ها</span>
+                        </a>
+                    </li>
+                    @endcan
                     
                     <li class="nk-menu-heading">
                         <h6 class="overline-title text-primary-alt">
