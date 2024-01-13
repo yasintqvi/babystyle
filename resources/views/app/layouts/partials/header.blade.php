@@ -214,12 +214,12 @@
                                     class="absolute top-full left-0 bg-white rounded-md w-56 border p-4 pb-2 hidden">
                                     <div class="divide-y">
                                         <div class="flex justify-between items-center pb-3">
-                                            <a href="{{ route('profile.index') }}"
+                                            <a href="{{ route('profile.orders.index') }}"
                                                 class="flex flex-col font-medium items-center">
-                                                <span>{{ auth()->user()->fullName ?? auth()->user()->phone_number }}</span>
+                                                <span>{{ auth()->user()->first_name ? auth()->user()->fullName : auth()->user()->phone_number }}</span>
                                             </a>
 
-                                            <a href="{{ route('profile.index') }}">
+                                            <a href="{{ route('profile.orders.index') }}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                                     class="w-6 h-6">
