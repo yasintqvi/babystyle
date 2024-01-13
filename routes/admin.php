@@ -22,8 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->as('admin.')->group(function () {
 
-    Route::get('/', fn() => view('admin.dashboard'))->name('index');
-    Route::get('/', AdminDashboardController::class)->name('index');
+    Route::get('/dashboard', AdminDashboardController::class)->name('index');
 
     Route::prefix('user')->as('user.')->group(function () {
         Route::get('users/fetch', [UserController::class, "fetch"])->name('users.fetch');
