@@ -16,22 +16,19 @@ class HomeController extends Controller
     public function index(Product $product)
     {
         $sliders = Slider::where('is_active', 1)->get()->take(5);
-   
 
-        $products = Product::where('is_active' , 1)->with(['items.discounts' => function ($query) {
-            $query->active();
-        }])->whereHas('items', function ($query) {
-            $query->where('is_default', 1);
-        })->get();
+        $products = Product::query()->with('items.discounts');
+        $latestProducts = $products->orderBy('id', 'DESC')->take(8)->get();
+        $products = $products->paginate(8);
 
-        return view('app.index', compact('sliders', 'products'));
+
+        return view('app.index', compact('sliders', 'products' , 'latestProducts'));
     }
 
     public function products(Request $request)
     {
 
-        if($request->search)
-        {
+        if ($request->search) {
             $products = Product::where('title', "LIKE", "%" . $request->search . "%");
         }
 
@@ -40,7 +37,6 @@ class HomeController extends Controller
         $products = $products->paginate(16);
 
 
-        return view('app.product.index', compact('products' , 'categories'));
-
+        return view('app.product.index', compact('products', 'categories'));
     }
 }

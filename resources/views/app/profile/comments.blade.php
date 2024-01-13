@@ -114,7 +114,9 @@
             </div>
              @empty
              
+             <div class="text-center">
               <p>هنوز نظری ثبت نکردید</p>
+             </div>
 
              @endforelse
               

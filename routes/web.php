@@ -80,8 +80,6 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('products', [AppProductController::class, 'index'])->name('products.index');
 Route::get('products/{product:slug}', [AppProductController::class, 'show'])->name('products.show');
 Route::post('products/get-price/{product}', [AppProductController::class, 'getPrice'])->name('products.get-price');
-
-
 Route::post('comments/{product}', [CommentController::class, 'store'])->name('comments.store');
 
 Route::prefix('shopping-cart')->middleware('auth')->as('shopping-cart.')->group(function() {

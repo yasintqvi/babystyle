@@ -2635,6 +2635,14 @@ button:disabled:hover {
   .xl\:w-1\/4 {
     width: 25%;
   }
+
+  .xl\:w-2\/3 {
+    width: 66.666667%;
+  }
+
+  .xl\:w-9\/12 {
+    width: 75%;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
