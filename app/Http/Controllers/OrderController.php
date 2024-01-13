@@ -47,13 +47,13 @@ class OrderController extends Controller
         }
 
         $orderCounts = [
-            'unpaid' => Order::where('order_status', 0)->count(),
-            'order_confirm' => Order::where('order_status', 1)->count(),
-            'processing' => Order::where('order_status', 2)->count(),
-            'delivered' => Order::where('order_status', 3)->count(),
+            'unpaid' => Order::where('user_id', auth()->user()->id)->where('order_status', 0)->count(),
+            'order_confirm' => Order::where('user_id', auth()->user()->id)->where('order_status', 1)->count(),
+            'processing' => Order::where('user_id', auth()->user()->id)->where('order_status', 2)->count(),
+            'delivered' => Order::where('user_id', auth()->user()->id)->where('order_status', 3)->count(),
         ];
 
-        $orders = $orders->latest()->get();
+        $orders = $orders->where('user_id', auth()->user()->id)->latest()->get();
 
         return view('app.profile.order.index', compact('orders', 'orderCounts'));
     }
