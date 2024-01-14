@@ -63,8 +63,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::prefix('profile')->middleware('auth')->as('profile.')->group(function () {
-    Route::get('/', [ProfileController::class, 'index'])->name('index');
-    Route::get('/edit', [ProfileController::class, 'edit'])->name('edit');
+     Route::get('/edit', [ProfileController::class, 'edit'])->name('edit');
     Route::put('/update', [ProfileController::class, 'update'])->name('update');
 
     Route::get('/addresses', [AddressController::class, 'index'])->name('addresses.index');

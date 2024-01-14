@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Market\Address;
 use App\Models\Market\OnlinePayment;
 use App\Models\Market\Order;
 use App\Models\Market\ShoppingCart;
@@ -156,6 +157,11 @@ class User extends Authenticatable
     public function payments()
     {
         return $this->hasMany(OnlinePayment::class);
+    }
+
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
     }
     
 

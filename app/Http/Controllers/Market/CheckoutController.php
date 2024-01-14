@@ -22,7 +22,7 @@ class CheckoutController extends Controller
         $provinces = Province::all();
 
         $shippingMethods = ShippingMethod::all();
-        $addresses = Address::all();
+        $addresses = Auth::user()->addresses;
         return view('app.shopping-cart.checkout.index', compact('shoppingCartItems', 'addresses', 'shippingMethods', 'provinces'));
     }
 

@@ -21,8 +21,23 @@ class OnlinePayment extends Model
         'is_succeed',
     ];
 
+    protected $appends = ['shamsi_payment_date', 'customer_name'];
+
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getCustomerNameAttribute($value)
+    {
+        return "{$this->user->first_name} {$this->user->last_name}";
+    }
+
+    public function getShamsiPaymentDateAttribute($value)
+    {
+        return getJalaliTime($this->created_at);
+    }
+
+
 }
