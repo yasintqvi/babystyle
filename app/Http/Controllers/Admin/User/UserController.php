@@ -36,7 +36,7 @@ class UserController extends Controller
 
     public function fetch()
     {
-        $users = User::query()->latest();
+        $users = User::query()->where('is_admin', 0)->whereNot('id', auth()->user()->id)->latest();
 
         if ($keyword = request('search')) {
             $users->search($keyword);
@@ -45,6 +45,8 @@ class UserController extends Controller
         if ($status = request('status')) {
             $status === 'active' ? $users->active() : $users->notActive();
         }
+
+        $users = $users->whereIsAdmin(0)->whereNot('id', auth()->user()->id);
 
         $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 15;
 

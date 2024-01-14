@@ -1,4 +1,4 @@
-Handlebars.registerHelper('if_gt', function(value, comparison, options) {
+Handlebars.registerHelper('if_gt', function (value, comparison, options) {
     if (value > comparison) {
         return options.fn(this);
     } else {
@@ -28,16 +28,30 @@ async function fetchData(reqUrl = "") {
 }
 
 async function handleData(url = "") {
+    
+    await Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
+        return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+    });
+
+    await Handlebars.registerHelper('ifNotEquals', function(arg1, arg2, options) {
+        return (arg1 != arg2) ? options.fn(this) : options.inverse(this);
+    });
+
+
     const reqUrl = await handleUrl(url);
     let data = await fetchData(url);
     var templateSource = document.getElementById("table-template").innerHTML;
     var template = Handlebars.compile(templateSource);
-
-    var html = template(data);
+    var html = await template(data);
 
     document.getElementById("table-container").innerHTML = html;
 
     handlePaginate(data);
+
+    document.querySelectorAll('.money').forEach((item) => {
+        const regex = /(\d)(?=(\d{3})+$)/g;
+        item.textContent = item.textContent.toString().replace(regex, '$1,');
+    })
 
     handleBatchOperation();
 }
@@ -74,22 +88,22 @@ function handleBatchOperation() {
     const selectAllInput = document.getElementById('selectAll');
     const btnBatchOperation = document.getElementById('btn-batch-operation');
 
-    selectAllInput.addEventListener('change', function() {
+    selectAllInput.addEventListener('change', function () {
         if (this.checked) {
-            batchInputs.forEach(function(checkbox) {
+            batchInputs.forEach(function (checkbox) {
                 checkbox.checked = true;
             });
             btnBatchOperation.classList.remove('d-none');
         } else {
-            batchInputs.forEach(function(checkbox) {
+            batchInputs.forEach(function (checkbox) {
                 checkbox.checked = false;
             });
             btnBatchOperation.classList.add('d-none');
         }
     });
 
-    batchInputs.forEach(function(input) {
-        input.addEventListener('change', function() {
+    batchInputs.forEach(function (input) {
+        input.addEventListener('change', function () {
             if (document.querySelectorAll('.batch-inputs:checked').length > 0) {
                 btnBatchOperation.classList.remove('d-none');
             } else {
@@ -119,7 +133,7 @@ function batchDelete(e) {
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'بله حذف شود!'
-    }).then(function(result) {
+    }).then(function (result) {
         if (result.value) {
             batchDeleteForm.submit();
         }
@@ -132,9 +146,9 @@ function batchEdit(e) {
     e.preventDefault();
     const batchInputs = document.querySelectorAll('.batch-inputs');
 
-    batchInputs.forEach(function(checkbox) {
-        if(checkbox.checked) {
-            window.open(checkbox.dataset.edit , '_blank');
+    batchInputs.forEach(function (checkbox) {
+        if (checkbox.checked) {
+            window.open(checkbox.dataset.edit, '_blank');
         }
     });
 

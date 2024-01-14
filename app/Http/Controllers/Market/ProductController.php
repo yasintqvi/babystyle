@@ -67,8 +67,10 @@ class ProductController extends Controller
             }, '=', count($optionsIds))->get();
 
             if (collect($productItemHasCurrentOptions)->isNotEmpty()) {
-                $productItemPrice = $productItemHasCurrentOptions->first(); 
-                return response()->json(['success' => true, 'price' => $productItemPrice->price, 'discount' => $productItemPrice->discount_info]);
+                $productItem = $productItemHasCurrentOptions->first(); 
+                if ($productItem->quantity > 0) {
+                    return response()->json(['success' => true, 'price' => $productItem->price, 'discount' => $productItem->discount_info]);
+                }
             }
 
             return response()->json(['success' => true, 'price' => null]);

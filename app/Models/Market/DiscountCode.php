@@ -28,6 +28,11 @@ class DiscountCode extends Model
         return $this->end_date <= now() ? 'منقضی' : 'منتشر شده'  ;
     }
 
+    public function isActive() 
+    {
+        return $this->start_date <= now() and $this->end_date >= now();
+    }
+
     public function scopeSearch($query, $keyword)
     {
         return $query->where('name', "LIKE", "%$keyword%");

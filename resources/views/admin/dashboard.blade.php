@@ -65,15 +65,10 @@
                                     </div>
                                     <div class="data">
                                         <div class="data-group">
-                                            <div class="amount">1,945</div>
+                                            <div class="amount">{{ $todayOrders }}</div>
                                             <div class="nk-ecwg6-ck">
                                                 <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
                                             </div>
-                                        </div>
-                                        <div class="info">
-                                            <span class="change up text-danger"><em
-                                                    class="icon ni ni-arrow-long-up"></em>4.63%</span><span> در مقایسه با
-                                                هفته گذشته</span>
                                         </div>
                                     </div>
                                 </div>
@@ -95,15 +90,10 @@
                                     </div>
                                     <div class="data">
                                         <div class="data-group">
-                                            <div class="amount">2,338,000 تومان</div>
+                                            <div><span class="amount money">{{ $todayIncome }}</span> تومان</div>
                                             <div class="nk-ecwg6-ck">
                                                 <canvas class="ecommerce-line-chart-s3" id="todayRevenue"></canvas>
                                             </div>
-                                        </div>
-                                        <div class="info">
-                                            <span class="change down text-danger"><em
-                                                    class="icon ni ni-arrow-long-down"></em>2.34%</span><span> در مقایسه با
-                                                هفته گذشته</span>
                                         </div>
                                     </div>
                                 </div>
@@ -125,16 +115,11 @@
                                     </div>
                                     <div class="data">
                                         <div class="data-group">
-                                            <div class="amount">847</div>
+                                            <div class="amount">{{ $todayCustomers }}</div>
                                             <div class="nk-ecwg6-ck">
                                                 <canvas class="ecommerce-line-chart-s3" id="todayCustomers"></canvas>
                                             </div>
                                         </div>
-                                        <div class="info">
-                                            <span class="change up text-danger"><em
-                                                    class="icon ni ni-arrow-long-up"></em>4.63%</span><span> در مقایسه با
-                                                هفته گذشته</span>
-                                        </div>
                                     </div>
                                 </div>
                                 <!-- .card-inner -->
@@ -143,37 +128,6 @@
                         </div>
                         <!-- .card -->
                     </div>
-                    <!-- .col -->
-                    <div class="col-xxl-3 col-sm-6">
-                        <div class="card">
-                            <div class="nk-ecwg nk-ecwg6">
-                                <div class="card-inner">
-                                    <div class="card-title-group">
-                                        <div class="card-title">
-                                            <h6 class="title">بازدیدکنندگان امروز</h6>
-                                        </div>
-                                    </div>
-                                    <div class="data">
-                                        <div class="data-group">
-                                            <div class="amount">23,485</div>
-                                            <div class="nk-ecwg6-ck">
-                                                <canvas class="ecommerce-line-chart-s3" id="todayVisitors"></canvas>
-                                            </div>
-                                        </div>
-                                        <div class="info">
-                                            <span class="change down text-danger"><em
-                                                    class="icon ni ni-arrow-long-down"></em>2.34%</span><span> در مقایسه با
-                                                هفته گذشته</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- .card-inner -->
-                            </div>
-                            <!-- .nk-ecwg -->
-                        </div>
-                        <!-- .card -->
-                    </div>
-                    <!-- .col -->
                     <div class="col-xxl-6">
                         <div class="card card-full">
                             <div class="nk-ecwg nk-ecwg8 h-100">
@@ -570,4 +524,15 @@
             <!-- .nk-block -->
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        document.querySelectorAll('.money').forEach((item) => {
+            const regex = /(\d)(?=(\d{3})+$)/g;
+            item.textContent = item.textContent.toString().replace(regex, '$1,');
+        })
+    </script>
+
+    <script src="{{ asset('assets/admin/js/charts/chart-ecommerce.js') }}"></script>
 @endsection

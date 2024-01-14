@@ -21,28 +21,13 @@
         <div class="nk-sidebar-content">
             <div class="nk-sidebar-menu" data-simplebar>
                 <ul class="nk-menu">
-                    <li class="nk-menu-heading">
-                        <h6 class="overline-title text-primary-alt">
-                            کاربران
-                        </h6>
-                    </li>
-                    <!-- .nk-menu-item -->
-                    @can('manage_user')
                     <li class="nk-menu-item">
-                        <a href="{{ route('admin.user.users.index') }}" class="nk-menu-link">
-                            <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
-                            <span class="nk-menu-text">مدیریت کاربران</span>
+                        <a href="{{ route('admin.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
+
+                            <span class="nk-menu-text">داشبورد</span>
                         </a>
                     </li>
-                    @endcan
-                    @can('manage_role')
-                    <li class="nk-menu-item">
-                        <a href="{{ route('admin.user.roles.index') }}" class="nk-menu-link">
-                            <span class="nk-menu-icon"><em class="icon ni ni-user-list"></em></span>
-                            <span class="nk-menu-text">مدیریت نقش ها</span>
-                        </a>
-                    </li>
-                    @endcan
                     <!-- .nk-menu-item -->
                     <li class="nk-menu-heading">
                         <h6 class="overline-title text-primary-alt">فروشگاه</h6>
@@ -133,6 +118,40 @@
                         </a>
                     </li>
                     @endcan
+                    @can('manage_product')
+                    <li class="nk-menu-item">
+                        <a href="{{ route('admin.market.orders.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-cc-alt2-fill"></em></span>
+
+                            <span class="nk-menu-text">سفارشات</span>
+                        </a>
+                    </li>
+                    @endcan
+                    
+                    <li class="nk-menu-heading">
+                        <h6 class="overline-title text-primary-alt">
+                            کاربران
+                        </h6>
+                    </li>
+                    <!-- .nk-menu-item -->
+                    @can('manage_user')
+                    <li class="nk-menu-item">
+                        <a href="{{ route('admin.user.users.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
+                            <span class="nk-menu-text">مدیریت کاربران</span>
+                        </a>
+                    </li>
+                    @endcan
+                    @can('manage_role')
+                    <li class="nk-menu-item">
+                        <a href="{{ route('admin.user.roles.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-user-list"></em></span>
+                            <span class="nk-menu-text">مدیریت نقش ها</span>
+                        </a>
+                    </li>
+                    @endcan 
+                    
+
                 </ul>
                 <!-- .nk-menu -->
             </div>

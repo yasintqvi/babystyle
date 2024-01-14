@@ -10,6 +10,7 @@ use App\Http\Controllers\Market\AddressController;
 use App\Http\Controllers\Market\CommentController;
 use App\Http\Controllers\Market\HomeController;
 use App\Http\Controllers\Market\ShoppingCartController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Market\ProductController as AppProductController;
 use Illuminate\Support\Facades\Auth;
@@ -72,6 +73,8 @@ Route::prefix('profile')->middleware('auth')->as('profile.')->group(function () 
     Route::delete('/addresses/destroy/{address}', [AddressController::class, 'destroy'])->name('addresses.destroy');
 
     Route::get('/comments', [CommentController::class, 'index'])->name('comments.index');
+
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 });
 
 
@@ -82,14 +85,20 @@ Route::get('products/{product:slug}', [AppProductController::class, 'show'])->na
 Route::post('products/get-price/{product}', [AppProductController::class, 'getPrice'])->name('products.get-price');
 Route::post('comments/{product}', [CommentController::class, 'store'])->name('comments.store');
 
-Route::prefix('shopping-cart')->middleware('auth')->as('shopping-cart.')->group(function() {
-    Route::get('/', [ShoppingCartController::class, 'index'])->name('index');
-    Route::delete('shopping-cart/{shoppingCartItem}', [ShoppingCartController::class, 'destroy'])->name('destroy');
-    Route::post('/{product}', [ShoppingCartController::class, 'store'])->name('store');
-    Route::post('/shopping-cart/{shoppingCartItem}/change-quantity', [ShoppingCartController::class, 'changeQuantity'])->name('change-quantity');
+Route::prefix('shopping-cart')->as('shopping-cart.')->group(function() {
+    Route::get('/', [ShoppingCartController::class, 'index'])->name('index')->middleware('auth');
+    Route::delete('shopping-cart/{shoppingCartItem}', [ShoppingCartController::class, 'destroy'])->name('destroy')->middleware('auth');
+    Route::post('/{product}', [ShoppingCartController::class, 'store'])->name('store')->middleware('auth-json-response');
+    Route::post('/shopping-cart/{shoppingCartItem}/change-quantity', [ShoppingCartController::class, 'changeQuantity'])->name('change-quantity')->middleware('auth');
     Route::post('/shopping-cart/get-amounts', [ShoppingCartController::class, 'getAmounts'])->name('get-amounts');
+    Route::post('/shopping-cart/checkout/get-amounts', [CheckoutController::class, 'getAmounts'])->name('checkout.get-amounts');
 
-    Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index')->middleware('check-shoppingcart');
+    Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index')->middleware(['auth', 'check-shoppingcart']);
 });
 
-Route::get('/get-province-cities-list' , [AddressController::class, 'getProvinceCitiesList']);
+Route::middleware('auth')->group(function() {
+    Route::post('/orders', [OrderController::class, 'store'])->name('orders.store')->middleware('check-shoppingcart');
+    Route::get('orders/result', [OrderController::class, 'result'])->name('orders.result');
+});
+
+Route::get('/get-province-cities-list' , [AddressController::class, 'getProvinceCitiesList'])->middleware('auth');

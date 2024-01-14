@@ -238,9 +238,9 @@
                 @endforeach
 
             </div>
-            <div class="my-4">
+            {{-- <div class="my-4">
                 {{ $products->render('pagination::tailwind') }}
-            </div>
+            </div> --}}
         </div>
     </section>
     <section id="questions">

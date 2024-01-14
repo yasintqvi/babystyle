@@ -86,7 +86,7 @@
                 </div>
             </div>
             <!-- logo -->
-            <a href="{{route('home')}}" class="w-10 lg:w-20 m-3">
+            <a href="{{ route('home') }}" class="w-10 lg:w-20 m-3">
                 <img src="{{ asset('assets/app/images/logo-home.png') }}" alt="" />
             </a>
 
@@ -171,16 +171,18 @@
                             </form>
                         </div>
                         @auth
-                        <div class="mx-3 px-3 relative">
-                            <a href="{{ route('shopping-cart.index') }}" id="cardBarIcon" class="text-end w-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                                </svg>
-                            </a>
-                            <a href="{{ route('shopping-cart.index') }}" class="px-2 bg-red-500 text-white rounded-full absolute -bottom-3 left-1 " id="shopping_items_count">{{ $shoppingCartCount }}</a>
-                        </div>
+                            <div class="mx-3 px-3 relative">
+                                <a href="{{ route('shopping-cart.index') }}" id="cardBarIcon" class="text-end w-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                                    </svg>
+                                </a>
+                                <a href="{{ route('shopping-cart.index') }}"
+                                    class="px-2 bg-red-500 text-white rounded-full absolute -bottom-3 left-1 "
+                                    id="shopping_items_count">{{ $shoppingCartCount }}</a>
+                            </div>
                         @endauth
                         @guest
                             <a href="{{ route('login.form', ['backUrl' => request()->getRequestUri()]) }}"
@@ -212,7 +214,8 @@
                                     class="absolute top-full left-0 bg-white rounded-md w-56 border p-4 pb-2 hidden">
                                     <div class="divide-y">
                                         <div class="flex justify-between items-center pb-3">
-                                            <a href="{{ route('profile.index') }}" class="flex flex-col font-medium items-center">
+                                            <a href="{{ route('profile.index') }}"
+                                                class="flex flex-col font-medium items-center">
                                                 <span>{{ auth()->user()->fullName ?? auth()->user()->phone_number }}</span>
                                             </a>
 
@@ -227,7 +230,8 @@
 
                                         </div>
 
-                                        <a href="#" class="flex items-center py-3 text-sm gap-2 text-gray-600">
+                                        <a href="{{ route('profile.orders.index') }}"
+                                            class="flex items-center py-3 text-sm gap-2 text-gray-600">
                                             <span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -237,21 +241,10 @@
                                                     </path>
                                                 </svg>
                                             </span>
-                                            <span class=" "> سفارش‌ها</span>
+                                            <span class=" "> سفارش‌ ها</span>
                                         </a>
-                                        <a href="#" class="flex items-center py-3 text-sm gap-2 text-gray-600">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                    class="w-5">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z">
-                                                    </path>
-                                                </svg>
-                                            </span>
-                                            <span> لیست‌های من</span>
-                                        </a>
-                                        <a href="#" class="flex items-center py-3 text-sm gap-2 text-gray-600">
+                                        <a href="{{ route('profile.comments.index') }}"
+                                            class="flex items-center py-3 text-sm gap-2 text-gray-600">
                                             <span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -264,17 +257,32 @@
                                             <span> دیدگاه‌ها</span>
                                         </a>
 
-                                        <a href="#" class="flex items-center py-3 text-sm gap-2 text-gray-600">
+                                        <a href="{{ route('profile.addresses.index') }}"
+                                            class="flex items-center py-3 text-sm gap-2 text-gray-600">
                                             <span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                    class="w-5">
+                                                    class="w-6 h-6">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0">
-                                                    </path>
+                                                        d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                                                 </svg>
                                             </span>
-                                            <span> پیغام‌ها</span>
+                                            <span> آدرس ها</span>
+                                        </a>
+
+                                        <a href="{{ route('profile.edit') }}"
+                                            class="flex items-center py-3 text-sm gap-2 text-gray-600">
+                                            <span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                    class="w-6 h-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                                </svg>
+                                            </span>
+                                            <span> ویرایش حساب کاربری</span>
                                         </a>
 
                                         <a href="{{ route('logout') }}"

@@ -114,9 +114,8 @@
             </div>
              @empty
              
-             <div class="text-center">
-              <p>هنوز نظری ثبت نکردید</p>
-             </div>
+             <div class="text-center text-gray-500 py-8">هیچ دیدگاهی توسط شما ثبت نشده</div>
+
 
              @endforelse
               

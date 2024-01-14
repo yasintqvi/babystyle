@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Market\OnlinePayment;
+use App\Models\Market\Order;
 use App\Models\Market\ShoppingCart;
 use App\Models\User\OtpCode;
 use App\Notifications\OTPSms;
@@ -144,6 +146,16 @@ class User extends Authenticatable
     public function shoppingCart()
     {
         return $this->hasMany(ShoppingCart::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(OnlinePayment::class);
     }
     
 

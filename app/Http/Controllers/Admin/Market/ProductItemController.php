@@ -140,10 +140,7 @@ class ProductItemController extends Controller
 
         return DB::transaction(function () use ($validData, $item, $request, $product) {
 
-            if ($request->has('is_default')) {
-                $product->items()->update(['is_default' => 0]);
-            }
-
+            // dd($validData);
             $item->update($validData);
 
             if ($product->hasVariaty()) {
@@ -170,6 +167,11 @@ class ProductItemController extends Controller
                 }
 
                 $item->variationOptions()->sync($productItemOptions);
+
+            }
+
+            if ($request->filled('is_default')) {
+                $product->items()->where('id', '<>', $item->id)->update(['is_default' => 0]);
             }
 
             return back()->with('success', 'محصول با موفقیت بروز رسانی شد.');
