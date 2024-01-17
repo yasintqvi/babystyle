@@ -69,15 +69,19 @@
                                                             onclick="filterRequest(event, this)"><span>همه</span></a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{ route('admin.market.orders.fetch') }}?status=active"
+                                                        <a href="{{ route('admin.market.orders.fetch') }}?status=delivered"
                                                             onclick="filterRequest(event, this)"><span>تکمیل شده</span></a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{ route('admin.market.orders.fetch') }}?status=not-active"
-                                                            onclick="filterRequest(event, this)"><span>تکمیل نشده</span></a>
+                                                        <a href="{{ route('admin.market.orders.fetch') }}?status=processing"
+                                                            onclick="filterRequest(event, this)"><span>تایید و ارسال مرسوله</span></a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{ route('admin.market.orders.fetch') }}?status=not-active"
+                                                        <a href="{{ route('admin.market.orders.fetch') }}?status=order_confirm"
+                                                            onclick="filterRequest(event, this)"><span>در انتظار تایید</span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{ route('admin.market.orders.fetch') }}?status=unpaid"
                                                             onclick="filterRequest(event, this)"><span>ناموفق</span></a>
                                                     </li>
                                                 </ul>

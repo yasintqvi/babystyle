@@ -28,7 +28,20 @@ class OrderController extends Controller
         }
 
         if ($status = request('status')) {
-            $status === 'active' ? $orders->active() : $orders->notActive();
+            switch ($status) {
+                case 'delivered':
+                    $orders->where('order_status', 3);
+                    break;
+                case 'processing':
+                    $orders->where('order_status', 2);
+                    break;
+                case 'order_confirm':
+                    $orders->where('order_status', 1);
+                    break;
+                case 'unpaid':
+                    $orders->where('order_status', 0);
+                    break;
+            }
         }
 
         $perPageItems = (int) request('paginate') !== 0 ? (int) request('paginate') : 15;
