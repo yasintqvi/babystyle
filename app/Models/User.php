@@ -74,6 +74,16 @@ class User extends Authenticatable
         return $query->where('is_active', 0);
     }
 
+    public function scopeAdmin($query)
+    {
+        return $query->where('is_staff', 1);
+    }
+
+    public function scopeUser($query)
+    {
+        return $query->where('is_staff', 0);
+    }
+
     public function getFullNameAttribute(){
         return "{$this->first_name} {$this->last_name}";
     }

@@ -186,7 +186,7 @@
                             </div>
 
 
-                            <div class="col-md-6 mt-3">
+                            <div class="col-md-6">
                                 <div class="form-group ">
                                     <label class="form-label" for="fv-full-name">وضعیت</label>
                                     <div class="form-control-wrap">
@@ -204,7 +204,6 @@
                                         </span>
                                     @enderror
                                 </div>
-
                             </div>
 
                             <div class="col-md-6 justify-content-start">

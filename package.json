@@ -7,6 +7,7 @@
     "test": "tests"
   },
   "scripts": {
+    "build": "",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "npx tailwindcss -i ./resources/css/app.css -o ./public/assets/app/css/output.css --watch"
   },
