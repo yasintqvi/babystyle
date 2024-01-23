@@ -26,6 +26,10 @@ class LoginRegisterController extends Controller
 
         $user = User::where('phone_number', $phoneNumber)->first();
 
+        if (!$user->is_active) {
+            return back()->with('error', 'کاربر غیرفعال می باشد.');
+        }
+
         if (empty($user)) {
             $user = User::create([
                 'phone_number' => $phoneNumber

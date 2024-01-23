@@ -25,13 +25,13 @@ class ProductController extends Controller
      * Display a listing of the resource.
      */
 
-     public function __construct()
-     {
-         $this->middleware('can:manage_product')->only('index');
-         $this->middleware('can:create_product')->only('edit', 'update');
-         $this->middleware('can:edit_product')->only('store', 'create');
-         $this->middleware('can:delete_product')->only('destroy');
-     }
+    public function __construct()
+    {
+        $this->middleware('can:manage_product')->only('index');
+        $this->middleware('can:create_product')->only('edit', 'update');
+        $this->middleware('can:edit_product')->only('store', 'create');
+        $this->middleware('can:delete_product')->only('destroy');
+    }
 
 
     public function index(): View
@@ -95,7 +95,7 @@ class ProductController extends Controller
             $product = Product::create($inputs);
 
             // save product images
-            if ($request->has('images')) {
+            if ($request->filled('images')) {
                 $productImages = explode(',', $request->get('images'));
                 collect($productImages)->map(fn($image) => $product->images()->create(['image' => $image]));
             }
@@ -118,7 +118,6 @@ class ProductController extends Controller
         $brands = Brand::select('id', 'persian_name')->get();
 
         $product->load('category.variations');
-
         return view('admin.market.product.edit', compact('product', 'categories', 'brands'));
     }
 
@@ -129,24 +128,31 @@ class ProductController extends Controller
     {
         $product = DB::transaction(function () use ($request, $imageService, $product) {
 
-        $inputs = $request->all();
-            
+            $request->mergeIfMissing(['is_active' => 0]);
+
+            $inputs = $request->all();
+
             if ($request->hasFile('primary_image')) {
                 if (!empty($product->primary_image))
-                $imageService->deleteImage($product->primary_image);
+                    $imageService->deleteImage($product->primary_image);
 
                 $inputs['primary_image'] = $imageService->save($request->file('primary_image'));
             }
 
             if ($request->hasFile('secondary_image')) {
                 if (!empty($product->secondary_image))
-                $imageService->deleteImage($product->secondary_image);
-            
+                    $imageService->deleteImage($product->secondary_image);
+
                 $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . "products" . DIRECTORY_SEPARATOR . "product-items");
                 $inputs['secondary_image'] = $imageService->save($inputs['secondary_image']);
-         }
+            }
 
-        $product->update($inputs);
+            if ($request->filled('images')) {
+                $productImages = explode(',', $request->get('images'));
+                collect($productImages)->map(fn($image) => $product->images()->create(['image' => $image]));
+            }
+
+            $product->update($inputs);
         });
         return back()->with('success', 'اطلاعات با موفقیت بروز رسانی شد');
     }
@@ -193,18 +199,9 @@ class ProductController extends Controller
     }
 
     // for delete product image
-    public function destroyImage(Request $request)
+    public function destroyImage(ProductImage $productImage)
     {
-        $filePath = $request->get('path');
-
-        if (!file_exists(public_path($filePath))) {
-            return response()->json(['success' => false, 'message' => 'File not exist'], 404);
-        }
-        $result = unlink(public_path($filePath));
-
-        if (!$result) {
-            return response()->json(['success' => false, 'message' => 'The file deletion operation encountered an error.'], 500);
-        }   
+        $productImage->delete();
 
         return response()->json(['success' => true, 'message' => 'File deleted successfully.'], 200);
     }

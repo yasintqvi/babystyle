@@ -168,7 +168,7 @@ class OrderController extends Controller
     public function result(Request $request)
     {
         if (session()->has('redirected')) {
-            return to_route('home');
+            return to_route('profile.orders.index');
         }
 
         session()->flash('redirected');

@@ -34,12 +34,6 @@
                         <span>مشخصات محصول</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" aria-disabled="true" data-bs-toggle="tab" href="#seo">
-                        <em class="icon ni ni-trend-up"></em>
-                        <span>آدرس و سئو</span>
-                    </a>
-                </li>
             </ul>
 
             <div class="tab-content">
@@ -191,7 +185,7 @@
                             </div>
                             <div class="col-12 mb-5">
                                 <input type="hidden" name="images"
-                                    value="{{ old('images', $product->images->pluck('image')->implode(',')) }}">
+                                    value="">
                                 <label class="form-label">آپلود تصاویر محصول</label>
                                 <div class="upload-zone dropzone-rtl" id="upload-zone">
                                     <div class="dz-message" data-dz-message data-max-file-size="4"
@@ -209,6 +203,42 @@
                                     </strong>
                                 </span>
                             @enderror
+
+                            <div class="col-12 mb-5">
+                                <label class="form-label">تصاویر آپلود شده محصول</label>
+                                <div class="row g-gs">
+                                    @forelse($product->images as $image)
+                                        <div class="col-6 col-sm-3 col-lg-2">
+                                            <div class="gallery card card-bordered">
+                                                <a class="gallery-image popup-image" target="_blank"
+                                                    href="/{{ $image->image }}">
+                                                    <img class="w-100 rounded-top" src="{{ asset($image->image) }}"
+                                                        alt="">
+                                                </a>
+                                                <div
+                                                    class="gallery-body card-inner align-center justify-between flex-wrap g-2 p-1">
+                                                    <div>
+                                                        <div>
+                                                            <span class="lead-text">تاریخ آپلود</span>
+                                                            <span
+                                                                class="sub-text">{{ getJalaliTime($image->created_at, 'Y/m/d') }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" onclick="removeProductImage(event)"
+                                                            class="btn btn-sm btn-danger btn-p-0 btn-nofocus"
+                                                            data-id="{{ $image->id }}">
+                                                            حذف</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @empty
+                                        <div class="col-12 py-2 text-mute">هیچ تصویری برای این محصول وجود ندارد</div>
+                                    @endforelse
+                                </div>
+                            </div>
+
                         </div>
                         <div class="col-md-12 mt-4">
                             <div class="form-group">
@@ -283,7 +313,9 @@
                                                         <input type="color" id="variation-{{ $variation->id }}-second"
                                                             name="options[{{ $variation->id }}][second_value]"
                                                             class="custom-color-input border-0">
-                                                        <input type="hidden" name="options[{{ $variation->id }}][is_color]" value="1">
+                                                        <input type="hidden"
+                                                            name="options[{{ $variation->id }}][is_color]"
+                                                            value="1">
                                                     </span>
                                                 </div>
                                             @endif
@@ -389,9 +421,6 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="tab-pane" id="seo">
-                    <p>بزار ببینیم چیکار میتونیم بکنیم</p>
-                </div>
             </div>
         </div>
     </div>
@@ -416,15 +445,12 @@
                     'X-CSRF-TOKEN': csrfToken
                 },
                 parallelUploads: 1,
-                addRemoveLinks: true,
 
                 success: function(file, response) {
                     imageInput.value = imageInput.value === '' ? response.path : imageInput.value +=
                         `,${response.path}`;
                 },
             });
-
-
         };
     </script>
 
@@ -631,6 +657,29 @@
                 });
 
             getProductAttributes();
+        }
+
+        const removeProductImage = async (event) => {
+            const {
+                target
+            } = event;
+            const id = target.getAttribute('data-id');
+            const requestUrl = `/admin/market/products/images/${id}/destory`;
+
+            await fetch(requestUrl, {
+                    method: "DELETE",
+                    headers: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                    }
+                }).then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        NioApp.Toast('تصویر مورد نظر حذف گردید', 'success');
+                        target.closest('.col-lg-2').remove();
+                    } else {
+                        NioApp.Toast('خطای غیر منتظره ای رخ داد.', 'error');
+                    }
+                })
         }
     </script>
 @endsection

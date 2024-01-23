@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->as('admin.')->group(function () {
 
-    Route::get('/', AdminDashboardController::class)->name('index');
+    Route::get('/dashboard', AdminDashboardController::class)->name('index');
 
   
 
@@ -49,7 +49,7 @@ Route::prefix('admin')->as('admin.')->group(function () {
         Route::post('products/batch-delete', [ProductController::class, "batchDelete"])->name('products.batch-delete');
         Route::resource("products", ProductController::class)->except('show');
         Route::post('products/images/upload', [ProductController::class, "uploadImage"])->name('products.images.upload');
-        Route::post('products/images/destory', [ProductController::class, "destroyImage"])->name('products.images.destory');
+        Route::delete('products/images/{productImage}/destory', [ProductController::class, "destroyImage"])->name('products.images.destory');
 
         Route::resource('{product}/attributes', ProductAttributeController::class)->only('index' ,'destroy', 'store');
         Route::get('{product}/items/fetch', [ProductItemController::class, "fetch"])->name('items.fetch');

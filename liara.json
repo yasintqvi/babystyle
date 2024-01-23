@@ -1,4 +1,16 @@
 {
+    "disks": [
+        {
+            "name": "data",
+            "mountTo": "storage"
+        }
+    ],
+    "php": {
+        "version": "8.2"
+    },
     "platform": "laravel",
-    "app": "babystyleshop"
-  }
+    "app": "babystyleshop",
+    "laravel": {
+        "phpVersion": "8.2"
+    }
+}

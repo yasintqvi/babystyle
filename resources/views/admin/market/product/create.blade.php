@@ -36,12 +36,6 @@
                             <span>مشخصات محصول</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" aria-disabled="true" data-bs-toggle="tab" href="#seo">
-                            <em class="icon ni ni-trend-up"></em>
-                            <span>آدرس و سئو</span>
-                        </a>
-                    </li>
                 </ul>
 
                 <div class="tab-content">
@@ -276,9 +270,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    </div>
-                    <div class="tab-pane" id="seo">
-                        <p>بزار ببینیم چیکار میتونیم بکنیم</p>
                     </div>
                 </div>
             </div>

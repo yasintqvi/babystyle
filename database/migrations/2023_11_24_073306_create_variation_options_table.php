@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('second_value')->nullable();
             $table->string('is_color')->nullable();
             $table->timestamps();
-            $table->primary(['variation_id', 'value']);
         });
     }
 
