@@ -27,7 +27,6 @@ return new class extends Migration
         Schema::create('user_address', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('address_id')->constrained('addresses');
-            $table->primary(['user_id', 'address_id']);
         });
     }
 

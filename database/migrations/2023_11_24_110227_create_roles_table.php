@@ -21,13 +21,11 @@ return new class extends Migration
         Schema::create('role_user', function (Blueprint $table) {
             $table->foreignId('role_id')->constrained('roles');
             $table->foreignId('user_id')->constrained('users');
-            $table->primary(['role_id', 'user_id']);
         });
         
         Schema::create('permission_role', function (Blueprint $table) {
             $table->foreignId('permission_id')->constrained('permissions');
             $table->foreignId('role_id')->constrained('roles');
-            $table->primary(['permission_id', 'role_id']);
         });
     }
 

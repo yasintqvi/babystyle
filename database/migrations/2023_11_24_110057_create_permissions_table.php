@@ -21,7 +21,6 @@ return new class extends Migration
         Schema::create('permission_user', function (Blueprint $table) {
             $table->foreignId('permission_id')->constrained('permissions');
             $table->foreignId('user_id')->constrained('users');
-            $table->primary(['permission_id', 'user_id']);
         });
 
     }

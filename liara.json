@@ -1,0 +1,15 @@
+{
+    "disks": [
+        {
+            "name": "data",
+            "mountTo": "storage"
+        }
+    ],
+    "php": {
+        "version": "8.2"
+    },
+    "platform": "laravel",
+    "laravel": {
+        "phpVersion": "8.2"
+    }
+}
