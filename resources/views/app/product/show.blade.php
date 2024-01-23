@@ -19,7 +19,7 @@
                 <div class="md:hidden py-8">
                     <span class="text-lg font-bold">{{ $product->title }}</span>
                 </div>
-                <div class="swiper productPageSwiper2">
+                <div class="swiper productPageSwiper2 -z-20">
                     <div class="flex justify-between absolute top-1/2 -translate-y-1/2 z-20 w-full px-4 items-center">
                         <button type="button"
                             class="productPage-swiper-button-prev rotate-180 md:bg-primary w-10 h-10 py-2 px-2 md:mr-2 mb-2 flex items-center text-xs font-medium focus:outline-none rounded-xl hover:bg-primary focus:z-10 md:focus:ring-2 focus:ring-yellow-600 group">
