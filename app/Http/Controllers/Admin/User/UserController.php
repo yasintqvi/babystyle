@@ -36,7 +36,7 @@ class UserController extends Controller
 
     public function fetch()
     {
-        $users = User::query()->latest();
+        $users = User::query()->where('is_admin', 0)->whereNot('id', auth()->user()->id)->latest();
 
         if ($keyword = request('search')) {
             $users->search($keyword);
@@ -45,6 +45,12 @@ class UserController extends Controller
         if ($status = request('status')) {
             $status === 'active' ? $users->active() : $users->notActive();
         }
+
+        if ($admin = request('admin')) {
+            $admin === 'admin' ? $users->admin() : $users->user();
+        }
+
+        $users = $users->whereIsAdmin(0)->whereNot('id', auth()->user()->id);
 
         $perPageItems = (int)request('paginate') !== 0 ? (int)request('paginate') : 15;
 
@@ -68,6 +74,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request,  ImageService $imageService)
     {
+
         DB::transaction(function () use ($request, $imageService) {
 
 
@@ -79,6 +86,7 @@ class UserController extends Controller
                 $image = $imageService->save($request->image);
                 $inputs['image'] = $image;
             }
+            
             $inputs['password'] = Hash::make($request->password);
             $inputs['phone_number'] = formatPhoneNumber($request->phone_number);
 
@@ -119,11 +127,10 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user, ImageService $imageService)
     {
-
         DB::transaction(function () use ($request, $user, $imageService) {
             $inputs = $request->all();
 
-            [$inputs['is_staff'], $inputs['is_block']] = [$inputs['is_staff'] ?? 0, $inputs['is_block'] ?? 0];
+            [$inputs['is_staff'], $inputs['is_block'], $inputs['is_active']] = [$inputs['is_staff'] ?? 0, $inputs['is_block'] ?? 0, $inputs['is_active'] ?? 0];
 
             if ($request->hasFile('image')) {
                 if (!empty($user->image))

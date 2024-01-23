@@ -80,6 +80,14 @@
                                                         <a href="{{ route('admin.user.users.fetch') }}?status=not-active"
                                                             onclick="filterRequest(event, this)"><span>غیرفعال</span></a>
                                                     </li>
+                                                    <li>
+                                                        <a href="{{ route('admin.user.users.fetch') }}?admin=admin"
+                                                            onclick="filterRequest(event, this)"><span>کاربران مدیر</span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{ route('admin.user.users.fetch') }}?admin=user"
+                                                            onclick="filterRequest(event, this)"><span>کاربران عادی</span></a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>

@@ -9,6 +9,7 @@
         "version": "8.2"
     },
     "platform": "laravel",
+    "app": "babystyleshop",
     "laravel": {
         "phpVersion": "8.2"
     }

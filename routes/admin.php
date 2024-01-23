@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\Market\OrderController;
 use App\Http\Controllers\Admin\User\ChangePasswordController;
 use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Admin\Market\ProductItemController;
+use App\Http\Controllers\Admin\User\ProfileController;
 use App\Http\Controllers\Admin\User\RoleController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,8 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->as('admin.')->group(function () {
 
     Route::get('/', AdminDashboardController::class)->name('index');
+
+  
 
     Route::prefix('user')->as('user.')->group(function () {
         Route::get('users/fetch', [UserController::class, "fetch"])->name('users.fetch');
@@ -33,6 +36,10 @@ Route::prefix('admin')->as('admin.')->group(function () {
         Route::get('roles/fetch', [RoleController::class, "fetch"])->name('roles.fetch');
         Route::post('roles/batch-delete', [RoleController::class, "batchDelete"])->name('roles.batch-delete');
         Route::resource("roles", RoleController::class);
+
+        Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
+        Route::get('profile/security', [ProfileController::class, 'security'])->name('profile.security');
+        Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
     });
 
     Route::prefix('market')->as('market.')->group(function () {

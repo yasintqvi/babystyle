@@ -16,6 +16,12 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
+        $sliders = Slider::where('is_active', 1)->get()->take(5);
+
+        $products = Product::query()->with('items.discounts');
+        $latestProducts = $products->orderBy('id', 'DESC')->take(8)->get();
+        $products = $products->paginate(8);
+        
         // $Amount = $request->get('amount');
 
         // $zp = new ZarinpalService();
@@ -44,7 +50,8 @@ class HomeController extends Controller
             $query->where('is_default', 1);
         })->get();
 
-        return view('app.index', compact('sliders', 'products'));
+
+        return view('app.index', compact('sliders', 'products' , 'latestProducts'));
     }
 
     public function products(Request $request)
