@@ -122,14 +122,12 @@ class ShoppingCartController extends Controller
 
             $action = $request->get('action') ?? 'plus';
             
-            $productItemQty = $productItem->quantity - $productItem->frozen_number;
-
             $newQuantity = $action === 'plus' ? $shoppingCartItem->quantity + 1 : $shoppingCartItem->quantity - 1;
             
             if ($newQuantity < 1) {
                 return response()->json(['success' => false , 'message' => 'حداقل باید یک عدد از محصول را سفارش دهید.']);
             }
-            else if ($newQuantity > $productItemQty) {
+            else if ($newQuantity > $productItem->quantity) {
                 return response()->json(['success' => false , 'message' => 'موجودی محصول برای این تعداد کافی نمی باشد.']);
             }
 

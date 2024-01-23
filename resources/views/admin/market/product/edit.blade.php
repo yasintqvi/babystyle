@@ -34,12 +34,6 @@
                         <span>مشخصات محصول</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" aria-disabled="true" data-bs-toggle="tab" href="#seo">
-                        <em class="icon ni ni-trend-up"></em>
-                        <span>آدرس و سئو</span>
-                    </a>
-                </li>
             </ul>
 
             <div class="tab-content">
@@ -427,9 +421,6 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="tab-pane" id="seo">
-                    <p>بزار ببینیم چیکار میتونیم بکنیم</p>
-                </div>
             </div>
         </div>
     </div>
@@ -454,7 +445,7 @@
                     'X-CSRF-TOKEN': csrfToken
                 },
                 parallelUploads: 1,
-                
+
                 success: function(file, response) {
                     imageInput.value = imageInput.value === '' ? response.path : imageInput.value +=
                         `,${response.path}`;

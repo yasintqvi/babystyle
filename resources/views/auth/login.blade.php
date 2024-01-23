@@ -44,6 +44,7 @@
 @endsection
 
 @section('script')
+    @include('app.alerts.toast.error')
     <script>
         const loginButton = document.querySelector('button[type=submit]');
         const phoneInput = document.querySelector('input[name=phone_number]');

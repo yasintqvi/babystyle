@@ -35,12 +35,6 @@
                             <span>موارد عمومی</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#seo">
-                            <em class="icon ni ni-trend-up"></em>
-                            <span>آدرس و سئو</span>
-                        </a>
-                    </li>
                 </ul>
 
                 <div class="tab-content">
@@ -127,9 +121,6 @@
                             </div>
 
                         </div>
-                    </div>
-                    <div class="tab-pane" id="seo">
-                        <p>بزار ببینیم چیکار میتونیم بکنیم</p>
                     </div>
                 </div>
                 <div class="col-md-12 mt-4">
