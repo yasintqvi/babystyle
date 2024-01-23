@@ -36,10 +36,11 @@ Route::prefix('admin')->as('admin.')->group(function () {
         Route::get('roles/fetch', [RoleController::class, "fetch"])->name('roles.fetch');
         Route::post('roles/batch-delete', [RoleController::class, "batchDelete"])->name('roles.batch-delete');
         Route::resource("roles", RoleController::class);
-
+        
+        Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
         Route::get('profile/security', [ProfileController::class, 'security'])->name('profile.security');
-        Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::put('profile/update-image', [ProfileController::class, 'updateImage'])->name('profile.image');
     });
 
     Route::prefix('market')->as('market.')->group(function () {

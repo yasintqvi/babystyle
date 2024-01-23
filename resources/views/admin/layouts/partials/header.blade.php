@@ -175,7 +175,7 @@
                             </div>
                             <!-- .nk-dropdown-body -->
                             <div class="dropdown-foot center">
-                                <a href="html/apps-chats.html">مشاهده همه</a>
+                                <a href="#">مشاهده همه</a>
                             </div>
                         </div>
                     </li>
@@ -312,7 +312,7 @@
                             <div class="dropdown-inner">
                                 <ul class="link-list">
                                     <li>
-                                        <a href="html/user-profile-regular.html"><em
+                                        <a href="{{route('admin.user.profile.index')}}"><em
                                                 class="icon ni ni-user-alt"></em><span>مشاهده پروفایل</span></a>
                                     </li>
 

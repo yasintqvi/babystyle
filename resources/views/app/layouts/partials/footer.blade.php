@@ -1,6 +1,6 @@
-<footer class="relative w-full bg-primary bg-opacity-70">
-    <div class="container pb-8 pt-6">
-      <div class="flex">
+<footer class="relative w-full bg-primary bg-opacity-70 -z-20">
+    <div class="container pb-8 pt-6 z-0">
+      <div class="flex z-0">
         <div class="hidden sm:flex md:w-2/5 w-1/2">
           <ul class="w-1/2 flex flex-col gap-2 text-gray-800 text-sm">
             <li>

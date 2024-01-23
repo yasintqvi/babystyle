@@ -29,17 +29,16 @@ class ChangePasswordController extends Controller
         $validated  = $request->validate($this->validation);
         
         if (!Hash::check($validated['old_password'] , auth()->user()->password))
-            return back()->with('toast-error' , 'کلمه عبور فعلی اشتباه است.');
-
+            return back()->with('error' , 'کلمه عبور فعلی اشتباه است.');
 
         auth()->user()->update([
-            'password'  =>   $validated['password']
+            'password'  =>   Hash::make($validated['password'])
         ]);
 
-        return back()->with('toast-success' , 'کلمه عبور تغییر یافت.'); 
+        return to_route('admin.user.profile.security')->with('success', 'کلمه عبور شما با موفقیت ویرایش شد');
+
     }
     
-
     private function changeOtherUserPassword($request,User $user)
     {
         $validated = $request->validate($this->validation);

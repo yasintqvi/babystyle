@@ -19,7 +19,7 @@
                 <div class="md:hidden py-8">
                     <span class="text-lg font-bold">{{ $product->title }}</span>
                 </div>
-                <div class="swiper productPageSwiper2">
+                <div class="swiper productPageSwiper2 z-0">
                     <div class="flex justify-between absolute top-1/2 -translate-y-1/2 z-20 w-full px-4 items-center">
                         <button type="button"
                             class="productPage-swiper-button-prev rotate-180 md:bg-primary w-10 h-10 py-2 px-2 md:mr-2 mb-2 flex items-center text-xs font-medium focus:outline-none rounded-xl hover:bg-primary focus:z-10 md:focus:ring-2 focus:ring-yellow-600 group">
@@ -39,17 +39,17 @@
                             </svg>
                         </button>
                     </div>
-                    <div class="swiper-wrapper -z-20">
+                    <div class="swiper-wrapper z-0">
                         @foreach ($product->images as $image)
-                            <div class="swiper-slide">
+                            <div class="swiper-slide z-0">
                                 <img src="{{ asset($image->image) }}"
                                     class="aspect-square w-full h-max object-cover rounded-lg" />
                             </div>
                         @endforeach
                     </div>
                 </div>
-                <div thumbsSlider="" class="swiper productPageSwiper">
-                    <div class="swiper-wrapper">
+                <div thumbsSlider="" class="swiper productPageSwiper z-0">
+                    <div class="swiper-wrapper z-0">
                         @foreach ($product->images as $image)
                             <div class="swiper-slide grayscale">
                                 <img src="{{ asset($image->image) }}"
@@ -212,7 +212,7 @@
                                 ثبت دیدگاه و امتیاز
                             </button>
                             <div
-                                class="NewCommentCountainer fixed flex items-center justify-center w-full h-full top-0 left-0 z-40 bg-black bg-opacity-20 {{ count($errors) > 0 ? '' : 'hidden'}}">
+                                class="NewCommentCountainer fixed flex items-center justify-center w-full h-full top-0 left-0 !z-[999] bg-black bg-opacity-20 {{ count($errors) > 0 ? '' : 'hidden'}}">
                                 <div class="md:w-1/3 sm:w-2/3 w-full  overflow-y-auto bg-white p-4 rounded-md m-3">
                                     <div class="flex justify-between mb-4">
                                         <span class="text-base font-medium text-black">دیدگاه شما

@@ -72,7 +72,7 @@
                     <!-- .nk-block -->
                 </div>
             </div>
-        </div>
+        </div>  
     </div>
     <!-- .modal -->
     <form action="{{ route('admin.user.profile.update', $user->id) }}" method="POST">

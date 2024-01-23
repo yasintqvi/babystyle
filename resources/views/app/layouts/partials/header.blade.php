@@ -1,4 +1,4 @@
-<nav id="navBar" class="relative w-full bg-primary px -20 pt-5">
+<nav id="navBar" class="relative w-full bg-primary px-20 pt-5 -z-20">
     <div class="container">
         <div class="absolute left-0 -bottom-1 w-full">
             <svg width="100%" height="100%" viewBox="0 0 1440 43" version="1.1" xmlns="http://www.w3.org/2000/svg"

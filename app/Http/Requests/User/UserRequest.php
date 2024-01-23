@@ -15,7 +15,6 @@ class UserRequest extends FormRequest
     {
         return true;
     }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -40,12 +39,12 @@ class UserRequest extends FormRequest
                 'permissions' => 'nullable|exists:permissions,id|array',
             ];
         }
-
         return [
             'first_name' => 'required|string|min:3|max:255',
             'last_name' => 'required|string|min:3|max:255',
             'email' => ['nullable', Rule::unique('users' , 'email')->ignore($this->user->id),'email'],
             'phone_number' => ['required', 'numeric' , Rule::unique('users' , 'phone_number')->ignore($this->user->id), 'regex:/09(1[0-9]|9[1-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}/i', 'digits:11'],
+            'image' => 'nullable|image|max:2048|min:1',
             'phone_verified_at' => 'nullable|in:0,1|numeric',
             'email_verified_at' => 'nullable|in:0,1|numeric',
             'is_staff' => 'nullable|in:0,1|numeric',
@@ -57,7 +56,6 @@ class UserRequest extends FormRequest
 
        
     }
-
     public function attributes()
     {
         return [
