@@ -146,12 +146,6 @@
                 <div class="nk-tb-col nk-tb-col-tools">
                     <ul class="nk-tb-actions gx-1">
                         <li class="nk-tb-action">
-                            <a href="" class="btn btn-trigger btn-icon" data-bs-toggle="tooltip"
-                                data-bs-placement="top" title="نمایش داخل سایت">
-                                <em class="icon ni ni-eye-fill"></em>
-                            </a>
-                        </li>
-                        <li class="nk-tb-action">
                             <a href='/admin/market/brands/{{ id }}/edit'
                                 class="btn btn-trigger btn-icon" data-bs-toggle="tooltip"
                                 data-bs-placement="top" title="ویرایش">

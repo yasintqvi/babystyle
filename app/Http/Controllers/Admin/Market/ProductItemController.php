@@ -91,7 +91,7 @@ class ProductItemController extends Controller
                 // checking that the duplicate value is not stored
                 $variationOption = VariationOption::where('variation_id', $option['variation_id'])
                     ->where('value', $option['value']);
-
+                
                 $variationOption = $variationOption->exists() ? $variationOption->first() : VariationOption::create($option);
 
                 $productItemOptions->push($variationOption->id);
@@ -101,6 +101,7 @@ class ProductItemController extends Controller
         $productItemHasCurrentOptions = ProductItem::whereHas('variationOptions', function ($query) use ($productItemOptions) {
             $query->whereIn('variation_option_id', $productItemOptions);
         }, '=', count($productItemOptions))->get();
+
 
         if (collect($productItemHasCurrentOptions)->isNotEmpty()) {
             throw new HttpResponseException(
