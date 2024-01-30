@@ -42,7 +42,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                             </svg>
 
-                            <button id="brandBTN" class="absolute w-full h-full top-0"></button>
+                            <a id="brandBTN" class="absolute w-full h-full top-0 cursor-pointer"></a>
                         </div>
                         <div class="divide-y overflow-hidden">
                             @foreach ($categories as $category)

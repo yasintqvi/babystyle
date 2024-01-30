@@ -686,6 +686,10 @@ video {
   z-index: 50 !important;
 }
 
+.\!z-\[999\] {
+  z-index: 999 !important;
+}
+
 .z-0 {
   z-index: 0;
 }
@@ -704,26 +708,6 @@ video {
 
 .z-50 {
   z-index: 50;
-}
-
-.z-\[\] {
-  z-index: ;
-}
-
-.z-\[99\] {
-  z-index: 99;
-}
-
-.\!z-\[99\] {
-  z-index: 99 !important;
-}
-
-.\!z-\[999\] {
-  z-index: 999 !important;
-}
-
-.-z-20 {
-  z-index: -20;
 }
 
 .m-1 {
@@ -1725,11 +1709,6 @@ video {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
-}
-
-.px-20 {
-  padding-left: 5rem;
-  padding-right: 5rem;
 }
 
 .pb-1 {

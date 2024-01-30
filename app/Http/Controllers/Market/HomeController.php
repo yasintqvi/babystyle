@@ -19,7 +19,7 @@ class HomeController extends Controller
         $sliders = Slider::where('is_active', 1)->get()->take(5);
 
         $products = Product::query()->with('items.discounts');
-        $latestProducts = $products->orderBy('id', 'DESC')->take(8)->get();
+        $latestProducts = $products->orderBy('id', 'DESC')->where('is_active' , 1)->take(8)->get();
         $productPaginators = $products->paginate(8);
 
         

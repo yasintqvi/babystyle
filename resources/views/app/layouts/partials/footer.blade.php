@@ -1,4 +1,4 @@
-<footer class="relative w-full bg-primary bg-opacity-70 -z-20">
+<footer class="relative w-full bg-primary bg-opacity-70 z-0">
     <div class="container pb-8 pt-6 z-0">
       <div class="flex z-0">
         <div class="hidden sm:flex md:w-2/5 w-1/2">

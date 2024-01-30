@@ -26,7 +26,7 @@ class ProductController extends Controller
 
         $categories = Category::active()->get();
 
-        $products = $products->paginate(16);
+        $products = $products->where('is_active' , 1)->paginate(16);
 
         return view('app.product.index', compact('products', 'categories'));
     }
