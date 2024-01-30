@@ -690,6 +690,13 @@ video {
   z-index: 999 !important;
 }
 
+<<<<<<< HEAD
+=======
+.-z-20 {
+  z-index: -20;
+}
+
+>>>>>>> 53fea2b16082d2e2db4d720ec59c01f39f4ec008
 .z-0 {
   z-index: 0;
 }
@@ -1639,6 +1646,11 @@ video {
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+}
+
+.px-20 {
+  padding-left: 5rem;
+  padding-right: 5rem;
 }
 
 .px-3 {

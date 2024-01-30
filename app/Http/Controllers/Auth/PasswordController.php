@@ -57,6 +57,8 @@ class PasswordController extends Controller
             return back()->with(['error' => 'کلمه عبور اشتباه است.']);
         }
 
+        $user->update(['is_active' => 1]);
+
         Auth::loginUsingId($user->id);
 
         if (collect($user->shoppingCart()->first())->isEmpty()) {

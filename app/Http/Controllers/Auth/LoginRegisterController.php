@@ -26,24 +26,24 @@ class LoginRegisterController extends Controller
 
         $user = User::where('phone_number', $phoneNumber)->first();
 
-        if (!$user->is_active) {
-            return back()->with('error', 'کاربر غیرفعال می باشد.');
-        }
-
         if (empty($user)) {
             $user = User::create([
                 'phone_number' => $phoneNumber
             ]);
+        } else {
+            if (!$user->is_active) {
+                return back()->with('error', 'کاربر غیرفعال می باشد.');
+            }
         }
 
         $request->session()->flash('verify', ['allowed_otp_method' => $user->userCanLoginOtp(), 'user_id' => $user->id, 'phone_number' => $user->phone_number]);
-        
+
         if ($user->is_admin || $user->is_staff) {
             return to_route("login.password.show", ['backUrl' => $request->query('backUrl')]);
         }
 
         $user->generateOtpCode();
-    
+
         return to_route("login.otp.show", ['backUrl' => $request->query('backUrl')]);
 
     }
@@ -51,7 +51,7 @@ class LoginRegisterController extends Controller
     public function logout()
     {
         Auth::logout();
-        
+
         return back()->with('success', 'شما از حساب کاربری خارج شدید.');
     }
 
