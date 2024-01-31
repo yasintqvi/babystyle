@@ -1,4 +1,4 @@
-<nav id="navBar" class="relative w-full bg-primary px-20 pt-5 -z-20">
+<nav id="navBar" class="relative w-full bg-primary px-10 pt-5 z-10>
     <div class="container">
         <div class="absolute left-0 -bottom-1 w-full">
             <svg width="100%" height="100%" viewBox="0 0 1440 43" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -33,11 +33,13 @@
                             <img class="w-24" src="{{ asset('assets/app/images/logo-home.png') }}"
                                 alt="لوگوی بیبی استایل" />
                         </a>
-                        <div class="flex items-center text-base justify-center">
-                            <button class="px-3 text-end h-10">عضویت</button>
+                        @guest
+                        <div class="flex items-center text-base justify-center ">
+                            <a href="{{ route('login.form', ['backUrl' => request()->getRequestUri()]) }}" class="px-3 text-end h-10 mt-3">عضویت</a>
                             <div class="border-l border-gray-600 h-4"></div>
-                            <button class="px-3 h-10">وارد شوید</button>
+                            <a href="{{ route('login.form', ['backUrl' => request()->getRequestUri()]) }}" class="px-3 h-10 mt-3">وارد شوید</a>
                         </div>
+                        @endguest
                         <!-- Menu bar -->
                         <ul dir="ltr" class="menu lg:flex hidden space-x-5">
                             <li class="group">

@@ -174,7 +174,7 @@
         </div>
         <div class="container">
             <div class="flex flex-wrap space-y-3 space-y-reverse">
-                @forelse ($products as $product)
+                @forelse ($productPaginators as $product)
                     @php
                         $productItem = $product->items->where('is_default', 1)->first() ?? $product->items->first();
                     @endphp
@@ -236,11 +236,12 @@
                         </a>
                     </section>
                 @endforeach
-
             </div>
-            {{-- <div class="my-4">
-                {{ $products->render('pagination::tailwind') }}
-            </div> --}}
+            <div class="my-4">
+                {{ $productPaginators->render('pagination::tailwind') }}
+            </div>
+          
+            
         </div>
     </section>
     <section id="questions">
@@ -300,4 +301,6 @@
             </a>
         </div>
     </section>
+
+    
 @endsection

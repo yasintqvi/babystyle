@@ -19,8 +19,9 @@ class HomeController extends Controller
         $sliders = Slider::where('is_active', 1)->get()->take(5);
 
         $products = Product::query()->with('items.discounts');
-        $latestProducts = $products->orderBy('id', 'DESC')->take(8)->get();
-        $products = $products->paginate(8);
+        $latestProducts = $products->orderBy('id', 'DESC')->where('is_active' , 1)->take(8)->get();
+        $productPaginators = $products->paginate(8);
+
         
         // $Amount = $request->get('amount');
 
@@ -51,7 +52,7 @@ class HomeController extends Controller
         })->get();
 
 
-        return view('app.index', compact('sliders', 'products' , 'latestProducts'));
+        return view('app.index', compact('sliders', 'productPaginators' , 'latestProducts'));
     }
 
     public function products(Request $request)
