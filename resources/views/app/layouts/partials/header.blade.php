@@ -153,7 +153,7 @@
 
                         <div id="searchBox"
                             class="absolute left-0 px-2 z-40 md:w-max bg-white overflow-hidden opacity-0 !w-0 transition-all">
-                            <form action="" method="get" class="flex gap-2 border shadow rounded-md p-1">
+                            <form action="{{ route('products.index') }}" method="get" class="flex gap-2 border shadow rounded-md p-1">
                                 <button id="hiddenSearchBox">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -165,7 +165,7 @@
                                 <input type="text" id="search" value="{{ request()->search }}" name="search"
                                     class="outline-none w-full" placeholder="نام محصول یا دسته" />
                                 <button class="bg-primary text-white p-1 px-3 m-1 rounded-md disabled:bg-gray-300">
-                                    جسنجو
+                                    جستجو
                                 </button>
 
                             </form>

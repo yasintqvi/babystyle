@@ -48,7 +48,7 @@
                             @foreach ($categories as $category)
                                 <div class="flex gap-2 items-center py-4 mr-1">
                                     <div class="flex items-center">
-                                        <input id="category-{{ $category->id }}" type="checkbox" value=""
+                                        <input id="category-{{ $category->id }}" name="category[]" type="checkbox" @checked(in_array($category->id, request('category') ?? [])) value="{{ $category->id }}"
                                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 ">
                                     </div>
                                     <label for="category-{{ $category->id }}"
@@ -268,7 +268,9 @@
             priceLimiterElements = document.querySelectorAll('.price-limiter');
 
             [...priceLimiterElements].map((item) => {
-                item.value = parseInt(item.value.replaceAll(',', ''));
+                if (item.value.trim('') != '') {
+                    item.value = parseInt(item.value.replaceAll(',', ''));
+                } 
             });
             
             filterForm.submit();
