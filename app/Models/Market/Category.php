@@ -15,6 +15,7 @@ class Category extends Model
         'title',
         'slug',
         'is_active',
+        'show_in_menu'
     ];
 
     // protected $with = ['variations'];

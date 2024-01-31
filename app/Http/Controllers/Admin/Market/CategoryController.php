@@ -23,6 +23,7 @@ class CategoryController extends Controller
          $this->middleware('can:create_category')->only('edit', 'update');
          $this->middleware('can:edit_category')->only('store', 'create');
          $this->middleware('can:delete_category')->only('destroy');
+         $this->middleware('show_in_menu')->only('store', 'update');
      }
 
     public function index():View
@@ -107,6 +108,7 @@ class CategoryController extends Controller
 
         DB::transaction(function() use($request, $category) {
             $request->mergeIfMissing(['is_active' => 0]);
+            $request->mergeIfMissing(['show_in_menu' => 0]);
     
             $category->update($request->all());
             

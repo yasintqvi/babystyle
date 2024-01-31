@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'check-shoppingcart' => \App\Http\Middleware\CheckShoppingCart::class,
-        'auth-json-response' => \App\Http\Middleware\AuthenticateJsonResponse::class
+        'auth-json-response' => \App\Http\Middleware\AuthenticateJsonResponse::class,
+        'show_in_menu' => \App\Http\Middleware\LimitShowInMenu::class
     ];
 }

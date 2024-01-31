@@ -60,6 +60,26 @@
 
                             <div class="col-md-6">
                                 <div class="form-group ">
+                                    <label class="form-label" for="fv-full-name">نمایش در منو</label>
+                                    <div class="form-control-wrap">
+                                        <div class="custom-control custom-control-lg custom-switch">
+                                            <input type="checkbox" name="show_in_menu" value="1"
+                                                class="custom-control-input" @checked(old('show_in_menu', $category->show_in_menu)) id="show_in_menu">
+                                            <label class="custom-control-label" for="show_in_menu">فعال</label>
+                                        </div>
+                                    </div>
+                                    @error('show_in_menu')
+                                        <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
+                                            <strong>
+                                                {{ $message }}
+                                            </strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group ">
                                     <label class="form-label" for="fv-full-name">وضعیت</label>
                                     <div class="form-control-wrap">
                                         <div class="custom-control custom-control-lg custom-switch">

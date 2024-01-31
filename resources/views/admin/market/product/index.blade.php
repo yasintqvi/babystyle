@@ -137,10 +137,6 @@
                                         <a href="" onclick="batchEdit(event)"><em class="icon ni ni-edit"></em><span>ویرایش انتخاب
                                                 شده</span></a>
                                     </li>
-                                    <li>
-                                        <a href="" onclick="batchDelete(event)"><em class="icon ni ni-trash"></em><span>حذف انتخاب
-                                                شده</span></a>
-                                    </li>
                                 </ul>
                             </div>
                         </div>

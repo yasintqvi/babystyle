@@ -1,4 +1,4 @@
-@extends('admin.layouts.app', ['title' => 'صفحه ها'])
+    @extends('admin.layouts.app', ['title' => 'صفحه ها'])
 
 @section('content')
     <div class="nk-content-inner">

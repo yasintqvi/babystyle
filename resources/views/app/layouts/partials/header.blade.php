@@ -97,50 +97,11 @@
                 <div id="topBar"
                     class="flex w-full justify-end lg:justify-between items-center px-8 py-2 z-40 font-kalameh font-bold">
                     <ul dir="ltr" class="menu lg:flex hidden space-x-3">
+                        @foreach($categories as $category) 
                         <li class="group">
-                            <a href="#"> 🥳تخفیفات🥳</a>
+                            <a href="#">{{ $category->title }}</a>
                         </li>
-                        <li class="group">
-                            <a href="#"> اکسسوری</a>
-                        </li>
-                        <li class="group">
-                            <a href="#"> پسرانه</a>
-                        </li>
-                        <li class="group">
-                            <a href="#"> دخترانه</a>
-                        </li>
-                        <li class="group">
-                            <svg class="mr-1" width="15" height="15" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path d="M19.92 8.95001L13.4 15.47C12.63 16.24 11.37 16.24 10.6 15.47L4.07996 8.95001"
-                                    stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </svg>
-                            <a href="#"> دسته بندی ها</a>
-                            <ul class="sub-menu z-50">
-                                <li class="group/sub relative flex flex-row-reverse justify-between items-center">
-                                    <a href="#">دخترانه</a>
-                                    <svg class="mr-1" width="15" height="15" viewBox="0 0 24 24"
-                                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M19.92 8.95001L13.4 15.47C12.63 16.24 11.37 16.24 10.6 15.47L4.07996 8.95001"
-                                            stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                    <ul class="group-hover/sub:block">
-                                        <li><a href="#">دخترانه</a></li>
-                                        <li><a href="#">پسرانه</a></li>
-                                        <li><a href="#">اکسسوری</a></li>
-                                    </ul>
-                                </li>
-                                <li class="group/sub relative flex flex-row-reverse justify-between items-center">
-                                    <a href="#">پسرانه</a>
-                                </li>
-                                <li class="group/sub relative flex flex-row-reverse justify-between items-center">
-                                    <a href="#">اکسسوری</a>
-                                </li>
-                            </ul>
-                        </li>
+                        @endforeach
                     </ul>
                     <div class="flex items-center font-normal">
                         <button id="searchIcon" class="px-3 text-end h-10">

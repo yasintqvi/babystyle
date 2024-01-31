@@ -34,6 +34,17 @@
     </div>
 
     <div class="card">
+        @if(session()->has('toast-error'))
+        <div class="alert alert-danger alert-dismissible fade show mb-2" role="alert">
+            <h4 class="alert-heading"> خطا </h4>
+            <hr>
+            <p class="mb-0">
+                {{ session('toast-error') }}
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="right: auto!important; left: 0!important">
+              </button>
+        </div>
+        @endif
         <div class="card-inner">
 
             <form action="{{ route('admin.market.categories.store') }}" method="post" id="category-form"
@@ -71,11 +82,31 @@
 
                             <div class="col-md-6">
                                 <div class="form-group ">
+                                    <label class="form-label" for="fv-full-name">نمایش در منو</label>
+                                    <div class="form-control-wrap">
+                                        <div class="custom-control custom-control-lg custom-switch">
+                                            <input type="checkbox" name="show_in_menu" value="1"
+                                                class="custom-control-input" @checked(old('show_in_menu')) id="show_in_menu">
+                                            <label class="custom-control-label" for="show_in_menu">فعال</label>
+                                        </div>
+                                    </div>
+                                    @error('show_in_menu')
+                                        <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
+                                            <strong>
+                                                {{ $message }}
+                                            </strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group ">
                                     <label class="form-label" for="fv-full-name">وضعیت</label>
                                     <div class="form-control-wrap">
                                         <div class="custom-control custom-control-lg custom-switch">
                                             <input type="checkbox" name="is_active" value="1"
-                                                class="custom-control-input" @checked(old('is_active')) id="is_active">
+                                                class="custom-control-input" @checked(old('is_active') ?? true) id="is_active">
                                             <label class="custom-control-label" for="is_active">فعال</label>
                                         </div>
                                     </div>
@@ -129,9 +160,13 @@
             </form>
         </div>
     </div>
-@endsection
 
-@section('script')
+    @endsection
+    
+    @section('script')  
+    @include('app.alerts.toast.success')
+    @include('app.alerts.toast.error')
+
     <script>
         const addAttributeInput = () => {
             const attributeListElement = document.querySelector('#attribute-list');
@@ -169,5 +204,7 @@
 
             categroyForm.submit();
         });
+
+        
     </script>
 @endsection
