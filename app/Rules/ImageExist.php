@@ -17,7 +17,7 @@ class ImageExist implements ValidationRule
         $files = explode(',' , $value);        
         
         foreach ($files as $file) {
-            if (!file_exists(public_path($file))) {
+            if (!file_exists($file)) {
                 $fail('فایل ها بارگزاری نشده اند.');
             }
         }

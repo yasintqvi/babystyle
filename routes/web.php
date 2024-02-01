@@ -35,7 +35,7 @@ Route::middleware('guest')->group(function () {
     Route::post('login/check', [LoginRegisterController::class, 'check'])->name('login.check');
 
     Route::get('login/otp', [OtpController::class, 'show'])->name("login.otp.show");
-    Route::post('login/otp', [OtpController::class, 'login'])->name("login.otp");
+    Route::post('login/otp', [OtpController::class, 'login'])->name("login.otp")->middleware('throttle:1,20');
     Route::post('login/otp/resend', [OtpController::class, 'resend'])->name("login.otp.resend");
 
     Route::get('login/password', [PasswordController::class, 'show'])->name("login.password.show");
