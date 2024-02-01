@@ -325,7 +325,7 @@
                             <div class="dropdown-inner">
                                 <ul class="link-list">
                                     <li>
-                                        <a href="#"><em class="icon ni ni-signout"></em><span>خروج</span></a>
+                                        <a href="{{ route('logout') }}"><em class="icon ni ni-signout"></em><span>خروج</span></a>
                                     </li>
                                 </ul>
                             </div>
