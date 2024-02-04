@@ -86,6 +86,7 @@ class OrderController extends Controller
                 'total_products_amount' => (int) $totalProductsAmount,
                 'order_discount' => (int) $orderDiscountAmount,
                 'final_amount' => (int) $finalAmount,
+                'order_date' => now()
             ]);
 
             $request->user()->update([
