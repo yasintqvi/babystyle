@@ -18,7 +18,7 @@
 </head>
 
 <body class="font-vazir">
-    <section id="login" class="">
+    <section id="login" class="p-40">
         <div
             class="container flex flex-col md:flex-row justify-center items-center w-full h-screen bg-white bg-opacity-70 z-10">
             @yield('content')
