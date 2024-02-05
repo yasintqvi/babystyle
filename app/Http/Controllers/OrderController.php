@@ -194,8 +194,27 @@ class OrderController extends Controller
         ]);
 
         $order->update([
-            'order_status' => $status ? 1: 0
+            'order_status' => $status ? 1 : 0
         ]);
+
+        $order->lines->map(function ($orderLine) use($status) {
+            if ($status) {
+                $productItem = $orderLine->productItem;
+
+                $productItem->update([
+                    'quantity' => $productItem->quantity - $orderLine->quantity
+                ]);
+
+                $productItem->product->update([
+                    'quantity' => $productItem->product->quantity - $orderLine->quantity
+                ]);
+
+            }
+
+            $orderLine->update([
+                'is_reserved' => 0
+            ]);
+        });
 
         return view('app.profile.order.result', compact('result', 'status'));
     }

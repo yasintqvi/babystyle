@@ -31,21 +31,23 @@ class ProductItem extends Model
     {
         $product = request()->product;
 
-        if (isset($this->id)) {
-            // updated
-            $updateProductQty = (int) $value + ($product->quantity - $this->quantity);
+        if (isset($product)) {
+            if (isset($this->id)) {
+                // updated
+                $updateProductQty = (int) $value + ($product->quantity - $this->quantity);
 
-            $product->update([
-                'quantity' => $updateProductQty
-            ]);
-        } else {
-            $product->update([
-                'quantity' => $product->quantity += (int) $value
-            ]);
+                $product->update([
+                    'quantity' => $updateProductQty
+                ]);
+            } else {
+                $product->update([
+                    'quantity' => $product->quantity += (int) $value
+                ]);
+            }
+
         }
-
+        
         $this->attributes['quantity'] = $value;
-
     }
 
     public function product()
@@ -58,7 +60,7 @@ class ProductItem extends Model
     {
         return $this->belongsToMany(VariationOption::class, 'product_variation_options');
     }
-    
+
     public function getImageAttribute()
     {
         return $this->product_image ?? "defaults/no-image.jpg";
