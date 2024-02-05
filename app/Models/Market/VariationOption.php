@@ -13,7 +13,7 @@ class VariationOption extends Model
         'variation_id',
         'value',
         'second_value',
-        'is_color'
+        'is_color'  
     ];
 
 

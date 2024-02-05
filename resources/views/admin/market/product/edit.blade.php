@@ -296,7 +296,7 @@
                                 </div>
                             </div>
                             @foreach ($product->category->variations as $variation)
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label"
                                             for="variation-{{ $variation->id }}">{{ $variation->name }}</label>
@@ -328,7 +328,64 @@
                                             </span>
                                         @enderror
                                     </div>
+                                </div> --}}
+
+                                @if ($variation->is_color) 
+                                @php 
+                                    $options = App\Models\Market\VariationOption::where('is_color',1)->get()->unique('value'); 
+                                @endphp
+                                <div class="col-md-6 d-flex">
+                                    <div class="form-group col-md-10">
+                                        <div class="form-control-wrap">
+                                            <label class="form-label" for="category">انتخاب رنگ</label>
+                                            <input type="hidden" name="options[{{ $variation->id }}][variation_id]"
+                                                value="{{ $variation->id }}">
+                                            <select id="variation-{{ $variation->id }}"
+                                                name="options[{{ $variation->id }}][value]" class="form-select choose_color_input" onchange="setColor(event)" data-search="on">
+                                                <option value=""></option>
+                                                
+                                                @foreach ($options as $option)
+                                                    <option value="{{ $option->value }}"  data-color="{{ $option->second_value }}">
+                                                        {{ $option->value }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"
+                                            style="background: transparent !important; border:none;">
+                                            <input type="color" class="color_pick_input" id="variation-{{ $variation->id }}-second"
+                                                name="options[{{ $variation->id }}][second_value]"
+                                                class="custom-color-input border-0">
+                                            <input type="hidden"
+                                                name="options[{{ $variation->id }}][is_color]"
+                                                value="1">
+                                        </span>
+                                    </div>
                                 </div>
+
+                                @else 
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label"
+                                            for="variation-{{ $variation->id }}">{{ $variation->name }}</label>
+                                        <div class="form-control-wrap d-flex">
+                                            <input type="hidden" name="options[{{ $variation->id }}][variation_id]"
+                                                value="{{ $variation->id }}">
+                                            <input type="text" class="form-control invalid"
+                                                name="options[{{ $variation->id }}][value]"
+                                                id="variation-{{ $variation->id }}">
+                                        </div>
+                                        @error('options.{{ $variation->id }}.value')
+                                            <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
+                                                <strong>
+                                                    {{ $message }}
+                                                </strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                @endif
                             @endforeach
                             @if ($product->items()->count() > 0)
                                 <div class="col-md-6">
@@ -681,5 +738,23 @@
                     }
                 })
         }
+
+        const setColor = (event) => {
+            const colorPickInput = document.querySelector('.color_pick_input');
+            const {target} = event;
+            
+            const options = target.querySelectorAll('option');
+            
+            for (index in options) {
+                if (options[index].selected) {
+                    colorPickInput.value = options[index].dataset.color;
+                }
+            }
+
+        }
+
+        $(".choose_color_input").select2({
+            tags: true
+        });
     </script>
 @endsection

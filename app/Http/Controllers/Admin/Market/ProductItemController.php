@@ -98,7 +98,7 @@ class ProductItemController extends Controller
             }
         });
 
-        $productItemHasCurrentOptions = ProductItem::whereHas('variationOptions', function ($query) use ($productItemOptions) {
+        $productItemHasCurrentOptions = ProductItem::whereNot('id', $productItem->id)->whereHas('variationOptions', function ($query) use ($productItemOptions) {
             $query->whereIn('variation_option_id', $productItemOptions);
         }, '=', count($productItemOptions))->get();
 
@@ -150,7 +150,7 @@ class ProductItemController extends Controller
                 collect($validData['options'])->map(function ($option) use ($productItemOptions) {
                     if (!empty($option['value'])) {
                         // checking that the duplicate value is not stored
-                        $variationOption = VariationOption::where('is_color', 0)->where('variation_id', $option['variation_id'])
+                        $variationOption = VariationOption::where('variation_id', $option['variation_id'])
                             ->where('value', $option['value']);
 
                         $variationOption = $variationOption->exists() ? $variationOption->first() : VariationOption::create($option);

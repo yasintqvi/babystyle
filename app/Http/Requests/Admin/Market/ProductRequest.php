@@ -37,7 +37,7 @@ class ProductRequest extends FormRequest
 
         return [
             'title' => 'required|max:255',
-            'description' => 'required|max:300',
+            'description' => 'required',
             'primary_image' => 'nullable|image|max:4096',
             'secondary_image' => 'nullable|image|max:4096',
             'category_id' => 'required|exists:categories,id',

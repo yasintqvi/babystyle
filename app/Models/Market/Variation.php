@@ -23,6 +23,6 @@ class Variation extends Model
 
     public function options()
     {
-        return $this->belongsTo(VariationOption::class);
+        return $this->hasMany(VariationOption::class);
     }
 }
