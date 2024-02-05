@@ -80,11 +80,28 @@ class Product extends Model
             $query->latest();
         }
 
+        if ($price = $filters->get('price')) {
+            [$price['min'], $price['max']] = [$price['min'] ?? 0, $price['max'] ?? null];
+
+            if ($price['max']) {
+                $query->withPrice()->where('price', '>=', $price['min'])->where('price' , "<=" , $price['max']);
+            }
+            else {
+                $query->withPrice()->where('price', '>=', $price['min']);
+            }
+        }
+
         if ($keyword = $filters->get('search')) {
             $query->where('title', "LIKE" ,"%{$keyword}%");
         }
 
         return $query;
+    }
+
+    public function scopeWithPrice($query) {
+        return $query->join('product_items', 'products.id', '=', 'product_items.product_id')
+            ->select('products.*', 'product_items.price')
+            ->where('product_items.is_default', 1);
     }
 
 
