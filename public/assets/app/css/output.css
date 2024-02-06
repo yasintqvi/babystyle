@@ -718,10 +718,6 @@ video {
   margin: 0.75rem;
 }
 
-.m-28 {
-  margin: 7rem;
-}
-
 .mx-1 {
   margin-left: 0.25rem;
   margin-right: 0.25rem;
@@ -1600,10 +1596,6 @@ video {
   padding: 0.5rem;
 }
 
-.p-28 {
-  padding: 7rem;
-}
-
 .p-3 {
   padding: 0.75rem;
 }
@@ -1612,16 +1604,16 @@ video {
   padding: 1rem;
 }
 
+.p-40 {
+  padding: 10rem;
+}
+
 .p-5 {
   padding: 1.25rem;
 }
 
 .p-6 {
   padding: 1.5rem;
-}
-
-.p-40 {
-  padding: 10rem;
 }
 
 .px-1 {

@@ -97,8 +97,9 @@ class ProductItemController extends Controller
                 $productItemOptions->push($variationOption->id);
             }
         });
+        $product = $productItem->product;
 
-        $productItemHasCurrentOptions = ProductItem::whereNot('id', $productItem->id)->whereHas('variationOptions', function ($query) use ($productItemOptions) {
+        $productItemHasCurrentOptions = $product->items()->whereNot('id', $productItem->id)->whereHas('variationOptions', function ($query) use ($productItemOptions) {
             $query->whereIn('variation_option_id', $productItemOptions);
         }, '=', count($productItemOptions))->get();
 
