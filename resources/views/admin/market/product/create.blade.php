@@ -12,7 +12,7 @@
     </div>
 
     <form action="{{ route('admin.market.products.store') }}" method="post" enctype="multipart/form-data" id="form"
-        class="form-validate" novalidate="novalidate">
+        class="form-validate" novalidate="novalidate"  onsubmit="disableBtn(event)">
         <div class="card">
             <div class="card-inner">
                 @csrf
@@ -276,7 +276,7 @@
         </div>
         <div class="col-md-12 mt-4">
             <div class="form-group d-flex justify-content-end">
-                <button type="submit" class="btn btn-lg btn-primary mr-auto">ذخیره اطلاعات</button>
+                <button type="submit" class="btn btn-lg btn-primary mr-auto" id="submit-btn">ذخیره اطلاعات</button>
             </div>
         </div>
     </form>
@@ -308,5 +308,12 @@
 
 
         };
+    </script>
+
+    <script>
+        const disableBtn = (event) => {
+            const submitBtn = document.querySelector('#submit-btn');
+            submitBtn.disabled = true;
+        }
     </script>
 @endsection
