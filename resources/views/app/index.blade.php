@@ -41,10 +41,16 @@
                 <h4 class="w-max relative right-1/2 translate-x-1/2">دسته بندی ها</h4>
             </span>
         </div>
-        <div class="flex justify-between items-center">
-            <img class="w-1/3" src="../dist/images/categoryGirl.jpg" alt="" />
-            <img class="w-1/3" src="../dist/images/categoryBoy.jpg" alt="" />
-            <img class="w-1/3" src="../dist/images/categoryAccessory.jpg" alt="" />
+        <div class="flex justify-between items-center ">
+            <a href="https://babystyleshop.ir/products?category%5B%5D=1" class="w-1/3 hover:scale-105 transition-all">
+            <img  src="{{ asset('assets/app/images/category/1.jpg')}}" alt="" />
+            </a>
+            <a href="https://babystyleshop.ir/products?category%5B%5D=7" class="w-1/3 hover:scale-105 transition-all">
+            <img  src="{{ asset('assets/app/images/category/2.jpg')}}" alt="" />
+            </a>
+            <a href="https://babystyleshop.ir/products?category%5B%5D=3" class="w-1/3 hover:scale-105 transition-all">
+            <img  src="{{ asset('assets/app/images/category/3.jpg')}}" alt="" />
+            </a>
         </div>
     </section>
     <section id="newProducts" class="p-2">

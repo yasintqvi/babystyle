@@ -175,18 +175,26 @@
                         </ul>
                     </div>
                 @endif
-                {{-- <div class="py-2 pt-6">
-                    <p class="text-gray-700">
-                        {!! $product->description !!}
-                    </p>
-                </div> --}}
+                
             </div>
         </div>
         {{-- comments section --}}
         <div class="container">         
             <hr class="border-2 rounded-lg" />
+            <div class="py-4 ">
+                <span class="font-medium text-lg">معرفی</span>
+                <hr class="h-1 w-10 bg-red-500">
+                <div class="py-2 pt-1">
+                    <p class="text-gray-500">
+                        {!! $product->description !!}
+                    </p>
+                </div>
+            </div>
+
+
             <div class="py-4 font-medium text-lg">
-                <span>امتیاز و دیدگاه کاربران </span>
+                <span >امتیاز و دیدگاه کاربران </span>
+                <hr class="h-1 w-10 bg-red-500">
             </div>
             <div class="flex flex-wrap">
                 <div class="md:w-1/4 w-full relative pb-2">

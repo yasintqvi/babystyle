@@ -42,27 +42,18 @@
                         @endguest
                         <!-- Menu bar -->
                         <ul dir="ltr" class="menu lg:flex hidden space-x-5">
-                            <li class="group">
-                                <a href="#"> 🥳تخفیفات🥳</a>
-                            </li>
-                            <li class="group">
-                                <a href="#"> تماس با ما</a>
-                            </li>
-                            <li class="group">
-                                <a href="#"> اکسسوری</a>
-                            </li>
-                            <li class="group">
-                                <a href="#"> پسرانه</a>
-                            </li>
-                            <li class="group">
-                                <a href="#"> دخترانه</a>
-                            </li>
+                            @foreach($categories as $category) 
+                                <li class="group">
+                                    <a href="#"> {{ $category->title }}</a>
+                                </li>
+                            @endforeach
+                           
                         </ul>
                         <ul class="menu flex flex-col-reverse font-bold text-base">
                             <!--
                   to create sub menu add class relative group to parent li
                  -->
-                            <li class="relative group">
+                            {{-- <li class="relative group">
                                 <a href="#"> 🥳تخفیفات🥳</a>
                             </li>
                             <li class="relative group">
@@ -76,7 +67,12 @@
                             </li>
                             <li class="relative group">
                                 <a href="#"> دخترانه</a>
-                            </li>
+                            </li> --}}
+                            @foreach($categories as $category) 
+                                <li class="group">
+                                    <a href="{{ route('products.index' , ['category[]'  => $category->id]) }}"> {{ $category->title }}</a>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                     <button id="closeSideBar" class="w-1/5 sm:w-1/2 h-full flex items-center justify-center">
@@ -99,7 +95,7 @@
                     <ul dir="ltr" class="menu lg:flex hidden space-x-3">
                         @foreach($categories as $category) 
                         <li class="group">
-                            <a href="#">{{ $category->title }}</a>
+                            <a href="{{ route('products.index' , ['category[]'  => $category->id]) }}">{{ $category->title }}</a>
                         </li>
                         @endforeach
                     </ul>

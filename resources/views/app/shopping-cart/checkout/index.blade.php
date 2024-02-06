@@ -32,7 +32,9 @@
                     </select>
                 </div>
                 <div class="sm:w-1/2 w-full p-2">
+                    <div class="flex">
                     <label for="" class="block my-1">نام تحویل گیرنده</label>
+                    </div>
                     <input type="text" value="{{ old('receiver_full_name') }}" name="receiver_full_name" id=""
                         class="w-full outline-none border rounded-md p-1" />
                 </div>
@@ -42,24 +44,36 @@
                         id="" class="w-full outline-none border rounded-md p-1" />
                 </div>
                 <div class="sm:w-1/3 w-full p-2">
-                    <label for="" class="block my-1">کد پستی </label>
+                    <div class="flex">
+                        <label for="" class="block my-1">کد پستی </label>
+                        <label for="" class="block my-1 text-red-600 px-1"> * </label>  
+                    </div>
                     <input type="number" value="{{ old('postal_code') }}" name="postal_code" id=""
                         class="w-full outline-none border rounded-md p-1" />
                 </div>
                 <div class="sm:w-1/3 w-full p-2">
-                    <label for="" class="block my-1">پلاک</label>
+                    <div class="flex">
+                        <label for="" class="block my-1">پلاک</label>
+                        <label for="" class="block my-1 text-red-600 px-1"> * </label>  
+                    </div>
                     <input type="number" value="{{ old('plaque') }}" name="plaque" id=""
                         class="w-full outline-none border rounded-md p-1" />
                 </div>
 
                 <div class="sm:w-1/3 w-full p-2">
-                    <label for="" class="block my-1">واحد</label>
+                    <div class="flex">
+                        <label for="" class="block my-1">واحد</label>
+                        <label for="" class="block my-1 text-red-600 px-1"> * </label>  
+                    </div>
                     <input type="number" value="{{ old('unit') }}" name="unit" id=""
                         class="w-full outline-none border rounded-md p-1" />
                 </div>
 
                 <div class="flex flex-col my-2 w-full p-2">
-                    <label for="" class="block my-1" class="">آدرس دقیق
+                        <div class="flex">
+                            <label for="" class="block my-1">آدرس دقیق</label>
+                            <label for="" class="block my-1 text-red-600 px-1"> * </label>  
+                        </div>
                     </label>
                     <textarea name="address" id="" cols="30" rows="10" class="h-20 outline-0 border rounded-md p-1">{{ old('address') }}</textarea>
                 </div>
