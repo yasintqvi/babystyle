@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services\Zarinpal;
+use SoapClient;
 
 class ZarinpalService
 {
