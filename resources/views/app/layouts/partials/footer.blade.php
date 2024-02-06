@@ -180,7 +180,7 @@
                     </div>
                 </div>
                 <div class="md:w-1/3 w-full flex justify-center gap-3 items-center">
-               <a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=456365&Code=7LEs1xYw1xgFoaA7T3msf7zwFpTekUWU'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=456365&Code=7LEs1xYw1xgFoaA7T3msf7zwFpTekUWU' alt='' style='cursor:pointer' Code='7LEs1xYw1xgFoaA7T3msf7zwFpTekUWU'></a>
+                    <a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=456365&Code=7LEs1xYw1xgFoaA7T3msf7zwFpTekUWU'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=456365&Code=7LEs1xYw1xgFoaA7T3msf7zwFpTekUWU' alt='' style='cursor:pointer' Code='7LEs1xYw1xgFoaA7T3msf7zwFpTekUWU'></a>
                     <a href="#" class="w-20">
                         {{-- <img class="w-full" src="../dist/images/zarinpal.svg" alt="" /> --}}
                         <style>#zarinpal{margin:auto} #zarinpal img {width: 200px;}</style>
