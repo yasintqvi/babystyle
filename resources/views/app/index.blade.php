@@ -157,25 +157,25 @@
         </div>
         <div class="grid grid-cols-2 lg:grid-cols-4 sm:grid-cols-2 gap-4 lg:px-20 md:px-10">
             <a href="https://babystyleshop.ir/products?category%5B%5D=3" class="relative hover:scale-105 transition-all flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
-                <img src="{{ asset('assets/app/images/productexample/girl.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
+                <img src="{{ asset('assets/app/images/productexample/1.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
                 <h3 class="z-10 mt-3 text-3xl font-bold text-white">دخترانه</h3>
                 <div class="z-10 gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">Beautiful girl</div>
             </a>
             <a href="https://babystyleshop.ir/products?category%5B%5D=8" class="relative hover:scale-105 transition-all flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
-                                <img src="{{ asset('assets/app/images/productexample/boot.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
+                                <img src="{{ asset('assets/app/images/productexample/2.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
                 <h3 class="z-10 mt-3 text-3xl font-bold text-white">کفش و نیم بوت </h3>
                 <div class="z-10 gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">Luxury shoes</div>
             </a>
             <a href="https://babystyleshop.ir/products?category%5B%5D=7" class="relative hover:scale-105 transition-all flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
-                                <img src="{{ asset('assets/app/images/productexample/acess.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
+                                <img src="{{ asset('assets/app/images/productexample/3.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
                 <h3 class="z-10 mt-3 text-3xl font-bold text-white">اکسسوری</h3>
                 <div class="z-10 gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">Cool accessory</div>
             </a>
             <a href="https://babystyleshop.ir/products?category%5B%5D=1" class="relative hover:scale-105 transition-all flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
-                                <img src="{{ asset('assets/app/images/productexample/boy.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
+                                <img src="{{ asset('assets/app/images/productexample/4.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
                 <h3 class="z-10 mt-3 text-3xl font-bold text-white">پسرانه</h3>
                 <div class="z-10 gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">Strong boy</div>
