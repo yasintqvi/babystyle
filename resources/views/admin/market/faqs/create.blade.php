@@ -80,17 +80,22 @@
                         @enderror
                     </div>
 
-                    <div class="px-3">
-                        <label class="form-label" for="customFileLabel">جواب سوال</label>
-                        <span class="text-danger">*</span>
-                        <textarea name="answer" class="tinymce-menubar form-control" >{{ old('answer') }}</textarea>
-                        @error('answer')
-                            <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
-                                <strong>
-                                    {{ $message }}
-                                </strong>
-                            </span>
-                        @enderror
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-label" for="fv-full-name">جواب سوال</label>
+                            <span class="text-danger">*</span>
+                            <div class="form-control-wrap">
+                                <input type="text" class="form-control" id="fv-full-name" name="answer"
+                                    value="{{ old('answer') }}">
+                            </div>
+                            @error('answer')
+                                <span class="alert_required text-danger xl-1 p-1 rounded" role="alert">
+                                    <strong>
+                                        {{ $message }}
+                                    </strong>
+                                </span>
+                            @enderror
+                        </div>
                     </div>
                     
                     <div class="col-md-12 mt-2">

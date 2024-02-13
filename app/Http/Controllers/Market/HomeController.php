@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Market;
 
 use App\Http\Controllers\Controller;
 use App\Models\Market\Category;
+use App\Models\Market\Faq;
 use App\Models\Market\Product;
 use App\Models\Market\ProductItem;
 use App\Models\Market\ProductItemDiscount;
@@ -43,6 +44,8 @@ class HomeController extends Controller
 
         $sliders = Slider::where('is_active', 1)->get()->take(5);
 
+        $faqs = Faq::where('is_active', 1)->get()->take(5);
+
         $products = Product::where('is_active', 1)->with([
             'items.discounts' => function ($query) {
                 $query->active();
@@ -52,7 +55,7 @@ class HomeController extends Controller
         })->get();
 
 
-        return view('app.index', compact('sliders', 'productPaginators' , 'latestProducts'));
+        return view('app.index', compact('sliders', 'productPaginators' , 'latestProducts', 'faqs'));
     }
 
     public function products(Request $request)

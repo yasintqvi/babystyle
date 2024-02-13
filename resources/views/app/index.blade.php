@@ -25,8 +25,8 @@
                     <section class="swiper-slide">
                         <a href="#">
                             <div
-                                class="md:h-full aspect-[16/8.5] md:min-h-[20rem] bg-no-repeat bg-center bg-cover rounded-lg flex items-end">
-                                <img src="{{ $slider->image }}" alt="{{ $slider->alt }}">
+                                class="h-full w-full justify-center bg-no-repeat object-cover bg-center bg-cover rounded-lg flex ">
+                                <img class="object-cover bg-center bg-cover" src="{{ $slider->image }}" alt="{{ $slider->alt }}">
                             </div>
                         </a>
                     </section>
@@ -285,45 +285,28 @@
                 </h4>
             </span>
         </div>
-        <div id="questions-accordion" class="container space-y-5">
-            <div id="question-item-1" class="border shadow rounded-lg">
-                <div class="relative flex justify-between items-center bg-gray-50 p-5 py-3 font-bold rounded-lg">
-                    <span>آیا برای خرید لازم است از قبل در وبسایت ثبت‌نام کرده باشم؟</span>
-                    <span id="IsShowing" data-isShowing="false"
-                        class="flex justify-center items-center aspect-square text-xl w-8 bg-gray-200 rounded-full text-gray-600 rotate-180">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
-                        </svg>
-                    </span>
-                    <div class="questionItems absolute w-full !h-full top-0 left-0"></div>
+        <div id="questions-accordion" class="container space-y-5 mb-10">
+            @foreach($faqs as $faq)
+                <div id="question-item-1" class="border shadow rounded-lg">
+                    <div class="relative flex justify-between items-center bg-gray-50 p-5 py-3 font-bold rounded-lg">
+                        <span>{{ $faq->question }}</span>
+                        <span id="IsShowing" data-isShowing="false"
+                            class="flex justify-center items-center aspect-square text-xl w-8 bg-gray-200 rounded-full text-gray-600 rotate-180">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                            </svg>
+                        </span>
+                        <div class="questionItems absolute w-full !h-full top-0 left-0"></div>
+                    </div>
+                    <div class="content h-0 overflow-hidden">
+                        <p class="p-5 border-t-2 bg-gray-100">
+                          {{$faq->answer}}
+                        </p>
+                    </div>
                 </div>
-                <div class="content h-0 overflow-hidden">
-                    <p class="p-5 border-t-2 bg-gray-100">
-                        خیر، شما با انتخاب و اضافه کردن محصولات به سبد خریدتان می‌توانید
-                        اطلاعات فردی و ارسالتان را کامل کنید و پرداخت را انجام دهید.
-                    </p>
-                </div>
-            </div>
-            <div id="question-item-2" class="border shadow rounded-lg">
-                <div class="relative flex justify-between items-center bg-gray-50 p-5 py-3 font-bold rounded-lg">
-                    <span> چطور هزینه سفارش را پرداخت کنم؟ </span>
-                    <span id="IsShowing"
-                        class="flex justify-center items-center aspect-square text-xl w-8 bg-gray-200 rounded-full text-gray-600 rotate-180">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
-                        </svg>
-                    </span>
-                    <div class="questionItems absolute w-full !h-full top-0 left-0"></div>
-                </div>
-                <div class="content h-0 overflow-hidden">
-                    <p class="p-5 border-t-2 bg-gray-100">
-                        تمامی کاربران می‌توانند از طریق درگاه بانکی با تمام کارت‌های عضو
-                        شتاب هزینه سفارش را به صورت اینترنتی پرداخت نمایند.
-                    </p>
-                </div>
-            </div>
+            @endforeach
+         
         </div>
     </section>
     <section>
