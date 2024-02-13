@@ -113,7 +113,7 @@ class User extends Authenticatable
                 'expired_at'    =>  now()->addSeconds(config('auth.resend_otp_time')),
             ]);
 
-            // $this->notify(new OTPSms($newOtpCode->code));
+            $this->notify(new OTPSms($newOtpCode->code));
 
             return $newOtpCode;
         }
