@@ -25,7 +25,7 @@ return new class extends Migration
             $table->tinyInteger('is_staff')->default(0)->comment('1 => is employee');
             $table->tinyInteger('is_active')->default(0)->comment('1 => is active');
             $table->tinyInteger('is_banned')->default(0)->comment('1 => is banned');
-            $table->timestamp('activated_at')->nullable();
+            $table->timestamp('activated_at')->nullable(); 
             $table->string('password')->nullable();
             $table->rememberToken();
             $table->timestamps();
