@@ -28,7 +28,8 @@ class LoginRegisterController extends Controller
 
         if (empty($user)) {
             $user = User::create([
-                'phone_number' => $phoneNumber
+                'phone_number' => $phoneNumber,
+                'is_active' => 1
             ]);
         } else {
             if (!$user->is_active) {
