@@ -198,10 +198,7 @@ class OrderController extends Controller
             'order_status' => $status ? 1 : 0
         ]);
 
-        if ($status) {
-            dd('hi');
-            // ارسال SMS به کاربر
-            $order->user->notify(new NewOrderNotification($order));
+
 
             // کاهش موجودی کالا
             $order->lines->map(function ($orderLine) {
@@ -213,79 +210,44 @@ class OrderController extends Controller
                     'quantity' => $productItem->product->quantity - $orderLine->quantity
                 ]);
             });
-        }
+
+            if ($status) {
+                $order->user->notify(new NewOrderNotification($order));
+            }
 
         return view('app.profile.order.result', compact('result', 'status'));
     }
 
 
-    // private function directToBank(Order $order)
-    // {
-    //     $payment = Auth::user()->payments()->create([
-    //         'amount' => $order->final_amount,
-    //         'gateway' => 'زرین پال',
-    //         'is_processed' => 1,
-    //         'is_succeed' => 0,
-    //     ]);
-
-    //     $order->update([
-    //         'online_payment_id' => $payment->id
-    //     ]);
-
-    //     $Amount = $order->final_amount;
-    //     $Description = "تراکنش زرین پال";
-    //     $Email = "";
-    //     $Mobile = Auth::user()->mobile;
-
-    //     $CallbackURL = route('orders.result', ['amount' => $order->final_amount, 'payment_id' => $order->online_payment_id]);
-
-    //     $zp = new ZarinpalService();
-    //     $result = $zp->request($Amount, $Description, $Email, $Mobile, $CallbackURL);
-
-    //     if (isset($result["Status"]) && $result["Status"] == 100) {
-    //         session()->put('bank_verify', true);
-    //         $zp->redirect($result["StartPay"]);
-    //     } else {
-    //         return back()->with('error', "خطا در ایجاد تراکنش");
-    //     }
-    // }
-
     private function directToBank(Order $order)
     {
-
-        // dd($order->user->fullName);
-        // شبیه‌سازی پرداخت موفق
         $payment = Auth::user()->payments()->create([
             'amount' => $order->final_amount,
             'gateway' => 'زرین پال',
             'is_processed' => 1,
-            'is_succeed' => 1, // پرداخت موفقیت‌آمیز
-            'trans_id' => 'TEST123456' // کد تراکنش تستی
+            'is_succeed' => 0,
         ]);
 
-        // به‌روزرسانی سفارش
         $order->update([
-            'online_payment_id' => $payment->id,
-            'order_status' => 1 // وضعیت سفارش: تایید شده
+            'online_payment_id' => $payment->id
         ]);
 
-        // کاهش موجودی کالا
-        $order->lines->map(function ($orderLine) {
-            $productItem = $orderLine->productItem;
-            $productItem->update([
-                'quantity' => $productItem->quantity - $orderLine->quantity
-            ]);
-            $productItem->product->update([
-                'quantity' => $productItem->product->quantity - $orderLine->quantity
-            ]);
-        });
+        $Amount = $order->final_amount;
+        $Description = "تراکنش زرین پال";
+        $Email = "";
+        $Mobile = Auth::user()->mobile;
 
+        $CallbackURL = route('orders.result', ['amount' => $order->final_amount, 'payment_id' => $order->online_payment_id]);
 
+        $zp = new ZarinpalService();
+        $result = $zp->request($Amount, $Description, $Email, $Mobile, $CallbackURL);
 
-        // ارسال SMS به کاربر
-        $order->user->notify(new NewOrderNotification($order));
-
-        // هدایت به صفحه نتیجه
-        return redirect()->route('profile.orders.index')->with('success', 'پرداخت تستی با موفقیت انجام شد.');
+        if (isset($result["Status"]) && $result["Status"] == 100) {
+            session()->put('bank_verify', true);
+            $zp->redirect($result["StartPay"]);
+        } else {
+            return back()->with('error', "خطا در ایجاد تراکنش");
+        }
     }
+
 }

@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Channels\SmsChannel;
+use App\Channels\OrderChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -29,7 +29,7 @@ class NewOrderNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return [SmsChannel::class];
+        return [OrderChannel::class];
     }
 
     /**
