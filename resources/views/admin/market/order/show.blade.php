@@ -35,6 +35,7 @@
                                                 <li>
                                                     <em class="icon ni ni-map-pin-fill"></em>
                                                     <span>
+                                                        {{ $order->address->province->name }} ، {{ $order->address->city->name }} ، 
                                                         {{ $order->address->address }}
                                                     </span>
                                                 </li>
