@@ -33,7 +33,7 @@
                 </div>
                 <div class="sm:w-1/2 w-full p-2">
                     <div class="flex">
-                    <label for="" class="block my-1">نام تحویل گیرنده</label>
+                        <label for="" class="block my-1">نام تحویل گیرنده</label>
                     </div>
                     <input type="text" value="{{ old('receiver_full_name') }}" name="receiver_full_name" id=""
                         class="w-full outline-none border rounded-md p-1" />
@@ -46,7 +46,6 @@
                 <div class="sm:w-1/3 w-full p-2">
                     <div class="flex">
                         <label for="" class="block my-1">کد پستی </label>
-                        <label for="" class="block my-1 text-red-600 px-1"> * </label>  
                     </div>
                     <input type="number" value="{{ old('postal_code') }}" name="postal_code" id=""
                         class="w-full outline-none border rounded-md p-1" />
@@ -54,7 +53,7 @@
                 <div class="sm:w-1/3 w-full p-2">
                     <div class="flex">
                         <label for="" class="block my-1">پلاک</label>
-                        <label for="" class="block my-1 text-red-600 px-1"> * </label>  
+                        <label for="" class="block my-1 text-red-600 px-1"> * </label>
                     </div>
                     <input type="number" value="{{ old('plaque') }}" name="plaque" id=""
                         class="w-full outline-none border rounded-md p-1" />
@@ -63,17 +62,17 @@
                 <div class="sm:w-1/3 w-full p-2">
                     <div class="flex">
                         <label for="" class="block my-1">واحد</label>
-                        <label for="" class="block my-1 text-red-600 px-1"> * </label>  
+                        <label for="" class="block my-1 text-red-600 px-1"> * </label>
                     </div>
                     <input type="number" value="{{ old('unit') }}" name="unit" id=""
                         class="w-full outline-none border rounded-md p-1" />
                 </div>
 
                 <div class="flex flex-col my-2 w-full p-2">
-                        <div class="flex">
-                            <label for="" class="block my-1">آدرس دقیق</label>
-                            <label for="" class="block my-1 text-red-600 px-1"> * </label>  
-                        </div>
+                    <div class="flex">
+                        <label for="" class="block my-1">آدرس دقیق</label>
+                        <label for="" class="block my-1 text-red-600 px-1"> * </label>
+                    </div>
                     </label>
                     <textarea name="address" id="" cols="30" rows="10" class="h-20 outline-0 border rounded-md p-1">{{ old('address') }}</textarea>
                 </div>
@@ -112,30 +111,30 @@
                         <input type="hidden" value="{{ auth()->user()->first_name }}" name="first_name">
                         <input type="hidden" value="{{ auth()->user()->last_name }}" name="last_name">
                     @else
-                    <div class="border rounded-lg py-5 space-y-2 px-4">
-                        <div class="flex justify-between">
-                            <div class="flex items-center mb-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                </svg>
-                                <h1 class="mx-2 font-bold text-gray-600">تکمیل اطلاعات حساب کاربری</h1>
+                        <div class="border rounded-lg py-5 space-y-2 px-4">
+                            <div class="flex justify-between">
+                                <div class="flex items-center mb-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                    </svg>
+                                    <h1 class="mx-2 font-bold text-gray-600">تکمیل اطلاعات حساب کاربری</h1>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="sm:w-1/2 w-full p-2">
+                                    <label for="" class="block my-1">نام </label>
+                                    <input type="text" value="{{ old('first_name') }}" name="first_name"
+                                        id="" class="w-full outline-none border rounded-md p-1">
+                                </div>
+                                <div class="sm:w-1/2 w-full p-2">
+                                    <label for="" class="block my-1">نام خانوادگی </label>
+                                    <input type="text" value="{{ old('last_name') }}" name="last_name"
+                                        id="" class="w-full outline-none border rounded-md p-1">
+                                </div>
                             </div>
                         </div>
-                        <div class="flex">
-                            <div class="sm:w-1/2 w-full p-2">
-                                <label for="" class="block my-1">نام </label>
-                                <input type="text" value="{{ old('first_name') }}" name="first_name" id=""
-                                    class="w-full outline-none border rounded-md p-1">
-                            </div>
-                            <div class="sm:w-1/2 w-full p-2">
-                                <label for="" class="block my-1">نام خانوادگی </label>
-                                <input type="text" value="{{ old('last_name') }}" name="last_name" id=""
-                                    class="w-full outline-none border rounded-md p-1">
-                            </div>
-                        </div>
-                    </div>
                     @endif
                     <div class="border rounded-lg py-5 space-y-2 px-4">
                         <div class="flex justify-between">
@@ -227,10 +226,7 @@
 
                                 @if ($productItem->variationOptions->isNotEmpty())
                                     @php
-                                        $optionColor = $productItem
-                                            ->variationOptions()
-                                            ->where('is_color', 1)
-                                            ->first();
+                                        $optionColor = $productItem->variationOptions()->where('is_color', 1)->first();
                                     @endphp
                                     <div class="flex items-center w-max gap-1">
                                         <span class="w-3 h-min aspect-square rounded-md"
