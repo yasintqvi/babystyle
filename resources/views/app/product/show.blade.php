@@ -1,8 +1,9 @@
 @extends('app.layouts.app', ['title' => $product->title])
 
 @section('head-tag')
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endsection
 
 @section('content')
@@ -71,6 +72,10 @@
                 </div>
                 <div class="hidden md:block py-8">
                     <span class="text-xl font-semibold text-gray-700">{{ $product->title }}</span>
+                    <br>
+                    <span class="text-xl font-semibold text-gray-700">
+                        {{ $product->items->first()->sku ?? 'کد ندارد' }}
+                    </span>
                 </div>
 
                 @php
@@ -175,11 +180,11 @@
                         </ul>
                     </div>
                 @endif
-                
+
             </div>
         </div>
         {{-- comments section --}}
-        <div class="container">         
+        <div class="container">
             <hr class="border-2 rounded-lg" />
             <div class="py-4 ">
                 <span class="font-medium text-lg">معرفی</span>
@@ -193,7 +198,7 @@
 
 
             <div class="py-4 font-medium text-lg">
-                <span >امتیاز و دیدگاه کاربران </span>
+                <span>امتیاز و دیدگاه کاربران </span>
                 <hr class="h-1 w-10 bg-red-500">
             </div>
             <div class="flex flex-wrap">
@@ -205,9 +210,7 @@
                         </div>
                         <div class="flex items-center">
 
-                            <div id="dataReadonlyReview"
-                                data-rating-stars="5"   
-                                data-rating-readonly="true"
+                            <div id="dataReadonlyReview" data-rating-stars="5" data-rating-readonly="true"
                                 data-rating-value="{{ ceil($product->commentApproved->avg('rate')) }}"
                                 data-rating-input="#dataReadonlyInput">
                             </div>
@@ -222,7 +225,7 @@
                                 ثبت دیدگاه و امتیاز
                             </button>
                             <div
-                                class="NewCommentCountainer fixed flex items-center justify-center w-full h-full top-0 left-0 !z-[999] bg-black bg-opacity-20 {{ count($errors) > 0 ? '' : 'hidden'}}">
+                                class="NewCommentCountainer fixed flex items-center justify-center w-full h-full top-0 left-0 !z-[999] bg-black bg-opacity-20 {{ count($errors) > 0 ? '' : 'hidden' }}">
                                 <div class="md:w-1/3 sm:w-2/3 w-full  overflow-y-auto bg-white p-4 rounded-md m-3">
                                     <div class="flex justify-between mb-4">
                                         <span class="text-base font-medium text-black">دیدگاه شما
@@ -237,7 +240,8 @@
                                                 class="closeNewCommentBTN absolute w-full h-full top-0 left-0"></button>
                                         </div>
                                     </div>
-                                    <form action="{{ route('comments.store' , $product->id) }}" method="post" class="flex flex-wrap text-gray-600">
+                                    <form action="{{ route('comments.store', $product->id) }}" method="post"
+                                        class="flex flex-wrap text-gray-600">
                                         @csrf
                                         <div class="w-full p-2">
                                             <label for="" class="block my-1">
@@ -251,171 +255,174 @@
 
                                         <div class="flex flex-col w-full p-2">
                                             <label for="" class="block my-1"> متن نظر </label>
-                                            <textarea name="description" id="" cols="30" rows="10" class="h-20 outline-0 border rounded-md p-1"
-                                                style="height: 93px;"></textarea>
-                                                @error('description')
+                                            <textarea name="description" id="" cols="30" rows="10"
+                                                class="h-20 outline-0 border rounded-md p-1" style="height: 93px;"></textarea>
+                                            @error('description')
                                                 <span class="text-red-500 text-bold text-xs mt-2">{{ $message }}</span>
                                                 @endif
-                                        </div>
-                                        
-                                        <div class="sticky bottom-0 w-full">
-                                            <button class="openNewCommentBTN w-full py-2 text-white bg-primary rounded-md">
-                                                ثبت دیدگاه و امتیاز
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="md:w-3/4 w-full pr-2">
-                    <div class="">
-                        <hr class="w-full" />
-                        <div class="flex gap-2 py-3 items-start">
-                          
-                            <div class="w-full">
-                                <div class="">
-                                    <span class="block font-medium pb-2">{{$product->title}}</span>
-                                </div>
-                            </div>
-                            <button>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width=".5" stroke="currentColor" class="w-5 fill-yellow-400 stroke-gray-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        class="[clip-path: inset( 0px 0px 0px 90%)]"
-                                        d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    @foreach ($product->commentApproved as $comment)
-                    <div class="">
-                        <hr class="w-full" />
-                        <div class="flex gap-2 py-3 items-start">
-                            <span class="block p-1 px-2 @if($comment->rate >= 0 && $comment->rate <= 1) bg-red-500 @elseif($comment->rate >= 2 && $comment->rate <= 3) bg-yellow-400 @elseif($comment->rate >= 4) bg-green-500 @endif text-white rounded text-xs">
-                                {{$comment->rate}}.0
-                            </span>
-                            <div class="w-full">
-                                <div class="flex pb-3">
-                                    <div class="flex gap-2">
-                                        <span class="text-xs text-gray-400 p-1 px-2">{{ getJalaliTime($comment->created_at) }}</span>
-                                        <span class="text-xs text-gray-400 p-1 px-2">{{$comment->user->fullName}}
-                                        </span>
-                                        {{-- <span
-                                            class="text-xs text-green-600 bg-green-100 p-1 px-2 rounded-lg block">خریدار</span> --}}
+                                            </div>
+
+                                            <div class="sticky bottom-0 w-full">
+                                                <button class="openNewCommentBTN w-full py-2 text-white bg-primary rounded-md">
+                                                    ثبت دیدگاه و امتیاز
+                                                </button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
-
-                                <div class="">
-                                    <hr class="border-gray-100" />
-                                    <p class="py-3 text-sm">
-                                      {{ $comment->description}}
-                                    </p>
-                                </div>
                             </div>
-                            <button>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width=".5" stroke="currentColor" class="w-5 fill-yellow-400 stroke-gray-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
-                                </svg>
-                            </button>
                         </div>
                     </div>
-                    @endforeach 
-                   
+                    <div class="md:w-3/4 w-full pr-2">
+                        <div class="">
+                            <hr class="w-full" />
+                            <div class="flex gap-2 py-3 items-start">
+
+                                <div class="w-full">
+                                    <div class="">
+                                        <span class="block font-medium pb-2">{{ $product->title }}</span>
+                                    </div>
+                                </div>
+                                <button>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width=".5" stroke="currentColor" class="w-5 fill-yellow-400 stroke-gray-500">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            class="[clip-path: inset( 0px 0px 0px 90%)]"
+                                            d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        @foreach ($product->commentApproved as $comment)
+                            <div class="">
+                                <hr class="w-full" />
+                                <div class="flex gap-2 py-3 items-start">
+                                    <span
+                                        class="block p-1 px-2 @if ($comment->rate >= 0 && $comment->rate <= 1) bg-red-500 @elseif($comment->rate >= 2 && $comment->rate <= 3) bg-yellow-400 @elseif($comment->rate >= 4) bg-green-500 @endif text-white rounded text-xs">
+                                        {{ $comment->rate }}.0
+                                    </span>
+                                    <div class="w-full">
+                                        <div class="flex pb-3">
+                                            <div class="flex gap-2">
+                                                <span
+                                                    class="text-xs text-gray-400 p-1 px-2">{{ getJalaliTime($comment->created_at) }}</span>
+                                                <span class="text-xs text-gray-400 p-1 px-2">{{ $comment->user->fullName }}
+                                                </span>
+                                                {{-- <span
+                                            class="text-xs text-green-600 bg-green-100 p-1 px-2 rounded-lg block">خریدار</span> --}}
+                                            </div>
+                                        </div>
+
+                                        <div class="">
+                                            <hr class="border-gray-100" />
+                                            <p class="py-3 text-sm">
+                                                {{ $comment->description }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <button>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width=".5" stroke="currentColor"
+                                            class="w-5 fill-yellow-400 stroke-gray-500">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        @endforeach
+
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-@endsection
+        </section>
+    @endsection
 
-@section('script')
-    <script src="{{ asset('assets/app/js/shoppingCart.js') }}"></script>
-    <script src="{{ asset('assets/app/js/jquery-1.12.4.min.js') }}"></script>
-    <script src="{{ asset('assets/app/js/rating.js') }}"></script>
+    @section('script')
+        <script src="{{ asset('assets/app/js/shoppingCart.js') }}"></script>
+        <script src="{{ asset('assets/app/js/jquery-1.12.4.min.js') }}"></script>
+        <script src="{{ asset('assets/app/js/rating.js') }}"></script>
 
-    <script>
-        const moneiesElements = document.querySelectorAll('.money');
+        <script>
+            const moneiesElements = document.querySelectorAll('.money');
 
-        [...moneiesElements].map((item) => {
-            item.textContent = formatNumber(item.textContent);
-        });
+            [...moneiesElements].map((item) => {
+                item.textContent = formatNumber(item.textContent);
+            });
 
-        function formatNumber(value) {
-            console.log(value);
-            const regex = /(\d)(?=(\d{3})+$)/g;
-            return value.toString().replace(regex, '$1,');
-        }
-    </script>
+            function formatNumber(value) {
+                console.log(value);
+                const regex = /(\d)(?=(\d{3})+$)/g;
+                return value.toString().replace(regex, '$1,');
+            }
+        </script>
 
-    <script>
-        function checkAndGetPrice() {
-            const formData = new FormData(addToCartForm);
+        <script>
+            function checkAndGetPrice() {
+                const formData = new FormData(addToCartForm);
 
-            const action = "{{ route('products.get-price', $product->id) }}";
+                const action = "{{ route('products.get-price', $product->id) }}";
 
-            fetch(action, {
-                    method: "POST",
-                    body: formData,
-                    headers: {
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                    }
-                }).then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        if (data.price) {
-                            if (data.discount) {
-                                discountZone.classList.remove('hidden');
-                                discountRate.classList.remove('hidden');
-                                price.innerText = `${formatNumber(data.discount.price)} تومان`;
-                                oldPrice.innerText = data.price;
-                                discountRate.innerText = `${data.discount.rate} %`;
-                                price.classList.remove('hidden');
-                                unavailable.classList.add('hidden');
-                                addToCartBtn.disabled = false;
+                fetch(action, {
+                        method: "POST",
+                        body: formData,
+                        headers: {
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                        }
+                    }).then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            if (data.price) {
+                                if (data.discount) {
+                                    discountZone.classList.remove('hidden');
+                                    discountRate.classList.remove('hidden');
+                                    price.innerText = `${formatNumber(data.discount.price)} تومان`;
+                                    oldPrice.innerText = data.price;
+                                    discountRate.innerText = `${data.discount.rate} %`;
+                                    price.classList.remove('hidden');
+                                    unavailable.classList.add('hidden');
+                                    addToCartBtn.disabled = false;
+                                } else {
+                                    discountZone.classList.add('hidden');
+                                    price.innerText = `${formatNumber(data.price)} تومان`;
+                                    price.classList.remove('hidden');
+                                    unavailable.classList.add('hidden');
+                                    addToCartBtn.disabled = false;
+                                }
                             } else {
                                 discountZone.classList.add('hidden');
-                                price.innerText = `${formatNumber(data.price)} تومان`;
-                                price.classList.remove('hidden');
-                                unavailable.classList.add('hidden');
-                                addToCartBtn.disabled = false;
+                                price.classList.add('hidden');
+                                unavailable.classList.remove('hidden');
+                                addToCartBtn.disabled = true;
                             }
-                        } else {
-                            discountZone.classList.add('hidden');
-                            price.classList.add('hidden');
-                            unavailable.classList.remove('hidden');
-                            addToCartBtn.disabled = true;
                         }
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        }
-    </script>
-
-
-    @if ($product->category->variations->isNotEmpty())
-        <script>
-            document.addEventListener('DOMContentLoaded', (event) => {
-                checkAndGetPrice();
-            })
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
         </script>
-    @endif
 
-    <script>
-        const addToCartForm = document.querySelector('#add_to_cart_form');
-        const addToCartBtn = document.querySelector('#add_to_cart_btn');
 
-        document.addEventListener('DOMContentLoaded', function() {
+        @if ($product->category->variations->isNotEmpty())
+            <script>
+                document.addEventListener('DOMContentLoaded', (event) => {
+                    checkAndGetPrice();
+                })
+            </script>
+        @endif
 
-            addToCartForm.addEventListener('submit', (event) => {
-                event.preventDefault();
-                const shopCart = new ShoppingCart();
-                shopCart.addToCart(addToCartForm);
-            })
-        });
-    </script>
-@endsection
+        <script>
+            const addToCartForm = document.querySelector('#add_to_cart_form');
+            const addToCartBtn = document.querySelector('#add_to_cart_btn');
+
+            document.addEventListener('DOMContentLoaded', function() {
+
+                addToCartForm.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                    const shopCart = new ShoppingCart();
+                    shopCart.addToCart(addToCartForm);
+                })
+            });
+        </script>
+    @endsection

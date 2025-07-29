@@ -56,21 +56,19 @@ class Product extends Model
         }
 
         if ($sort = $filters->get('sort')) {
-            
+
             if ($sort === 'newaest') {
                 $query->latest();
-            } 
-            
+            }
+
             if ($sort === 'best-seller') {
                 $query->orderBy('sold_number', 'DESC');
-            } 
-            else if ($sort === 'cheapest') {
+            } else if ($sort === 'cheapest') {
                 $query->select('products.*')
                     ->join('product_items', 'products.id', '=', 'product_items.product_id')
                     ->orderBy('product_items.price')
                     ->get();
-            }
-            else if ($sort === 'most-expensive') {
+            } else if ($sort === 'most-expensive') {
                 $query->select('products.*')
                     ->join('product_items', 'products.id', '=', 'product_items.product_id')
                     ->orderBy('product_items.price', 'DESC')
@@ -84,21 +82,26 @@ class Product extends Model
             [$price['min'], $price['max']] = [$price['min'] ?? 0, $price['max'] ?? null];
 
             if ($price['max']) {
-                $query->withPrice()->where('price', '>=', $price['min'])->where('price' , "<=" , $price['max']);
-            }
-            else {
+                $query->withPrice()->where('price', '>=', $price['min'])->where('price', "<=", $price['max']);
+            } else {
                 $query->withPrice()->where('price', '>=', $price['min']);
             }
         }
 
         if ($keyword = $filters->get('search')) {
-            $query->where('title', "LIKE" ,"%{$keyword}%");
+            $query->where(function ($q) use ($keyword) {
+                $q->where('title', 'LIKE', "%{$keyword}%")
+                    ->orWhereHas('items', function ($q2) use ($keyword) {
+                        $q2->where('sku', 'LIKE', "%{$keyword}%");
+                    });
+            });
         }
 
         return $query;
     }
 
-    public function scopeWithPrice($query) {
+    public function scopeWithPrice($query)
+    {
         return $query->join('product_items', 'products.id', '=', 'product_items.product_id')
             ->select('products.*', 'product_items.price')
             ->where('product_items.is_default', 1);

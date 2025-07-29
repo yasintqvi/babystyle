@@ -2,7 +2,7 @@
 
 @section('content')
     <div id="addNewAddressCountainer"
-        class="fixed flex items-center justify-center w-full h-full top-0 left-0 z-40 bg-black bg-opacity-20 hidden">
+        class="fixed items-center justify-center w-full h-full top-0 left-0 z-40 bg-black bg-opacity-20 hidden">
         <div class="md:w-1/2 sm:w-2/3 w-full bg-white p-4 rounded-md m-3 max-h-screen overflow-auto">
             <div class="flex justify-between mb-4">
                 <span class="text-base font-medium text-black">آدرس جدید</span>
