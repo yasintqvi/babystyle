@@ -4,6 +4,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <meta name="product_id" content="{{ $product->id }}">
+    <meta name="product_name" content="{{ $product->title }}">
+    <meta name="product_price" content="{{ $product->items->first()->price ?? 0 }}">
+    <meta name="product_old_price" content="{{ $product->items->first()->old_price ?? 0 }}">
+    <meta name="availability" content="{{ $product->quantity > 0 ? 'instock' : 'outofstock' }}">
+    <meta name="guarantee" content="{{ $product->guarantee ?? '' }}">
+    <meta property="og:image" content="{{ asset($product->images->first()->image ?? 'default.jpg') }}">
 @endsection
 
 @section('content')
