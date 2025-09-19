@@ -129,101 +129,56 @@
                         <!-- .card -->
                     </div>
                     <div class="col-xxl-6">
-                        <div class="card card-full">
+                        <div class="card card-full shadow-sm">
                             <div class="nk-ecwg nk-ecwg8 h-100">
                                 <div class="card-inner">
-                                    <div class="card-title-group mb-3">
+                                    <div class="card-title-group mb-4 d-flex justify-content-between align-items-center">
                                         <div class="card-title">
-                                            <h6 class="title">آمار فروش</h6>
+                                            <h6 class="title mb-0">👥 کاربران آنلاین</h6>
+                                            <span class="text-muted small">وضعیت ۵ دقیقه اخیر</span>
                                         </div>
-                                        <div class="card-tools">
-                                            <div class="dropdown">
-                                                <a href="#"
-                                                    class="dropdown-toggle link link-light link-sm dropdown-indicator"
-                                                    data-bs-toggle="dropdown">هفتگی</a>
-                                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end">
-                                                    <ul class="link-list-opt no-bdr">
-                                                        <li>
-                                                            <a href="#"><span>روزانه</span></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" class="active"><span>هفتگی</span></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#"><span>ماهانه</span></a>
-                                                        </li>
-                                                    </ul>
+                                    </div>
+
+                                    <div class="row g-3">
+                                        <!-- کل کاربران آنلاین -->
+                                        <div class="col-md-4">
+                                            <div class="card bg-primary text-white text-center shadow-sm h-100 rounded-3">
+                                                <div class="card-body p-3">
+                                                    <div class="fs-3 fw-bold mb-1">{{ $onlineVisitors }}</div>
+                                                    <div class="fw-semibold">کل آنلاین‌ها</div>
+                                                    <small class="text-white-50">کاربران + مهمان‌ها</small>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- کاربران لاگین کرده -->
+                                        <div class="col-md-4">
+                                            <div class="card bg-success text-white text-center shadow-sm h-100 rounded-3">
+                                                <div class="card-body p-3">
+                                                    <div class="fs-3 fw-bold mb-1">{{ $onlineUsers }}</div>
+                                                    <div class="fw-semibold">کاربران</div>
+                                                    <small class="text-white-50">ورود کرده‌اند</small>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- مهمان‌ها -->
+                                        <div class="col-md-4">
+                                            <div class="card bg-warning text-dark text-center shadow-sm h-100 rounded-3">
+                                                <div class="card-body p-3">
+                                                    <div class="fs-3 fw-bold mb-1">{{ $onlineGuests }}</div>
+                                                    <div class="fw-semibold">مهمان‌ها</div>
+                                                    <small class="text-dark-50">بدون ورود</small>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <ul class="nk-ecwg8-legends">
-                                        <li>
-                                            <div class="title">
-                                                <span class="dot dot-lg sq" data-bg="#6576ff"></span>
-                                                <span>کل سفارش</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="title">
-                                                <span class="dot dot-lg sq" data-bg="#eb6459"></span>
-                                                <span>سفارش لغو شده</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <div class="nk-ecwg8-ck">
-                                        <canvas class="ecommerce-line-chart-s4" id="salesStatistics"></canvas>
-                                    </div>
-                                    <div class="chart-label-group ps-5">
-                                        <div class="chart-label">01 فروردین 1402</div>
-                                        <div class="chart-label">30 فروردین 1402</div>
-                                    </div>
                                 </div>
                                 <!-- .card-inner -->
                             </div>
                         </div>
                         <!-- .card -->
                     </div>
-                    <!-- .col -->
-                    <div class="col-xxl-3 col-md-6">
-                        <div class="card card-full overflow-hidden">
-                            <div class="nk-ecwg nk-ecwg7 h-100">
-                                <div class="card-inner flex-grow-1">
-                                    <div class="card-title-group mb-4">
-                                        <div class="card-title">
-                                            <h6 class="title">آمار سفارش</h6>
-                                        </div>
-                                    </div>
-                                    <div class="nk-ecwg7-ck">
-                                        <canvas class="ecommerce-doughnut-s1" id="orderStatistics"></canvas>
-                                    </div>
-                                    <ul class="nk-ecwg7-legends">
-                                        <li>
-                                            <div class="title">
-                                                <span class="dot dot-lg sq" data-bg="#816bff"></span>
-                                                <span>تکمیل شده</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="title">
-                                                <span class="dot dot-lg sq" data-bg="#13c9f2"></span>
-                                                <span>در حال پردازش</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="title">
-                                                <span class="dot dot-lg sq" data-bg="#ff82b7"></span>
-                                                <span>لغو شده</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <!-- .card-inner -->
-                            </div>
-                        </div>
-                        <!-- .card -->
-                    </div>
-                    <!-- .col -->
                     <div class="col-xxl-3 col-md-6">
                         <div class="card h-100">
                             <div class="card-inner">
