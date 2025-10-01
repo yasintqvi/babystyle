@@ -139,9 +139,9 @@
                                         </div>
                                     </div>
 
-                                    <div class="row g-3">
+                                    <div class="row g-3 mt-5">
                                         <!-- کل کاربران آنلاین -->
-                                        <div class="col-md-4">
+                                        <div class="col-md-4 ">
                                             <div class="card bg-primary text-white text-center shadow-sm h-100 rounded-3">
                                                 <div class="card-body p-3">
                                                     <div class="fs-3 fw-bold mb-1">{{ $onlineVisitors }}</div>
