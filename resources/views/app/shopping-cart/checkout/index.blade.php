@@ -206,27 +206,20 @@
                                         <div class="block">
                                             <div class="w-full text-lg font-semibold">{{ $shippingMethod->name }}
                                             </div>
-                                            <div class="w-full text-sm">هزینه ی ارسال {{ $shippingMethod->price }}
-                                                تومان
-                                            </div>
+                                            @if ($shippingMethod->price == 0)
+                                                <div class="w-full text-sm">پس کرایه
+                                                </div>
+                                            @else
+                                                <div class="w-full text-sm">هزینه ی ارسال {{ $shippingMethod->price }}
+                                                    تومان
+                                                </div>
+                                            @endif
+
                                         </div>
                                     </label>
                                 </li>
                             @endforeach
-                            <li>
-                                <input type="radio" id="shipping_method-100" name="shipping_method_id"
-                                    value="100" class="hidden peer">
-                                <label for="shipping_method-100"
-                                    class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-500 peer-checked:text-blue-500 hover:text-gray-600 hover:bg-gray-100">
-                                    <div class="block">
-                                        <div class="w-full text-lg font-semibold">تیپاکش
-                                        </div>
-                                        <div class="w-full text-sm">
-                                            پس کرایه
-                                        </div>
-                                    </div>
-                                </label>
-                            </li>
+                         
                         </ul>
                     </div>
                     <div class="flex divide-x divide-x-reverse">
