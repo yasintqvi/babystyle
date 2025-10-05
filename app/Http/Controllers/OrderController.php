@@ -200,20 +200,20 @@ class OrderController extends Controller
 
 
 
-            // کاهش موجودی کالا
-            $order->lines->map(function ($orderLine) {
-                $productItem = $orderLine->productItem;
-                $productItem->update([
-                    'quantity' => $productItem->quantity - $orderLine->quantity
-                ]);
-                $productItem->product->update([
-                    'quantity' => $productItem->product->quantity - $orderLine->quantity
-                ]);
-            });
+        // کاهش موجودی کالا
+        $order->lines->map(function ($orderLine) {
+            $productItem = $orderLine->productItem;
+            $productItem->update([
+                'quantity' => $productItem->quantity - $orderLine->quantity
+            ]);
+            $productItem->product->update([
+                'quantity' => $productItem->product->quantity - $orderLine->quantity
+            ]);
+        });
 
-            if ($status) {
-                $order->user->notify(new NewOrderNotification($order));
-            }
+        if ($status) {
+            $order->user->notify(new NewOrderNotification($order));
+        }
 
         return view('app.profile.order.result', compact('result', 'status'));
     }
@@ -248,6 +248,18 @@ class OrderController extends Controller
         } else {
             return back()->with('error', "خطا در ایجاد تراکنش");
         }
+    }
+
+
+    public function trackingCode()
+    {
+        $user = auth()->user();
+        $orders = $user->orders()
+            ->whereNotNull('tracking_code')
+            ->orderByDesc('created_at')
+            ->get();
+
+        return view('app.profile.tracking', compact('orders'));
     }
 
 }

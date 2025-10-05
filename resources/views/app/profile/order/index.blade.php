@@ -68,12 +68,12 @@
                             </div>
                             <div class="border-t flex px-5 py-4 gap-4">
                                 @foreach ($order->lines()->get() as $orderLine)
-                                    @php 
+                                    @php
                                         $productItem = $orderLine->productItem;
                                     @endphp
                                     <div class="flex items-center flex-col">
                                         <img class="aspect-square object-cover rounded-md w-20"
-                                        src="{{ asset($productItem->image) }}" alt="" />
+                                            src="{{ asset($productItem->image) }}" alt="" />
                                         <span class="text-xs text-gray-400">{{ $productItem->sku }}</span>
                                     </div>
                                 @endforeach

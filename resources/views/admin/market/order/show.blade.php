@@ -35,7 +35,8 @@
                                                 <li>
                                                     <em class="icon ni ni-map-pin-fill"></em>
                                                     <span>
-                                                        {{ $order->address->province->name }} ، {{ $order->address->city->name }} ، 
+                                                        {{ $order->address->province->name }} ،
+                                                        {{ $order->address->city->name }} ،
                                                         {{ $order->address->address }}
                                                     </span>
                                                 </li>
@@ -52,6 +53,9 @@
                                             </li>
                                             <li class="invoice-date">
                                                 <span>وضعیت سفارش</span>:<span>{{ $order->getOrderStatus() }}</span>
+                                            </li>
+                                            <li class="invoice-date">
+                                                <span>کد رهگیری سفارش</span>:<span>{{ $order->tracking_code }}</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -80,9 +84,11 @@
                                                         <td>
                                                             {{ $productItem->product->title }}
                                                         </td>
-                                                        <td><span class="money">{{ $productItem->price }}</span> تومان</td>
+                                                        <td><span class="money">{{ $productItem->price }}</span> تومان
+                                                        </td>
                                                         <td>{{ $productItem->quantity }}</td>
-                                                        <td class="money">{{ $productItem->price * $productItem->quantity }}</td>
+                                                        <td class="money">
+                                                            {{ $productItem->price * $productItem->quantity }}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -90,12 +96,14 @@
                                                 <tr>
                                                     <td colspan="2"></td>
                                                     <td colspan="2">جمع کل محصولات</td>
-                                                    <td><span class="money">{{ $order->total_products_amount }}</span> تومان</td>
+                                                    <td><span class="money">{{ $order->total_products_amount }}</span>
+                                                        تومان</td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2"></td>
                                                     <td colspan="2">هزینه ی ارسال</td>
-                                                    <td><span class="money">{{ $order->shipping_amount }}</span> تومان</td>
+                                                    <td><span class="money">{{ $order->shipping_amount }}</span> تومان
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2"></td>

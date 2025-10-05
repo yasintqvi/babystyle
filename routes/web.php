@@ -42,7 +42,7 @@ Route::middleware('guest')->group(function () {
     Route::post('login/password', [PasswordController::class, 'login'])->name("login.password")->middleware('throttle:10,10');
 });
 
-Route::prefix('forgot-password')->as('forgot.')->group(function() {
+Route::prefix('forgot-password')->as('forgot.')->group(function () {
     Route::get('/', [ForgotPasswordController::class, 'show'])->name('show');
     Route::post('/', [ForgotPasswordController::class, 'check'])->name('check');
 });
@@ -63,7 +63,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::prefix('profile')->middleware('auth')->as('profile.')->group(function () {
-     Route::get('/edit', [ProfileController::class, 'edit'])->name('edit');
+    Route::get('/edit', [ProfileController::class, 'edit'])->name('edit');
     Route::put('/update', [ProfileController::class, 'update'])->name('update');
 
     Route::get('/addresses', [AddressController::class, 'index'])->name('addresses.index');
@@ -74,6 +74,9 @@ Route::prefix('profile')->middleware('auth')->as('profile.')->group(function () 
     Route::get('/comments', [CommentController::class, 'index'])->name('comments.index');
 
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+
+    Route::get('/orders/tracking', [OrderController::class, 'trackingCode'])
+        ->name('orders.tracking');
 });
 
 
@@ -84,7 +87,7 @@ Route::get('products/{product:slug}', [AppProductController::class, 'show'])->na
 Route::post('products/get-price/{product}', [AppProductController::class, 'getPrice'])->name('products.get-price');
 Route::post('comments/{product}', [CommentController::class, 'store'])->name('comments.store');
 
-Route::prefix('shopping-cart')->as('shopping-cart.')->group(function() {
+Route::prefix('shopping-cart')->as('shopping-cart.')->group(function () {
     Route::get('/', [ShoppingCartController::class, 'index'])->name('index')->middleware('auth');
     Route::delete('shopping-cart/{shoppingCartItem}', [ShoppingCartController::class, 'destroy'])->name('destroy')->middleware('auth');
     Route::post('/{product}', [ShoppingCartController::class, 'store'])->name('store')->middleware('auth-json-response');
@@ -95,9 +98,9 @@ Route::prefix('shopping-cart')->as('shopping-cart.')->group(function() {
     Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index')->middleware(['auth', 'check-shoppingcart']);
 });
 
-Route::middleware('auth')->group(function() {
+Route::middleware('auth')->group(function () {
     Route::post('/orders', [OrderController::class, 'store'])->name('orders.store')->middleware('check-shoppingcart');
     Route::get('orders/result', [OrderController::class, 'result'])->name('orders.result');
 });
 
-Route::get('/get-province-cities-list' , [AddressController::class, 'getProvinceCitiesList'])->middleware('auth');
+Route::get('/get-province-cities-list', [AddressController::class, 'getProvinceCitiesList'])->middleware('auth');

@@ -30,7 +30,8 @@ class Order extends Model
         'total_products_amount',
         'order_discount',
         'final_amount',
-        'order_status'
+        'order_status',
+        'tracing_code'
     ];
 
     public function lines()
@@ -69,14 +70,11 @@ class Order extends Model
     {
         if ($this->order_status == 0) {
             return 'پرداخت ناموفق';
-        }
-        else if($this->order_status == 1) {
+        } else if ($this->order_status == 1) {
             return 'پرداخت شده - در انتظار تایید';
-        }
-        else if ($this->order_status == 2) {
+        } else if ($this->order_status == 2) {
             return 'آماده سازی و ارسال مرسوله';
-        }
-        else if($this->order_status == 3) {
+        } else if ($this->order_status == 3) {
             return 'تحویل داده شده';
         }
     }

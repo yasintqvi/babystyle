@@ -13,18 +13,16 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view('admin.market.order.index');
+        $orders = Order::latest()->paginate(15); // تعداد پیش‌فرض 15
+        return view('admin.market.order.index', compact('orders'));
     }
 
-    /**
-     * Fetch order data
-     */
     public function fetch()
     {
         $orders = Order::query()->latest();
 
         if ($keyword = request('search')) {
-            $orders->search($keyword);
+            $orders->search($keyword); // اطمینان از اینکه scope search در مدل تعریف شده
         }
 
         if ($status = request('status')) {
@@ -44,11 +42,10 @@ class OrderController extends Controller
             }
         }
 
-        $perPageItems = (int) request('paginate') !== 0 ? (int) request('paginate') : 15;
-
+        $perPageItems = (int) request('paginate') ?: 15;
         $orders = $orders->paginate($perPageItems);
 
-        return response()->json($orders);
+        return response()->json($orders); // اینجا JSON
     }
 
     public function changeStatus(Request $request, Order $order)
@@ -71,6 +68,21 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         return view('admin.market.order.show', compact('order'));
+    }
+
+    public function saveTrackingCode(Request $request, Order $order)
+    {
+        $request->validate([
+            'tracking_code' => 'required|string|max:255',
+        ]);
+
+        $order->tracking_code = $request->tracking_code;
+        $order->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'کد رهگیری با موفقیت ثبت شد.'
+        ]);
     }
 
 }
