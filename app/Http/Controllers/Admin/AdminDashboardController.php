@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Market\Order;
+use App\Models\Market\Product;
 use App\Models\User;
 use App\Models\User\Permission;
 use Database\Seeders\PermissionSeeder;
@@ -22,8 +23,28 @@ class AdminDashboardController extends Controller
             $permissionSeed->run();
         }
 
+        $recentOrders = Order::with('user')
+            ->where('order_status', "!=", 0)
+            ->latest()
+            ->take(5)
+            ->get();
+
+
 
         $todayOrders = Order::where('created_at', ">=", Carbon::today())->where('created_at', "<=", Carbon::tomorrow())->count();
+
+        $paidOrdersLastWeek = Order::where('order_status', "!=", '0') // یا هر مقدار عددی وضعیت پرداخت مثلاً 
+            ->whereBetween('created_at', [
+                Carbon::now()->subDays(7)->startOfDay(),
+                Carbon::now()->endOfDay()
+            ])
+            ->count();
+
+        $allOrders = Order::where("order_status", "!=", 0)->count();
+
+        $allUser = User::count();
+
+        $allProduct = Product::where("is_active", 1)->where("quantity", "!=", 0)->count();
 
         $todayIncome = Order::where('created_at', ">=", Carbon::today())->where('created_at', "<=", Carbon::tomorrow())->sum('final_amount');
 
@@ -45,7 +66,19 @@ class AdminDashboardController extends Controller
 
         // dd($onlineVisitors);
 
-        return view('admin.dashboard', compact('todayOrders', 'todayIncome', 'todayCustomers', 'onlineVisitors', 'onlineUsers', 'onlineGuests'));
+        return view('admin.dashboard', compact(
+            'todayOrders',
+            'todayIncome',
+            'todayCustomers',
+            'onlineVisitors',
+            'onlineUsers',
+            'onlineGuests',
+            'allOrders',
+            'allUser',
+            'allProduct',
+            'paidOrdersLastWeek',
+            'recentOrders'
+        ));
 
     }
 }

@@ -191,28 +191,28 @@
                                     <li class="item">
                                         <div class="info">
                                             <div class="title">سفارشات</div>
-                                            <div class="count">1,795</div>
+                                            <div class="count">{{ $allOrders }}</div>
                                         </div>
                                         <em class="icon bg-primary-dim ni ni-bag"></em>
                                     </li>
                                     <li class="item">
                                         <div class="info">
                                             <div class="title">مشتریان</div>
-                                            <div class="count">2,327</div>
+                                            <div class="count">{{ $allUser }}</div>
                                         </div>
                                         <em class="icon bg-info-dim ni ni-users"></em>
                                     </li>
                                     <li class="item">
                                         <div class="info">
                                             <div class="title">محصولات</div>
-                                            <div class="count">674</div>
+                                            <div class="count">{{ $allProduct }}</div>
                                         </div>
                                         <em class="icon bg-pink-dim ni ni-box"></em>
                                     </li>
                                     <li class="item">
                                         <div class="info">
-                                            <div class="title">دسته بندی ها</div>
-                                            <div class="count">68</div>
+                                            <div class="title">سفارشات هفته اخیر</div>
+                                            <div class="count">{{ $paidOrdersLastWeek }}</div>
                                         </div>
                                         <em class="icon bg-purple-dim ni ni-server"></em>
                                     </li>
@@ -223,7 +223,7 @@
                         <!-- .card -->
                     </div>
                     <!-- .col -->
-                    <div class="col-xxl-8">
+                    <div class="col-xxl-9">
                         <div class="card card-full">
                             <div class="card-inner">
                                 <div class="card-title-group">
@@ -235,7 +235,7 @@
                             <div class="nk-tb-list mt-n2">
                                 <div class="nk-tb-item nk-tb-head">
                                     <div class="nk-tb-col">
-                                        <span>شماره سفارش</span>
+                                        {{-- <span>شماره سفارش</span> --}}
                                     </div>
                                     <div class="nk-tb-col tb-col-sm">
                                         <span>مشتری</span>
@@ -248,131 +248,39 @@
                                         <span class="d-none d-sm-inline">وضعیت</span>
                                     </div>
                                 </div>
-                                <div class="nk-tb-item">
-                                    <div class="nk-tb-col">
-                                        <span class="tb-lead"><a href="#">#95954</a></span>
-                                    </div>
-                                    <div class="nk-tb-col tb-col-sm">
-                                        <div class="user-card">
-                                            <div class="user-avatar sm bg-purple-dim">
-                                                <span>ف‌ت</span>
-                                            </div>
-                                            <div class="user-name">
-                                                <span class="tb-lead">فرشید ترنیان</span>
+                                @foreach ($recentOrders as $order)
+                                    <div class="nk-tb-item">
+                                        <div class="nk-tb-col">
+                                            <span class="tb-lead"><a href="#">{{ $loop->iteration }}</a></span>
+                                        </div>
+                                        <div class="nk-tb-col tb-col-sm">
+                                            <div class="user-card">
+                                                <div class="user-avatar sm bg-purple-dim">
+                                                    <span>{{ mb_substr($order->user->first_name ?? '', 0, 1) }}{{ mb_substr($order->user->last_name ?? '', 0, 1) }}</span>
+                                                </div>
+                                                <div class="user-name">
+                                                    <span class="tb-lead">{{ $order->user->full_name ?? '---' }}</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="nk-tb-col tb-col-md">
-                                        <span class="tb-sub">1402/08/21</span>
-                                    </div>
-                                    <div class="nk-tb-col">
-                                        <span class="tb-sub tb-amount">4,597,000 <span>تومان</span></span>
-                                    </div>
-                                    <div class="nk-tb-col">
-                                        <span class="badge badge-dot badge-dot-xs bg-success">پرداخت شده</span>
-                                    </div>
-                                </div>
-                                <div class="nk-tb-item">
-                                    <div class="nk-tb-col">
-                                        <span class="tb-lead"><a href="#">#95850</a></span>
-                                    </div>
-                                    <div class="nk-tb-col tb-col-sm">
-                                        <div class="user-card">
-                                            <div class="user-avatar sm bg-azure-dim">
-                                                <span>ف‌ا</span>
-                                            </div>
-                                            <div class="user-name">
-                                                <span class="tb-lead">فریبا آتش دامن</span>
-                                            </div>
+                                        <div class="nk-tb-col tb-col-md">
+                                            <span class="tb-sub">{{ getJalaliTime($order->created_at, 'd F Y') }}</span>
+                                        </div>
+                                        <div class="nk-tb-col">
+                                            <span class="tb-sub tb-amount">{{ number_format($order->final_amount) }}
+                                                <span>تومان</span></span>
+                                        </div>
+                                        <div class="nk-tb-col">
+                                            <span class="badge badge-dot badge-dot-xs bg-success">پرداخت شده</span>
                                         </div>
                                     </div>
-                                    <div class="nk-tb-col tb-col-md">
-                                        <span class="tb-sub">1402/02/02</span>
-                                    </div>
-                                    <div class="nk-tb-col">
-                                        <span class="tb-sub tb-amount">597,000 <span>تومان</span></span>
-                                    </div>
-                                    <div class="nk-tb-col">
-                                        <span class="badge badge-dot badge-dot-xs bg-danger">لغو شده</span>
-                                    </div>
-                                </div>
-                                <div class="nk-tb-item">
-                                    <div class="nk-tb-col">
-                                        <span class="tb-lead"><a href="#">#95812</a></span>
-                                    </div>
-                                    <div class="nk-tb-col tb-col-sm">
-                                        <div class="user-card">
-                                            <div class="user-avatar sm bg-warning-dim">
-                                                <img src="./images/avatar/b-sm.jpg" alt="" />
-                                            </div>
-                                            <div class="user-name">
-                                                <span class="tb-lead">دانیال عطاران</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="nk-tb-col tb-col-md">
-                                        <span class="tb-sub">1402/01/02</span>
-                                    </div>
-                                    <div class="nk-tb-col">
-                                        <span class="tb-sub tb-amount">200,000 <span>تومان</span></span>
-                                    </div>
-                                    <div class="nk-tb-col">
-                                        <span class="badge badge-dot badge-dot-xs bg-success">پرداخت شده</span>
-                                    </div>
-                                </div>
-                                <div class="nk-tb-item">
-                                    <div class="nk-tb-col">
-                                        <span class="tb-lead"><a href="#">#95256</a></span>
-                                    </div>
-                                    <div class="nk-tb-col tb-col-sm">
-                                        <div class="user-card">
-                                            <div class="user-avatar sm bg-purple-dim">
-                                                <span>م‌ج</span>
-                                            </div>
-                                            <div class="user-name">
-                                                <span class="tb-lead">مهدیه جباری</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="nk-tb-col tb-col-md">
-                                        <span class="tb-sub">1402/01/29</span>
-                                    </div>
-                                    <div class="nk-tb-col">
-                                        <span class="tb-sub tb-amount">1,100,000 <span>تومان</span></span>
-                                    </div>
-                                    <div class="nk-tb-col">
-                                        <span class="badge badge-dot badge-dot-xs bg-success">پرداخت شده</span>
-                                    </div>
-                                </div>
-                                <div class="nk-tb-item">
-                                    <div class="nk-tb-col">
-                                        <span class="tb-lead"><a href="#">#95135</a></span>
-                                    </div>
-                                    <div class="nk-tb-col tb-col-sm">
-                                        <div class="user-card">
-                                            <div class="user-avatar sm bg-success-dim">
-                                                <span>ی‌چ</span>
-                                            </div>
-                                            <div class="user-name">
-                                                <span class="tb-lead">یاسمن چگینی</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="nk-tb-col tb-col-md">
-                                        <span class="tb-sub">1402/01/29</span>
-                                    </div>
-                                    <div class="nk-tb-col">
-                                        <span class="tb-sub tb-amount">1,100,000 <span>تومان</span></span>
-                                    </div>
-                                    <div class="nk-tb-col">
-                                        <span class="badge badge-dot badge-dot-xs bg-warning">موعد پرداخت</span>
-                                    </div>
-                                </div>
+                                @endforeach
+
                             </div>
                         </div>
                         <!-- .card -->
                     </div>
-                    <div class="col-xxl-4 col-md-8 col-lg-6">
+                    {{-- <div class="col-xxl-4 col-md-8 col-lg-6">
                         <div class="card h-100">
                             <div class="card-inner">
                                 <div class="card-title-group mb-2">
@@ -471,7 +379,7 @@
                             <!-- .card-inner -->
                         </div>
                         <!-- .card -->
-                    </div>
+                    </div> --}}
                     <!-- .col -->
                 </div>
                 <!-- .row -->
