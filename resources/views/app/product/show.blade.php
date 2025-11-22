@@ -197,34 +197,49 @@
         <div class="container">
             {{-- آخرین محصولات دسته‌بندی --}}
             @if ($relatedProducts->isNotEmpty())
-                <div class="py-4">
+                <div class="py-4 relative">
                     <span class="font-medium text-lg">محصولات مشابه</span>
                     <hr class="h-1 w-10 bg-red-500 mb-4">
 
-                    <div class="flex flex-wrap -mx-2">
-                        @foreach ($relatedProducts as $related)
-                            @php
-                                $item = $related->items->where('is_default', 1)->first() ?? $related->items->first();
-                            @endphp
+                    <!-- Swiper -->
+                    <div class="swiper mySwiper-related relative">
+                        <div class="swiper-wrapper">
+                            @foreach ($relatedProducts as $related)
+                                @php
+                                    $item =
+                                        $related->items->where('is_default', 1)->first() ?? $related->items->first();
+                                @endphp
 
-                            <div class="w-1/2 md:w-1/4 p-2">
-                                <a href="{{ route('products.show', $related->slug) }}"
-                                    class="block rounded-lg shadow hover:shadow-lg transition p-2 bg-white">
+                                <div class="swiper-slide p-2">
+                                    <a href="{{ route('products.show', $related->slug) }}"
+                                        class="block rounded-lg shadow hover:shadow-lg transition p-2 bg-white">
 
-                                    <img src="{{ asset($related->images->first()->image ?? 'default.jpg') }}"
-                                        class="w-full aspect-square object-cover rounded-md">
+                                        <img src="{{ asset($related->images->first()->image ?? 'default.jpg') }}"
+                                            class="w-full aspect-square object-cover rounded-md">
 
-                                    <div class="mt-2">
-                                        <span class="block text-sm font-bold text-gray-700 line-clamp-2">
-                                            {{ $related->title }}
-                                        </span>
+                                        <div class="mt-2">
+                                            <span class="block text-sm font-bold text-gray-700 line-clamp-2">
+                                                {{ $related->title }}
+                                            </span>
 
-                                        <span class="block text-primary font-semibold mt-1 text-sm">
-                                            {{ number_format($item->price ?? 0) }} تومان </span>
-                                    </div>
-                                </a>
-                            </div>
-                        @endforeach
+                                            <span class="block text-primary font-semibold mt-1 text-sm">
+                                                {{ number_format($item->price ?? 0) }} تومان
+                                            </span>
+                                        </div>
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <!-- دکمه‌های شناور -->
+                        <button
+                            class="related-swiper-button-next absolute top-1/2 -translate-y-1/2 left-0 z-10 bg-primary text-white p-3 rounded-full hover:bg-yellow-500">
+                            >
+                        </button>
+                        <button
+                            class="related-swiper-button-prev absolute top-1/2 -translate-y-1/2 right-0 z-10 bg-primary text-white p-3 rounded-full hover:bg-yellow-500">
+                            <
+                        </button>
                     </div>
                 </div>
             @endif
@@ -466,6 +481,29 @@
                     const shopCart = new ShoppingCart();
                     shopCart.addToCart(addToCartForm);
                 })
+            });
+        </script>
+
+        <script>
+            var swiper = new Swiper(".mySwiper-related", {
+                slidesPerView: 2, // موبایل
+                spaceBetween: 10,
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2
+                    }, // تبلت کوچک
+                    768: {
+                        slidesPerView: 3
+                    }, // تبلت بزرگ
+                    1024: {
+                        slidesPerView: 4
+                    }, // دسکتاپ -> دقیقا همونی که میخوای
+                },
+                navigation: {
+                    nextEl: ".related-swiper-button-next",
+                    prevEl: ".related-swiper-button-prev",
+                },
+                loop: false,
             });
         </script>
     @endsection
