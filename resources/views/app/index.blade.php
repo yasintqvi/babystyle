@@ -181,7 +181,7 @@
                 <h3 class="z-10 mt-3 text-3xl font-bold text-white">اکسسوری</h3>
                 <div class="z-10 gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">Cool accessory</div>
             </a>
-            <a href="https://babystyleshop.ir/products?category%5B%5D=1"
+            <a href="https://babystyleshop.ir/products?category%5B%5D=6"
                 class="relative hover:scale-105 transition-all flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
                 <img src="{{ asset('assets/app/images/productexample/4.jpg') }}" alt="University of Southern California"
                     class="absolute inset-0 h-full w-full object-cover">
