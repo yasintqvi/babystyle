@@ -190,9 +190,45 @@
                 @endif
 
             </div>
+
         </div>
+
         {{-- comments section --}}
         <div class="container">
+            {{-- آخرین محصولات دسته‌بندی --}}
+            @if ($relatedProducts->isNotEmpty())
+                <div class="py-4">
+                    <span class="font-medium text-lg">محصولات مشابه</span>
+                    <hr class="h-1 w-10 bg-red-500 mb-4">
+
+                    <div class="flex flex-wrap -mx-2">
+                        @foreach ($relatedProducts as $related)
+                            @php
+                                $item = $related->items->where('is_default', 1)->first() ?? $related->items->first();
+                            @endphp
+
+                            <div class="w-1/2 md:w-1/4 p-2">
+                                <a href="{{ route('products.show', $related->slug) }}"
+                                    class="block rounded-lg shadow hover:shadow-lg transition p-2 bg-white">
+
+                                    <img src="{{ asset($related->images->first()->image ?? 'default.jpg') }}"
+                                        class="w-full aspect-square object-cover rounded-md">
+
+                                    <div class="mt-2">
+                                        <span class="block text-sm font-bold text-gray-700 line-clamp-2">
+                                            {{ $related->title }}
+                                        </span>
+
+                                        <span class="block text-primary font-semibold mt-1 text-sm">
+                                            {{ number_format($item->price) }} تومان
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
             <hr class="border-2 rounded-lg" />
             <div class="py-4 ">
                 <span class="font-medium text-lg">معرفی</span>

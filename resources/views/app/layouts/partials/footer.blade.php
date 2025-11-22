@@ -120,7 +120,7 @@
                         </a>
                     </div>
                     <div class="flex items-center text-sm gap-4">
-                      
+
                         <a href=""
                             class="flex items-center hover:bg-white hover:bg-opacity-40 px-2 p-1 rounded">
                             <svg class="w-10" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -142,7 +142,7 @@
                                     clip-rule="evenodd"></path>
                             </svg>
                         </a>
-                        <a href=""
+                        <a href="https://www.instagram.com/babysstyle2022/"
                             class="flex items-center hover:bg-white hover:bg-opacity-40 px-2 p-1 rounded">
                             <svg class="w-10" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                                 viewBox="0 0 48 48">
@@ -180,14 +180,26 @@
                     </div>
                 </div>
                 <div class="md:w-1/3 w-full flex justify-center gap-3 items-center">
-                    <a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=456365&Code=7LEs1xYw1xgFoaA7T3msf7zwFpTekUWU'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=456365&Code=7LEs1xYw1xgFoaA7T3msf7zwFpTekUWU' alt='' style='cursor:pointer' Code='7LEs1xYw1xgFoaA7T3msf7zwFpTekUWU'></a>
-                    <a href="#" >
-                        <style>#zarinpal{margin:auto} #zarinpal img {width: 70px;}</style>
-                        <div id="zarinpal">
-                        <script src="https://www.zarinpal.com/webservice/TrustCode" type="text/javascript">
+                    <a referrerpolicy='origin' target='_blank'
+                        href='https://trustseal.enamad.ir/?id=456365&Code=7LEs1xYw1xgFoaA7T3msf7zwFpTekUWU'><img
+                            referrerpolicy='origin'
+                            src='https://trustseal.enamad.ir/logo.aspx?id=456365&Code=7LEs1xYw1xgFoaA7T3msf7zwFpTekUWU'
+                            alt='' style='cursor:pointer' Code='7LEs1xYw1xgFoaA7T3msf7zwFpTekUWU'></a>
+                    <a href="#">
+                        <style>
+                            #zarinpal {
+                                margin: auto
+                            }
 
-document.write(‘<a href=”javascript:showZPTrust();” title=”دروازه پرداخت معتبر”><img src=”https://cdn.zarinpal.com/badges/trustLogo/1.svg” border=”0″ alt=”دروازه پرداخت معتبر”></a>’);function showZPTrust(){var thewindow = window.open(“https://www.zarinpal.com/trustPage/babystyleshope.ir“+window.location.hostname, null, “width=450, height=600, scrollbars=no, resizable=no”);}
-                        </script>
+                            #zarinpal img {
+                                width: 70px;
+                            }
+                        </style>
+                        <div id="zarinpal">
+                            <script src="https://www.zarinpal.com/webservice/TrustCode" type="text/javascript">
+                                document.write(‘ < a href = ”javascript: showZPTrust();” title = ”دروازه پرداخت معتبر” > < img src = ”
+                                        https: //cdn.zarinpal.com/badges/trustLogo/1.svg” border=”0″ alt=”دروازه پرداخت معتبر”></a>’);function showZPTrust(){var thewindow = window.open(“https://www.zarinpal.com/trustPage/babystyleshope.ir“+window.location.hostname, null, “width=450, height=600, scrollbars=no, resizable=no”);}
+                            </script>
                         </div>
                     </a>
                     <a href="#" class="w-20">

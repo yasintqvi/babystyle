@@ -26,7 +26,7 @@ class ProductController extends Controller
 
         $categories = Category::active()->get();
 
-        $products = $products->where('is_active' , 1)->paginate(16);
+        $products = $products->where('is_active', 1)->paginate(16);
 
         return view('app.product.index', compact('products', 'categories'));
     }
@@ -37,10 +37,17 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $product->load(['items', 'category', 'images', 'attributes']);
-        return view('app.product.show', compact('product'));
+
+        $relatedProducts = Product::where('category_id', $product->category_id)
+            ->where('id', '!=', $product->id)
+            ->latest()
+            ->take(8)
+            ->get();
+
+        return view('app.product.show', compact('product', 'relatedProducts'));
     }
 
-    public function getPrice(Request $request, Product $product) 
+    public function getPrice(Request $request, Product $product)
     {
 
         $optionsIds = $request->get('options');
@@ -51,7 +58,7 @@ class ProductController extends Controller
             }, '=', count($optionsIds))->get();
 
             if (collect($productItemHasCurrentOptions)->isNotEmpty()) {
-                $productItem = $productItemHasCurrentOptions->first(); 
+                $productItem = $productItemHasCurrentOptions->first();
                 if ($productItem->quantity > 0) {
                     return response()->json(['success' => true, 'price' => $productItem->price, 'discount' => $productItem->discount_info]);
                 }

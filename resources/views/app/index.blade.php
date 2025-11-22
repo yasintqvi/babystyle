@@ -26,7 +26,8 @@
                         <a href="#">
                             <div
                                 class="h-full w-full justify-center bg-no-repeat object-cover bg-center bg-cover rounded-lg flex ">
-                                <img class="object-cover bg-center bg-cover" src="{{ $slider->image }}" alt="{{ $slider->alt }}">
+                                <img class="object-cover bg-center bg-cover" src="{{ $slider->image }}"
+                                    alt="{{ $slider->alt }}">
                             </div>
                         </a>
                     </section>
@@ -43,13 +44,13 @@
         </div>
         <div class="flex justify-between items-center ">
             <a href="https://babystyleshop.ir/products?category%5B%5D=1" class="w-1/3 hover:scale-105 transition-all">
-            <img  src="{{ asset('assets/app/images/category/1.jpg')}}" alt="" />
+                <img src="{{ asset('assets/app/images/category/1.jpg') }}" alt="" />
             </a>
             <a href="https://babystyleshop.ir/products?category%5B%5D=7" class="w-1/3 hover:scale-105 transition-all">
-            <img  src="{{ asset('assets/app/images/category/2.jpg')}}" alt="" />
+                <img src="{{ asset('assets/app/images/category/2.jpg') }}" alt="" />
             </a>
             <a href="https://babystyleshop.ir/products?category%5B%5D=3" class="w-1/3 hover:scale-105 transition-all">
-            <img  src="{{ asset('assets/app/images/category/3.jpg')}}" alt="" />
+                <img src="{{ asset('assets/app/images/category/3.jpg') }}" alt="" />
             </a>
         </div>
     </section>
@@ -86,7 +87,7 @@
                             $productItem = $product->items->where('is_default', 1)->first() ?? $product->items->first();
                         @endphp
                         <section class="swiper-slide lg:w-1/4 xs:w-1/3 w-1/2 px-2">
-                            <a href="{{$product->path()}}">
+                            <a href="{{ $product->path() }}">
                                 <div
                                     class="relative group aspect-[6/8] rounded-lg overflow-hidden bg-white border shadow text-xs xs:text-sm md:text-base">
                                     <img class="aspect-square object-cover w-full group-hover:hidden"
@@ -156,32 +157,40 @@
             </span>
         </div>
         <div class="grid grid-cols-2 lg:grid-cols-4 sm:grid-cols-2 gap-4 lg:px-20 md:px-10">
-            <a href="https://babystyleshop.ir/products?category%5B%5D=3" class="relative hover:scale-105 transition-all flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
-                <img src="{{ asset('assets/app/images/productexample/1.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
+            <a href="https://babystyleshop.ir/products?category%5B%5D=3"
+                class="relative hover:scale-105 transition-all flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
+                <img src="{{ asset('assets/app/images/productexample/1.jpg') }}" alt="University of Southern California"
+                    class="absolute inset-0 h-full w-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
                 <h3 class="z-10 mt-3 text-3xl font-bold text-white">دخترانه</h3>
                 <div class="z-10 gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">Beautiful girl</div>
             </a>
-            <a href="https://babystyleshop.ir/products?category%5B%5D=8" class="relative hover:scale-105 transition-all flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
-                                <img src="{{ asset('assets/app/images/productexample/2.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
+            <a href="https://babystyleshop.ir/products?category%5B%5D=8"
+                class="relative hover:scale-105 transition-all flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
+                <img src="{{ asset('assets/app/images/productexample/2.jpg') }}" alt="University of Southern California"
+                    class="absolute inset-0 h-full w-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
                 <h3 class="z-10 mt-3 text-3xl font-bold text-white">کفش و نیم بوت </h3>
                 <div class="z-10 gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">Luxury shoes</div>
             </a>
-            <a href="https://babystyleshop.ir/products?category%5B%5D=7" class="relative hover:scale-105 transition-all flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
-                                <img src="{{ asset('assets/app/images/productexample/3.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
+            <a href="https://babystyleshop.ir/products?category%5B%5D=7"
+                class="relative hover:scale-105 transition-all flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
+                <img src="{{ asset('assets/app/images/productexample/3.jpg') }}" alt="University of Southern California"
+                    class="absolute inset-0 h-full w-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
                 <h3 class="z-10 mt-3 text-3xl font-bold text-white">اکسسوری</h3>
                 <div class="z-10 gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">Cool accessory</div>
             </a>
-            <a href="https://babystyleshop.ir/products?category%5B%5D=1" class="relative hover:scale-105 transition-all flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
-                                <img src="{{ asset('assets/app/images/productexample/4.jpg')}}" alt="University of Southern California" class="absolute inset-0 h-full w-full object-cover">
+            <a href="https://babystyleshop.ir/products?category%5B%5D=1"
+                class="relative hover:scale-105 transition-all flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40">
+                <img src="{{ asset('assets/app/images/productexample/4.jpg') }}" alt="University of Southern California"
+                    class="absolute inset-0 h-full w-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
-                <h3 class="z-10 mt-3 text-3xl font-bold text-white">پسرانه</h3>
-                <div class="z-10 gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">Strong boy</div>
+                <h3 class="z-10 mt-3 text-3xl font-bold text-white">اسپرت</h3>
+                <div class="z-10 gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">Street Legend</div>
             </a>
         </div>
-       
+
         <div class="container flex flex-wrap">
             <a href="#" class="w-1/2 md:w-1/4 px-2">
                 <img class="w-full rounded-lg" src="../dist/images/someProducts1.jpg" alt="" />
@@ -212,7 +221,7 @@
                         $productItem = $product->items->where('is_default', 1)->first() ?? $product->items->first();
                     @endphp
                     <section class="lg:w-1/4 xs:w-1/3 w-1/2 px-2">
-                        <a href="{{$product->path()}}">
+                        <a href="{{ $product->path() }}">
                             <div
                                 class="relative group aspect-[6/8] rounded-lg overflow-hidden bg-white border shadow text-xs xs:text-sm md:text-base">
                                 <img class="aspect-square object-cover w-full group-hover:hidden"
@@ -273,8 +282,6 @@
             <div class="my-4">
                 {{ $productPaginators->render('pagination::tailwind') }}
             </div>
-          
-            
         </div>
     </section>
     <section id="questions">
@@ -286,14 +293,14 @@
             </span>
         </div>
         <div id="questions-accordion" class="container space-y-5 mb-10">
-            @foreach($faqs as $faq)
+            @foreach ($faqs as $faq)
                 <div id="question-item-1" class="border shadow rounded-lg">
                     <div class="relative flex justify-between items-center bg-gray-50 p-5 py-3 font-bold rounded-lg">
                         <span>{{ $faq->question }}</span>
                         <span id="IsShowing" data-isShowing="false"
                             class="flex justify-center items-center aspect-square text-xl w-8 bg-gray-200 rounded-full text-gray-600 rotate-180">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="w-5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
                             </svg>
                         </span>
@@ -301,12 +308,12 @@
                     </div>
                     <div class="content h-0 overflow-hidden">
                         <p class="p-5 border-t-2 bg-gray-100">
-                          {{$faq->answer}}
+                            {{ $faq->answer }}
                         </p>
                     </div>
                 </div>
             @endforeach
-         
+
         </div>
     </section>
     <section>
@@ -317,6 +324,4 @@
             </a>
         </div>
     </section>
-
-    
 @endsection
