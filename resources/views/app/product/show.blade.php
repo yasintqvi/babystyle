@@ -220,8 +220,7 @@
                                         </span>
 
                                         <span class="block text-primary font-semibold mt-1 text-sm">
-                                            {{ number_format($item->price) }} تومان
-                                        </span>
+                                            {{ number_format($item->price ?? 0) }} تومان </span>
                                     </div>
                                 </a>
                             </div>
